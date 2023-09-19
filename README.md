@@ -218,6 +218,6 @@
   	...,
     "prepare": "husky install",
     "format": "npx prettier --write .",
-    "commitlint": "commitlint --config commitlint.config.js -e -V"
+    "commitlint": "npx commitlint --config commitlint.config.js -e -V"
   },
   ```

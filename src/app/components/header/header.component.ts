@@ -1,17 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   originScrollY = 0;
   scrollDerection = 'down';
   @ViewChild('container')
   container!: ElementRef;
   scrollTarget!: number;
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   goHome() {
     this.router.navigate(['/home']);
   }
@@ -42,5 +42,9 @@ export class HeaderComponent implements OnInit {
         this.container.nativeElement.classList.remove('hidden');
       }
     };
+  }
+  //组件销毁同时清除滚动事件
+  ngOnDestroy(): void {
+    window.onscroll = null
   }
 }

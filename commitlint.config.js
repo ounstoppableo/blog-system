@@ -25,6 +25,7 @@ module.exports = {
     'scope-case': [0],
     'subject-full-stop': [0],
     'subject-case': [0, 'never'],
+    'subject-empty': [0],
     'header-max-length': [0, 'always', 72],
   },
 };
