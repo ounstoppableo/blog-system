@@ -53,13 +53,16 @@ export class HomeComponent implements AfterViewInit {
   }
   goHome() {
     if (this.routes.routeConfig?.path === 'home') {
-      location.reload()
-      window.scrollTo(0, 0)
+      location.reload();
+      window.scrollTo(0, 0);
     } else {
       this.router.navigate(['/home']);
     }
   }
-  constructor(private routes: ActivatedRoute, private router: Router) { }
+  constructor(
+    private routes: ActivatedRoute,
+    private router: Router,
+  ) {}
 }
 //字符串相同字段对比，返回最终相同下标
 function compareStr(str1: string, str2: string): number {

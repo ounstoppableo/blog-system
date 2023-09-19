@@ -17,11 +17,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('container')
   container!: ElementRef;
   scrollTarget!: number;
-  constructor(private router: Router, private routes: ActivatedRoute) { }
+  constructor(
+    private router: Router,
+    private routes: ActivatedRoute,
+  ) {}
   goHome() {
     if (this.routes.routeConfig?.path === 'home') {
-      location.reload()
-      window.scrollTo(0, 0)
+      location.reload();
+      window.scrollTo(0, 0);
     } else {
       this.router.navigate(['/home']);
     }
