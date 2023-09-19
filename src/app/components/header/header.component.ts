@@ -1,5 +1,11 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -11,9 +17,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('container')
   container!: ElementRef;
   scrollTarget!: number;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private routes: ActivatedRoute) { }
   goHome() {
-    this.router.navigate(['/home']);
+    if (this.routes.routeConfig?.path === 'home') {
+      location.reload()
+      window.scrollTo(0, 0)
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
   ngOnInit(): void {
     //初始化滚动距离
@@ -45,6 +56,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   //组件销毁同时清除滚动事件
   ngOnDestroy(): void {
-    window.onscroll = null
+    window.onscroll = null;
   }
 }
