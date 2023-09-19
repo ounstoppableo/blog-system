@@ -1,0 +1,19 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<div class="container" #container>
+  <div class="left" (click)="goHome()">Unstoppable840的小站</div>
+  <ul class="right">
+    <li>
+      <span nz-icon nzType="home" nzTheme="fill" (click)="goHome()"></span>
+      首页
+    </li>
+    <li>
+      <span nz-icon nzType="search" nzTheme="outline"></span>
+      搜索
+    </li>
+    <li>
+      <span nz-icon nzType="form" nzTheme="outline"></span>
+      留言板
+    </li>
+  </ul>
+</div>
