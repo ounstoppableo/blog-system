@@ -1,0 +1,13 @@
+.cardContainerRight {
+  min-width: 300px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  & > .card {
+    background-color: #fff;
+    height: 400px;
+    border-radius: 20px;
+  }
+}

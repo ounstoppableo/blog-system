@@ -1,8 +1,9 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
+  Input,
   OnDestroy,
-  OnInit,
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,16 +12,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnDestroy, AfterViewInit {
   originScrollY = 0;
   scrollDerection = 'down';
   @ViewChild('container')
   container!: ElementRef;
+  @Input()
   scrollTarget!: number;
   constructor(
     private router: Router,
     private routes: ActivatedRoute,
-  ) {}
+  ) { }
   goHome() {
     if (this.routes.routeConfig?.path === 'home') {
       location.reload();
@@ -29,12 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.router.navigate(['/home']);
     }
   }
-  ngOnInit(): void {
-    //初始化滚动距离
-    const root = getComputedStyle(document.querySelector(':root')!);
-    this.scrollTarget =
-      Number.parseInt(root.getPropertyValue('--bodyHeight')) +
-      Number.parseInt(root.getPropertyValue('--headerHeigth'));
+  ngAfterViewInit(): void {
     this.onScroll();
   }
   //监控滚动事件

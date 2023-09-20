@@ -1,0 +1,13 @@
+.cardContainerLeft {
+  max-width: 880px;
+  min-width: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  &>.card {
+    background-color: #fff;
+    height: 250px;
+    border-radius: 20px;
+  }
+}

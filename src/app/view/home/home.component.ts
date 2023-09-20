@@ -14,6 +14,7 @@ export class HomeComponent implements AfterViewInit {
     '欢迎来到我的博客🎉',
   ];
   index = 0;
+  headerChangeHeight!: number
   @ViewChild('wordSpan')
   wordSpan!: ElementRef;
   @ViewChild('root')
@@ -41,6 +42,8 @@ export class HomeComponent implements AfterViewInit {
         this.index++;
       }
     }, 300);
+    //获取头部样式变化的高度
+    this.headerChangeHeight = this.root.nativeElement.offsetHeight
   }
   //滑动到内容区域
   toContainer() {
@@ -62,7 +65,7 @@ export class HomeComponent implements AfterViewInit {
   constructor(
     private routes: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) { }
 }
 //字符串相同字段对比，返回最终相同下标
 function compareStr(str1: string, str2: string): number {
