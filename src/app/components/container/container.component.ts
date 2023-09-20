@@ -4,13 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
-  styleUrls: ['./container.component.scss']
+  styleUrls: ['./container.component.scss'],
 })
 export class ContainerComponent implements OnInit {
-  isHome!: boolean
-  constructor(private routes: ActivatedRoute) { }
+  isHome!: boolean;
+  constructor(private routes: ActivatedRoute) {}
   ngOnInit(): void {
-    this.isHome = this.routes.routeConfig?.path?.includes('home') || false
-
+    this.isHome = this.routes.routeConfig?.path?.includes('home') || false;
   }
 }

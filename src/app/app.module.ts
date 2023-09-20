@@ -23,7 +23,17 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
   (key) => antDesignIcons[key],
 );
 @NgModule({
-  declarations: [AppComponent, HomeComponent, HeaderComponent, ArticleComponent, FooterComponent, InfoComponent, OverviewComponent, ContainerComponent, ContextComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    HeaderComponent,
+    ArticleComponent,
+    FooterComponent,
+    InfoComponent,
+    OverviewComponent,
+    ContainerComponent,
+    ContextComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, NzIconModule.forRoot(icons)],
   providers: [],
   bootstrap: [AppComponent],

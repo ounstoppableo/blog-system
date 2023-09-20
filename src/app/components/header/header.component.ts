@@ -22,7 +22,7 @@ export class HeaderComponent implements OnDestroy, AfterViewInit {
   constructor(
     private router: Router,
     private routes: ActivatedRoute,
-  ) { }
+  ) {}
   goHome() {
     if (this.routes.routeConfig?.path === 'home') {
       location.reload();

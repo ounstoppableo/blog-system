@@ -3,13 +3,13 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss']
+  styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent implements AfterViewInit {
-  headerChangeHeight!: number
+  headerChangeHeight!: number;
   @ViewChild('backImg')
-  backImg!: ElementRef
+  backImg!: ElementRef;
   ngAfterViewInit(): void {
-    this.headerChangeHeight = this.backImg.nativeElement.offsetHeight
+    this.headerChangeHeight = this.backImg.nativeElement.offsetHeight;
   }
 }

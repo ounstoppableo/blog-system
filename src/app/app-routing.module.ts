@@ -6,11 +6,11 @@ import { ArticleComponent } from './view/article/article.component';
 const routes: Routes = [
   { path: '', redirectTo: 'article', pathMatch: 'prefix' },
   { path: 'home', component: HomeComponent },
-  { path: 'article', component: ArticleComponent }
+  { path: 'article', component: ArticleComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
