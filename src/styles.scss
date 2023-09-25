@@ -1,5 +1,4 @@
 @import '../node_modules/ng-zorro-antd/ng-zorro-antd.min.css';
-
 /* You can add global styles to this file, and also import other style files */
 html {
   font-size: 62.5%;
@@ -164,11 +163,11 @@ input::-webkit-input-placeholder {
 :root {
   --bodyHeight: 957px;
   --bottomHeight: 200px;
-  --defaultFontColor: #e5e7eb;
+  --defaultFontColor: #4b5563;
   --headerHeigth: 56px;
   --itemboxWidth: 800px;
   --itemboxHeight: 220px;
   --articleBkImgHeight: 380px;
   --defaultBackgroundColor: #f5f5f5;
-  --styleColor: #928cee
+  --styleColor: #928cee;
 }
