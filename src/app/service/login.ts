@@ -1,16 +1,14 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
   login(username: string, password: string) {
-    return this.http.post('api/login', { username, password })
+    return this.http.post('api/login', { username, password });
   }
   getUserInfo() {
-    return this.http.get('api/userinfo')
+    return this.http.get('api/userinfo');
   }
 }

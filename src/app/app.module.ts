@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,8 +41,17 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     ContextComponent,
     LoginComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NzIconModule.forRoot(icons), FormsModule, ReactiveFormsModule, HttpClientModule, NzDesignModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NzIconModule.forRoot(icons),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NzDesignModule,
+    BrowserAnimationsModule,
+  ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
