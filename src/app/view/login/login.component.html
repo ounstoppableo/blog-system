@@ -1,0 +1,18 @@
+<div class="container">
+</div>
+<div class="login">
+  <h1>登录</h1>
+  <form [formGroup]="loginInfo" class="form">
+    <div class="formItem">
+      <label for="username" #label1>用户名</label>
+      <input type="text" id="username" formControlName="username" (focus)="focus(label1)" (blur)="blur(label1)"
+        autocomplete="off">
+    </div>
+    <div class="formItem">
+      <label for="password" #label2>密码</label>
+      <input type="password" id="password" formControlName="password" (focus)="focus(label2)" (blur)="blur(label2)"
+        autocomplete="off">
+    </div>
+    <button class="submit" (click)="submit()"><span class="span">提交</span></button>
+  </form>
+</div>

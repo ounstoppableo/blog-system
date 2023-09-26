@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
+    "start": "ng serve --proxy-config proxy.conf.json --open",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -25,6 +25,8 @@
     "@angular/router": "^16.2.0",
     "@ant-design/icons": "^5.2.6",
     "@ant-design/icons-angular": "^16.0.0",
+    "@types/crypto-js": "^4.1.2",
+    "crypto-js": "^4.1.1",
     "lodash": "^4.17.21",
     "ng-zorro-antd": "^16.1.0",
     "rxjs": "~7.8.0",

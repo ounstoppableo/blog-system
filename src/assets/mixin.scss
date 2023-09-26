@@ -1,6 +1,7 @@
 @mixin borderAnime {
   position: relative;
   overflow: hidden;
+  cursor: pointer;
   &:hover {
     color: var(--styleColor);
     &::after {

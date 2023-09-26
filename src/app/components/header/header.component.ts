@@ -1,9 +1,11 @@
+import { LoginService } from '@/app/service/login';
 import {
   AfterViewInit,
   Component,
   ElementRef,
   Input,
   OnDestroy,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,9 +14,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnDestroy, AfterViewInit {
+export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   originScrollY = 0;
   scrollDerection = 'down';
+  isLogin = false
   @ViewChild('container')
   container!: ElementRef;
   @Input()
@@ -22,7 +25,13 @@ export class HeaderComponent implements OnDestroy, AfterViewInit {
   constructor(
     private router: Router,
     private routes: ActivatedRoute,
-  ) {}
+    private ls: LoginService
+  ) { }
+  ngOnInit(): void {
+    this.ls.getUserInfo().subscribe((res:any) => {
+      if (res.code === 200) this.isLogin = true
+    })
+  }
   goHome() {
     if (this.routes.routeConfig?.path === 'home') {
       location.reload();
@@ -30,6 +39,9 @@ export class HeaderComponent implements OnDestroy, AfterViewInit {
     } else {
       this.router.navigate(['/home']);
     }
+  }
+  login() {
+    this.router.navigate(['/login'])
   }
   ngAfterViewInit(): void {
     this.onScroll();

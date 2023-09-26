@@ -15,5 +15,13 @@
       <span nz-icon nzType="form" nzTheme="outline"></span>
       留言板
     </li>
+    <li (click)="login()" *ngIf="!isLogin">
+      <span nz-icon nzType="login" nzTheme="outline"></span>
+      管理员登陆
+    </li>
+    <li *ngIf="isLogin">
+      <span nz-icon nzType="upload" nzTheme="outline"></span>
+      上传文章
+    </li>
   </ul>
 </div>

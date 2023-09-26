@@ -1,0 +1,11 @@
+{
+  "/api/*": {
+    "target": "http://localhost:3000",
+    //是否跨域
+    "changeOrigin": true,
+    //是否重写路径
+    "pathRewrite": {
+      "/api": ""
+    }
+  }
+}
