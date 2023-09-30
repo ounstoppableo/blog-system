@@ -31,8 +31,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('root')
   root!: ElementRef;
   //上传文章相关参数
-  ImgUploadLoading: boolean = false; //文章图片上传加载状态
-  uploadLoading: boolean = false; //文章上传加载状态
+  ImgUploadLoading = false; //文章图片上传加载状态
+  uploadLoading = false; //文章上传加载状态
   uploadFlag = false;
   formContent = new FormGroup({
     articleId: new FormControl(''),
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private router: Router,
     private homeService: HomeService,
     private message: NzMessageService,
-  ) {}
+  ) { }
   ngOnInit(): void {
     //初始化高度
     const bodyHeight = innerHeight + 'px';
@@ -141,7 +141,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   };
   //监测上传图片的进度
   handleUploadImgChange(e: any) {
-    this.ImgUploadLoading = true;
+    if (e.type === 'start') this.ImgUploadLoading = true;
     if (e.type === 'success') {
       this.ImgUploadLoading = false;
       if (e.file.response.code !== 200)
@@ -153,19 +153,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   //上传文件的回调
   handleUploadFileChange(e: any) {
-    this.uploadLoading = true;
+    if (e.type === 'start') this.uploadLoading = true;
     if (e.type === 'success') {
       if (e.file.response.code !== 200) {
         return this.message.error('上传文章失败，请重试！');
       }
       this.uploadLoading = false;
-      this.formContent.get('articleUrl')?.setValue(e.file.response.data);
+      this.articleUrl!.setValue(e.file.response.data);
     }
   }
   //删除文件的回调
   removeFile = (file: any) => {
     this.uploadLoading = false;
-    this.formContent.get('articleUrl')?.setValue('');
+    this.articleUrl!.setValue('');
     this.homeService.delFile(file.response.data).subscribe((res: any) => {
       if (res.code === 200) return this.message.success('删除成功');
     });
