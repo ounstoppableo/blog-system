@@ -9,6 +9,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDesignModule } from './nz-design/nz-design.module';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { ArticleComponent } from './view/article/article.component';
@@ -50,6 +57,13 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     HttpClientModule,
     NzDesignModule,
     BrowserAnimationsModule,
+    NzModalModule,
+    NzFormModule,
+    NzInputModule,
+    NzSelectModule,
+    NzUploadModule,
+    NzMessageModule,
+    NzButtonModule,
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],

@@ -3,9 +3,11 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,15 +24,20 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   container!: ElementRef;
   @Input()
   scrollTarget!: number;
+  @Output()
+  upload = new EventEmitter();
+
   constructor(
     private router: Router,
     private routes: ActivatedRoute,
     private ls: LoginService,
   ) {}
   ngOnInit(): void {
-    this.ls.getUserInfo().subscribe((res: any) => {
-      if (res.code === 200) this.isLogin = true;
-    });
+    if (localStorage.getItem('token')) {
+      this.ls.getUserInfo().subscribe((res: any) => {
+        if (res.code === 200) this.isLogin = true;
+      });
+    }
   }
   goHome() {
     if (this.routes.routeConfig?.path === 'home') {

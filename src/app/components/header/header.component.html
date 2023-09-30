@@ -19,7 +19,7 @@
       <span nz-icon nzType="login" nzTheme="outline"></span>
       管理员登陆
     </li>
-    <li *ngIf="isLogin">
+    <li *ngIf="isLogin" (click)="upload.emit()">
       <span nz-icon nzType="upload" nzTheme="outline"></span>
       上传文章
     </li>
