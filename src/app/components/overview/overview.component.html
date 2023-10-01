@@ -1,31 +1,28 @@
 <div class="cardContainerLeft">
-  <div class="card">
+  <div class="card" *ngFor="let item of articleInfoList">
     <div class="info">
-      <h1>2023注册土耳其钱包</h1>
+      <h1>{{item.title}}</h1>
       <p class="folder">
         <span nz-icon nzType="folder" nzTheme="outline"></span>
-        <span>云移民</span>
+        <span>{{item.folderName}}</span>
       </p>
-      <p
-        class="description"
-        title="2023年最新，教你注册Oldubil入门级土耳其钱包，获得土耳其本地虚拟卡以及入金说明"
-      >
-        2023年最新，教你注册Oldubil入门级土耳其钱包，获得土耳其本地虚拟卡以及入金说明
+      <p class="description" [title]="item.description">
+        {{item.description}}
       </p>
 
       <div class="footer">
         <div class="date">
           <span nz-icon nzType="calendar" nzTheme="outline"></span>
-          <span>2023-9-25</span>
+          <span>{{item.subTime | date}}</span>
         </div>
         <div class="tagSpace">
-          <span class="tag">手机卡</span>
-          <span class="tag">手机卡</span>
+          <span class="tag" *ngFor="let tag of item.tags"
+            [ngStyle]="{'background-color': tag.tagColor}">{{tag.tagName}}</span>
         </div>
       </div>
     </div>
     <div class="img">
-      <img src="/assets/background.jpg" alt="" />
+      <img [src]="item.backImgUrl" alt="" />
     </div>
   </div>
 </div>

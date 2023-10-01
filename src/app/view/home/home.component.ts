@@ -1,4 +1,5 @@
 import { HomeService } from '@/app/service/home.service';
+import { tag } from '@/types/home/home';
 import {
   AfterViewInit,
   Component,
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('root')
   root!: ElementRef;
   //上传文章相关参数
+  listOfOption: tag[] = [] //已有的标签选项
   ImgUploadLoading = false; //文章图片上传加载状态
   uploadLoading = false; //文章上传加载状态
   uploadFlag = false;
@@ -49,6 +51,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     ]),
     backImgUrl: new FormControl('', [Validators.required]),
     articleUrl: new FormControl('', [Validators.required]),
+    listOfTagOptions: new FormControl([], [Validators.required])
   });
   get title() {
     return this.formContent.get('title');
@@ -65,6 +68,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   get articleUrl() {
     return this.formContent.get('articleUrl');
   }
+  get listOfTagOptions() {
+    return this.formContent.get('listOfTagOptions')
+  }
   constructor(
     private routes: ActivatedRoute,
     private router: Router,
@@ -76,7 +82,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const bodyHeight = innerHeight + 'px';
     document.documentElement.style.setProperty('--bodyHeight', bodyHeight);
     this.homeService.getFolderCategory().subscribe((res: any) => {
-      this.folderCategory = res.data;
+      if (res.code === 200) this.folderCategory = res.data;
     });
   }
   ngAfterViewInit(): void {
@@ -125,6 +131,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   //显示上传模态框
   showUploadModal() {
     this.uploadFlag = true;
+    this.homeService.getTags().subscribe((res: any) => {
+      if (res.code === 200) this.listOfOption = res.data
+    })
   }
   //上传图片前的钩子
   beforeUploadImg = (file: NzUploadFile) => {
@@ -177,6 +186,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   //确认的回调
   handleOk() {
+    //处理tags
     if (this.formContent.valid) {
       this.homeService
         .uploadArticle(this.formContent.value)

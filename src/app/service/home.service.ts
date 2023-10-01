@@ -13,4 +13,10 @@ export class HomeService {
   delFile(url: string) {
     return this.http.delete('/api/delFile', { body: { url } });
   }
+  getTags(){
+    return this.http.get('/api/getTags')
+  }
+  getArticleInfo(){
+    return this.http.get('/api/getArticleInfo')
+  }
 }

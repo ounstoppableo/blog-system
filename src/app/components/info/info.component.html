@@ -7,15 +7,15 @@
       <div class="assets">
         <div class="item">
           <span>文章</span>
-          <span class="num">27</span>
+          <span class="num">{{articleInfoList.length}}</span>
         </div>
         <div class="item">
           <span>分类</span>
-          <span class="num">4</span>
+          <span class="num">{{folderNum}}</span>
         </div>
         <div class="item">
           <span>标签</span>
-          <span class="num">29</span>
+          <span class="num">{{tagsNum}}</span>
         </div>
       </div>
       <div class="outlink">
@@ -33,66 +33,15 @@
           <span>最新发布</span>
         </p>
         <div class="container">
-          <div class="none" *ngIf="false">什么都没有哦~</div>
-          <div class="has" *ngIf="true">
-            <div class="item">
-              <img src="/assets/background.jpg" alt="" />
+          <div class="none" *ngIf="articleInfoList.length ===0">什么都没有哦~</div>
+          <div class="has" *ngIf="articleInfoList.length !==0">
+            <div class="item" *ngFor="let item of articleInfoList">
+              <img [src]="item.backImgUrl" alt="" />
               <div class="text">
-                <span
-                  class="theme"
-                  title="啊啊啊啊啊啊啊ashdasjdhajasdhasbdjadbsa"
-                >
-                  啊啊啊啊啊啊啊ashdasjdhajasdhasbdjadbsa
+                <span class="theme" [title]="item.title">
+                  {{item.title}}
                 </span>
-                <span class="date">2023-9-21</span>
-              </div>
-            </div>
-            <div class="item">
-              <img src="/assets/background.jpg" alt="" />
-              <div class="text">
-                <span
-                  class="theme"
-                  title="啊啊啊啊啊啊啊ashdasjdhajasdhasbdjadbsa"
-                >
-                  啊啊啊啊啊啊啊ashdasjdhajasdhasbdjadbsa
-                </span>
-                <span class="date">2023-9-21</span>
-              </div>
-            </div>
-            <div class="item">
-              <img src="/assets/background.jpg" alt="" />
-              <div class="text">
-                <span
-                  class="theme"
-                  title="啊啊啊啊啊啊啊ashdasjdhajasdhasbdjadbsa"
-                >
-                  啊啊啊啊啊啊啊ashdasjdhajasdhasbdjadbsa
-                </span>
-                <span class="date">2023-9-21</span>
-              </div>
-            </div>
-            <div class="item">
-              <img src="/assets/background.jpg" alt="" />
-              <div class="text">
-                <span
-                  class="theme"
-                  title="啊啊啊啊啊啊啊ashdasjdhajasdhasbdjadbsa"
-                >
-                  啊啊啊啊啊啊啊ashdasjdhajasdhasbdjadbsa
-                </span>
-                <span class="date">2023-9-21</span>
-              </div>
-            </div>
-            <div class="item">
-              <img src="/assets/background.jpg" alt="" />
-              <div class="text">
-                <span
-                  class="theme"
-                  title="啊啊啊啊啊啊啊ashdasjdhajasdhasbdjadbsa"
-                >
-                  啊啊啊啊啊啊啊ashdasjdhajasdhasbdjadbsa
-                </span>
-                <span class="date">2023-9-21</span>
+                <span class="date">{{item.subTime | date}}</span>
               </div>
             </div>
           </div>
