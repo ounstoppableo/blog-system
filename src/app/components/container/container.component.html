@@ -1,4 +1,4 @@
-<div class="cardContainer" [class]="smallSize?'smallSize' : ''">
+<div class="cardContainer" [class]="smallSize ? 'smallSize' : ''">
   <app-overview *ngIf="isHome" [smallSize]="smallSize"></app-overview>
   <app-context *ngIf="!isHome"></app-context>
   <app-info [showInfo]="showInfo"></app-info>

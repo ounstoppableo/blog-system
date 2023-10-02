@@ -89,10 +89,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private homeService: HomeService,
     private message: NzMessageService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     //初始化页面内的各种参数
-    this.pageControl()
+    this.pageControl();
     this.homeService
       .getFolderCategory()
       .subscribe((res: resType<folderItem[]>) => {
@@ -235,7 +235,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   //监控页面大小变化事件
   onResize() {
     window.onresize = () => {
-      this.pageControl()
+      this.pageControl();
     };
   }
   //页面参数控制
@@ -267,4 +267,3 @@ function compareStr(str1: string, str2: string): number {
   }
   return index - 2;
 }
-
