@@ -1,5 +1,7 @@
 import { HomeService } from '@/app/service/home.service';
-import { tag } from '@/types/home/home';
+import { addArticle, folderItem, tag } from '@/types/home/home';
+import { articleInfo } from '@/types/overview/overview';
+import { resType } from '@/types/response/response';
 import {
   AfterViewInit,
   Component,
@@ -39,7 +41,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ImgUploadLoading = false; //文章图片上传加载状态
   uploadLoading = false; //文章上传加载状态
   uploadFlag = false;
-  formContent = new FormGroup({
+  formContent = new FormGroup<addArticle>({
     articleId: new FormControl(''),
     title: new FormControl('', [
       Validators.required,
@@ -88,14 +90,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private homeService: HomeService,
     private message: NzMessageService,
-  ) {}
+  ) { }
   ngOnInit(): void {
     //初始化高度
     document.documentElement.style.setProperty(
       '--bodyHeight',
       innerHeight + 'px',
     );
-    this.homeService.getFolderCategory().subscribe((res: any) => {
+    this.homeService.getFolderCategory().subscribe((res: resType<folderItem[]>) => {
       if (res.code === 200) this.folderCategory = res.data;
     });
   }
@@ -146,8 +148,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   //显示上传模态框
   showUploadModal() {
     this.uploadFlag = true;
-    this.homeService.getTags().subscribe((res: any) => {
-      if (res.code === 200) this.listOfOption = res.data;
+    this.homeService.getTags().subscribe((res: resType<tag[]>) => {
+      if (res.code === 200) this.listOfOption = res.data as tag[];
     });
   }
   //上传图片前的钩子
@@ -190,7 +192,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   removeFile = (file: any) => {
     this.uploadLoading = false;
     this.articleUrl!.setValue('');
-    this.homeService.delFile(file.response.data).subscribe((res: any) => {
+    this.homeService.delFile(file.response.data).subscribe((res: resType<any>) => {
       if (res.code === 200) return this.message.success('删除成功');
     });
     return true;
@@ -205,7 +207,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.formContent.valid) {
       this.homeService
         .uploadArticle(this.formContent.value)
-        .subscribe((res: any) => {
+        .subscribe((res: resType<any>) => {
           if (res.code !== 200)
             return this.message.error('提交错误，请重新提交');
           this.message.success('添加成功');

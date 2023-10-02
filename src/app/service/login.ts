@@ -1,14 +1,16 @@
+import { resType } from '@/types/response/response';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  constructor(private http: HttpClient) {}
-  login(username: string, password: string) {
-    return this.http.post('api/login', { username, password });
+  constructor(private http: HttpClient) { }
+  login(username: string, password: string): Observable<resType<any>> {
+    return this.http.post<resType<any>>('api/login', { username, password });
   }
-  getUserInfo() {
-    return this.http.get('api/userinfo');
+  getUserInfo(): Observable<resType<any>> {
+    return this.http.get<resType<any>>('api/userinfo');
   }
 }
