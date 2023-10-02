@@ -17,7 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
-  folderControl = 'menu-unfold' //folder展开控制
+  folderControl = 'menu-unfold'; //folder展开控制
   originScrollY = 0;
   scrollDerection = 'down';
   isLogin = false;
@@ -26,17 +26,17 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   @Input()
   scrollTarget!: number;
   @Input()
-  showFolderIcon!:boolean //是否显示folder图标
+  showFolderIcon!: boolean; //是否显示folder图标
   @Output()
   upload = new EventEmitter();
   @Output()
-  drawerOpen = new EventEmitter()
+  drawerOpen = new EventEmitter();
 
   constructor(
     private router: Router,
     private routes: ActivatedRoute,
     private ls: LoginService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: any) => {
@@ -85,7 +85,8 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   }
   //folder展开
   folderShow() {
-    this.folderControl = this.folderControl === 'menu-fold' ? 'menu-unfold' : 'menu-fold'
-    this.drawerOpen.emit()
+    this.folderControl =
+      this.folderControl === 'menu-fold' ? 'menu-unfold' : 'menu-fold';
+    this.drawerOpen.emit();
   }
 }

@@ -76,22 +76,25 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   //抽屉相关控制
-  drawerVisible = false
+  drawerVisible = false;
 
   //页面大小变化的控制
-  showInfo = true  //用户信息显示控制
-  showFolderIcon = false  //头部文件展开图标显示控制
-  smallSize = false //处于小尺寸窗口的判断
+  showInfo = true; //用户信息显示控制
+  showFolderIcon = false; //头部文件展开图标显示控制
+  smallSize = false; //处于小尺寸窗口的判断
 
   constructor(
     private routes: ActivatedRoute,
     private router: Router,
     private homeService: HomeService,
     private message: NzMessageService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     //初始化高度
-    document.documentElement.style.setProperty('--bodyHeight', innerHeight + 'px');
+    document.documentElement.style.setProperty(
+      '--bodyHeight',
+      innerHeight + 'px',
+    );
     this.homeService.getFolderCategory().subscribe((res: any) => {
       if (res.code === 200) this.folderCategory = res.data;
     });
@@ -121,7 +124,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 300);
     //获取头部样式变化的高度
     this.headerChangeHeight = this.root.nativeElement.offsetHeight;
-    this.onResize()
+    this.onResize();
   }
   //滑动到内容区域
   toContainer() {
@@ -222,28 +225,31 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   //抽屉相关方法
   open() {
-    this.drawerVisible = true
+    this.drawerVisible = true;
   }
   close() {
-    this.drawerVisible = false
+    this.drawerVisible = false;
   }
   //监控页面大小变化事件
   onResize() {
     window.onresize = () => {
-      document.documentElement.style.setProperty('--bodyHeight', innerHeight + 'px');
+      document.documentElement.style.setProperty(
+        '--bodyHeight',
+        innerHeight + 'px',
+      );
       if (innerWidth < 1024) {
-        this.showFolderIcon = true
-        this.showInfo = false
-        this.smallSize = true
+        this.showFolderIcon = true;
+        this.showInfo = false;
+        this.smallSize = true;
       } else {
-        this.showFolderIcon = false
-        this.showInfo = true
-        this.smallSize = false
+        this.showFolderIcon = false;
+        this.showInfo = true;
+        this.smallSize = false;
       }
-    }
+    };
   }
   ngOnDestroy() {
-    window.onresize = null
+    window.onresize = null;
   }
 }
 //字符串相同字段对比，返回最终相同下标

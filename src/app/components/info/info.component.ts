@@ -9,9 +9,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class InfoComponent implements OnInit {
   @Input()
-  showInfo!:boolean
+  showInfo!: boolean;
   articleInfoList: articleInfo[] = []; //文章列表
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService) {}
   ngOnInit(): void {
     this.homeService.getArticleInfo().subscribe((res: any) => {
       if (res.code === 200) this.articleInfoList = res.data;

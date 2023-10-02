@@ -30,7 +30,7 @@ import { UserinfoComponent } from './components/userinfo/userinfo.component';
     ContainerComponent,
     ContextComponent,
     LoginComponent,
-    UserinfoComponent
+    UserinfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,4 +44,4 @@ import { UserinfoComponent } from './components/userinfo/userinfo.component';
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

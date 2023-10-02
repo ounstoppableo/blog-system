@@ -1,6 +1,6 @@
-import { HomeService } from "@/app/service/home.service";
-import { articleInfo } from "@/types/overview/overview";
-import { Component, Input, OnInit } from "@angular/core";
+import { HomeService } from '@/app/service/home.service';
+import { articleInfo } from '@/types/overview/overview';
+import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-userinfo',
   templateUrl: './userinfo.component.html',
@@ -11,8 +11,8 @@ export class UserinfoComponent implements OnInit {
   folderNum = 0; //分类数
   tagsNum = 0; //tag数
   @Input()
-  isSmall!:boolean
-  constructor(private homeService: HomeService) { }
+  isSmall!: boolean;
+  constructor(private homeService: HomeService) {}
   ngOnInit(): void {
     this.homeService.getArticleInfo().subscribe((res: any) => {
       if (res.code === 200) this.articleInfoList = res.data;

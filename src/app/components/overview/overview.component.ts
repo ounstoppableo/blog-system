@@ -10,7 +10,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class OverviewComponent implements OnInit {
   articleInfoList: articleInfo[] = [];
   @Input()
-  smallSize!:boolean
+  smallSize!: boolean;
   constructor(private homeService: HomeService) {}
   ngOnInit(): void {
     this.homeService.getArticleInfo().subscribe((res: any) => {

@@ -1,3 +1,5 @@
+@import '../../../assets/mixin.scss';
+
 .cardContainerRight {
   min-width: 300px;
   max-width: 300px;
@@ -51,32 +53,14 @@
               flex-direction: column;
 
               & > .theme {
-                width: 180px;
+                width: fit-content;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 word-break: break-all;
                 white-space: nowrap;
                 cursor: pointer;
                 position: relative;
-
-                &::before {
-                  content: '';
-                  width: 0;
-                  height: 100%;
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  border-bottom: 2px solid var(--styleColor);
-                  transition: all 0.3s linear;
-                }
-
-                &:hover {
-                  color: var(--styleColor);
-
-                  &::before {
-                    width: 100%;
-                  }
-                }
+                @include borderAnime
               }
 
               & > .date {

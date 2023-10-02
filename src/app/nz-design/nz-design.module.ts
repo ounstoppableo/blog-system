@@ -18,7 +18,25 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
 );
 @NgModule({
   declarations: [],
-  imports: [NzDrawerModule,NzMessageModule, NzButtonModule, NzModalModule, NzUploadModule, NzInputModule, NzSelectModule, NzFormModule, NzIconModule.forRoot(icons),],
-  exports: [NzDrawerModule,NzModalModule, NzUploadModule, NzInputModule, NzSelectModule, NzFormModule, NzIconModule]
+  imports: [
+    NzDrawerModule,
+    NzMessageModule,
+    NzButtonModule,
+    NzModalModule,
+    NzUploadModule,
+    NzInputModule,
+    NzSelectModule,
+    NzFormModule,
+    NzIconModule.forRoot(icons),
+  ],
+  exports: [
+    NzDrawerModule,
+    NzModalModule,
+    NzUploadModule,
+    NzInputModule,
+    NzSelectModule,
+    NzFormModule,
+    NzIconModule,
+  ],
 })
-export class NzDesignModule { }
+export class NzDesignModule {}

@@ -9,9 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 export class ContainerComponent implements OnInit {
   isHome!: boolean;
   @Input()
-  showInfo!:boolean
+  showInfo!: boolean;
   @Input()
-  smallSize!:boolean
+  smallSize!: boolean;
   constructor(private routes: ActivatedRoute) {}
   ngOnInit(): void {
     this.isHome = this.routes.routeConfig?.path?.includes('home') || false;
