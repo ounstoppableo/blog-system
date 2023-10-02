@@ -14,8 +14,10 @@ export class InfoComponent implements OnInit {
   articleInfoList: articleInfo[] = []; //文章列表
   constructor(private homeService: HomeService) {}
   ngOnInit(): void {
-    this.homeService.getArticleInfo().subscribe((res: resType<articleInfo[]>) => {
-      if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
-    });
+    this.homeService
+      .getArticleInfo()
+      .subscribe((res: resType<articleInfo[]>) => {
+        if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
+      });
   }
 }

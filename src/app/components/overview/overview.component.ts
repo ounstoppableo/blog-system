@@ -14,8 +14,10 @@ export class OverviewComponent implements OnInit {
   smallSize!: boolean;
   constructor(private homeService: HomeService) {}
   ngOnInit(): void {
-    this.homeService.getArticleInfo().subscribe((res: resType<articleInfo[]>) => {
-      if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
-    });
+    this.homeService
+      .getArticleInfo()
+      .subscribe((res: resType<articleInfo[]>) => {
+        if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
+      });
   }
 }

@@ -14,7 +14,7 @@
             什么都没有哦~
           </div>
           <div class="has" *ngIf="articleInfoList.length !== 0">
-            <div class="item" *ngFor="let item of articleInfoList.slice(0,6)">
+            <div class="item" *ngFor="let item of articleInfoList.slice(0, 6)">
               <img [src]="item.backImgUrl" alt="" />
               <div class="text">
                 <span class="theme" [title]="item.title">

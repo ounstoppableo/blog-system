@@ -12,18 +12,26 @@
     height: calc(100% - var(--headerHeigth));
     padding-top: var(--headerHeigth);
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 100px;
+
+    &.smallSize {
+      gap: 50px
+    }
 
     div {
       text-align: center;
+      width: 100%;
 
       h1 {
         font-weight: 800;
         color: white;
         font-size: 60px;
         text-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
+        &.smallSize {
+          font-size: 40px;
+        }
       }
 
       p {
@@ -58,12 +66,14 @@
       }
 
       &.smallSize {
+        width: 80%;
+        height: 250px;
         display: flex;
         flex-direction: column;
         gap: 10px;
       }
 
-      & > li {
+      &>li {
         position: relative;
         border-radius: 10px;
         display: flex;
@@ -77,15 +87,17 @@
         cursor: pointer;
         transition: all 0.2s linear;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+
         &.smallSize {
           flex: 1;
         }
-        & > span {
+
+        &>span {
           z-index: 1;
         }
       }
 
-      & > li::after {
+      &>li::after {
         position: absolute;
         content: '';
         inset: 0;
@@ -93,7 +105,7 @@
         z-index: 0;
       }
 
-      & > li:hover {
+      &>li:hover {
         transform: scale(1.05);
         background-color: white;
         font-weight: 300;
@@ -135,7 +147,7 @@
   gap: 25px;
   margin: 0;
 
-  & > li {
+  &>li {
     font-size: 16px;
     cursor: pointer;
   }

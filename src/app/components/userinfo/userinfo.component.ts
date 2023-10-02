@@ -14,14 +14,18 @@ export class UserinfoComponent implements OnInit {
   tagsNum = 0; //tag数
   @Input()
   isSmall!: boolean;
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService) {}
   ngOnInit(): void {
-    this.homeService.getArticleInfo().subscribe((res: resType<articleInfo[]>) => {
-      if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
-    });
-    this.homeService.getFolderCategory().subscribe((res: resType<folderItem[]>) => {
-      if (res.code === 200) this.folderNum = res.data!.length;
-    });
+    this.homeService
+      .getArticleInfo()
+      .subscribe((res: resType<articleInfo[]>) => {
+        if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
+      });
+    this.homeService
+      .getFolderCategory()
+      .subscribe((res: resType<folderItem[]>) => {
+        if (res.code === 200) this.folderNum = res.data!.length;
+      });
     this.homeService.getTags().subscribe((res: resType<tag[]>) => {
       if (res.code === 200) this.tagsNum = res.data!.length;
     });

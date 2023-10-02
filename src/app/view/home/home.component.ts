@@ -1,6 +1,5 @@
 import { HomeService } from '@/app/service/home.service';
 import { addArticle, folderItem, tag } from '@/types/home/home';
-import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import {
   AfterViewInit,
@@ -92,14 +91,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     private message: NzMessageService,
   ) { }
   ngOnInit(): void {
-    //初始化高度
-    document.documentElement.style.setProperty(
-      '--bodyHeight',
-      innerHeight + 'px',
-    );
-    this.homeService.getFolderCategory().subscribe((res: resType<folderItem[]>) => {
-      if (res.code === 200) this.folderCategory = res.data;
-    });
+    //初始化页面内的各种参数
+    this.pageControl()
+    this.homeService
+      .getFolderCategory()
+      .subscribe((res: resType<folderItem[]>) => {
+        if (res.code === 200) this.folderCategory = res.data;
+      });
   }
   ngAfterViewInit(): void {
     //打字机效果控制
@@ -192,9 +190,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   removeFile = (file: any) => {
     this.uploadLoading = false;
     this.articleUrl!.setValue('');
-    this.homeService.delFile(file.response.data).subscribe((res: resType<any>) => {
-      if (res.code === 200) return this.message.success('删除成功');
-    });
+    this.homeService
+      .delFile(file.response.data)
+      .subscribe((res: resType<any>) => {
+        if (res.code === 200) return this.message.success('删除成功');
+      });
     return true;
   };
   //取消的回调
@@ -235,20 +235,24 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   //监控页面大小变化事件
   onResize() {
     window.onresize = () => {
-      document.documentElement.style.setProperty(
-        '--bodyHeight',
-        innerHeight + 'px',
-      );
-      if (innerWidth < 1024) {
-        this.showFolderIcon = true;
-        this.showInfo = false;
-        this.smallSize = true;
-      } else {
-        this.showFolderIcon = false;
-        this.showInfo = true;
-        this.smallSize = false;
-      }
+      this.pageControl()
     };
+  }
+  //页面参数控制
+  pageControl() {
+    if (innerWidth < 1024) {
+      this.showFolderIcon = true;
+      this.showInfo = false;
+      this.smallSize = true;
+    } else {
+      this.showFolderIcon = false;
+      this.showInfo = true;
+      this.smallSize = false;
+    }
+    document.documentElement.style.setProperty(
+      '--bodyHeight',
+      innerHeight + 'px',
+    );
   }
   ngOnDestroy() {
     window.onresize = null;
@@ -263,3 +267,4 @@ function compareStr(str1: string, str2: string): number {
   }
   return index - 2;
 }
+

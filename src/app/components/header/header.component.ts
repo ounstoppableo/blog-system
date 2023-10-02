@@ -37,7 +37,7 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
     private router: Router,
     private routes: ActivatedRoute,
     private ls: LoginService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: resType<any>) => {

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class HomeService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   getFolderCategory(): Observable<resType<folderItem[]>> {
     return this.http.get<resType<any>>('/api/folder');
   }
