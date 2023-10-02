@@ -1,8 +1,6 @@
 @import '../../../assets/mixin.scss';
 
 .cardContainerLeft {
-  max-width: 880px;
-  min-width: 880px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -15,6 +13,15 @@
     overflow: hidden;
     color: var(--defaultFontColor);
     font-size: 15px;
+
+    &:nth-child(2n+1) {
+      flex-direction: row-reverse;
+    }
+
+    &.smallSize {
+      height: 500px;
+      flex-direction: column-reverse;
+    }
 
     &>.info {
       flex: 1;
@@ -69,6 +76,11 @@
 
     &>.img {
       flex: 0.6;
+
+      &.smallSize {
+        flex: 1.5;
+      }
+
       overflow: hidden;
 
       &>img {

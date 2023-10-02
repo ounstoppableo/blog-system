@@ -1,15 +1,15 @@
 @import '../../../assets/mixin.scss';
 
 .container {
+  width: 100%;
   height: var(--headerHeigth);
-  background-color: transparent;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px;
   position: fixed;
   top: 0;
-  width: 100%;
+  padding: 0 30px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
   color: #fafafa;
   z-index: 99;
 
@@ -38,6 +38,10 @@
       cursor: pointer;
       @include borderAnime;
     }
+  }
+
+  .folder {
+    cursor: pointer;
   }
 }
 

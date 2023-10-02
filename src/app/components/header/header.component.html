@@ -2,7 +2,7 @@
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="container" #container>
   <div class="left" (click)="goHome()">Unstoppable840的小站</div>
-  <ul class="right">
+  <ul *ngIf="!showFolderIcon" class="right">
     <li (click)="goHome()">
       <span nz-icon nzType="home" nzTheme="fill"></span>
       首页
@@ -24,4 +24,6 @@
       上传文章
     </li>
   </ul>
+  <div *ngIf="showFolderIcon" class="folder" (click)="folderShow()"><span nz-icon [nzType]="folderControl"
+      nzTheme="outline"></span></div>
 </div>

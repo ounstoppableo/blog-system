@@ -5,7 +5,7 @@ import { ArticleComponent } from './view/article/article.component';
 import { LoginComponent } from './view/login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'article', pathMatch: 'prefix' },
+  { path: '', redirectTo: 'home', pathMatch: 'prefix' },
   { path: 'home', component: HomeComponent },
   { path: 'article', component: ArticleComponent },
   { path: 'login', component: LoginComponent },

@@ -1,5 +1,5 @@
 <div class="cardContainer">
-  <app-overview *ngIf="isHome"></app-overview>
+  <app-overview *ngIf="isHome" [smallSize]="smallSize"></app-overview>
   <app-context *ngIf="!isHome"></app-context>
-  <app-info></app-info>
+  <app-info [showInfo]="showInfo"></app-info>
 </div>

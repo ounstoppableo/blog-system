@@ -3,7 +3,6 @@
 /* You can add global styles to this file, and also import other style files */
 html {
   font-size: 62.5%;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -146,6 +145,7 @@ input::-webkit-input-placeholder {
 //滚动条样式
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-thumb {

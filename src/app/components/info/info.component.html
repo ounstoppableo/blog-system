@@ -1,29 +1,6 @@
-<div class="cardContainerRight">
+<div class="cardContainerRight" *ngIf="showInfo">
   <div class="card">
-    <div class="userInfo">
-      <img src="/assets/avatar.jpg" alt="" />
-      <div class="name">Unstoppable840</div>
-      <div class="motto">乐于探索前端新技术，前端开发者</div>
-      <div class="assets">
-        <div class="item">
-          <span>文章</span>
-          <span class="num">{{articleInfoList.length}}</span>
-        </div>
-        <div class="item">
-          <span>分类</span>
-          <span class="num">{{folderNum}}</span>
-        </div>
-        <div class="item">
-          <span>标签</span>
-          <span class="num">{{tagsNum}}</span>
-        </div>
-      </div>
-      <div class="outlink">
-        <span nz-icon nzType="mail" nzTheme="fill" title="邮箱"></span>
-        <span nz-icon nzType="github" nzTheme="outline" title="github"></span>
-        <span nz-icon nzType="twitter" nzTheme="outline" title="twitter"></span>
-      </div>
-    </div>
+    <app-userinfo [isSmall]="false"></app-userinfo>
   </div>
   <div class="card">
     <div class="news">
@@ -33,15 +10,17 @@
           <span>最新发布</span>
         </p>
         <div class="container">
-          <div class="none" *ngIf="articleInfoList.length ===0">什么都没有哦~</div>
-          <div class="has" *ngIf="articleInfoList.length !==0">
+          <div class="none" *ngIf="articleInfoList.length === 0">
+            什么都没有哦~
+          </div>
+          <div class="has" *ngIf="articleInfoList.length !== 0">
             <div class="item" *ngFor="let item of articleInfoList">
               <img [src]="item.backImgUrl" alt="" />
               <div class="text">
                 <span class="theme" [title]="item.title">
-                  {{item.title}}
+                  {{ item.title }}
                 </span>
-                <span class="date">{{item.subTime | date}}</span>
+                <span class="date">{{ item.subTime | date }}</span>
               </div>
             </div>
           </div>

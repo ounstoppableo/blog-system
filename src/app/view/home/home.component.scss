@@ -14,6 +14,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    gap: 30px;
 
     div {
       text-align: center;
@@ -47,12 +48,22 @@
 
     .itembox {
       display: grid;
-      width: 800px;
-      height: 220px;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      gap: 50px;
-      & > li {
+      width: 50%;
+      height: 210px;
+
+      &.normal {
+        grid-template-columns: repeat(4,1fr);
+        grid-template-rows: repeat(2,1fr);
+        gap: 50px;
+      }
+
+      &.smallSize {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      &>li {
         position: relative;
         border-radius: 10px;
         display: flex;
@@ -66,13 +77,15 @@
         cursor: pointer;
         transition: all 0.2s linear;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-
-        & > span {
+        &.smallSize{
+          flex: 1;
+        }
+        &>span {
           z-index: 1;
         }
       }
 
-      & > li::after {
+      &>li::after {
         position: absolute;
         content: '';
         inset: 0;
@@ -80,7 +93,7 @@
         z-index: 0;
       }
 
-      & > li:hover {
+      &>li:hover {
         transform: scale(1.05);
         background-color: white;
         font-weight: 300;
@@ -111,6 +124,20 @@
       color: #fff;
       animation: vibrate1 1s infinite ease;
     }
+  }
+}
+
+.tablist {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  padding-top: 30px;
+  gap: 25px;
+  margin: 0;
+
+  &>li {
+    font-size: 16px;
+    cursor: pointer;
   }
 }
 

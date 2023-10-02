@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -17,7 +18,8 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+  //控制打字机效果的数据
   word = '';
   words = [
     'Hi~，我是一枚程序员',
@@ -31,8 +33,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   wordSpan!: ElementRef;
   @ViewChild('root')
   root!: ElementRef;
+
   //上传文章相关参数
-  listOfOption: tag[] = [] //已有的标签选项
+  listOfOption: tag[] = []; //已有的标签选项
   ImgUploadLoading = false; //文章图片上传加载状态
   uploadLoading = false; //文章上传加载状态
   uploadFlag = false;
@@ -51,7 +54,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     ]),
     backImgUrl: new FormControl('', [Validators.required]),
     articleUrl: new FormControl('', [Validators.required]),
-    listOfTagOptions: new FormControl([], [Validators.required])
+    listOfTagOptions: new FormControl([], [Validators.required]),
   });
   get title() {
     return this.formContent.get('title');
@@ -69,8 +72,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
     return this.formContent.get('articleUrl');
   }
   get listOfTagOptions() {
-    return this.formContent.get('listOfTagOptions')
+    return this.formContent.get('listOfTagOptions');
   }
+
+  //抽屉相关控制
+  drawerVisible = false
+
+  //页面大小变化的控制
+  showInfo = true  //用户信息显示控制
+  showFolderIcon = false  //头部文件展开图标显示控制
+  smallSize = false //处于小尺寸窗口的判断
+
   constructor(
     private routes: ActivatedRoute,
     private router: Router,
@@ -79,8 +91,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ) { }
   ngOnInit(): void {
     //初始化高度
-    const bodyHeight = innerHeight + 'px';
-    document.documentElement.style.setProperty('--bodyHeight', bodyHeight);
+    document.documentElement.style.setProperty('--bodyHeight', innerHeight + 'px');
     this.homeService.getFolderCategory().subscribe((res: any) => {
       if (res.code === 200) this.folderCategory = res.data;
     });
@@ -110,6 +121,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }, 300);
     //获取头部样式变化的高度
     this.headerChangeHeight = this.root.nativeElement.offsetHeight;
+    this.onResize()
   }
   //滑动到内容区域
   toContainer() {
@@ -132,8 +144,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   showUploadModal() {
     this.uploadFlag = true;
     this.homeService.getTags().subscribe((res: any) => {
-      if (res.code === 200) this.listOfOption = res.data
-    })
+      if (res.code === 200) this.listOfOption = res.data;
+    });
   }
   //上传图片前的钩子
   beforeUploadImg = (file: NzUploadFile) => {
@@ -207,6 +219,31 @@ export class HomeComponent implements OnInit, AfterViewInit {
       if (this.backImgUrl?.invalid) this.message.error('请上传图片');
       if (this.articleUrl?.invalid) this.message.error('请上传文章');
     }
+  }
+  //抽屉相关方法
+  open() {
+    this.drawerVisible = true
+  }
+  close() {
+    this.drawerVisible = false
+  }
+  //监控页面大小变化事件
+  onResize() {
+    window.onresize = () => {
+      document.documentElement.style.setProperty('--bodyHeight', innerHeight + 'px');
+      if (innerWidth < 1024) {
+        this.showFolderIcon = true
+        this.showInfo = false
+        this.smallSize = true
+      } else {
+        this.showFolderIcon = false
+        this.showInfo = true
+        this.smallSize = false
+      }
+    }
+  }
+  ngOnDestroy() {
+    window.onresize = null
   }
 }
 //字符串相同字段对比，返回最终相同下标

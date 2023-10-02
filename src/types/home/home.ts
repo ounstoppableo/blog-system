@@ -1,4 +1,4 @@
-export interface tag{
-  tagName: string,
-  tagColor: string,
+export interface tag {
+  tagName: string;
+  tagColor: string;
 }

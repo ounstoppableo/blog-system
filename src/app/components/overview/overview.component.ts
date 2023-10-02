@@ -1,6 +1,6 @@
 import { HomeService } from '@/app/service/home.service';
 import { articleInfo } from '@/types/overview/overview';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-overview',
@@ -8,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./overview.component.scss'],
 })
 export class OverviewComponent implements OnInit {
-  articleInfoList: articleInfo[] = []
-  constructor(private homeService: HomeService) { }
+  articleInfoList: articleInfo[] = [];
+  @Input()
+  smallSize!:boolean
+  constructor(private homeService: HomeService) {}
   ngOnInit(): void {
     this.homeService.getArticleInfo().subscribe((res: any) => {
-      if (res.code === 200) this.articleInfoList = res.data
-    })
+      if (res.code === 200) this.articleInfoList = res.data;
+    });
   }
 }

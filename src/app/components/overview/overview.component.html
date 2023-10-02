@@ -1,27 +1,28 @@
 <div class="cardContainerLeft">
-  <div class="card" *ngFor="let item of articleInfoList">
+  <div class="card" *ngFor="let item of articleInfoList" [class]="smallSize?'smallSize' : ''">
     <div class="info">
-      <h1>{{item.title}}</h1>
+      <h1>{{ item.title }}</h1>
       <p class="folder">
         <span nz-icon nzType="folder" nzTheme="outline"></span>
-        <span>{{item.folderName}}</span>
+        <span>{{ item.folderName }}</span>
       </p>
       <p class="description" [title]="item.description">
-        {{item.description}}
+        {{ item.description }}
       </p>
 
       <div class="footer">
         <div class="date">
           <span nz-icon nzType="calendar" nzTheme="outline"></span>
-          <span>{{item.subTime | date}}</span>
+          <span>{{ item.subTime | date }}</span>
         </div>
         <div class="tagSpace">
-          <span class="tag" *ngFor="let tag of item.tags"
-            [ngStyle]="{'background-color': tag.tagColor}">{{tag.tagName}}</span>
+          <span class="tag" *ngFor="let tag of item.tags" [ngStyle]="{ 'background-color': tag.tagColor }">
+            {{ tag.tagName }}
+          </span>
         </div>
       </div>
     </div>
-    <div class="img">
+    <div class="img" [class]="smallSize?'smallSize' : ''">
       <img [src]="item.backImgUrl" alt="" />
     </div>
   </div>

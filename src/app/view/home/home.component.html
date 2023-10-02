@@ -1,7 +1,8 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="root" #root>
-  <app-header [scrollTarget]="headerChangeHeight" (upload)="showUploadModal()"></app-header>
+  <app-header [showFolderIcon]="showFolderIcon" [scrollTarget]="headerChangeHeight" (drawerOpen)="open()"
+    (upload)="showUploadModal()"></app-header>
   <div class="body">
     <div>
       <h1>Unstoppable840的小站</h1>
@@ -9,8 +10,8 @@
         <span #wordSpan></span>
       </p>
     </div>
-    <ul class="itembox">
-      <li *ngFor="let item of folderCategory">
+    <ul class="itembox" [class]="smallSize ? 'smallSize' : 'normal' ">
+      <li *ngFor="let item of folderCategory" [class]="smallSize ? 'smallSize' : '' ">
         <span>{{ item.folderName }}</span>
       </li>
     </ul>
@@ -21,7 +22,7 @@
   </div>
 </div>
 <div class="container">
-  <app-container></app-container>
+  <app-container [showInfo]="showInfo" [smallSize]="smallSize"></app-container>
 </div>
 <app-footer></app-footer>
 <nz-modal [(nzVisible)]="uploadFlag" nzTitle="上传文章" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
@@ -89,7 +90,8 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="5" nzRequired>标签</nz-form-label>
         <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="请添加至少一个标签">
-          <nz-select nzMode="tags" nzPlaceHolder="请添加标签" formControlName="listOfTagOptions" [nzOptionOverflowSize]="5" [nzMaxMultipleCount]="3">
+          <nz-select nzMode="tags" nzPlaceHolder="请添加标签" formControlName="listOfTagOptions" [nzOptionOverflowSize]="5"
+            [nzMaxMultipleCount]="3">
             <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.tagName"
               [nzValue]="option.tagName"></nz-option>
           </nz-select>
@@ -98,3 +100,22 @@
     </form>
   </ng-container>
 </nz-modal>
+<nz-drawer [nzWidth]="300" [nzClosable]="false" [nzVisible]="drawerVisible" nzPlacement="right" (nzOnClose)="close()">
+  <ng-container *nzDrawerContent>
+    <app-userinfo [isSmall]="true"></app-userinfo>
+    <ul class="tablist">
+      <li (click)="goHome()">
+        <span nz-icon nzType="home" nzTheme="fill"></span>
+        首页
+      </li>
+      <li>
+        <span nz-icon nzType="search" nzTheme="outline"></span>
+        搜索
+      </li>
+      <li>
+        <span nz-icon nzType="form" nzTheme="outline"></span>
+        留言板
+      </li>
+    </ul>
+  </ng-container>
+</nz-drawer>
