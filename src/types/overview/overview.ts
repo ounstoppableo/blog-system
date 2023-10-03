@@ -1,5 +1,5 @@
 export interface articleInfo {
-  articleId: string,
+  articleId: string;
   title: string;
   tags: any[];
   subTime: string;

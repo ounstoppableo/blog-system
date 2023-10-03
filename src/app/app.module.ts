@@ -36,7 +36,7 @@ import { DrawerComponent } from './components/drawer/drawer.component';
     UserinfoComponent,
     TagComponent,
     MarkedPipe,
-    DrawerComponent
+    DrawerComponent,
   ],
   imports: [
     BrowserModule,

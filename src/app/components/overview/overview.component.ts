@@ -13,7 +13,10 @@ export class OverviewComponent implements OnInit {
   articleInfoList: articleInfo[] = [];
   @Input()
   smallSize!: boolean;
-  constructor(private homeService: HomeService, private router: Router) { }
+  constructor(
+    private homeService: HomeService,
+    private router: Router,
+  ) {}
   ngOnInit(): void {
     this.homeService
       .getArticleInfo()
@@ -22,6 +25,6 @@ export class OverviewComponent implements OnInit {
       });
   }
   toArticle(articleId: string) {
-    this.router.navigate(['article',articleId])
+    this.router.navigate(['article', articleId]);
   }
 }

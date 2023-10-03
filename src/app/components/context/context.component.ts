@@ -8,15 +8,18 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./context.component.scss'],
 })
 export class ContextComponent implements OnInit {
-  article = ''
-  articleId = ''
+  article = '';
+  articleId = '';
   @Input()
-  smallSize!: boolean
-  constructor(private articleService: ArticleService, private route: ActivatedRoute) { }
+  smallSize!: boolean;
+  constructor(
+    private articleService: ArticleService,
+    private route: ActivatedRoute,
+  ) {}
   ngOnInit() {
-    this.route.params.subscribe(res => this.articleId = res['articleId'])
-    this.articleService.getArticle(this.articleId).subscribe(res => {
-      if (res.code === 200) this.article = res.data.articleContent
-    })
+    this.route.params.subscribe((res) => (this.articleId = res['articleId']));
+    this.articleService.getArticle(this.articleId).subscribe((res) => {
+      if (res.code === 200) this.article = res.data.articleContent;
+    });
   }
 }

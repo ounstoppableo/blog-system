@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-tag',
@@ -7,5 +7,5 @@ import { Component, Input } from "@angular/core";
 })
 export class TagComponent {
   @Input()
-  tagList!: any[]
+  tagList!: any[];
 }

@@ -1,4 +1,12 @@
-<nz-drawer [nzWidth]="300" [nzClosable]="false" [nzVisible]="drawerVisible" nzPlacement="right" (nzOnClose)="close()">
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<nz-drawer
+  [nzWidth]="300"
+  [nzClosable]="false"
+  [nzVisible]="drawerVisible"
+  nzPlacement="right"
+  (nzOnClose)="close()"
+>
   <ng-container *nzDrawerContent>
     <app-userinfo [isSmall]="true"></app-userinfo>
     <ul class="tablist">

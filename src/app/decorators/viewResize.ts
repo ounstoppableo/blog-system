@@ -1,28 +1,32 @@
 export default function ViewResize() {
-  return function (target: any, propertyKey: string, descriptor?: PropertyDescriptor) {
+  return function (
+    target: any,
+    propertyKey: string,
+    descriptor?: PropertyDescriptor,
+  ) {
     if (propertyKey === 'smallSize') {
-
+      console.log('只是进行一下关联');
     }
     if (propertyKey === 'ngAfterViewInit') {
-      const fn = descriptor!.value
+      const fn = descriptor!.value;
       descriptor!.value = function () {
-        fn.call(this)
-        onResize(this)
-      }
+        fn.call(this);
+        onResize(this);
+      };
     }
     if (propertyKey === 'ngOnDestroy') {
-      const fn = descriptor!.value
+      const fn = descriptor!.value;
       descriptor!.value = function () {
-        fn.call(this)
-        window.onresize = null
-      }
+        fn.call(this);
+        window.onresize = null;
+      };
     }
     if (propertyKey === 'ngOnInit') {
-      const fn = descriptor!.value
+      const fn = descriptor!.value;
       descriptor!.value = function () {
-        fn.call(this)
-        pageControl(this)
-      }
+        fn.call(this);
+        pageControl(this);
+      };
     }
   };
 }

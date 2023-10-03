@@ -1,4 +1,3 @@
-import { DrawerComponent } from '@/app/components/drawer/drawer.component';
 import ViewResize from '@/app/decorators/viewResize';
 import { HomeService } from '@/app/service/home.service';
 import { addArticle, folderItem, tag } from '@/types/home/home';
@@ -6,7 +5,6 @@ import { resType } from '@/types/response/response';
 import {
   AfterViewInit,
   Component,
-  ComponentRef,
   ElementRef,
   OnDestroy,
   OnInit,
@@ -81,18 +79,18 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //抽屉相关
   @ViewChild('drawer')
-  drawer!: any
+  drawer!: any;
 
   //页面大小变化的控制
   @ViewResize()
-  smallSize = false //处于小尺寸窗口的判断
+  smallSize = false; //处于小尺寸窗口的判断
 
   constructor(
     private routes: ActivatedRoute,
     private router: Router,
     private homeService: HomeService,
     private message: NzMessageService,
-  ) { }
+  ) {}
   @ViewResize()
   ngOnInit(): void {
     this.homeService
@@ -170,7 +168,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (e.type === 'start') this.ImgUploadLoading = true;
     if (e.type === 'success') {
       this.ImgUploadLoading = false;
-      if (e.file.response.code === 200) this.formContent.get('backImgUrl')!.setValue('/api' + e.file.response.data);
+      if (e.file.response.code === 200)
+        this.formContent
+          .get('backImgUrl')!
+          .setValue('/api' + e.file.response.data);
     }
   }
   //上传文件的回调
@@ -223,7 +224,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   //抽屉相关方法
   open() {
-    this.drawer.open()
+    this.drawer.open();
   }
   @ViewResize()
   ngOnDestroy() {
