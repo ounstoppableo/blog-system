@@ -8,12 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DrawerComponent {
   drawerVisible = false;
   goHome() {
-    if (this.routes.routeConfig?.path === 'home') {
-      location.reload();
-      window.scrollTo(0, 0);
-    } else {
-      this.router.navigate(['/home']);
-    }
+    this.router.navigate(['home']);
   }
   open() {
     this.drawerVisible = true;
@@ -24,5 +19,5 @@ export class DrawerComponent {
   constructor(
     private router: Router,
     private routes: ActivatedRoute,
-  ) {}
+  ) { }
 }

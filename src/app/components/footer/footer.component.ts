@@ -10,14 +10,8 @@ export class FooterComponent {
   constructor(
     private routes: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) { }
   goHome() {
-    if (this.routes.routeConfig?.path === 'home') {
-      location.reload();
-      window.scrollTo(0, 0);
-    } else {
-      this.router.navigate(['/home']);
-      window.scrollTo(0, 0);
-    }
+    this.router.navigate(['home']);
   }
 }

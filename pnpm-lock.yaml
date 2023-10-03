@@ -50,6 +50,9 @@ dependencies:
   github-markdown-css:
     specifier: ^5.2.0
     version: 5.2.0
+  highlight.js:
+    specifier: ^11.8.0
+    version: 11.8.0
   lodash:
     specifier: ^4.17.21
     version: registry.npmmirror.com/lodash@4.17.21
@@ -783,6 +786,14 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /highlight.js@11.8.0:
+    resolution:
+      {
+        integrity: sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg==,
+      }
+    engines: { node: '>=12.0.0' }
+    dev: false
 
   /image-size@0.5.5:
     resolution:

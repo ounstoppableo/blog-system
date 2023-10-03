@@ -222,6 +222,48 @@
   },
   ```
 
+### 小坑
+
+#### angular内置innerHTML置入标签时样式失效
+
+> 解决方法：给样式添加:host ::ng-deep前缀
+
+#### angular同路由不刷新页面
+
+> 解决办法：自定义路由策略
+
+~~~typescript
+//customReuseStrategy.ts文件
+import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy } from "@angular/router";
+export class CustomReuseStrategt implements RouteReuseStrategy {
+  shouldAttach(route: ActivatedRouteSnapshot): boolean {
+    return false
+  }
+  store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle | null): void {
+  }
+  shouldDetach(route: ActivatedRouteSnapshot): boolean {
+    return false
+  }
+  retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
+    return null
+  }
+  shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
+    return false
+  }
+}
+~~~
+
+~~~typescript
+//app-routing.module.ts文件
+@NgModule({
+  imports: [RouterModule.forRoot(routes,{onSameUrlNavigation:'reload'})],  //修改同路由策略
+  exports: [RouterModule],
+  providers: [{ provide: RouteReuseStrategy, useClass: CustomReuseStrategt }] //使用自定义策略
+})
+~~~
+
+
+
 ### 待做事项
 
 - [ ] 文章页面详情

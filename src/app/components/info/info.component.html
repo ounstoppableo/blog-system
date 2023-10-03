@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="cardContainerRight" *ngIf="showInfo">
   <div class="card">
     <app-userinfo [isSmall]="false"></app-userinfo>
@@ -14,7 +16,7 @@
             什么都没有哦~
           </div>
           <div class="has" *ngIf="articleInfoList.length !== 0">
-            <div class="item" *ngFor="let item of articleInfoList.slice(0, 6)">
+            <div class="item" *ngFor="let item of articleInfoList.slice(0, 6)"  (click)="toArticle(item.articleId)">
               <img [src]="item.backImgUrl" alt="" />
               <div class="text">
                 <span class="theme" [title]="item.title">

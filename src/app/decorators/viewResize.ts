@@ -4,9 +4,6 @@ export default function ViewResize() {
     propertyKey: string,
     descriptor?: PropertyDescriptor,
   ) {
-    if (propertyKey === 'smallSize') {
-      console.log('只是进行一下关联');
-    }
     if (propertyKey === 'ngAfterViewInit') {
       const fn = descriptor!.value;
       descriptor!.value = function () {

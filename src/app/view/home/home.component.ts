@@ -136,12 +136,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   goHome() {
-    if (this.routes.routeConfig?.path === 'home') {
-      location.reload();
-      window.scrollTo(0, 0);
-    } else {
-      this.router.navigate(['/home']);
-    }
+      this.router.navigate(['home']);
   }
   //显示上传模态框
   showUploadModal() {

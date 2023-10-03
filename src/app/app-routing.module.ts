@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './view/home/home.component';
 import { ArticleComponent } from './view/article/article.component';
 import { LoginComponent } from './view/login/login.component';
+import { CustomReuseStrategt } from './customReuseStrategy/customReuseStratege';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'prefix' },
@@ -12,7 +13,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{onSameUrlNavigation:'reload'})],
   exports: [RouterModule],
+  providers: [{ provide: RouteReuseStrategy, useClass: CustomReuseStrategt }]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

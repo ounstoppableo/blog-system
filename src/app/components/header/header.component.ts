@@ -37,7 +37,7 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
     private router: Router,
     private routes: ActivatedRoute,
     private ls: LoginService,
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: resType<any>) => {
@@ -46,12 +46,7 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
     }
   }
   goHome() {
-    if (this.routes.routeConfig?.path === 'home') {
-      location.reload();
-      window.scrollTo(0, 0);
-    } else {
-      this.router.navigate(['/home']);
-    }
+    this.router.navigate(['home']);
   }
   login() {
     this.router.navigate(['/login']);
