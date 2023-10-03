@@ -1,9 +1,12 @@
+import { DrawerComponent } from '@/app/components/drawer/drawer.component';
+import ViewResize from '@/app/decorators/viewResize';
 import { HomeService } from '@/app/service/home.service';
 import { addArticle, folderItem, tag } from '@/types/home/home';
 import { resType } from '@/types/response/response';
 import {
   AfterViewInit,
   Component,
+  ComponentRef,
   ElementRef,
   OnDestroy,
   OnInit,
@@ -76,29 +79,29 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.formContent.get('listOfTagOptions');
   }
 
-  //抽屉相关控制
-  drawerVisible = false;
+  //抽屉相关
+  @ViewChild('drawer')
+  drawer!: any
 
   //页面大小变化的控制
-  showInfo = true; //用户信息显示控制
-  showFolderIcon = false; //头部文件展开图标显示控制
-  smallSize = false; //处于小尺寸窗口的判断
+  @ViewResize()
+  smallSize = false //处于小尺寸窗口的判断
 
   constructor(
     private routes: ActivatedRoute,
     private router: Router,
     private homeService: HomeService,
     private message: NzMessageService,
-  ) {}
+  ) { }
+  @ViewResize()
   ngOnInit(): void {
-    //初始化页面内的各种参数
-    this.pageControl();
     this.homeService
       .getFolderCategory()
       .subscribe((res: resType<folderItem[]>) => {
         if (res.code === 200) this.folderCategory = res.data;
       });
   }
+  @ViewResize()
   ngAfterViewInit(): void {
     //打字机效果控制
     const timer = setInterval(() => {
@@ -124,7 +127,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 300);
     //获取头部样式变化的高度
     this.headerChangeHeight = this.root.nativeElement.offsetHeight;
-    this.onResize();
   }
   //滑动到内容区域
   toContainer() {
@@ -168,22 +170,17 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (e.type === 'start') this.ImgUploadLoading = true;
     if (e.type === 'success') {
       this.ImgUploadLoading = false;
-      if (e.file.response.code !== 200)
-        return this.message.error('上传图片失败，请重试！');
-      this.formContent
-        .get('backImgUrl')!
-        .setValue('/api' + e.file.response.data);
+      if (e.file.response.code === 200) this.formContent.get('backImgUrl')!.setValue('/api' + e.file.response.data);
     }
   }
   //上传文件的回调
   handleUploadFileChange(e: any) {
     if (e.type === 'start') this.uploadLoading = true;
     if (e.type === 'success') {
-      if (e.file.response.code !== 200) {
-        return this.message.error('上传文章失败，请重试！');
+      if (e.file.response.code === 200) {
+        this.uploadLoading = false;
+        this.articleUrl!.setValue(e.file.response.data);
       }
-      this.uploadLoading = false;
-      this.articleUrl!.setValue(e.file.response.data);
     }
   }
   //删除文件的回调
@@ -203,16 +200,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   //确认的回调
   handleOk() {
-    //处理tags
     if (this.formContent.valid) {
       this.homeService
         .uploadArticle(this.formContent.value)
         .subscribe((res: resType<any>) => {
-          if (res.code !== 200)
-            return this.message.error('提交错误，请重新提交');
-          this.message.success('添加成功');
-          this.uploadFlag = false;
-          this.formContent.reset();
+          if (res.code === 200) {
+            this.message.success('添加成功');
+            this.uploadFlag = false;
+            this.formContent.reset();
+          }
         });
     } else {
       Object.values(this.formContent.controls).forEach((control) => {
@@ -227,33 +223,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   //抽屉相关方法
   open() {
-    this.drawerVisible = true;
+    this.drawer.open()
   }
-  close() {
-    this.drawerVisible = false;
-  }
-  //监控页面大小变化事件
-  onResize() {
-    window.onresize = () => {
-      this.pageControl();
-    };
-  }
-  //页面参数控制
-  pageControl() {
-    if (innerWidth < 1024) {
-      this.showFolderIcon = true;
-      this.showInfo = false;
-      this.smallSize = true;
-    } else {
-      this.showFolderIcon = false;
-      this.showInfo = true;
-      this.smallSize = false;
-    }
-    document.documentElement.style.setProperty(
-      '--bodyHeight',
-      innerHeight + 'px',
-    );
-  }
+  @ViewResize()
   ngOnDestroy() {
     window.onresize = null;
   }

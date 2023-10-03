@@ -1,11 +1,7 @@
 <div class="cardContainerLeft">
-  <div
-    class="card"
-    *ngFor="let item of articleInfoList"
-    [class]="smallSize ? 'smallSize' : ''"
-  >
+  <div class="card" *ngFor="let item of articleInfoList" [class]="smallSize ? 'smallSize' : ''">
     <div class="info">
-      <h1>{{ item.title }}</h1>
+      <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
       <p class="folder">
         <span nz-icon nzType="folder" nzTheme="outline"></span>
         <span>{{ item.folderName }}</span>
@@ -19,15 +15,7 @@
           <span nz-icon nzType="calendar" nzTheme="outline"></span>
           <span>{{ item.subTime | date }}</span>
         </div>
-        <div class="tagSpace">
-          <span
-            class="tag"
-            *ngFor="let tag of item.tags"
-            [ngStyle]="{ 'background-color': tag.tagColor }"
-          >
-            {{ tag.tagName }}
-          </span>
-        </div>
+        <app-tag [tagList]="item.tags"></app-tag>
       </div>
     </div>
     <div class="img" [class]="smallSize ? 'smallSize' : ''">

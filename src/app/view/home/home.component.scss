@@ -139,20 +139,6 @@
   }
 }
 
-.tablist {
-  display: flex;
-  flex-direction: column;
-  padding: 0 20px;
-  padding-top: 30px;
-  gap: 25px;
-  margin: 0;
-
-  & > li {
-    font-size: 16px;
-    cursor: pointer;
-  }
-}
-
 .container {
   background-color: var(--defaultBackgroundColor);
   padding: 70px 0;

@@ -1,7 +1,27 @@
+@import '../../../assets/markdown.css';
+
 .card {
-  min-width: 880px;
-  max-width: 880px;
-  height: 1000px;
-  background-color: white;
+  background-color: #fff;
+  width: calc(100vw * 0.8 - 300px);
   border-radius: 20px;
+  display: flex;
+  overflow: hidden;
+  color: var(--defaultFontColor);
+
+  &.smallSize {
+    width: 80vw
+  }
+}
+
+.markdown-body {
+  overflow: auto;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 45px;
+}
+
+@media (max-width: 767px) {
+  .markdown-body {
+    padding: 15px;
+  }
 }

@@ -17,6 +17,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './interceptor/interceptorProvider';
 import { UserinfoComponent } from './components/userinfo/userinfo.component';
+import { TagComponent } from './components/tag/tag.component';
+import { MarkedPipe } from './pipe/marked.pipe';
+import { DrawerComponent } from './components/drawer/drawer.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { UserinfoComponent } from './components/userinfo/userinfo.component';
     ContextComponent,
     LoginComponent,
     UserinfoComponent,
+    TagComponent,
+    MarkedPipe,
+    DrawerComponent
   ],
   imports: [
     BrowserModule,

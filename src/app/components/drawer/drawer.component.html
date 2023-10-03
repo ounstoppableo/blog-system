@@ -1,0 +1,19 @@
+<nz-drawer [nzWidth]="300" [nzClosable]="false" [nzVisible]="drawerVisible" nzPlacement="right" (nzOnClose)="close()">
+  <ng-container *nzDrawerContent>
+    <app-userinfo [isSmall]="true"></app-userinfo>
+    <ul class="tablist">
+      <li (click)="goHome()">
+        <span nz-icon nzType="home" nzTheme="fill"></span>
+        首页
+      </li>
+      <li>
+        <span nz-icon nzType="search" nzTheme="outline"></span>
+        搜索
+      </li>
+      <li>
+        <span nz-icon nzType="form" nzTheme="outline"></span>
+        留言板
+      </li>
+    </ul>
+  </ng-container>
+</nz-drawer>

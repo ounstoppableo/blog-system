@@ -1,5 +1,6 @@
 .container {
-  & > .backImg {
+
+  &>.backImg {
     width: 100%;
     height: var(--articleBkImgHeight);
     position: relative;
@@ -29,25 +30,25 @@
       font-size: 14px;
       gap: 20px;
 
-      & > .belongFile {
+      &>.belongFile {
         border: 1px solid white;
         padding: 5px;
         border-radius: 3px;
       }
 
-      & > .headLine {
+      &>.headLine {
         font-weight: 800;
         font-size: 50px;
       }
 
-      & > .tagSpace {
+      &>.tagSpace {
         display: flex;
         gap: 10px;
       }
     }
   }
 
-  & > .context {
+  &>.context {
     padding: 70px 0;
     background-color: var(--defaultBackgroundColor);
   }

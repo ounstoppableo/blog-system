@@ -2,7 +2,7 @@
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="root" #root>
   <app-header
-    [showFolderIcon]="showFolderIcon"
+    [showFolderIcon]="smallSize"
     [scrollTarget]="headerChangeHeight"
     (drawerOpen)="open()"
     (upload)="showUploadModal()"
@@ -29,7 +29,7 @@
   </div>
 </div>
 <div class="container">
-  <app-container [showInfo]="showInfo" [smallSize]="smallSize"></app-container>
+  <app-container [showInfo]="!smallSize" [smallSize]="smallSize"></app-container>
 </div>
 <app-footer></app-footer>
 <nz-modal
@@ -169,28 +169,4 @@
     </form>
   </ng-container>
 </nz-modal>
-<nz-drawer
-  [nzWidth]="300"
-  [nzClosable]="false"
-  [nzVisible]="drawerVisible"
-  nzPlacement="right"
-  (nzOnClose)="close()"
->
-  <ng-container *nzDrawerContent>
-    <app-userinfo [isSmall]="true"></app-userinfo>
-    <ul class="tablist">
-      <li (click)="goHome()">
-        <span nz-icon nzType="home" nzTheme="fill"></span>
-        首页
-      </li>
-      <li>
-        <span nz-icon nzType="search" nzTheme="outline"></span>
-        搜索
-      </li>
-      <li>
-        <span nz-icon nzType="form" nzTheme="outline"></span>
-        留言板
-      </li>
-    </ul>
-  </ng-container>
-</nz-drawer>
+<app-drawer #drawer></app-drawer>
