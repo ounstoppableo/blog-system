@@ -2,6 +2,7 @@ import { ArticleService } from '@/app/service/article.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import hljs from 'highlight.js';
+
 hljs.configure({
   ignoreUnescapedHTML: true,
 });
@@ -18,7 +19,7 @@ export class ContextComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((res) => (this.articleId = res['articleId']));
@@ -28,7 +29,18 @@ export class ContextComponent implements OnInit {
   }
   ngAfterViewChecked(): void {
     document.querySelectorAll('pre code').forEach((el: any) => {
-      hljs.highlightElement(el);
+      let languageArr = el.className.split('-');
+      if (languageArr.length !== 2) {
+        hljs.highlightElement(el);
+        return true;
+      }
+      let language = languageArr[1].trim();
+      if (hljs.getLanguage(language)) {
+        hljs.highlightElement(el);
+        return true;
+      }
+      el.className = 'language-javascript hljs'
+      hljs.highlightElement(el)
     });
   }
 }

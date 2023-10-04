@@ -1,16 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import remarkHtml from 'remark-html';
-import remarkParse from 'remark-parse';
-import { unified } from 'unified';
-
+import { marked } from 'marked'
 @Pipe({
   name: 'marked',
 })
 export class MarkedPipe implements PipeTransform {
   transform(value: any): any {
     if (value && value.length > 0) {
-      const processor = unified().use(remarkParse).use(remarkHtml);
-      return String(processor.processSync(value));
+      return String(marked.parse(value));
     }
     return value;
   }

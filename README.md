@@ -232,41 +232,38 @@
 
 > 解决办法：自定义路由策略
 
-~~~typescript
+```typescript
 //customReuseStrategy.ts文件
-import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy } from "@angular/router";
+import { ActivatedRouteSnapshot, DetachedRouteHandle, RouteReuseStrategy } from '@angular/router';
 export class CustomReuseStrategt implements RouteReuseStrategy {
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
-    return false
+    return false;
   }
-  store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle | null): void {
-  }
+  store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle | null): void {}
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
-    return false
+    return false;
   }
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
-    return null
+    return null;
   }
   shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
-    return false
+    return false;
   }
 }
-~~~
+```
 
-~~~typescript
+```typescript
 //app-routing.module.ts文件
 @NgModule({
   imports: [RouterModule.forRoot(routes,{onSameUrlNavigation:'reload'})],  //修改同路由策略
   exports: [RouterModule],
   providers: [{ provide: RouteReuseStrategy, useClass: CustomReuseStrategt }] //使用自定义策略
 })
-~~~
-
-
+```
 
 ### 待做事项
 
-- [ ] 文章页面详情
+- [x] 文章页面详情
 - [x] 登录功能
 - [x] 上传文件
 - [x] tags上传

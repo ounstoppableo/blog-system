@@ -1,7 +1,9 @@
+import { tag } from "../home/home";
+
 export interface articleInfo {
   articleId: string;
   title: string;
-  tags: any[];
+  tags: tag[];
   subTime: string;
   lastModifyTime: string;
   description: string;

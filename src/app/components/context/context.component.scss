@@ -21,6 +21,10 @@
   letter-spacing: 0.1em;
 }
 
+:host ::ng-deep img {
+  width: 100%;
+  object-fit: contain;
+}
 :host ::ng-deep li {
   margin: 10px !important;
   list-style: circle !important;
@@ -29,7 +33,6 @@
 :host ::ng-deep pre,
 :host ::ng-deep code {
   font-size: 14px;
-  font-family: Roboto, 'Courier New', Consolas, Inconsolata, Courier, monospace;
   margin: auto 5px;
 }
 

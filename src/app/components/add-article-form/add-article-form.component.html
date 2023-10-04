@@ -1,0 +1,137 @@
+<nz-modal
+  [(nzVisible)]="uploadFlag"
+  nzTitle="上传文章"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="formContent">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired>标题</nz-form-label>
+        <nz-form-control
+          [nzValidateStatus]="
+            title!.valid ? 'success' : title!.untouched ? '' : 'error'
+          "
+          [nzSpan]="12"
+          nzErrorTip="请输入2~20字的标题"
+        >
+          <input
+            nz-input
+            formControlName="title"
+            placeholder="请输入文章标题"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired>文件夹</nz-form-label>
+        <nz-form-control
+          [nzSpan]="12"
+          [nzValidateStatus]="
+            folderId!.valid ? 'success' : folderId!.untouched ? '' : 'error'
+          "
+          nzHasFeedback
+        >
+          <nz-select formControlName="folderId" nzPlaceHolder="请选择文件夹">
+            <nz-option
+              *ngFor="let item of folderCategory"
+              [nzValue]="item.folderId"
+              [nzLabel]="item.folderName"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired>文章描述</nz-form-label>
+        <nz-form-control
+          [nzSpan]="12"
+          [nzValidateStatus]="
+            description!.valid
+              ? 'success'
+              : description!.untouched
+              ? ''
+              : 'error'
+          "
+          nzHasFeedback
+          nzErrorTip="请输入20~100字的文章描述"
+        >
+          <nz-textarea-count [nzMaxCharacterCount]="100">
+            <textarea
+              formControlName="description"
+              nz-input
+              rows="2"
+              placeholder="请输入文章描述"
+            ></textarea>
+          </nz-textarea-count>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired>图片</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+          <nz-upload
+            nzAction="/api/uploadImg"
+            nzName="img"
+            nzListType="picture-card"
+            [nzShowUploadList]="false"
+            [nzBeforeUpload]="beforeUploadImg"
+            (nzChange)="handleUploadImgChange($event)"
+          >
+            <ng-container *ngIf="!backImgUrl!.valid">
+              <span
+                class="upload-icon"
+                nz-icon
+                [nzType]="ImgUploadLoading ? 'loading' : 'plus'"
+              ></span>
+              <div class="ant-upload-text">上传图片</div>
+            </ng-container>
+            <img
+              alt=""
+              *ngIf="backImgUrl!.valid"
+              [src]="backImgUrl!.value"
+              style="width: 100%"
+            />
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired>文章</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+          <nz-upload
+            nzAction="/api/uploadFile"
+            nzName="file"
+            nzAccept=".md"
+            [nzHeaders]="{ authorization: 'authorization-text' }"
+            (nzChange)="handleUploadFileChange($event)"
+            [nzRemove]="removeFile"
+          >
+            <button nz-button [disabled]="articleUrl!.valid || uploadLoading">
+              <span nz-icon nzType="upload"></span>
+              上传文件
+            </button>
+          </nz-upload>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired>标签</nz-form-label>
+        <nz-form-control
+          [nzSpan]="12"
+          nzHasFeedback
+          nzErrorTip="请添加至少一个标签"
+        >
+          <nz-select
+            nzMode="tags"
+            nzPlaceHolder="请添加标签"
+            formControlName="listOfTagOptions"
+            [nzOptionOverflowSize]="5"
+            [nzMaxMultipleCount]="3"
+          >
+            <nz-option
+              *ngFor="let option of listOfOption"
+              [nzLabel]="option.tagName"
+              [nzValue]="option.tagName"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>

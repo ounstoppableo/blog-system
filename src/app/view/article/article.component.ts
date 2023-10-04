@@ -27,6 +27,10 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('drawer')
   drawer!: any;
 
+  //上传文章相关
+  @ViewChild('addArticleForm')
+  addArticleForm!: any;
+
   @ViewResize()
   smallSize = false;
   @ViewResize()
@@ -44,8 +48,13 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
   }
   @ViewResize()
   ngOnDestroy(): void {}
+  //打开抽屉
   open() {
     this.drawer.open();
+  }
+  //显示上传文章模态框
+  showUploadModal(){
+    this.addArticleForm.showUploadModal()
   }
   constructor(
     private articleService: ArticleService,

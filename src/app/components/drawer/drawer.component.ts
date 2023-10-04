@@ -19,5 +19,5 @@ export class DrawerComponent {
   constructor(
     private router: Router,
     private routes: ActivatedRoute,
-  ) { }
+  ) {}
 }

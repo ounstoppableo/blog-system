@@ -20,6 +20,7 @@ import { UserinfoComponent } from './components/userinfo/userinfo.component';
 import { TagComponent } from './components/tag/tag.component';
 import { MarkedPipe } from './pipe/marked.pipe';
 import { DrawerComponent } from './components/drawer/drawer.component';
+import { AddArticleFormComponent } from './components/add-article-form/add-article-form.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { DrawerComponent } from './components/drawer/drawer.component';
     TagComponent,
     MarkedPipe,
     DrawerComponent,
+    AddArticleFormComponent,
   ],
   imports: [
     BrowserModule,

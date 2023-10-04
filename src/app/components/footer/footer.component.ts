@@ -10,7 +10,7 @@ export class FooterComponent {
   constructor(
     private routes: ActivatedRoute,
     private router: Router,
-  ) { }
+  ) {}
   goHome() {
     this.router.navigate(['home']);
   }
