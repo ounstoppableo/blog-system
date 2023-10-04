@@ -14,8 +14,8 @@ export class ContainerComponent implements OnInit {
   @Input()
   smallSize!: boolean;
   @Input()
-  updateArticleModal!: AddArticleFormComponent
-  constructor(private routes: ActivatedRoute) { }
+  updateArticleModal!: AddArticleFormComponent;
+  constructor(private routes: ActivatedRoute) {}
   ngOnInit(): void {
     this.isHome = this.routes.routeConfig?.path?.includes('home') || false;
   }

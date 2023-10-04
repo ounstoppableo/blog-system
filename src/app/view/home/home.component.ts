@@ -1,6 +1,6 @@
 import ViewResize from '@/app/decorators/viewResize';
 import { HomeService } from '@/app/service/home.service';
-import { folderItem, tag } from '@/types/home/home';
+import { folderItem } from '@/types/home/home';
 import { resType } from '@/types/response/response';
 import {
   AfterViewInit,
@@ -10,8 +10,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +33,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('root')
   root!: ElementRef;
 
-
   //抽屉相关
   @ViewChild('drawer')
   drawer!: any;
@@ -45,12 +43,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //上传文章相关
   @ViewChild('addArticleForm')
-  addArticleForm!: any
+  addArticleForm!: any;
 
   constructor(
     private router: Router,
     private homeService: HomeService,
-  ) { }
+  ) {}
   @ViewResize()
   ngOnInit(): void {
     this.homeService
@@ -100,7 +98,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   //打开上传文章模态框
   showUploadModal() {
-    this.addArticleForm.showUploadModal()
+    this.addArticleForm.showUploadModal();
   }
 
   //抽屉相关方法

@@ -1,5 +1,9 @@
-<app-header [scrollTarget]="headerChangeHeight" [showFolderIcon]="smallSize" (drawerOpen)="open()"
-  (upload)="showUploadModal()"></app-header>
+<app-header
+  [scrollTarget]="headerChangeHeight"
+  [showFolderIcon]="smallSize"
+  (drawerOpen)="open()"
+  (upload)="showUploadModal()"
+></app-header>
 <div class="container">
   <div class="backImg" #backImg>
     <div class="mask"></div>
@@ -9,14 +13,17 @@
       <div class="headLine">{{ articleInfo.title }}</div>
       <div class="info">
         发布于:{{ articleInfo.subTime | date }}&nbsp;&nbsp;&nbsp;最后更新:{{
-        articleInfo.lastModifyTime | date
+          articleInfo.lastModifyTime | date
         }}&nbsp;&nbsp;&nbsp; 42&nbsp;次查看
       </div>
       <app-tag [tagList]="articleInfo.tags"></app-tag>
     </div>
   </div>
   <div class="context">
-    <app-container [showInfo]="!smallSize" [smallSize]="smallSize"></app-container>
+    <app-container
+      [showInfo]="!smallSize"
+      [smallSize]="smallSize"
+    ></app-container>
   </div>
 </div>
 <app-footer></app-footer>

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class HomeService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   getFolderCategory(): Observable<resType<folderItem[]>> {
     return this.http.get<resType<any>>('/api/folder');
   }
@@ -24,9 +24,9 @@ export class HomeService {
     return this.http.get<resType<any>>('/api/getArticleInfo');
   }
   updateArticleInfo(articleInfo: any): Observable<resType<any>> {
-    return this.http.post<resType<any>>('/api/updateArticle', articleInfo)
+    return this.http.post<resType<any>>('/api/updateArticle', articleInfo);
   }
   delArticle(articleId: string): Observable<resType<any>> {
-    return this.http.get<resType<any>>(`/api/delArticle/${articleId}`)
+    return this.http.get<resType<any>>(`/api/delArticle/${articleId}`);
   }
 }

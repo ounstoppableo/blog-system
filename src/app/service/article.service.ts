@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class ArticleService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   getArticle(articleId: string): Observable<resType<any>> {
     return this.http.get<resType<any>>(`/api/getArticle/${articleId}`);
   }

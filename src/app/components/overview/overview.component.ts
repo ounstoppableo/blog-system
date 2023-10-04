@@ -13,19 +13,19 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./overview.component.scss'],
 })
 export class OverviewComponent implements OnInit {
-  isLogin = false
+  isLogin = false;
   articleInfoList: articleInfo[] = [];
   @Input()
   smallSize!: boolean;
   //模态框组件
   @Input()
-  updateArticleModal!: AddArticleFormComponent
+  updateArticleModal!: AddArticleFormComponent;
   constructor(
     private homeService: HomeService,
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.homeService
       .getArticleInfo()
@@ -33,10 +33,10 @@ export class OverviewComponent implements OnInit {
         if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
       });
     if (localStorage.getItem('token')) {
-      this.loginService.getUserInfo().subscribe(res => {
-        if (res.code === 200) this.isLogin = true
-        else this.isLogin = false
-      })
+      this.loginService.getUserInfo().subscribe((res) => {
+        if (res.code === 200) this.isLogin = true;
+        else this.isLogin = false;
+      });
     }
   }
   toArticle(articleId: string) {
@@ -44,13 +44,13 @@ export class OverviewComponent implements OnInit {
   }
   //更新文章
   editArticle(item: articleInfo) {
-    const listOfTagOptions = item.tags.map(tag => tag.tagName)
-    this.updateArticleModal.showUploadModal({ ...item, listOfTagOptions })
+    const listOfTagOptions = item.tags.map((tag) => tag.tagName);
+    this.updateArticleModal.showUploadModal({ ...item, listOfTagOptions });
   }
   //删除文章
   delArticle(articleId: string) {
     this.homeService.delArticle(articleId).subscribe((res: resType<any>) => {
-      if (res.code === 200) this.message.success('删除成功!')
-    })
+      if (res.code === 200) this.message.success('删除成功!');
+    });
   }
 }

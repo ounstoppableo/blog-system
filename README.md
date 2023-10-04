@@ -271,4 +271,4 @@ export class CustomReuseStrategt implements RouteReuseStrategy {
 - [ ] tag标签分类功能
 - [ ] 文档分类功能
 - [ ] 留言板功能
-- [ ] 更新/删除文章
+- [x] 更新/删除文章

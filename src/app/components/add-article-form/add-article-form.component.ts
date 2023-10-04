@@ -2,7 +2,7 @@ import { HomeService } from '@/app/service/home.service';
 import { addArticle, folderItem, tag } from '@/types/home/home';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
@@ -10,7 +10,7 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 @Component({
   selector: 'app-add-article-form',
   templateUrl: './add-article-form.component.html',
-  styleUrls: ['./add-article-form.component.scss']
+  styleUrls: ['./add-article-form.component.scss'],
 })
 export class AddArticleFormComponent implements OnInit {
   //文档分类
@@ -38,7 +38,7 @@ export class AddArticleFormComponent implements OnInit {
     listOfTagOptions: new FormControl([], [Validators.required]),
   });
   get articleId() {
-    return this.formContent.get('articleId')
+    return this.formContent.get('articleId');
   }
   get title() {
     return this.formContent.get('title');
@@ -69,9 +69,13 @@ export class AddArticleFormComponent implements OnInit {
   showUploadModal(articleInfo?: articleInfo & { listOfTagOptions: string[] }) {
     if (articleInfo) {
       Object.keys(articleInfo).forEach((item: string) => {
-        type itemType = Extract<keyof AddArticleFormComponent, keyof articleInfo>;
-        if (item !== 'articleUrl') this[item as itemType]?.setValue(articleInfo[item as itemType])
-      })
+        type itemType = Extract<
+          keyof AddArticleFormComponent,
+          keyof articleInfo
+        >;
+        if (item !== 'articleUrl')
+          this[item as itemType]?.setValue(articleInfo[item as itemType]);
+      });
     }
     this.uploadFlag = true;
     this.homeService.getTags().subscribe((res: resType<tag[]>) => {
@@ -142,13 +146,15 @@ export class AddArticleFormComponent implements OnInit {
             }
           });
       } else {
-        this.homeService.updateArticleInfo(this.formContent.value).subscribe((res: resType<any>) => {
-          if (res.code === 200) {
-            this.message.success('更新成功');
-            this.uploadFlag = false;
-            this.formContent.reset();
-          }
-        })
+        this.homeService
+          .updateArticleInfo(this.formContent.value)
+          .subscribe((res: resType<any>) => {
+            if (res.code === 200) {
+              this.message.success('更新成功');
+              this.uploadFlag = false;
+              this.formContent.reset();
+            }
+          });
       }
     } else {
       Object.values(this.formContent.controls).forEach((control) => {
@@ -161,5 +167,8 @@ export class AddArticleFormComponent implements OnInit {
       if (this.articleUrl?.invalid) this.message.error('请上传文章');
     }
   }
-  constructor(private message: NzMessageService, private homeService: HomeService) { }
+  constructor(
+    private message: NzMessageService,
+    private homeService: HomeService,
+  ) {}
 }

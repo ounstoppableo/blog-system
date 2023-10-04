@@ -1,4 +1,4 @@
-import { tag } from "../home/home";
+import { tag } from '../home/home';
 
 export interface articleInfo {
   articleId: string;

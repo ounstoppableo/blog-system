@@ -1,5 +1,5 @@
 import { ArticleService } from '@/app/service/article.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import hljs from 'highlight.js';
 
@@ -11,7 +11,7 @@ hljs.configure({
   templateUrl: './context.component.html',
   styleUrls: ['./context.component.scss'],
 })
-export class ContextComponent implements OnInit {
+export class ContextComponent implements OnInit, AfterViewChecked {
   article = '';
   articleId = '';
   @Input()
@@ -19,7 +19,7 @@ export class ContextComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((res) => (this.articleId = res['articleId']));
@@ -29,18 +29,18 @@ export class ContextComponent implements OnInit {
   }
   ngAfterViewChecked(): void {
     document.querySelectorAll('pre code').forEach((el: any) => {
-      let languageArr = el.className.split('-');
+      const languageArr = el.className.split('-');
       if (languageArr.length !== 2) {
         hljs.highlightElement(el);
         return true;
       }
-      let language = languageArr[1].trim();
+      const language = languageArr[1].trim();
       if (hljs.getLanguage(language)) {
         hljs.highlightElement(el);
         return true;
       }
-      el.className = 'language-javascript hljs'
-      hljs.highlightElement(el)
+      el.className = 'language-javascript hljs';
+      hljs.highlightElement(el);
     });
   }
 }

@@ -53,8 +53,8 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
     this.drawer.open();
   }
   //显示上传文章模态框
-  showUploadModal(){
-    this.addArticleForm.showUploadModal()
+  showUploadModal() {
+    this.addArticleForm.showUploadModal();
   }
   constructor(
     private articleService: ArticleService,

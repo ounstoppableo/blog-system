@@ -29,7 +29,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     NzSelectModule,
     NzFormModule,
     NzIconModule.forRoot(icons),
-    NzPopconfirmModule
+    NzPopconfirmModule,
   ],
   exports: [
     NzPopconfirmModule,
@@ -44,4 +44,4 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     NzIconModule,
   ],
 })
-export class NzDesignModule { }
+export class NzDesignModule {}
