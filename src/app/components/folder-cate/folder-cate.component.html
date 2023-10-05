@@ -1,13 +1,17 @@
-<div class="card" [class]="smallSize?'smallSize' : ''">
+<div class="card" [class]="smallSize ? 'smallSize' : ''">
   <div class="none">
-    <app-none *ngIf="folders.length===0"></app-none>
+    <app-none *ngIf="folders.length === 0"></app-none>
   </div>
-  <div class="has" *ngIf="folders.length!==0">
-    <div class="title"><span nz-icon nzType="folder" nzTheme="outline"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>分类:</span>
+  <div class="has" *ngIf="folders.length !== 0">
+    <div class="title">
+      <span nz-icon nzType="folder" nzTheme="outline"></span>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <span>分类:</span>
     </div>
     <div class="folder">
       <div class="item" *ngFor="let item of folders">
-        <span nz-icon nzType="folder" nzTheme="fill"></span><span>{{item.folderName}}</span>
+        <span nz-icon nzType="folder" nzTheme="fill"></span>
+        <span>{{ item.folderName }}</span>
       </div>
     </div>
   </div>

@@ -13,12 +13,12 @@ export class InfoComponent implements OnInit {
   @Input()
   showInfo!: boolean;
   @Input()
-  smallSize = false
+  smallSize = false;
   articleInfoList: articleInfo[] = []; //文章列表
   constructor(
     private homeService: HomeService,
     private router: Router,
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.homeService
       .getArticleInfo()

@@ -8,7 +8,7 @@ describe('DateCateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DateCateComponent]
+      declarations: [DateCateComponent],
     });
     fixture = TestBed.createComponent(DateCateComponent);
     component = fixture.componentInstance;

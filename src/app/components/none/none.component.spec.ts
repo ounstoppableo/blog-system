@@ -8,7 +8,7 @@ describe('NoneComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NoneComponent]
+      declarations: [NoneComponent],
     });
     fixture = TestBed.createComponent(NoneComponent);
     component = fixture.componentInstance;

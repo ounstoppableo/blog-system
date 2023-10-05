@@ -14,7 +14,7 @@ export class LoginComponent {
   constructor(
     private ls: LoginService,
     private message: NzMessageService,
-    private location:Location
+    private location: Location,
   ) {}
   loginInfo = new FormGroup({
     username: new FormControl('', Validators.required),

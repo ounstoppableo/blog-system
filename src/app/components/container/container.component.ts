@@ -15,18 +15,19 @@ export class ContainerComponent {
   @Input()
   updateArticleModal!: AddArticleFormComponent;
   @Input()
-  dateCate = false
+  dateCate = false;
   @Input()
   isHome = false;
   @Input()
-  isArticle = false
+  isArticle = false;
   @Input()
-  folderCate = false
+  folderCate = false;
   @Input()
-  tagCate = false
+  tagCate = false;
   @Input()
-  tagPage = false
+  tagPage = false;
+  @Input()
+  folderPage = false
 
   constructor(private routes: ActivatedRoute) { }
-
 }

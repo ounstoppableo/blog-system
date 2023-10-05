@@ -6,27 +6,26 @@ import { Component, ViewChild } from '@angular/core';
 @Component({
   selector: 'app-tag-cate',
   templateUrl: './tag-cate.component.html',
-  styleUrls: ['./tag-cate.component.scss']
+  styleUrls: ['./tag-cate.component.scss'],
 })
 export class TagCateComponent {
-  smallSize = false
-  headerChangeHeight = 0
+  smallSize = false;
+  headerChangeHeight = 0;
   @ViewChild('addArticleForm')
-  addArticleForm!: AddArticleFormComponent
+  addArticleForm!: AddArticleFormComponent;
   @ViewChild('drawer')
-  drawer!: DrawerComponent
+  drawer!: DrawerComponent;
   open() {
-    this.drawer.open()
+    this.drawer.open();
   }
   showUploadModal() {
-    this.addArticleForm.showUploadModal()
+    this.addArticleForm.showUploadModal();
   }
 
   @ViewResize()
-  ngOnInit(): void { }
+  ngOnInit(): void {}
   @ViewResize()
-  ngAfterViewInit(): void { }
+  ngAfterViewInit(): void {}
   @ViewResize()
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 }

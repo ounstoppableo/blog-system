@@ -15,7 +15,10 @@ export class UserinfoComponent implements OnInit {
   tagsNum = 0; //tag数
   @Input()
   isSmall!: boolean;
-  constructor(private homeService: HomeService,private router:Router) {}
+  constructor(
+    private homeService: HomeService,
+    private router: Router,
+  ) {}
   ngOnInit(): void {
     this.homeService
       .getArticleInfo()
@@ -31,13 +34,13 @@ export class UserinfoComponent implements OnInit {
       if (res.code === 200) this.tagsNum = res.data!.length;
     });
   }
-  toDateCate(){
-    this.router.navigate(['/dateCate'])
+  toDateCate() {
+    this.router.navigate(['/dateCate']);
   }
-  tofolderCate(){
-    this.router.navigate(['/category'])
+  tofolderCate() {
+    this.router.navigate(['/category']);
   }
-  toTagsCate(){
-    this.router.navigate(['/tagCate'])
+  toTagsCate() {
+    this.router.navigate(['/tagCate']);
   }
 }

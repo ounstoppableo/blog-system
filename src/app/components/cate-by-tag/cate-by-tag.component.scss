@@ -5,8 +5,8 @@
   border-radius: 20px;
   overflow: hidden;
   color: var(--defaultFontColor);
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  &>.none {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  & > .none {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +16,7 @@
     width: 100vw;
   }
 
-  &>.has {
+  & > .has {
     padding: 30px;
     font-size: 16px;
     display: flex;

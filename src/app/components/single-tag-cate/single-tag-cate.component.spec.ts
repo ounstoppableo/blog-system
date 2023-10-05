@@ -8,7 +8,7 @@ describe('SingleTagCateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SingleTagCateComponent]
+      declarations: [SingleTagCateComponent],
     });
     fixture = TestBed.createComponent(SingleTagCateComponent);
     component = fixture.componentInstance;

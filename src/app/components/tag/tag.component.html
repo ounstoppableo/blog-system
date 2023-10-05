@@ -1,5 +1,9 @@
-<div class="tagSpace" [style]="{'gap': gap+'px'}">
-  <span class="tag" *ngFor="let tag of tagList" [ngStyle]="{ 'background-color': tag.tagColor }">
+<div class="tagSpace" [style]="{ gap: gap + 'px' }">
+  <span
+    class="tag"
+    *ngFor="let tag of tagList"
+    [ngStyle]="{ 'background-color': tag.tagColor }"
+  >
     {{ tag.tagName }}
   </span>
 </div>

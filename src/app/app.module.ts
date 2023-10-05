@@ -30,6 +30,8 @@ import { TagCateComponent } from './view/tag-cate/tag-cate.component';
 import { CateByTagComponent } from './components/cate-by-tag/cate-by-tag.component';
 import { TagPageComponent } from './view/tag-page/tag-page.component';
 import { SingleTagCateComponent } from './components/single-tag-cate/single-tag-cate.component';
+import { FolderPageComponent } from './view/folder-page/folder-page.component';
+import { SingleFolderCateComponent } from './components/single-folder-cate/single-folder-cate.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { SingleTagCateComponent } from './components/single-tag-cate/single-tag-
     CateByTagComponent,
     TagPageComponent,
     SingleTagCateComponent,
+    FolderPageComponent,
+    SingleFolderCateComponent,
   ],
   imports: [
     BrowserModule,

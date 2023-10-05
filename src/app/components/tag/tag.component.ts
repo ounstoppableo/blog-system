@@ -9,5 +9,5 @@ export class TagComponent {
   @Input()
   tagList!: any[];
   @Input()
-  gap = 5
+  gap = 5;
 }
