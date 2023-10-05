@@ -1,20 +1,26 @@
 @import '../../../assets/mixin.scss';
 
 .cardContainerRight {
-  min-width: 300px;
-  max-width: 300px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   gap: 30px;
 
-  & > .card {
+  &.smallSize {
+    width: 90vw;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+
+  &>.card {
     background-color: #fff;
     border-radius: 20px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 
     .title {
       padding: 25px;
 
-      & > p {
+      &>p {
         font-size: 18px;
         display: flex;
         align-items: center;
@@ -22,37 +28,32 @@
         margin-bottom: 10px;
       }
 
-      & > .container {
-        & > .none {
-          text-align: center;
-          font-size: 16px;
-          color: #888;
-        }
+      &>.container {
 
-        & > .has {
+        &>.has {
           display: flex;
           flex-direction: column;
           gap: 10px;
 
-          & > .item {
+          &>.item {
             height: 60px;
             display: flex;
             gap: 10px;
             align-items: center;
 
-            & > img {
+            &>img {
               width: 60px;
               height: 100%;
               object-fit: cover;
             }
 
-            & > .text {
+            &>.text {
               flex: 1;
               display: flex;
               color: #888;
               flex-direction: column;
 
-              & > .theme {
+              &>.theme {
                 width: fit-content;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -63,7 +64,7 @@
                 @include borderAnime;
               }
 
-              & > .date {
+              &>.date {
                 color: #aaa;
                 cursor: pointer;
               }
@@ -76,7 +77,7 @@
     .announce {
       padding: 25px;
 
-      & > p {
+      &>p {
         font-size: 18px;
         display: flex;
         align-items: center;
@@ -84,13 +85,9 @@
         margin-bottom: 10px;
       }
 
-      & > .container {
-        & > .none {
-          text-align: center;
-          font-size: 16px;
-          color: #888;
-        }
-      }
+      // & > .container {
+
+      // }
     }
   }
 }

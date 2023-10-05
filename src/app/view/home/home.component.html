@@ -1,12 +1,8 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="root" #root>
-  <app-header
-    [showFolderIcon]="smallSize"
-    [scrollTarget]="headerChangeHeight"
-    (drawerOpen)="open()"
-    (upload)="showUploadModal()"
-  ></app-header>
+  <app-header [showFolderIcon]="smallSize" [scrollTarget]="headerChangeHeight" (drawerOpen)="open()"
+    (upload)="showUploadModal()"></app-header>
   <div class="body" [class]="smallSize ? 'smallSize' : ''">
     <div>
       <h1 [class]="smallSize ? 'smallSize' : ''">Unstoppable840的小站</h1>
@@ -15,10 +11,7 @@
       </p>
     </div>
     <ul class="itembox" [class]="smallSize ? 'smallSize' : 'normal'">
-      <li
-        *ngFor="let item of folderCategory"
-        [class]="smallSize ? 'smallSize' : ''"
-      >
+      <li *ngFor="let item of folderCategory" [class]="smallSize ? 'smallSize' : ''">
         <span>{{ item.folderName }}</span>
       </li>
     </ul>
@@ -29,11 +22,8 @@
   </div>
 </div>
 <div class="container">
-  <app-container
-    [updateArticleModal]="addArticleForm"
-    [showInfo]="!smallSize"
-    [smallSize]="smallSize"
-  ></app-container>
+  <app-container [isHome]="true" [updateArticleModal]="addArticleForm" [showInfo]="!smallSize"
+    [smallSize]="smallSize"></app-container>
 </div>
 <app-footer></app-footer>
 <app-add-article-form #addArticleForm></app-add-article-form>

@@ -1,0 +1,29 @@
+.card {
+  position: relative;
+  background-color: #fff;
+  width: calc(80vw - 350px);
+  border-radius: 20px;
+  overflow: hidden;
+  color: var(--defaultFontColor);
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  &>.none {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.smallSize {
+    width: 100vw;
+  }
+
+  &>.has {
+    padding: 30px;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .tags {
+      padding-left: 30px;
+    }
+  }
+}

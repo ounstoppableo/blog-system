@@ -8,4 +8,6 @@ import { Component, Input } from '@angular/core';
 export class TagComponent {
   @Input()
   tagList!: any[];
+  @Input()
+  gap = 5
 }

@@ -1,0 +1,9 @@
+<app-header [defaultShow]="true" [showFolderIcon]="smallSize" [scrollTarget]="headerChangeHeight" (drawerOpen)="open()"
+  (upload)="showUploadModal()"></app-header>
+<div class="body">
+  <app-container [tagCate]="true" [showInfo]="!smallSize" [smallSize]="smallSize"></app-container>
+</div>
+<app-info [showInfo]="smallSize" [smallSize]="true"></app-info>
+<app-add-article-form #addArticleForm></app-add-article-form>
+<app-drawer #drawer></app-drawer>
+<app-footer></app-footer>

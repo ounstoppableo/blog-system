@@ -21,6 +21,15 @@ import { TagComponent } from './components/tag/tag.component';
 import { MarkedPipe } from './pipe/marked.pipe';
 import { DrawerComponent } from './components/drawer/drawer.component';
 import { AddArticleFormComponent } from './components/add-article-form/add-article-form.component';
+import { NoneComponent } from './components/none/none.component';
+import { DateCateComponent } from './view/date-cate/date-cate.component';
+import { CateByDateComponent } from './components/cate-by-date/cate-by-date.component';
+import { FolderCateComponent } from './components/folder-cate/folder-cate.component';
+import { CategoryComponent } from './view/category/category.component';
+import { TagCateComponent } from './view/tag-cate/tag-cate.component';
+import { CateByTagComponent } from './components/cate-by-tag/cate-by-tag.component';
+import { TagPageComponent } from './view/tag-page/tag-page.component';
+import { SingleTagCateComponent } from './components/single-tag-cate/single-tag-cate.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +48,15 @@ import { AddArticleFormComponent } from './components/add-article-form/add-artic
     MarkedPipe,
     DrawerComponent,
     AddArticleFormComponent,
+    NoneComponent,
+    DateCateComponent,
+    CateByDateComponent,
+    FolderCateComponent,
+    CategoryComponent,
+    TagCateComponent,
+    CateByTagComponent,
+    TagPageComponent,
+    SingleTagCateComponent,
   ],
   imports: [
     BrowserModule,

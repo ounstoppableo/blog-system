@@ -1,6 +1,6 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
-<div class="cardContainerRight" *ngIf="showInfo">
+<div class="cardContainerRight" *ngIf="showInfo" [class]="smallSize? 'smallSize' : ''">
   <div class="card">
     <app-userinfo [isSmall]="false"></app-userinfo>
   </div>
@@ -12,15 +12,9 @@
           <span>最新发布</span>
         </p>
         <div class="container">
-          <div class="none" *ngIf="articleInfoList.length === 0">
-            什么都没有哦~
-          </div>
+          <app-none *ngIf="articleInfoList.length === 0"></app-none>
           <div class="has" *ngIf="articleInfoList.length !== 0">
-            <div
-              class="item"
-              *ngFor="let item of articleInfoList.slice(0, 6)"
-              (click)="toArticle(item.articleId)"
-            >
+            <div class="item" *ngFor="let item of articleInfoList.slice(0, 6)" (click)="toArticle(item.articleId)">
               <img [src]="item.backImgUrl" alt="" />
               <div class="text">
                 <span class="theme" [title]="item.title">
@@ -41,7 +35,7 @@
         <span>公告</span>
       </p>
       <div class="container">
-        <div class="none" *ngIf="true">什么都没有哦~</div>
+        <app-none></app-none>
         <div class="has">
           <div class="item"></div>
         </div>

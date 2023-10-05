@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '@/app/service/login';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import sha256 from 'crypto-js/sha256';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ export class LoginComponent {
   constructor(
     private ls: LoginService,
     private message: NzMessageService,
-    private router: Router,
+    private location:Location
   ) {}
   loginInfo = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -54,7 +54,7 @@ export class LoginComponent {
       .subscribe((res: any) => {
         if (res.code !== 200) return this.message.warning('用户名或密码错误!');
         localStorage.setItem('token', res.token);
-        return this.router.navigate(['/home']);
+        return this.location.back();
       });
   }
 }

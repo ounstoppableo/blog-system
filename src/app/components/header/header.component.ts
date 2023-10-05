@@ -22,6 +22,8 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   originScrollY = 0;
   scrollDerection = 'down';
   isLogin = false;
+  @Input()
+  defaultShow = false
   @ViewChild('container')
   container!: ElementRef;
   @Input()
@@ -37,7 +39,7 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
     private router: Router,
     private routes: ActivatedRoute,
     private ls: LoginService,
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: resType<any>) => {
@@ -53,6 +55,10 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   }
   ngAfterViewInit(): void {
     this.onScroll();
+    if (this.defaultShow) {
+      this.container.nativeElement.classList.add('active');
+      this.container.nativeElement.classList.remove('hidden');
+    }
   }
 
   //监控滚动事件

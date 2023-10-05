@@ -1,3 +1,5 @@
 <div class="card" [class]="smallSize ? 'smallSize' : ''">
-  <div [innerHTML]="article | marked" id="write"></div>
+  <app-none></app-none>
+  <div *ngIf="article" [innerHTML]="article | marked" id="write">
+  </div>
 </div>

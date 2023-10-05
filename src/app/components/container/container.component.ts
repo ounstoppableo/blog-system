@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 
@@ -7,16 +7,26 @@ import { AddArticleFormComponent } from '../add-article-form/add-article-form.co
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss'],
 })
-export class ContainerComponent implements OnInit {
-  isHome!: boolean;
+export class ContainerComponent {
   @Input()
   showInfo!: boolean;
   @Input()
   smallSize!: boolean;
   @Input()
   updateArticleModal!: AddArticleFormComponent;
-  constructor(private routes: ActivatedRoute) {}
-  ngOnInit(): void {
-    this.isHome = this.routes.routeConfig?.path?.includes('home') || false;
-  }
+  @Input()
+  dateCate = false
+  @Input()
+  isHome = false;
+  @Input()
+  isArticle = false
+  @Input()
+  folderCate = false
+  @Input()
+  tagCate = false
+  @Input()
+  tagPage = false
+
+  constructor(private routes: ActivatedRoute) { }
+
 }
