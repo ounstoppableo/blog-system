@@ -1,4 +1,4 @@
 <div class="card" [class]="smallSize ? 'smallSize' : ''">
-  <app-none></app-none>
+  <app-none *ngIf="!article"></app-none>
   <div *ngIf="article" [innerHTML]="article | marked" id="write"></div>
 </div>
