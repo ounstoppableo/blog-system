@@ -267,8 +267,11 @@ export class CustomReuseStrategt implements RouteReuseStrategy {
 - [x] 登录功能
 - [x] 上传文件
 - [x] tags上传
-- [ ] 搜索功能
-- [ ] tag标签分类功能
-- [ ] 文档分类功能
+- [x] 搜索功能
+- [x] tag标签分类功能
+- [x] 文档分类功能
 - [ ] 留言板功能
 - [x] 更新/删除文章
+- [ ] 懒加载动画效果
+- [ ] 懒加载
+- [ ] 暗黑模式
