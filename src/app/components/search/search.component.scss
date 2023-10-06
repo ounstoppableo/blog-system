@@ -2,7 +2,7 @@
   width: calc(80vw - 350px);
   padding-top: 30px;
 
-  &>h1 {
+  & > h1 {
     font-size: 14px;
     font-weight: 300;
     margin-bottom: 20px;
@@ -22,7 +22,7 @@
     width: 100vw;
   }
 
-  &>.footer {
+  & > .footer {
     display: flex;
     flex-direction: column;
     gap: 30px;

@@ -1,6 +1,12 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="tagSpace" [style]="{ gap: gap + 'px' }">
-  <span class="tag" *ngFor="let tag of tagList" [ngStyle]="{ 'background-color': tag.tagColor }"
-    (click)="toSingleTag(tag.tagName)">
-    {{ tag.showWord ||tag.tagName }}
+  <span
+    class="tag"
+    *ngFor="let tag of tagList"
+    [ngStyle]="{ 'background-color': tag.tagColor }"
+    (click)="toSingleTag(tag.tagName)"
+  >
+    {{ tag.showWord || tag.tagName }}
   </span>
 </div>

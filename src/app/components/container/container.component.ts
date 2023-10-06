@@ -11,7 +11,7 @@ import { resType } from '@/types/response/response';
   styleUrls: ['./container.component.scss'],
 })
 export class ContainerComponent implements OnInit {
-  articleInfoList: articleInfo[] = []
+  articleInfoList: articleInfo[] = [];
   @Input()
   showInfo!: boolean;
   @Input()
@@ -33,14 +33,20 @@ export class ContainerComponent implements OnInit {
   @Input()
   folderPage = false;
   @Input()
-  search = false
+  search = false;
 
-  constructor(private routes: ActivatedRoute, private homeService: HomeService) { }
+  constructor(
+    private routes: ActivatedRoute,
+    private homeService: HomeService,
+  ) {}
   ngOnInit() {
     if (this.isHome) {
-      this.homeService.getArticleInfo().subscribe((res: resType<articleInfo[]>) => {
-        if (res.code === 200) this.articleInfoList = res.data as articleInfo[]
-      })
+      this.homeService
+        .getArticleInfo()
+        .subscribe((res: resType<articleInfo[]>) => {
+          if (res.code === 200)
+            this.articleInfoList = res.data as articleInfo[];
+        });
     }
   }
 }

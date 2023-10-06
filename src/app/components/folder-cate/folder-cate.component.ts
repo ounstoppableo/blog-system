@@ -13,13 +13,18 @@ export class FolderCateComponent implements OnInit {
   @Input()
   smallSize!: boolean;
   folders: articleInFolderCount[] = [];
-  constructor(private categoryService: CategoryService, private router: Router) { }
+  constructor(
+    private categoryService: CategoryService,
+    private router: Router,
+  ) {}
   ngOnInit(): void {
-    this.categoryService.getArticleInFolderCount().subscribe((res: resType<any>) => {
-      if (res.code === 200) this.folders = res.data as articleInFolderCount[];
-    });
+    this.categoryService
+      .getArticleInFolderCount()
+      .subscribe((res: resType<any>) => {
+        if (res.code === 200) this.folders = res.data as articleInFolderCount[];
+      });
   }
   toSingleFolderCate(folderId: number) {
-    this.router.navigate(['folderPage', folderId])
+    this.router.navigate(['folderPage', folderId]);
   }
 }

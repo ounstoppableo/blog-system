@@ -6,12 +6,14 @@
   </div>
   <div class="has">
     <div class="dateSpace" *ngFor="let item of dateCategory">
-      <div class="date">{{item.dateCate}}</div>
+      <div class="date">{{ item.dateCate }}</div>
       <div class="articleSpace">
         <div class="item" *ngFor="let articleInfo of item.articleInfos">
-          <span class="day">{{articleInfo.lastModifyTime.slice(0,10)}}</span>
+          <span class="day">{{ articleInfo.lastModifyTime.slice(0, 10) }}</span>
           &nbsp;&nbsp;
-          <span class="title" (click)="toArticle(articleInfo.articleId)">{{articleInfo.title}}</span>
+          <span class="title" (click)="toArticle(articleInfo.articleId)">
+            {{ articleInfo.title }}
+          </span>
         </div>
       </div>
     </div>

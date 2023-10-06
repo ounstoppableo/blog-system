@@ -13,27 +13,38 @@ import { Router } from '@angular/router';
 export class CateByDateComponent implements OnInit {
   @Input()
   smallSize = false;
-  dateCategory: dateCaterory[] = []
-  constructor(private catecogyService: CategoryService, private router: Router) { }
+  dateCategory: dateCaterory[] = [];
+  constructor(
+    private catecogyService: CategoryService,
+    private router: Router,
+  ) {}
   ngOnInit(): void {
-    this.getDateCategoty()
+    this.getDateCategoty();
   }
   getDateCategoty() {
-    this.catecogyService.getAllArticleInfo().subscribe((res: resType<articleInfo[]>) => {
-      if (res.code === 200) {
-        const dateCate = Array.from(new Set((res.data as articleInfo[]).map((item: articleInfo) => {
-          return item.lastModifyTime.slice(0, 7)
-        })))
-        dateCate.forEach(dateCateItem => {
-          this.dateCategory.push({
-            dateCate: dateCateItem,
-            articleInfos: (res.data as articleInfo[]).filter(item => item.lastModifyTime.includes(dateCateItem))
-          })
-        })
-      }
-    })
+    this.catecogyService
+      .getAllArticleInfo()
+      .subscribe((res: resType<articleInfo[]>) => {
+        if (res.code === 200) {
+          const dateCate = Array.from(
+            new Set(
+              (res.data as articleInfo[]).map((item: articleInfo) => {
+                return item.lastModifyTime.slice(0, 7);
+              }),
+            ),
+          );
+          dateCate.forEach((dateCateItem) => {
+            this.dateCategory.push({
+              dateCate: dateCateItem,
+              articleInfos: (res.data as articleInfo[]).filter((item) =>
+                item.lastModifyTime.includes(dateCateItem),
+              ),
+            });
+          });
+        }
+      });
   }
   toArticle(articleId: string) {
-    this.router.navigate(['article', articleId])
+    this.router.navigate(['article', articleId]);
   }
 }

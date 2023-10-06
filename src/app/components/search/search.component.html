@@ -1,7 +1,18 @@
-<div class="container" [class]="smallSize?'smallSize' : ''">
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<div class="container" [class]="smallSize ? 'smallSize' : ''">
   <h1>
     <span>&nbsp;&nbsp;搜索文章</span>
-    <span><span nz-icon nzType="search" nzTheme="outline" class="icon" (click)="goHome()"></span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span>
+      <span
+        nz-icon
+        nzType="search"
+        nzTheme="outline"
+        class="icon"
+        (click)="goHome()"
+      ></span>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    </span>
   </h1>
   <div class="footer">
     <app-folder-cate [smallSize]="smallSize"></app-folder-cate>

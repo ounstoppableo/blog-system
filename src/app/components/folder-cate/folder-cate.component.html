@@ -11,9 +11,13 @@
       <span>分类:</span>
     </div>
     <div class="folder">
-      <div class="item" *ngFor="let item of folders" (click)="toSingleFolderCate(item.folderId)">
+      <div
+        class="item"
+        *ngFor="let item of folders"
+        (click)="toSingleFolderCate(item.folderId)"
+      >
         <span nz-icon nzType="folder" nzTheme="fill"></span>
-        <span>{{ item.folderName }}({{item.count}})</span>
+        <span>{{ item.folderName }}({{ item.count }})</span>
       </div>
     </div>
   </div>

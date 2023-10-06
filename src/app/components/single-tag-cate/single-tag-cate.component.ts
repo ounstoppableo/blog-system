@@ -15,15 +15,23 @@ export class SingleTagCateComponent implements OnInit {
   @Input()
   smallSize!: boolean;
   @Input()
-  updateArticleModal!: AddArticleFormComponent
-  singleTagMapArticleInfos: singleTagMapArticleInfos = {} as singleTagMapArticleInfos
-  constructor(private categoryService: CategoryService, private route: ActivatedRoute) { }
+  updateArticleModal!: AddArticleFormComponent;
+  singleTagMapArticleInfos: singleTagMapArticleInfos =
+    {} as singleTagMapArticleInfos;
+  constructor(
+    private categoryService: CategoryService,
+    private route: ActivatedRoute,
+  ) {}
   ngOnInit(): void {
     this.route.params.subscribe((param) => {
-      this.singleTagMapArticleInfos.tagName = param['tagName']
-    })
-    this.categoryService.getSingleTagMapArticleInfos(this.singleTagMapArticleInfos.tagName).subscribe((res: resType<singleTagMapArticleInfos>) => {
-      if (res.code === 200) this.singleTagMapArticleInfos.articleInfos = res.data?.articleInfos as articleInfo[]
-    })
+      this.singleTagMapArticleInfos.tagName = param['tagName'];
+    });
+    this.categoryService
+      .getSingleTagMapArticleInfos(this.singleTagMapArticleInfos.tagName)
+      .subscribe((res: resType<singleTagMapArticleInfos>) => {
+        if (res.code === 200)
+          this.singleTagMapArticleInfos.articleInfos = res.data
+            ?.articleInfos as articleInfo[];
+      });
   }
 }

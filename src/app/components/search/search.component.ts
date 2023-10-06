@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
   @Input()
   smallSize!: boolean;
-  constructor(private router:Router) { }
+  constructor(private router: Router) {}
   ngOnInit(): void {}
-  goHome(){
-    this.router.navigate(['home'])
+  goHome() {
+    this.router.navigate(['home']);
   }
 }
