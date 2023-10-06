@@ -1,7 +1,8 @@
-import { HomeService } from '@/app/service/home.service';
-import { folderItem } from '@/types/home/home';
+import { CategoryService } from '@/app/service/category.service';
+import { articleInFolderCount } from '@/types/category/category';
 import { resType } from '@/types/response/response';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-folder-cate',
@@ -11,11 +12,14 @@ import { Component, Input, OnInit } from '@angular/core';
 export class FolderCateComponent implements OnInit {
   @Input()
   smallSize!: boolean;
-  folders: folderItem[] = [];
-  constructor(private homeSevice: HomeService) {}
+  folders: articleInFolderCount[] = [];
+  constructor(private categoryService: CategoryService, private router: Router) { }
   ngOnInit(): void {
-    this.homeSevice.getFolderCategory().subscribe((res: resType<any>) => {
-      if (res.code === 200) this.folders = res.data as folderItem[];
+    this.categoryService.getArticleInFolderCount().subscribe((res: resType<any>) => {
+      if (res.code === 200) this.folders = res.data as articleInFolderCount[];
     });
+  }
+  toSingleFolderCate(folderId: number) {
+    this.router.navigate(['folderPage', folderId])
   }
 }

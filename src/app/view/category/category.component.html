@@ -1,16 +1,9 @@
-<app-header
-  [defaultShow]="true"
-  [showFolderIcon]="smallSize"
-  [scrollTarget]="headerChangeHeight"
-  (drawerOpen)="open()"
-  (upload)="showUploadModal()"
-></app-header>
+<app-header [defaultShow]="true" [showFolderIcon]="smallSize" [scrollTarget]="headerChangeHeight" (drawerOpen)="open()"
+  (upload)="showUploadModal()"></app-header>
 <div class="body">
-  <app-container
-    [folderCate]="true"
-    [showInfo]="!smallSize"
-    [smallSize]="smallSize"
-  ></app-container>
+  <app-container [search]="search" [folderCate]="category" [dateCate]="dateCate" [tagCate]="tagCate" [tagPage]="tagPage"
+    [folderPage]="folderPage" [showInfo]="!smallSize" [smallSize]="smallSize"
+    [updateArticleModal]="addArticleForm"></app-container>
 </div>
 <app-info [showInfo]="smallSize" [smallSize]="true"></app-info>
 <app-add-article-form #addArticleForm></app-add-article-form>

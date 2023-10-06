@@ -14,6 +14,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class OverviewComponent implements OnInit {
   isLogin = false;
+  @Input()
   articleInfoList: articleInfo[] = [];
   @Input()
   smallSize!: boolean;
@@ -25,13 +26,8 @@ export class OverviewComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) {}
+  ) { }
   ngOnInit(): void {
-    this.homeService
-      .getArticleInfo()
-      .subscribe((res: resType<articleInfo[]>) => {
-        if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
-      });
     if (localStorage.getItem('token')) {
       this.loginService.getUserInfo().subscribe((res) => {
         if (res.code === 200) this.isLogin = true;

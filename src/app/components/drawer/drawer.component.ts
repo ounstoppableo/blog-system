@@ -16,6 +16,9 @@ export class DrawerComponent {
   close() {
     this.drawerVisible = false;
   }
+  goSearch(){
+    this.router.navigate(['search'])
+  }
   constructor(
     private router: Router,
     private routes: ActivatedRoute,

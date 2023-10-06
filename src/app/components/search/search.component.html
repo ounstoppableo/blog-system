@@ -1,0 +1,10 @@
+<div class="container" [class]="smallSize?'smallSize' : ''">
+  <h1>
+    <span>&nbsp;&nbsp;搜索文章</span>
+    <span><span nz-icon nzType="search" nzTheme="outline" class="icon" (click)="goHome()"></span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </h1>
+  <div class="footer">
+    <app-folder-cate [smallSize]="smallSize"></app-folder-cate>
+    <app-cate-by-tag [smallSize]="smallSize"></app-cate-by-tag>
+  </div>
+</div>

@@ -22,16 +22,13 @@ import { MarkedPipe } from './pipe/marked.pipe';
 import { DrawerComponent } from './components/drawer/drawer.component';
 import { AddArticleFormComponent } from './components/add-article-form/add-article-form.component';
 import { NoneComponent } from './components/none/none.component';
-import { DateCateComponent } from './view/date-cate/date-cate.component';
 import { CateByDateComponent } from './components/cate-by-date/cate-by-date.component';
 import { FolderCateComponent } from './components/folder-cate/folder-cate.component';
 import { CategoryComponent } from './view/category/category.component';
-import { TagCateComponent } from './view/tag-cate/tag-cate.component';
 import { CateByTagComponent } from './components/cate-by-tag/cate-by-tag.component';
-import { TagPageComponent } from './view/tag-page/tag-page.component';
 import { SingleTagCateComponent } from './components/single-tag-cate/single-tag-cate.component';
-import { FolderPageComponent } from './view/folder-page/folder-page.component';
 import { SingleFolderCateComponent } from './components/single-folder-cate/single-folder-cate.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -51,16 +48,13 @@ import { SingleFolderCateComponent } from './components/single-folder-cate/singl
     DrawerComponent,
     AddArticleFormComponent,
     NoneComponent,
-    DateCateComponent,
     CateByDateComponent,
     FolderCateComponent,
     CategoryComponent,
-    TagCateComponent,
     CateByTagComponent,
-    TagPageComponent,
     SingleTagCateComponent,
-    FolderPageComponent,
     SingleFolderCateComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

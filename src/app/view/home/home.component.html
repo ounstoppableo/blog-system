@@ -18,6 +18,7 @@
       <li
         *ngFor="let item of folderCategory"
         [class]="smallSize ? 'smallSize' : ''"
+        (click)="goSingleFolder(item.folderId)"
       >
         <span>{{ item.folderName }}</span>
       </li>

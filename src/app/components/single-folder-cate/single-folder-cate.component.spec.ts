@@ -8,7 +8,7 @@ describe('SingleFolderCateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SingleFolderCateComponent]
+      declarations: [SingleFolderCateComponent],
     });
     fixture = TestBed.createComponent(SingleFolderCateComponent);
     component = fixture.componentInstance;

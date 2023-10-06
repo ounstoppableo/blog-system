@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TagPageComponent } from './tag-page.component';
+import { SearchComponent } from './search.component';
 
-describe('TagPageComponent', () => {
-  let component: TagPageComponent;
-  let fixture: ComponentFixture<TagPageComponent>;
+describe('SearchComponent', () => {
+  let component: SearchComponent;
+  let fixture: ComponentFixture<SearchComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TagPageComponent],
+      declarations: [SearchComponent]
     });
-    fixture = TestBed.createComponent(TagPageComponent);
+    fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

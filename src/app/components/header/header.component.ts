@@ -39,7 +39,7 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
     private router: Router,
     private routes: ActivatedRoute,
     private ls: LoginService,
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: resType<any>) => {
@@ -60,7 +60,10 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
       this.container.nativeElement.classList.remove('hidden');
     }
   }
-
+  //去搜索页面
+  goSearch() {
+    this.router.navigate(['search'])
+  }
   //监控滚动事件
   onScroll() {
     window.onscroll = () => {

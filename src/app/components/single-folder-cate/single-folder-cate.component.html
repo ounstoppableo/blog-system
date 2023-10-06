@@ -1,4 +1,12 @@
-<div class="container">
-  <h1><span nz-icon nzType="folder-open" nzTheme="fill"></span>&nbsp;&nbsp;虚拟卡片</h1>
-  <app-overview></app-overview>
+<div class="container" [class]="smallSize?'smallSize' : ''">
+  <h1>
+    <span nz-icon nzType="folder-open" nzTheme="fill"></span>
+    &nbsp;&nbsp;{{singleFolderMapArticleInfos.folderName}}
+  </h1>
+  <div class="none" *ngIf="singleFolderMapArticleInfos.articleInfos.length===0">
+    <app-none></app-none>
+  </div>
+  <app-overview *ngIf="singleFolderMapArticleInfos.articleInfos.length!==0"
+    [articleInfoList]="singleFolderMapArticleInfos.articleInfos" [updateArticleModal]="updateArticleModal"
+    [smallSize]="smallSize"></app-overview>
 </div>

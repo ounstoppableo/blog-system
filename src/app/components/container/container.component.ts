@@ -1,13 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
+import { articleInfo } from '@/types/overview/overview';
+import { HomeService } from '@/app/service/home.service';
+import { resType } from '@/types/response/response';
 
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss'],
 })
-export class ContainerComponent {
+export class ContainerComponent implements OnInit {
+  articleInfoList: articleInfo[] = []
   @Input()
   showInfo!: boolean;
   @Input()
@@ -27,7 +31,16 @@ export class ContainerComponent {
   @Input()
   tagPage = false;
   @Input()
-  folderPage = false
+  folderPage = false;
+  @Input()
+  search = false
 
-  constructor(private routes: ActivatedRoute) { }
+  constructor(private routes: ActivatedRoute, private homeService: HomeService) { }
+  ngOnInit() {
+    if (this.isHome) {
+      this.homeService.getArticleInfo().subscribe((res: resType<articleInfo[]>) => {
+        if (res.code === 200) this.articleInfoList = res.data as articleInfo[]
+      })
+    }
+  }
 }

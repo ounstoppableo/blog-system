@@ -1,45 +1,17 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="card" [class]="smallSize ? 'smallSize' : ''">
   <div class="none">
     <app-none *ngIf="false"></app-none>
   </div>
   <div class="has">
-    <div class="dateSpace">
-      <div class="date">2023-09</div>
+    <div class="dateSpace" *ngFor="let item of dateCategory">
+      <div class="date">{{item.dateCate}}</div>
       <div class="articleSpace">
-        <div class="item">
-          <span class="day">2023-09-16</span>
+        <div class="item" *ngFor="let articleInfo of item.articleInfos">
+          <span class="day">{{articleInfo.lastModifyTime.slice(0,10)}}</span>
           &nbsp;&nbsp;
-          <span class="title">2023注册Oldubil土耳其钱包</span>
-        </div>
-        <div class="item">
-          <span class="day">2023-09-16</span>
-          &nbsp;&nbsp;
-          <span class="title">2023注册Oldubil土耳其钱包</span>
-        </div>
-        <div class="item">
-          <span class="day">2023-09-16</span>
-          &nbsp;&nbsp;
-          <span class="title">2023注册Oldubil土耳其钱包</span>
-        </div>
-      </div>
-    </div>
-    <div class="dateSpace">
-      <div class="date">2023-09</div>
-      <div class="articleSpace">
-        <div class="item">
-          <span class="day">2023-09-16</span>
-          &nbsp;&nbsp;
-          <span class="title">2023注册Oldubil土耳其钱包</span>
-        </div>
-        <div class="item">
-          <span class="day">2023-09-16</span>
-          &nbsp;&nbsp;
-          <span class="title">2023注册Oldubil土耳其钱包</span>
-        </div>
-        <div class="item">
-          <span class="day">2023-09-16</span>
-          &nbsp;&nbsp;
-          <span class="title">2023注册Oldubil土耳其钱包</span>
+          <span class="title" (click)="toArticle(articleInfo.articleId)">{{articleInfo.title}}</span>
         </div>
       </div>
     </div>

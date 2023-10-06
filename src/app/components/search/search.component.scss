@@ -1,0 +1,30 @@
+.container {
+  width: calc(80vw - 350px);
+  padding-top: 30px;
+
+  &>h1 {
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #aaa;
+
+    & .icon {
+      font-size: 20px;
+      color: black;
+    }
+  }
+
+  &.smallSize {
+    width: 100vw;
+  }
+
+  &>.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+}

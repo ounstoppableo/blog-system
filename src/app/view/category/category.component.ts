@@ -2,6 +2,7 @@ import { AddArticleFormComponent } from '@/app/components/add-article-form/add-a
 import { DrawerComponent } from '@/app/components/drawer/drawer.component';
 import ViewResize from '@/app/decorators/viewResize';
 import { Component, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -15,6 +16,13 @@ export class CategoryComponent {
   addArticleForm!: AddArticleFormComponent;
   @ViewChild('drawer')
   drawer!: DrawerComponent;
+  dateCate = false
+  folderPage = false
+  tagCate = false
+  tagPage = false
+  category = false
+  search = false
+  constructor(private route: ActivatedRoute) { }
   open() {
     this.drawer.open();
   }
@@ -23,9 +31,14 @@ export class CategoryComponent {
   }
 
   @ViewResize()
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.url.subscribe(pathRes => {
+      type path = 'dateCate' | 'folderPage' | 'tagCate' | 'tagPage' | 'category'|'search';
+      this[pathRes[0].path as path] = true
+    })
+  }
   @ViewResize()
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
   @ViewResize()
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 }

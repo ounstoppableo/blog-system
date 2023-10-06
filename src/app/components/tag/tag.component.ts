@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tag',
@@ -10,4 +11,16 @@ export class TagComponent {
   tagList!: any[];
   @Input()
   gap = 5;
+  ngOnChanges(): void {
+    this.tagList.forEach(item => {
+      item.showWord = ''
+      if (item.count !== undefined) {
+        item.showWord = item.tagName + `(${item.count})`
+      }
+    })
+  }
+  toSingleTag(tagName: string) {
+    this.router.navigate(['tagPage', tagName])
+  }
+  constructor(private router: Router) { }
 }

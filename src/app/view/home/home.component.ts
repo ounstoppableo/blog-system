@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private router: Router,
     private homeService: HomeService,
-  ) {}
+  ) { }
   @ViewResize()
   ngOnInit(): void {
     this.homeService
@@ -104,6 +104,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   //抽屉相关方法
   open() {
     this.drawer.open();
+  }
+  //去单文件夹页
+  goSingleFolder(folderId: number) {
+    this.router.navigate(['folderPage', folderId])
   }
   @ViewResize()
   ngOnDestroy() {

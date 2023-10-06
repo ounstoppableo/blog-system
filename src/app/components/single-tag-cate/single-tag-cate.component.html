@@ -1,4 +1,8 @@
-<div class="container">
-  <h1>#虚拟卡片</h1>
-  <app-overview></app-overview>
+<div class="container" [class]="smallSize ? 'smallSize' : ''">
+  <h1>#{{singleTagMapArticleInfos.tagName}}</h1>
+  <div class="none" *ngIf="singleTagMapArticleInfos.articleInfos.length===0">
+    <app-none></app-none>
+  </div>
+  <app-overview *ngIf="singleTagMapArticleInfos.articleInfos.length!==0"
+    [articleInfoList]="singleTagMapArticleInfos.articleInfos" [updateArticleModal]="updateArticleModal" [smallSize]="smallSize"></app-overview>
 </div>

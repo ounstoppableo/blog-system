@@ -1,4 +1,4 @@
-import { HomeService } from '@/app/service/home.service';
+import { CategoryService } from '@/app/service/category.service';
 import { tag } from '@/types/home/home';
 import { resType } from '@/types/response/response';
 import { Component, Input, OnInit } from '@angular/core';
@@ -12,9 +12,9 @@ export class CateByTagComponent implements OnInit {
   @Input()
   smallSize!: boolean;
   tags: tag[] = [];
-  constructor(private homeService: HomeService) {}
+  constructor(private categoryService: CategoryService) { }
   ngOnInit(): void {
-    this.homeService.getTags().subscribe((res: resType<any>) => {
+    this.categoryService.getArticleInTagCount().subscribe((res: resType<any>) => {
       if (res.code === 200) this.tags = res.data;
     });
   }
