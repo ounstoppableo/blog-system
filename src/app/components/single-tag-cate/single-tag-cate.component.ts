@@ -18,20 +18,35 @@ export class SingleTagCateComponent implements OnInit {
   updateArticleModal!: AddArticleFormComponent;
   singleTagMapArticleInfos: singleTagMapArticleInfos =
     {} as singleTagMapArticleInfos;
+
+  page = 1
+  limit = 5
+  total = 0
+
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.route.params.subscribe((param) => {
       this.singleTagMapArticleInfos.tagName = param['tagName'];
+      this.getArticleInfo(this.page, this.limit)
     });
+
+  }
+  getArticleInfo(page: number, limit: number) {
     this.categoryService
-      .getSingleTagMapArticleInfos(this.singleTagMapArticleInfos.tagName)
+      .getSingleTagMapArticleInfos(this.singleTagMapArticleInfos.tagName, page, limit)
       .subscribe((res: resType<singleTagMapArticleInfos>) => {
-        if (res.code === 200)
-          this.singleTagMapArticleInfos.articleInfos = res.data
-            ?.articleInfos as articleInfo[];
+        if (res.code === 200) {
+          this.singleTagMapArticleInfos = res.data as singleTagMapArticleInfos
+          this.total = this.singleTagMapArticleInfos.total
+        }
       });
+  }
+
+  nextPage(page: number) {
+    this.page = page
+    this.getArticleInfo(this.page, this.limit)
   }
 }

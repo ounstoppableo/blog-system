@@ -16,19 +16,33 @@ export class SingleFolderCateComponent implements OnInit {
   updateArticleModal!: AddArticleFormComponent;
   singleFolderMapArticleInfos: singleFolderMapArticleInfos =
     {} as singleFolderMapArticleInfos;
+
+  page = 1
+  limit = 5
+  total = 0
+
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-  ) {}
+  ) { }
   ngOnInit(): void {
+    this.getArticleInfos(this.page, this.limit)
+  }
+  getArticleInfos(page: number, limit: number) {
     this.route.params.subscribe((param) => {
       this.categoryService
-        .getSingleFolderMapArticleInfos(param['folderId'])
+        .getSingleFolderMapArticleInfos(param['folderId'], page, limit)
         .subscribe((res) => {
-          if (res.code === 200)
+          if (res.code === 200) {
             this.singleFolderMapArticleInfos =
               res.data as singleFolderMapArticleInfos;
+            this.total = this.singleFolderMapArticleInfos.total
+          }
         });
     });
+  }
+  nextPage(page: number) {
+    this.page = page
+    this.getArticleInfos(this.page, this.limit)
   }
 }

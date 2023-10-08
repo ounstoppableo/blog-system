@@ -2,7 +2,7 @@ import { HomeService } from '@/app/service/home.service';
 import { LoginService } from '@/app/service/login';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -43,12 +43,21 @@ export class OverviewComponent implements OnInit {
   //模态框组件
   @Input()
   updateArticleModal!: AddArticleFormComponent;
+  @Input()
+  page = 1
+  @Input()
+  limit = 5
+  @Input()
+  total = 0
+  @Output()
+  nextPage = new EventEmitter()
+
   constructor(
     private homeService: HomeService,
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.loginService.getUserInfo().subscribe((res) => {
@@ -70,5 +79,8 @@ export class OverviewComponent implements OnInit {
     this.homeService.delArticle(articleId).subscribe((res: resType<any>) => {
       if (res.code === 200) this.message.success('删除成功!');
     });
+  }
+  pageIndexChange(page: number) {
+    this.nextPage.emit(page)
   }
 }

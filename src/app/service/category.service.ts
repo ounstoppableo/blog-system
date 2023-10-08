@@ -11,7 +11,7 @@ import {
   providedIn: 'root',
 })
 export class CategoryService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   //获取所有文章信息
   getAllArticleInfo(): Observable<resType<articleInfo[]>> {
     return this.http.get<resType<articleInfo[]>>('/api/getArticleInfo');
@@ -23,9 +23,13 @@ export class CategoryService {
   //获取单个文件夹对应的文章信息
   getSingleFolderMapArticleInfos(
     folderId: number,
+    page?: number,
+    limit?: number
   ): Observable<resType<singleFolderMapArticleInfos>> {
+    const _page = page && page > 0 ? page : 1
+    const _limit = limit && limit > 0 ? limit : 5
     return this.http.get<resType<singleFolderMapArticleInfos>>(
-      `/api/singleFolder/${folderId}`,
+      `/api/singleFolder/${folderId}/${_page}/${_limit}`,
     );
   }
   //获取tag对应的文章数
@@ -35,9 +39,12 @@ export class CategoryService {
   //单个标签对应的文章信息页
   getSingleTagMapArticleInfos(
     tagName: string,
+    page?: number, limit?: number
   ): Observable<resType<singleTagMapArticleInfos>> {
+    const _page = page && page > 0 ? page : 1
+    const _limit = limit && limit > 0 ? limit : 5
     return this.http.get<resType<singleTagMapArticleInfos>>(
-      `/api/singleTag/${tagName}`,
+      `/api/singleTag/${tagName}/${_page}/${_limit}`,
     );
   }
 }

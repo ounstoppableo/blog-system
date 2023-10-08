@@ -1,12 +1,9 @@
 <div class="container" [class]="smallSize ? 'smallSize' : ''">
   <h1>#{{ singleTagMapArticleInfos.tagName }}</h1>
-  <div class="none" *ngIf="singleTagMapArticleInfos.articleInfos.length === 0">
+  <div class="none" *ngIf="singleTagMapArticleInfos.articleInfos&&singleTagMapArticleInfos.articleInfos.length === 0">
     <app-none></app-none>
   </div>
-  <app-overview
-    *ngIf="singleTagMapArticleInfos.articleInfos.length !== 0"
-    [articleInfoList]="singleTagMapArticleInfos.articleInfos"
-    [updateArticleModal]="updateArticleModal"
-    [smallSize]="smallSize"
-  ></app-overview>
+  <app-overview *ngIf="singleTagMapArticleInfos.articleInfos&&singleTagMapArticleInfos.articleInfos.length !== 0"
+    [articleInfoList]="singleTagMapArticleInfos.articleInfos" [updateArticleModal]="updateArticleModal"
+    [smallSize]="smallSize" [page]="page" [limit]="limit" [total]="total" (nextPage)="nextPage($event)"></app-overview>
 </div>

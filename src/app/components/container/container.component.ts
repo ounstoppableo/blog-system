@@ -37,18 +37,30 @@ export class ContainerComponent implements OnInit {
   @Input()
   msgboard = false;
 
+  page = 1
+  limit = 5
+  total = 0
+
   constructor(
     private routes: ActivatedRoute,
     private homeService: HomeService,
-  ) {}
+  ) { }
   ngOnInit() {
     if (this.isHome) {
-      this.homeService
-        .getArticleInfo()
-        .subscribe((res: resType<articleInfo[]>) => {
-          if (res.code === 200)
-            this.articleInfoList = res.data as articleInfo[];
-        });
+      this.getArticleInfo(this.page, this.limit)
     }
+  }
+  getArticleInfo(page: number, limit: number) {
+    this.homeService
+      .getArticleInfoByPage(page, limit)
+      .subscribe((res: resType<any>) => {
+        if (res.code === 200)
+          this.articleInfoList = res.data.articleInfoList as articleInfo[];
+        this.total = res.data.total
+      });
+  }
+  nextPage(page: number) {
+    this.page = page
+    this.getArticleInfo(this.page, this.limit)
   }
 }

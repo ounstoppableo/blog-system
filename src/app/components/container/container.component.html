@@ -4,6 +4,10 @@
     [smallSize]="smallSize"
     [updateArticleModal]="updateArticleModal"
     [articleInfoList]="articleInfoList"
+    [page]="page"
+    [limit]="limit"
+    [total]="total"
+    (nextPage)="nextPage($event)"
   ></app-overview>
   <app-cate-by-date *ngIf="dateCate" [smallSize]="smallSize"></app-cate-by-date>
   <app-context *ngIf="isArticle" [smallSize]="smallSize"></app-context>
