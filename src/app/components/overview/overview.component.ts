@@ -44,20 +44,20 @@ export class OverviewComponent implements OnInit {
   @Input()
   updateArticleModal!: AddArticleFormComponent;
   @Input()
-  page = 1
+  page = 1;
   @Input()
-  limit = 5
+  limit = 5;
   @Input()
-  total = 0
+  total = 0;
   @Output()
-  nextPage = new EventEmitter()
+  nextPage = new EventEmitter();
 
   constructor(
     private homeService: HomeService,
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.loginService.getUserInfo().subscribe((res) => {
@@ -81,6 +81,6 @@ export class OverviewComponent implements OnInit {
     });
   }
   pageIndexChange(page: number) {
-    this.nextPage.emit(page)
+    this.nextPage.emit(page);
   }
 }

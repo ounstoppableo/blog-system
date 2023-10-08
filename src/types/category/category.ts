@@ -9,13 +9,13 @@ export interface articleInFolderCount extends Required<folderItem> {
 }
 export interface singleFolderMapArticleInfos {
   folderName: string;
-  total:number,
-  pages:number,
+  total: number;
+  pages: number;
   articleInfos: articleInfo[];
 }
 export interface singleTagMapArticleInfos {
   tagName: string;
-  total:number,
-  pages:number,
+  total: number;
+  pages: number;
   articleInfos: articleInfo[];
 }

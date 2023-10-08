@@ -3,11 +3,26 @@
     <span nz-icon nzType="folder-open" nzTheme="fill"></span>
     &nbsp;&nbsp;{{ singleFolderMapArticleInfos.folderName }}
   </h1>
-  <div class="none"
-    *ngIf="singleFolderMapArticleInfos.articleInfos&&singleFolderMapArticleInfos.articleInfos.length === 0">
+  <div
+    class="none"
+    *ngIf="
+      singleFolderMapArticleInfos.articleInfos &&
+      singleFolderMapArticleInfos.articleInfos.length === 0
+    "
+  >
     <app-none></app-none>
   </div>
-  <app-overview *ngIf="singleFolderMapArticleInfos.articleInfos&& singleFolderMapArticleInfos.articleInfos.length !== 0"
-    [articleInfoList]="singleFolderMapArticleInfos.articleInfos" [updateArticleModal]="updateArticleModal"
-    [smallSize]="smallSize" [page]="page" [limit]="limit" [total]="total" (nextPage)="nextPage($event)"></app-overview>
+  <app-overview
+    *ngIf="
+      singleFolderMapArticleInfos.articleInfos &&
+      singleFolderMapArticleInfos.articleInfos.length !== 0
+    "
+    [articleInfoList]="singleFolderMapArticleInfos.articleInfos"
+    [updateArticleModal]="updateArticleModal"
+    [smallSize]="smallSize"
+    [page]="page"
+    [limit]="limit"
+    [total]="total"
+    (nextPage)="nextPage($event)"
+  ></app-overview>
 </div>

@@ -22,7 +22,7 @@
         <span nz-icon nzType="message" nzTheme="outline" (click)="toShowForm()">
           <span class="count" *ngIf="msgItem.children">
             {{
-              msgItem.children!.length > 99 ? '99+' : msgItem.children!.length
+            msgItem.children!.length > 99 ? '99+' : msgItem.children!.length
             }}
           </span>
         </span>
@@ -42,44 +42,29 @@
     </div>
     <div class="footer">
       <div class="device">
-        <span nz-icon nzType="windows" nzTheme="outline"></span>
+        <span nz-icon [nzType]=" msgItem.device.toLowerCase().includes('window') ? 'windows' :
+          msgItem.device.toLowerCase().includes('android') ? 'android' : msgItem.device.toLowerCase().includes('apple')
+          ? 'apple' : 'question-circle' " nzTheme="outline"></span>
         <span>{{ msgItem.device }}</span>
       </div>
       <div class="browser">
-        <span nz-icon nzType="google" nzTheme="outline"></span>
+        <span nz-icon
+          [nzType]="msgItem.browser.toLowerCase().includes('chrome') ? 'chrome' : msgItem.browser.toLowerCase().includes('edg') ? 'ie' : 'question-circle' "
+          nzTheme="outline"></span>
         <span>{{ msgItem.browser }}</span>
       </div>
     </div>
-    <app-add-msg-form
-      *ngIf="showForm"
-      [articleId]="msgItem.articleId || ''"
-      [fatherMsgId]="msgItem.msgId"
-      (reloadMsg)="toReloadData()"
-    ></app-add-msg-form>
-    <div
-      class="chirdenMsg"
-      *ngIf="showChirdren"
-      [@toShow]="msgItem.children!.length"
-    >
-      <app-comment-item
-        *ngFor="let item of msgItem.children"
-        [msgItem]="item"
-        (reloadData)="toReloadData()"
-      ></app-comment-item>
+    <app-add-msg-form *ngIf="showForm" [articleId]="msgItem.articleId || ''" [fatherMsgId]="msgItem.msgId"
+      (reloadMsg)="toReloadData()"></app-add-msg-form>
+    <div class="chirdenMsg" *ngIf="showChirdren" [@toShow]="msgItem.children!.length">
+      <app-comment-item *ngFor="let item of msgItem.children" [msgItem]="item"
+        (reloadData)="toReloadData()"></app-comment-item>
     </div>
-    <div
-      class="showChirdren"
-      *ngIf="msgItem.children"
-      (click)="toShowChildren()"
-    >
+    <div class="showChirdren" *ngIf="msgItem.children" (click)="toShowChildren()">
       {{ this.showChirdren ? '合并' : '展开' }}&nbsp;{{
-        msgItem.children.length
+      msgItem.children.length
       }}&nbsp;条评论
-      <span
-        nz-icon
-        [nzType]="this.showChirdren ? 'up' : 'down'"
-        nzTheme="outline"
-      ></span>
+      <span nz-icon [nzType]="this.showChirdren ? 'up' : 'down'" nzTheme="outline"></span>
     </div>
   </div>
 </div>

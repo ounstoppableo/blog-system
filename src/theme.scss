@@ -12,3 +12,41 @@
     margin-right: 0;
   }
 }
+
+.ant-pagination-item-active {
+  border-color: var(--styleColor);
+
+  &>a {
+    color: var(--styleColor)
+  }
+
+  &:hover {
+    border-color: var(--styleColor);
+
+    &>a {
+      color: var(--styleColor)
+    }
+  }
+}
+
+.ant-pagination-item {
+  &:hover {
+    border-color: var(--styleColor);
+
+    &>a {
+      color: var(--styleColor)
+    }
+  }
+}
+
+.ant-pagination-next .ant-pagination-item-link,
+.ant-pagination-prev .ant-pagination-item-link {
+  &:hover {
+    border-color: var(--styleColor);
+
+    &>.anticon {
+      color: var(--styleColor)
+    }
+  }
+}
+

@@ -17,16 +17,16 @@ export class SingleFolderCateComponent implements OnInit {
   singleFolderMapArticleInfos: singleFolderMapArticleInfos =
     {} as singleFolderMapArticleInfos;
 
-  page = 1
-  limit = 5
-  total = 0
+  page = 1;
+  limit = 5;
+  total = 0;
 
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-  ) { }
+  ) {}
   ngOnInit(): void {
-    this.getArticleInfos(this.page, this.limit)
+    this.getArticleInfos(this.page, this.limit);
   }
   getArticleInfos(page: number, limit: number) {
     this.route.params.subscribe((param) => {
@@ -36,13 +36,13 @@ export class SingleFolderCateComponent implements OnInit {
           if (res.code === 200) {
             this.singleFolderMapArticleInfos =
               res.data as singleFolderMapArticleInfos;
-            this.total = this.singleFolderMapArticleInfos.total
+            this.total = this.singleFolderMapArticleInfos.total;
           }
         });
     });
   }
   nextPage(page: number) {
-    this.page = page
-    this.getArticleInfos(this.page, this.limit)
+    this.page = page;
+    this.getArticleInfos(this.page, this.limit);
   }
 }

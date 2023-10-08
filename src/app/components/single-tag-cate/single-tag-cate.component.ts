@@ -1,6 +1,5 @@
 import { CategoryService } from '@/app/service/category.service';
 import { singleTagMapArticleInfos } from '@/types/category/category';
-import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -19,34 +18,37 @@ export class SingleTagCateComponent implements OnInit {
   singleTagMapArticleInfos: singleTagMapArticleInfos =
     {} as singleTagMapArticleInfos;
 
-  page = 1
-  limit = 5
-  total = 0
+  page = 1;
+  limit = 5;
+  total = 0;
 
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.route.params.subscribe((param) => {
       this.singleTagMapArticleInfos.tagName = param['tagName'];
-      this.getArticleInfo(this.page, this.limit)
+      this.getArticleInfo(this.page, this.limit);
     });
-
   }
   getArticleInfo(page: number, limit: number) {
     this.categoryService
-      .getSingleTagMapArticleInfos(this.singleTagMapArticleInfos.tagName, page, limit)
+      .getSingleTagMapArticleInfos(
+        this.singleTagMapArticleInfos.tagName,
+        page,
+        limit,
+      )
       .subscribe((res: resType<singleTagMapArticleInfos>) => {
         if (res.code === 200) {
-          this.singleTagMapArticleInfos = res.data as singleTagMapArticleInfos
-          this.total = this.singleTagMapArticleInfos.total
+          this.singleTagMapArticleInfos = res.data as singleTagMapArticleInfos;
+          this.total = this.singleTagMapArticleInfos.total;
         }
       });
   }
 
   nextPage(page: number) {
-    this.page = page
-    this.getArticleInfo(this.page, this.limit)
+    this.page = page;
+    this.getArticleInfo(this.page, this.limit);
   }
 }

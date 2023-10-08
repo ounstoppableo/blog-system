@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class HomeService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   //获取文章分类
   getFolderCategory(): Observable<resType<folderItem[]>> {
     return this.http.get<resType<any>>('/api/folder');
@@ -37,9 +37,14 @@ export class HomeService {
     return this.http.get<resType<any>>(`/api/delArticle/${articleId}`);
   }
   //根据页数获取文章信息
-  getArticleInfoByPage(page?: number, limit?: number): Observable<resType<articleInfo[]>> {
-    const _page = page && page > 0 ? page : 1
-    const _limit = limit && limit > 0 ? limit : 5
-    return this.http.get<resType<any>>(`/api/getArticleInfoByPage/${_page}/${_limit}`);
+  getArticleInfoByPage(
+    page?: number,
+    limit?: number,
+  ): Observable<resType<articleInfo[]>> {
+    const _page = page && page > 0 ? page : 1;
+    const _limit = limit && limit > 0 ? limit : 5;
+    return this.http.get<resType<any>>(
+      `/api/getArticleInfoByPage/${_page}/${_limit}`,
+    );
   }
 }
