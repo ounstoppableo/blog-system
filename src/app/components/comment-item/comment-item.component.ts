@@ -1,5 +1,6 @@
 import { msgItem } from '@/types/msgBorad/msgBorad';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import * as lodash from 'lodash'
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import {
   trigger,
   style,
@@ -33,7 +34,7 @@ import {
     ]),
   ],
 })
-export class CommentItemComponent {
+export class CommentItemComponent implements OnChanges {
   @Input()
   msgItem: msgItem = {} as msgItem;
   @Output()
@@ -41,6 +42,25 @@ export class CommentItemComponent {
   showForm = false;
   showChirdren = false;
   showComponent = false;
+  children: msgItem[] = []
+
+  ngOnChanges(changes: any): void {
+    if (changes.msgItem.currentValue) {
+      this.addChiren(changes.msgItem.currentValue)
+    }
+  }
+  addChiren(parent: any) {
+    if (parent.children) {
+      parent.children.forEach((item: any) => {
+        const temp = lodash.cloneDeep(item)
+        temp.children = null
+        this.children.push(temp)
+        if (item.children) {
+          this.addChiren(item)
+        }
+      })
+    }
+  }
 
   toShowForm() {
     this.showForm = !this.showForm;

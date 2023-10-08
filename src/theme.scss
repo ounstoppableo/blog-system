@@ -16,15 +16,15 @@
 .ant-pagination-item-active {
   border-color: var(--styleColor);
 
-  &>a {
-    color: var(--styleColor)
+  & > a {
+    color: var(--styleColor);
   }
 
   &:hover {
     border-color: var(--styleColor);
 
-    &>a {
-      color: var(--styleColor)
+    & > a {
+      color: var(--styleColor);
     }
   }
 }
@@ -33,8 +33,8 @@
   &:hover {
     border-color: var(--styleColor);
 
-    &>a {
-      color: var(--styleColor)
+    & > a {
+      color: var(--styleColor);
     }
   }
 }
@@ -44,9 +44,8 @@
   &:hover {
     border-color: var(--styleColor);
 
-    &>.anticon {
-      color: var(--styleColor)
+    & > .anticon {
+      color: var(--styleColor);
     }
   }
 }
-
