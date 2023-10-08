@@ -2,38 +2,38 @@
   display: flex;
   gap: 10px;
 
-  &>.avatar {
+  & > .avatar {
     width: 40px;
     height: 40px;
     border-radius: 10px;
     overflow: hidden;
 
-    &>img {
+    & > img {
       width: 100%;
       object-fit: contain;
     }
   }
 
-  &>.content {
+  & > .content {
     width: 100%;
     display: flex;
     flex-direction: column;
 
-    &>.header {
+    & > .header {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       margin-bottom: 5px;
 
-      &>.info {
+      & > .info {
         display: flex;
         align-items: flex-end;
         gap: 10px;
 
-        &>.name {
+        & > .name {
           font-size: 16px;
 
-          &>a {
+          & > a {
             color: #2f5cdb;
 
             &:hover {
@@ -42,22 +42,22 @@
           }
         }
 
-        &>.date {
-          color: #888
+        & > .date {
+          color: #888;
         }
       }
 
-      &>.operate {
+      & > .operate {
         display: flex;
         gap: 10px;
         font-size: 18px;
         color: #409eff;
 
-        &>[nzType="like"] {
+        & > [nzType='like'] {
           position: relative;
           cursor: pointer;
 
-          &>.count {
+          & > .count {
             position: absolute;
             font-size: 12px;
             right: 0px;
@@ -65,11 +65,11 @@
           }
         }
 
-        &>[nzType="message"] {
+        & > [nzType='message'] {
           position: relative;
           cursor: pointer;
 
-          &>.count {
+          & > .count {
             position: absolute;
             font-size: 12px;
             right: 0px;
@@ -79,14 +79,14 @@
       }
     }
 
-    &>.msg {
+    & > .msg {
       font-size: 16px;
       color: #888;
 
-      &>.reply {
+      & > .reply {
         font-size: 14px;
 
-        &>a {
+        & > a {
           color: #2f5cdb;
 
           &:hover {
@@ -96,31 +96,31 @@
       }
     }
 
-    &>.footer {
+    & > .footer {
       display: flex;
       gap: 10px;
       color: #999;
 
-      &>.device {
+      & > .device {
         display: flex;
         align-items: center;
         gap: 5px;
       }
 
-      &>.browser {
+      & > .browser {
         display: flex;
         align-items: center;
         gap: 5px;
       }
     }
 
-    &>.showChirdren {
+    & > .showChirdren {
       margin: 0 auto;
       color: #aaa;
       cursor: pointer;
     }
 
-    &>.chirdenMsg {
+    & > .chirdenMsg {
       margin-top: 10px;
       display: flex;
       flex-direction: column;

@@ -20,10 +20,10 @@ export class DrawerComponent {
     this.router.navigate(['search']);
   }
   goMsgBoard() {
-    this.router.navigate(['msgboard'])
+    this.router.navigate(['msgboard']);
   }
   constructor(
     private router: Router,
     private routes: ActivatedRoute,
-  ) { }
+  ) {}
 }

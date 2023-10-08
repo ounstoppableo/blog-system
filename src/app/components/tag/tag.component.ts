@@ -24,5 +24,5 @@ export class TagComponent implements OnChanges {
   toSingleTag(tagName: string) {
     this.router.navigate(['tagPage', tagName]);
   }
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 }

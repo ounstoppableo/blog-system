@@ -10,7 +10,7 @@ import {
   animate,
   transition,
   query,
-  stagger
+  stagger,
 } from '@angular/animations';
 
 @Component({
@@ -20,12 +20,19 @@ import {
   animations: [
     trigger('toShow', [
       transition('* => *', [
-        query(':enter', [
-          style({ opacity: 0, transform: 'translateY(-50%)' }),
-          stagger(100, [
-            animate('0.5s', style({ opacity: 1, transform: 'translateY(0)' }))
-          ])
-        ], { optional: true })
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(-50%)' }),
+            stagger(100, [
+              animate(
+                '0.5s',
+                style({ opacity: 1, transform: 'translateY(0)' }),
+              ),
+            ]),
+          ],
+          { optional: true },
+        ),
       ]),
     ]),
   ],
@@ -37,7 +44,7 @@ export class CateByDateComponent implements OnInit {
   constructor(
     private catecogyService: CategoryService,
     private router: Router,
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.getDateCategoty();
   }

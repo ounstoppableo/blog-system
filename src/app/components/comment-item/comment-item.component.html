@@ -1,43 +1,85 @@
-<div class="container" [@toShow]="showComponent?'show' : 'unshow'">
-  <div class="avatar"><img [src]="'/api'+msgItem.avatar" alt=""></div>
-  <div class=" content">
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<div class="container" [@toShow]="showComponent ? 'show' : 'unshow'">
+  <div class="avatar"><img [src]="'/api' + msgItem.avatar" alt="" /></div>
+  <div class="content">
     <div class="header">
       <div class="info">
-        <div class="name"><a [href]="msgItem.website" *ngIf=" msgItem.website">{{msgItem.name}}</a><span
-            *ngIf="!msgItem.website">{{msgItem.name}}</span></div>
-        <div class="date">{{msgItem.subTime|date}}</div>
+        <div class="name">
+          <a [href]="msgItem.website" *ngIf="msgItem.website">
+            {{ msgItem.name }}
+          </a>
+          <span *ngIf="!msgItem.website">{{ msgItem.name }}</span>
+        </div>
+        <div class="date">{{ msgItem.subTime | date }}</div>
       </div>
       <div class="operate">
-        <span nz-icon nzType="like" nzTheme="outline"><span class="count" *ngIf="msgItem.upvoke>0">{{msgItem.upvoke>99 ?
-            '99+':
-            msgItem.upvoke}}</span></span>
-        <span nz-icon nzType="message" nzTheme="outline" (click)="toShowForm()"><span class="count"
-            *ngIf="msgItem.children">{{msgItem.children!.length>99?'99+':msgItem.children!.length}}</span></span>
+        <span nz-icon nzType="like" nzTheme="outline">
+          <span class="count" *ngIf="msgItem.upvoke > 0">
+            {{ msgItem.upvoke > 99 ? '99+' : msgItem.upvoke }}
+          </span>
+        </span>
+        <span nz-icon nzType="message" nzTheme="outline" (click)="toShowForm()">
+          <span class="count" *ngIf="msgItem.children">
+            {{
+              msgItem.children!.length > 99 ? '99+' : msgItem.children!.length
+            }}
+          </span>
+        </span>
       </div>
     </div>
     <div class="msg">
-      <div class="reply" *ngIf="msgItem.parent">回复&nbsp;<a
-          [href]="msgItem.parent!.parentWebsite">@{{msgItem.parent!.parentName}}</a>：</div>
-      <div class="msgcontent" [class]="msgItem.parent?'reply' : ''">{{msgItem.content}}</div>
+      <div class="reply" *ngIf="msgItem.parent">
+        回复&nbsp;
+        <a [href]="msgItem.parent!.parentWebsite">
+          @{{ msgItem.parent!.parentName }}
+        </a>
+        ：
+      </div>
+      <div class="msgcontent" [class]="msgItem.parent ? 'reply' : ''">
+        {{ msgItem.content }}
+      </div>
     </div>
     <div class="footer">
       <div class="device">
         <span nz-icon nzType="windows" nzTheme="outline"></span>
-        <span>{{msgItem.device}}</span>
+        <span>{{ msgItem.device }}</span>
       </div>
       <div class="browser">
         <span nz-icon nzType="google" nzTheme="outline"></span>
-        <span>{{msgItem.browser}}</span>
+        <span>{{ msgItem.browser }}</span>
       </div>
     </div>
-    <app-add-msg-form *ngIf="showForm" [articleId]="msgItem.articleId || ''" [fatherMsgId]="msgItem.msgId"
-      (reloadMsg)="toReloadData()"></app-add-msg-form>
-    <div class="chirdenMsg" *ngIf="showChirdren" [@toShow]="msgItem.children!.length">
-      <app-comment-item *ngFor="let item of msgItem.children" [msgItem]="item"
-        (reloadData)="toReloadData()"></app-comment-item>
+    <app-add-msg-form
+      *ngIf="showForm"
+      [articleId]="msgItem.articleId || ''"
+      [fatherMsgId]="msgItem.msgId"
+      (reloadMsg)="toReloadData()"
+    ></app-add-msg-form>
+    <div
+      class="chirdenMsg"
+      *ngIf="showChirdren"
+      [@toShow]="msgItem.children!.length"
+    >
+      <app-comment-item
+        *ngFor="let item of msgItem.children"
+        [msgItem]="item"
+        (reloadData)="toReloadData()"
+      ></app-comment-item>
     </div>
-    <div class="showChirdren" *ngIf="msgItem.children" (click)="toShowChildren()">
-      {{this.showChirdren?'合并':'展开'}}&nbsp;{{msgItem.children.length}}&nbsp;条评论<span nz-icon
-        [nzType]="this.showChirdren?'up' : 'down'" nzTheme="outline"></span></div>
+    <div
+      class="showChirdren"
+      *ngIf="msgItem.children"
+      (click)="toShowChildren()"
+    >
+      {{ this.showChirdren ? '合并' : '展开' }}&nbsp;{{
+        msgItem.children.length
+      }}&nbsp;条评论
+      <span
+        nz-icon
+        [nzType]="this.showChirdren ? 'up' : 'down'"
+        nzTheme="outline"
+      ></span>
+    </div>
   </div>
 </div>

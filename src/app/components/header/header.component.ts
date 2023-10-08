@@ -50,7 +50,7 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   goHome() {
     this.router.navigate(['home']);
   }
-  goMsgBoard(){
+  goMsgBoard() {
     this.router.navigate(['msgboard']);
   }
   login() {

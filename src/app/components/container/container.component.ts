@@ -40,7 +40,7 @@ export class ContainerComponent implements OnInit {
   constructor(
     private routes: ActivatedRoute,
     private homeService: HomeService,
-  ) { }
+  ) {}
   ngOnInit() {
     if (this.isHome) {
       this.homeService

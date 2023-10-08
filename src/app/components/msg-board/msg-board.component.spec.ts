@@ -8,7 +8,7 @@ describe('MsgBoardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MsgBoardComponent]
+      declarations: [MsgBoardComponent],
     });
     fixture = TestBed.createComponent(MsgBoardComponent);
     component = fixture.componentInstance;

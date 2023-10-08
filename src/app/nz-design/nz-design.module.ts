@@ -32,7 +32,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     NzFormModule,
     NzIconModule.forRoot(icons),
     NzPopconfirmModule,
-    NzPaginationModule
+    NzPaginationModule,
   ],
   exports: [
     NzPaginationModule,

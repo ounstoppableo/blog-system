@@ -4,19 +4,19 @@ import { CommentAreaComponent } from '../comment-area/comment-area.component';
 @Component({
   selector: 'app-msg-board',
   templateUrl: './msg-board.component.html',
-  styleUrls: ['./msg-board.component.scss']
+  styleUrls: ['./msg-board.component.scss'],
 })
 export class MsgBoardComponent {
   @Input()
-  articleId = ''
+  articleId = '';
   @ViewChild('commentArea')
-  commentArea!: CommentAreaComponent
+  commentArea!: CommentAreaComponent;
   @Input()
-  smallSize!: boolean
+  smallSize!: boolean;
 
   reloadMsg() {
-    this.commentArea.reload()
+    this.commentArea.reload();
   }
 
-  constructor() { }
+  constructor() {}
 }

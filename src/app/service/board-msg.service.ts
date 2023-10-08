@@ -5,27 +5,36 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BoardMsgService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   addMsgForArticle(data: addMsg): Observable<resType<addMsg>> {
-    return this.http.post<resType<addMsg>>('/api/addMsgForArticle', data)
+    return this.http.post<resType<addMsg>>('/api/addMsgForArticle', data);
   }
-  getMsgForArticle(articleId: string, page?: number, limit?: number): Observable<resType<any>> {
-    if (page && page < 0 || limit && limit < 0) throw new Error('page和limit不能小于0')
-    let _page = page ? page : 1
-    let _limit = limit ? limit : 5
-    return this.http.get<resType<any>>(`/api/getMsgForArticle/${articleId}/${_page}/${_limit}`)
+  getMsgForArticle(
+    articleId: string,
+    page?: number,
+    limit?: number,
+  ): Observable<resType<any>> {
+    if ((page && page < 0) || (limit && limit < 0))
+      throw new Error('page和limit不能小于0');
+    const _page = page ? page : 1;
+    const _limit = limit ? limit : 5;
+    return this.http.get<resType<any>>(
+      `/api/getMsgForArticle/${articleId}/${_page}/${_limit}`,
+    );
   }
   addMsgForBoard(data: addMsg): Observable<resType<addMsg>> {
-    return this.http.post<resType<addMsg>>('/api/addMsgForBoard', data)
+    return this.http.post<resType<addMsg>>('/api/addMsgForBoard', data);
   }
   getMsgForBoard(page?: number, limit?: number): Observable<resType<any>> {
-    if (page && page < 0 || limit && limit < 0) throw new Error('page和limit不能小于0')
-    let _page = page ? page : 1
-    let _limit = limit ? limit : 5
-    return this.http.get<resType<any>>(`/api/getMsgForBoard/${_page}/${_limit}`)
+    if ((page && page < 0) || (limit && limit < 0))
+      throw new Error('page和limit不能小于0');
+    const _page = page ? page : 1;
+    const _limit = limit ? limit : 5;
+    return this.http.get<resType<any>>(
+      `/api/getMsgForBoard/${_page}/${_limit}`,
+    );
   }
 }

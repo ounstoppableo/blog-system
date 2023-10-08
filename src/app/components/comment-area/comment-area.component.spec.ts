@@ -8,7 +8,7 @@ describe('CommentAreaComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CommentAreaComponent]
+      declarations: [CommentAreaComponent],
     });
     fixture = TestBed.createComponent(CommentAreaComponent);
     component = fixture.componentInstance;

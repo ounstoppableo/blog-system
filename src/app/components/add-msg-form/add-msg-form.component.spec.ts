@@ -8,7 +8,7 @@ describe('AddMsgFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddMsgFormComponent]
+      declarations: [AddMsgFormComponent],
     });
     fixture = TestBed.createComponent(AddMsgFormComponent);
     component = fixture.componentInstance;

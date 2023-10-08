@@ -12,7 +12,7 @@ import {
   animate,
   transition,
   query,
-  stagger
+  stagger,
 } from '@angular/animations';
 
 @Component({
@@ -22,12 +22,14 @@ import {
   animations: [
     trigger('toShow', [
       transition('*=>*', [
-        query(':enter', [
-          style({ opacity: 0 }),
-          stagger(200, [
-            animate('0.5s', style({ opacity: 1 })),
-          ])
-        ], { optional: true })
+        query(
+          ':enter',
+          [
+            style({ opacity: 0 }),
+            stagger(200, [animate('0.5s', style({ opacity: 1 }))]),
+          ],
+          { optional: true },
+        ),
       ]),
     ]),
   ],
@@ -46,7 +48,7 @@ export class OverviewComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.loginService.getUserInfo().subscribe((res) => {
