@@ -1,0 +1,15 @@
+.card {
+  background-color: #fff;
+  width: calc(80vw - 350px);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--defaultFontColor);
+  align-items: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+  &.smallSize {
+    width: 100vw;
+  }
+}

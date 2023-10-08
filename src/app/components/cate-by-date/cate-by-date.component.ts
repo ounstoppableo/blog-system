@@ -4,11 +4,31 @@ import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  trigger,
+  style,
+  animate,
+  transition,
+  query,
+  stagger
+} from '@angular/animations';
 
 @Component({
   selector: 'app-cate-by-date',
   templateUrl: './cate-by-date.component.html',
   styleUrls: ['./cate-by-date.component.scss'],
+  animations: [
+    trigger('toShow', [
+      transition('* => *', [
+        query(':enter', [
+          style({ opacity: 0, transform: 'translateY(-50%)' }),
+          stagger(100, [
+            animate('0.5s', style({ opacity: 1, transform: 'translateY(0)' }))
+          ])
+        ], { optional: true })
+      ]),
+    ]),
+  ],
 })
 export class CateByDateComponent implements OnInit {
   @Input()
@@ -17,7 +37,7 @@ export class CateByDateComponent implements OnInit {
   constructor(
     private catecogyService: CategoryService,
     private router: Router,
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.getDateCategoty();
   }

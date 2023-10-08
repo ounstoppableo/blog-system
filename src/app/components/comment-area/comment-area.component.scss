@@ -1,0 +1,32 @@
+.container {
+  &>.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin: 20px 0;
+
+    &>.left {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    &>.right {
+      &>.icon {
+        font-size: 18px;
+        color: #409eff;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &>.body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &>.pagination {
+    text-align: center;
+    margin: 15px;
+  }
+}

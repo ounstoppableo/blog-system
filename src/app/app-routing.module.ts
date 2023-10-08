@@ -5,6 +5,7 @@ import { ArticleComponent } from './view/article/article.component';
 import { LoginComponent } from './view/login/login.component';
 import { CustomReuseStrategt } from './customReuseStrategy/customReuseStratege';
 import { CategoryComponent } from './view/category/category.component';
+import { MsgBoradPageComponent } from './view/msg-borad-page/msg-borad-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'prefix' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'tagPage/:tagName', component: CategoryComponent },
   { path: 'folderPage/:folderId', component: CategoryComponent },
   { path: 'search', component: CategoryComponent },
+  { path: 'msgboard', component: MsgBoradPageComponent },
 ];
 
 @NgModule({

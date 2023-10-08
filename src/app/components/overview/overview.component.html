@@ -1,11 +1,7 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
-<div class="cardContainerLeft">
-  <div
-    class="card"
-    *ngFor="let item of articleInfoList"
-    [class]="smallSize ? 'smallSize' : ''"
-  >
+<div class="cardContainerLeft" [@toShow]="articleInfoList.length">
+  <div class="card" *ngFor="let item of articleInfoList" [class]="smallSize ? 'smallSize' : ''">
     <div class="info">
       <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
       <p class="folder">
@@ -31,14 +27,8 @@
       <button nz-button nzShape="circle" (click)="editArticle(item)">
         <span nz-icon nzType="edit"></span>
       </button>
-      <button
-        nz-button
-        nzDanger
-        nzShape="circle"
-        (nzOnConfirm)="delArticle(item.articleId)"
-        nz-popconfirm
-        nzPopconfirmTitle="确定要删除吗？"
-      >
+      <button nz-button nzDanger nzShape="circle" (nzOnConfirm)="delArticle(item.articleId)" nz-popconfirm
+        nzPopconfirmTitle="确定要删除吗？">
         <span nz-icon nzType="delete"></span>
       </button>
     </div>

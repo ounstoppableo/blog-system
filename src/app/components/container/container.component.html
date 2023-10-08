@@ -1,24 +1,15 @@
 <div class="cardContainer" [class]="smallSize ? 'smallSize' : ''">
-  <app-overview
-    *ngIf="isHome"
-    [smallSize]="smallSize"
-    [updateArticleModal]="updateArticleModal"
-    [articleInfoList]="articleInfoList"
-  ></app-overview>
+  <app-overview *ngIf="isHome" [smallSize]="smallSize" [updateArticleModal]="updateArticleModal"
+    [articleInfoList]="articleInfoList"></app-overview>
   <app-cate-by-date *ngIf="dateCate" [smallSize]="smallSize"></app-cate-by-date>
   <app-context *ngIf="isArticle" [smallSize]="smallSize"></app-context>
   <app-folder-cate *ngIf="folderCate" [smallSize]="smallSize"></app-folder-cate>
   <app-cate-by-tag *ngIf="tagCate" [smallSize]="smallSize"></app-cate-by-tag>
-  <app-single-tag-cate
-    *ngIf="tagPage"
-    [smallSize]="smallSize"
-    [updateArticleModal]="updateArticleModal"
-  ></app-single-tag-cate>
-  <app-single-folder-cate
-    *ngIf="folderPage"
-    [smallSize]="smallSize"
-    [updateArticleModal]="updateArticleModal"
-  ></app-single-folder-cate>
+  <app-single-tag-cate *ngIf="tagPage" [smallSize]="smallSize"
+    [updateArticleModal]="updateArticleModal"></app-single-tag-cate>
+  <app-single-folder-cate *ngIf="folderPage" [smallSize]="smallSize"
+    [updateArticleModal]="updateArticleModal"></app-single-folder-cate>
+  <app-for-msg-board-page *ngIf="msgboard" [smallSize]="smallSize"></app-for-msg-board-page>
   <app-search *ngIf="search" [smallSize]="smallSize"></app-search>
   <app-info [showInfo]="showInfo"></app-info>
 </div>

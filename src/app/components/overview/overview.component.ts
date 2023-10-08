@@ -6,11 +6,31 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import {
+  trigger,
+  style,
+  animate,
+  transition,
+  query,
+  stagger
+} from '@angular/animations';
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
+  animations: [
+    trigger('toShow', [
+      transition('*=>*', [
+        query(':enter', [
+          style({ opacity: 0 }),
+          stagger(200, [
+            animate('0.5s', style({ opacity: 1 })),
+          ])
+        ], { optional: true })
+      ]),
+    ]),
+  ],
 })
 export class OverviewComponent implements OnInit {
   isLogin = false;
@@ -26,7 +46,7 @@ export class OverviewComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.loginService.getUserInfo().subscribe((res) => {

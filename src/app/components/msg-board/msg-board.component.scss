@@ -1,0 +1,10 @@
+.container {
+  width: calc(80vw - 350px);
+  padding: 45px;
+  display: flex;
+  flex-direction: column;
+
+  &.smallSize {
+    width: 100vw;
+  }
+}

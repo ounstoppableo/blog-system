@@ -29,6 +29,12 @@ import { CateByTagComponent } from './components/cate-by-tag/cate-by-tag.compone
 import { SingleTagCateComponent } from './components/single-tag-cate/single-tag-cate.component';
 import { SingleFolderCateComponent } from './components/single-folder-cate/single-folder-cate.component';
 import { SearchComponent } from './components/search/search.component';
+import { MsgBoardComponent } from './components/msg-board/msg-board.component';
+import { CommentAreaComponent } from './components/comment-area/comment-area.component';
+import { CommentItemComponent } from './components/comment-item/comment-item.component';
+import { AddMsgFormComponent } from './components/add-msg-form/add-msg-form.component';
+import { MsgBoradPageComponent } from './view/msg-borad-page/msg-borad-page.component';
+import { ForMsgBoardPageComponent } from './components/for-msg-board-page/for-msg-board-page.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +61,12 @@ import { SearchComponent } from './components/search/search.component';
     SingleTagCateComponent,
     SingleFolderCateComponent,
     SearchComponent,
+    MsgBoardComponent,
+    CommentAreaComponent,
+    CommentItemComponent,
+    AddMsgFormComponent,
+    MsgBoradPageComponent,
+    ForMsgBoardPageComponent,
   ],
   imports: [
     BrowserModule,

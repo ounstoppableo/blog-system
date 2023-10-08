@@ -34,11 +34,13 @@ export class ContainerComponent implements OnInit {
   folderPage = false;
   @Input()
   search = false;
+  @Input()
+  msgboard = false;
 
   constructor(
     private routes: ActivatedRoute,
     private homeService: HomeService,
-  ) {}
+  ) { }
   ngOnInit() {
     if (this.isHome) {
       this.homeService

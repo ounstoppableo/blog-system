@@ -12,15 +12,17 @@ export class TagComponent implements OnChanges {
   @Input()
   gap = 5;
   ngOnChanges(): void {
-    this.tagList.forEach((item) => {
-      item.showWord = '';
-      if (item.count !== undefined) {
-        item.showWord = item.tagName + `(${item.count})`;
-      }
-    });
+    if (this.tagList) {
+      this.tagList.forEach((item) => {
+        item.showWord = '';
+        if (item.count !== undefined) {
+          item.showWord = item.tagName + `(${item.count})`;
+        }
+      });
+    }
   }
   toSingleTag(tagName: string) {
     this.router.navigate(['tagPage', tagName]);
   }
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 }

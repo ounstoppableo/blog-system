@@ -7,7 +7,7 @@
   <div class="has">
     <div class="dateSpace" *ngFor="let item of dateCategory">
       <div class="date">{{ item.dateCate }}</div>
-      <div class="articleSpace">
+      <div class="articleSpace" [@toShow]="item.articleInfos.length">
         <div class="item" *ngFor="let articleInfo of item.articleInfos">
           <span class="day">{{ articleInfo.lastModifyTime.slice(0, 10) }}</span>
           &nbsp;&nbsp;

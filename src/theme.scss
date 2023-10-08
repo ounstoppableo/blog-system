@@ -1,0 +1,14 @@
+@import "../node_modules/ng-zorro-antd/input/style/index.css";
+@import "../node_modules/ng-zorro-antd/form/style/index.css";
+
+.ant-input-textarea-show-count::after {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+}
+
+.ant-form-item {
+  &:last-child{
+    margin-right: 0
+  }
+}

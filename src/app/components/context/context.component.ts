@@ -24,7 +24,6 @@ export class ContextComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.route.params.subscribe((res) => (this.articleId = res['articleId']));
     this.articleService.getArticle(this.articleId).subscribe((res) => {
-      console.log(res);
       if (res.code === 200) this.article = res.data.articleContent;
     });
   }

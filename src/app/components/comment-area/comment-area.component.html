@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="header" *ngIf="!loading">
+    <div class="left">{{msgCount}}&nbsp;条评论</div>
+    <div class="right"><span nz-icon nzType="reload" nzTheme="outline" class="icon" (click)="reload()"></span></div>
+  </div>
+  <app-none *ngIf="msgItems.length===0 && show"></app-none>
+  <div class=" body" [@toShow]="msgItems.length" *ngIf="msgItems.length!==0 && show">
+    <app-comment-item *ngFor="let item of msgItems" [msgItem]="item" (reloadData)="reload()"></app-comment-item>
+  </div>
+  <nz-pagination *ngIf="msgItems.length!==0 && show" [nzPageIndex]="page" [nzPageSize]="limit" [nzTotal]="total"
+    class="pagination" (nzPageIndexChange)="pageIndexChange($event)"></nz-pagination>
+</div>
