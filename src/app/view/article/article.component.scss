@@ -33,6 +33,10 @@
         border: 1px solid white;
         padding: 5px;
         border-radius: 3px;
+        cursor: pointer;
+        &:hover{
+          text-decoration: underline;
+        }
       }
 
       & > .headLine {
@@ -50,15 +54,6 @@
 
   & > .context {
     padding-top: 30px;
-    background-color: var(--defaultBackgroundColor);
   }
 }
 
-.tag {
-  color: #aaa;
-  background-color: #fbe4e4;
-  padding: 2px 5px;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-}

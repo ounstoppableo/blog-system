@@ -14,18 +14,16 @@
         <div class="date">{{ msgItem.subTime | date }}</div>
       </div>
       <div class="operate">
-        <span nz-icon nzType="like" nzTheme="outline">
+        <button #upvokeButton nz-button nzShape="circle" (click)="upvoke(msgItem)">
           <span class="count" *ngIf="msgItem.upvoke > 0">
             {{ msgItem.upvoke > 99 ? '99+' : msgItem.upvoke }}
           </span>
-        </span>
-        <span nz-icon nzType="message" nzTheme="outline" (click)="toShowForm()">
-          <span class="count" *ngIf="msgItem.children">
-            {{
-              msgItem.children!.length > 99 ? '99+' : msgItem.children!.length
-            }}
+          <span nz-icon nzType="like" [nzTheme]="msgItem.upvokeChecked? 'fill' : 'outline'"></span>
+        </button>
+        <button nz-button nzShape="circle" (click)="toShowForm()">
+          <span nz-icon nzType="message" nzTheme="outline">
           </span>
-        </span>
+        </button>
       </div>
     </div>
     <div class="msg">
@@ -42,9 +40,7 @@
     </div>
     <div class="footer">
       <div class="device">
-        <span
-          nz-icon
-          [nzType]="
+        <span nz-icon [nzType]="
             msgItem.device.toLowerCase().includes('window')
               ? 'windows'
               : msgItem.device.toLowerCase().includes('android')
@@ -52,56 +48,30 @@
               : msgItem.device.toLowerCase().includes('apple')
               ? 'apple'
               : 'question-circle'
-          "
-          nzTheme="outline"
-        ></span>
+          " nzTheme="outline"></span>
         <span>{{ msgItem.device }}</span>
       </div>
       <div class="browser">
-        <span
-          nz-icon
-          [nzType]="
+        <span nz-icon [nzType]="
             msgItem.browser.toLowerCase().includes('chrome')
               ? 'chrome'
               : msgItem.browser.toLowerCase().includes('edg')
               ? 'ie'
               : 'question-circle'
-          "
-          nzTheme="outline"
-        ></span>
+          " nzTheme="outline"></span>
         <span>{{ msgItem.browser }}</span>
       </div>
     </div>
-    <app-add-msg-form
-      *ngIf="showForm"
-      [articleId]="msgItem.articleId || ''"
-      [fatherMsgId]="msgItem.msgId"
-      (reloadMsg)="toReloadData()"
-    ></app-add-msg-form>
-    <div
-      class="chirdenMsg"
-      *ngIf="showChirdren"
-      [@toShow]="children!.length"
-    >
-      <app-comment-item
-        *ngFor="let item of children"
-        [msgItem]="item"
-        (reloadData)="toReloadData()"
-      ></app-comment-item>
+    <app-add-msg-form *ngIf="showForm" [articleId]="msgItem.articleId || ''" [fatherMsgId]="msgItem.msgId"
+      (reloadMsg)="toReloadData()"></app-add-msg-form>
+    <div class="chirdenMsg" *ngIf="showChirdren" [@toShow]="children!.length">
+      <app-comment-item *ngFor="let item of children" [msgItem]="item" (reloadData)="toReloadData()"></app-comment-item>
     </div>
-    <div
-      class="showChirdren"
-      *ngIf="children.length!==0"
-      (click)="toShowChildren()"
-    >
+    <div class="showChirdren" *ngIf="children.length !== 0" (click)="toShowChildren()">
       {{ this.showChirdren ? '合并' : '展开' }}&nbsp;{{
-        children.length
+      children.length
       }}&nbsp;条评论
-      <span
-        nz-icon
-        [nzType]="this.showChirdren ? 'up' : 'down'"
-        nzTheme="outline"
-      ></span>
+      <span nz-icon [nzType]="this.showChirdren ? 'up' : 'down'" nzTheme="outline"></span>
     </div>
   </div>
 </div>

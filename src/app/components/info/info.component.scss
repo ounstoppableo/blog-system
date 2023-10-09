@@ -13,10 +13,10 @@
   }
 
   & > .card {
-    background-color: #fff;
+    background-color: var(--cardColor);
     border-radius: 20px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-
+    color: var(--fontColor);
     .title {
       padding: 25px;
 
@@ -49,7 +49,6 @@
             & > .text {
               flex: 1;
               display: flex;
-              color: #888;
               flex-direction: column;
 
               & > .theme {
@@ -64,7 +63,7 @@
               }
 
               & > .date {
-                color: #aaa;
+                color: var(--cateColor);
                 cursor: pointer;
               }
             }

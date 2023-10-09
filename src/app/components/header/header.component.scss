@@ -46,8 +46,8 @@
 }
 
 .active {
-  background-color: #fff;
-  color: #374151;
+  background-color: var(--cardColor);
+  color: var(--fontColor);
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   transition: all 0.5s linear;
 }

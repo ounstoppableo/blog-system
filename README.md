@@ -275,3 +275,4 @@ export class CustomReuseStrategt implements RouteReuseStrategy {
 - [x] 懒加载动画效果
 - [ ] 懒加载
 - [ ] 暗黑模式
+- [ ] 目录功能

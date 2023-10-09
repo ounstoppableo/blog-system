@@ -1,1 +1,5 @@
 <router-outlet></router-outlet>
+<div class="operate">
+  <button class="toTop" (click)="changeDarkMode()"><i [class]="darkMode?'icon-sun' : 'icon-moon'"></i></button>
+  <button class="toTop"><span nz-icon nzType="arrow-up" nzTheme="outline"></span></button>
+</div>

@@ -7,7 +7,7 @@
   align-items: center;
   gap: 15px;
   font-size: 16px;
-  color: #888;
+  color: var(--fontColor);
   padding: 25px;
 
   img {
@@ -25,7 +25,7 @@
   .name {
     font-size: 25px;
     font-weight: 500;
-    color: #000;
+    color: var(--userNameFontColor);
   }
 
   .assets {
@@ -42,7 +42,7 @@
 
       .num {
         font-weight: 800;
-        color: #000;
+        color: var(--userNameFontColor);
       }
     }
 
@@ -80,6 +80,7 @@
   gap: 15px;
   font-size: 16px;
   color: #888;
+
   img {
     width: 100px;
     height: 100px;

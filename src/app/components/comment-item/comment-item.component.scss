@@ -42,20 +42,23 @@
         }
 
         & > .date {
-          color: #888;
+          color: var(--cateColor);
         }
       }
 
       & > .operate {
         display: flex;
         gap: 10px;
-        font-size: 18px;
-        color: #409eff;
 
-        & > [nzType='like'] {
+        & > [nz-button] {
           position: relative;
-          cursor: pointer;
-
+          background: none;
+          border:none;
+          box-shadow:none;
+          color: #409eff;
+          &>[nz-icon]{
+            font-size: 18px;
+          }
           & > .count {
             position: absolute;
             font-size: 12px;
@@ -64,23 +67,23 @@
           }
         }
 
-        & > [nzType='message'] {
-          position: relative;
-          cursor: pointer;
+        // & > [nzType='message'] {
+        //   position: relative;
+        //   cursor: pointer;
 
-          & > .count {
-            position: absolute;
-            font-size: 12px;
-            right: 0px;
-            top: -12px;
-          }
-        }
+        //   & > .count {
+        //     position: absolute;
+        //     font-size: 12px;
+        //     right: 0px;
+        //     top: -12px;
+        //   }
+        // }
       }
     }
 
     & > .msg {
       font-size: 16px;
-      color: #888;
+      color: var(--fontColor);
 
       & > .reply {
         font-size: 14px;
@@ -98,7 +101,7 @@
     & > .footer {
       display: flex;
       gap: 10px;
-      color: #999;
+      color: var(--cateColor);
 
       & > .device {
         display: flex;
@@ -115,7 +118,7 @@
 
     & > .showChirdren {
       margin: 0 auto;
-      color: #aaa;
+      color: var(--cateColor);
       cursor: pointer;
     }
 

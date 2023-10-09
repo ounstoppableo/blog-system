@@ -14,6 +14,7 @@ export interface msgItem extends addMsg {
   browser: string;
   avatar: string;
   children?: msgItem[];
+  upvokeChecked?:boolean;
   parent?: {
     parentName: string;
     parentWebsite: string;

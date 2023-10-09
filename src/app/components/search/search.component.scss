@@ -10,11 +10,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #aaa;
+    color: var(--cateColor);
 
     & .icon {
       font-size: 20px;
-      color: black;
+      color: var(--fontColor);
     }
   }
 

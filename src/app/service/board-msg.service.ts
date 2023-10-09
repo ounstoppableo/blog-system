@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class BoardMsgService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   addMsgForArticle(data: addMsg): Observable<resType<addMsg>> {
     return this.http.post<resType<addMsg>>('/api/addMsgForArticle', data);
   }
@@ -36,5 +36,13 @@ export class BoardMsgService {
     return this.http.get<resType<any>>(
       `/api/getMsgForBoard/${_page}/${_limit}`,
     );
+  }
+  //文章评论点赞功能
+  upvokeForArticleComment(articleId: string, msgId: string, checked: 0 | 1): Observable<resType<any>> {
+    return this.http.get<resType<any>>(`/api/upvokeForArticle/${articleId}/${msgId}/${checked}`)
+  }
+  //留言板评论点赞功能
+  upvokeForBoardComment( msgId: string, checked: 0 | 1): Observable<resType<any>> {
+    return this.http.get<resType<any>>(`/api/upvokeForBoard/${msgId}/${checked}`)
   }
 }

@@ -1,0 +1,17 @@
+.operate {
+  position: fixed;
+  bottom: 10%;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+overflow: hidden;
+
+  &>.toTop {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    color: var(--fixedBtnFontColor);
+    background-color: var(--fixedBtnBkColor);
+  }
+}

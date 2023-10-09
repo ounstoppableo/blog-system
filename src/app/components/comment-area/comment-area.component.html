@@ -1,6 +1,9 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="container">
+  <div class="loading" *ngIf="loading">
+    <span nz-icon nzType="loading"></span>
+  </div>
   <div class="header" *ngIf="!loading">
     <div class="left">{{ msgCount }}&nbsp;条评论</div>
     <div class="right">

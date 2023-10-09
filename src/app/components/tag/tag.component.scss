@@ -2,12 +2,16 @@
   display: flex;
   flex-wrap: wrap;
 
-  & > .tag {
-    color: #666;
-    background-color: #fbe4e4;
+  &>.tag {
+    color: #4b5563;
     padding: 2px 5px;
     border-radius: 4px;
     font-size: 12px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: var(--styleColor) !important;
+      color: white;
+    }
   }
 }
