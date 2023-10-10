@@ -10,7 +10,7 @@ export class AppComponent {
   darkMode = false;
 
   @ViewChild('operate')
-  operate!: ElementRef
+  operate!: ElementRef;
 
   //暗黑模式
   changeDarkMode() {
@@ -62,7 +62,7 @@ export class AppComponent {
   toTop() {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
-    })
+      behavior: 'smooth',
+    });
   }
 }

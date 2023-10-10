@@ -3,38 +3,60 @@
 <div class="writeSpace">
   <div class="avatar"><img src="../../../assets/user.png" alt="" /></div>
   <form nz-form [nzLayout]="'inline'" [formGroup]="msgBoardData" class="form">
-    <div row [class]="smallSize?'smallSize' : '' ">
+    <div row [class]="smallSize ? 'smallSize' : ''">
       <nz-form-item>
-        <nz-form-control [nzValidateStatus]="
+        <nz-form-control
+          [nzValidateStatus]="
             name!.valid ? 'success' : name!.touched ? 'error' : ''
-          ">
+          "
+        >
           <nz-input-group nzPrefixIcon="user">
-            <input formControlName="name" nz-input type="text" placeholder="请输入昵称" />
+            <input
+              formControlName="name"
+              nz-input
+              type="text"
+              placeholder="请输入昵称"
+            />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-control [nzValidateStatus]="
+        <nz-form-control
+          [nzValidateStatus]="
             mail!.valid ? 'success' : mail!.touched ? 'error' : ''
-          ">
+          "
+        >
           <nz-input-group nzPrefixIcon="mail">
-            <input formControlName="mail" nz-input type="text" placeholder="请输入邮箱" />
+            <input
+              formControlName="mail"
+              nz-input
+              type="text"
+              placeholder="请输入邮箱"
+            />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
           <nz-input-group nzPrefixIcon="global">
-            <input formControlName="website" nz-input type="text" placeholder="请输入网址" />
+            <input
+              formControlName="website"
+              nz-input
+              type="text"
+              placeholder="请输入网址"
+            />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div>
       <nz-form-item>
-        <nz-form-control nzHasFeedback [nzValidateStatus]="
+        <nz-form-control
+          nzHasFeedback
+          [nzValidateStatus]="
             content!.valid ? 'success' : content!.touched ? 'error' : ''
-          ">
+          "
+        >
           <nz-textarea-count [nzMaxCharacterCount]="500">
             <textarea formControlName="content" nz-input rows="4"></textarea>
           </nz-textarea-count>

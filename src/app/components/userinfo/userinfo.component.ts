@@ -19,8 +19,8 @@ export class UserinfoComponent implements OnInit {
   constructor(
     private homeService: HomeService,
     private router: Router,
-    private message: NzMessageService
-  ) { }
+    private message: NzMessageService,
+  ) {}
   ngOnInit(): void {
     this.homeService
       .getArticleInfo()
@@ -47,30 +47,33 @@ export class UserinfoComponent implements OnInit {
   }
   //复制邮箱
   copyMail() {
-    navigator.clipboard.writeText('unstoppable840@gmail.com').then(() => {
-      this.message.success('复制邮箱成功')
-    }, () => {
-      this.message.error('复制邮箱失败')
-    })
+    navigator.clipboard.writeText('unstoppable840@gmail.com').then(
+      () => {
+        this.message.success('复制邮箱成功');
+      },
+      () => {
+        this.message.error('复制邮箱失败');
+      },
+    );
   }
   //去github
   toGitHub() {
-    const a = document.createElement('a')
-    a.href = 'https://github.com/ounstoppableo'
-    a.id = 'toGitHub'
-    document.body.append(a)
-    const toGitHub = document.getElementById('toGitHub')
-    toGitHub?.click()
-    toGitHub?.remove()
+    const a = document.createElement('a');
+    a.href = 'https://github.com/ounstoppableo';
+    a.id = 'toGitHub';
+    document.body.append(a);
+    const toGitHub = document.getElementById('toGitHub');
+    toGitHub?.click();
+    toGitHub?.remove();
   }
   //去telegram
-  toTelegram(){
-    const a = document.createElement('a')
-    a.href = 'https://t.me/Niubi666wodebaobei'
-    a.id = 'toGitHub'
-    document.body.append(a)
-    const toGitHub = document.getElementById('toGitHub')
-    toGitHub?.click()
-    toGitHub?.remove()
+  toTelegram() {
+    const a = document.createElement('a');
+    a.href = 'https://t.me/Niubi666wodebaobei';
+    a.id = 'toGitHub';
+    document.body.append(a);
+    const toGitHub = document.getElementById('toGitHub');
+    toGitHub?.click();
+    toGitHub?.remove();
   }
 }

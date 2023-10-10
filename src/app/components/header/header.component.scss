@@ -37,12 +37,12 @@
     }
 
     li:has(.list) {
-      &>[nzType="down"] {
+      & > [nzType='down'] {
         transition: all 0.3s ease;
       }
 
       &:hover {
-        &>[nzType="down"] {
+        & > [nzType='down'] {
           transform: rotate(180deg);
         }
       }

@@ -1,4 +1,8 @@
 <div class="container" [class]="smallSize ? 'smallSize' : ''">
-  <app-add-msg-form [articleId]="articleId" (reloadMsg)="reloadMsg()" [smallSize]="smallSize"></app-add-msg-form>
+  <app-add-msg-form
+    [articleId]="articleId"
+    (reloadMsg)="reloadMsg()"
+    [smallSize]="smallSize"
+  ></app-add-msg-form>
   <app-comment-area [articleId]="articleId" #commentArea></app-comment-area>
 </div>

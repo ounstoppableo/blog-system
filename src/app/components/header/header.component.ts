@@ -11,8 +11,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -39,7 +38,7 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   constructor(
     private router: Router,
     private ls: LoginService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: resType<any>) => {
@@ -57,8 +56,8 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
     this.router.navigate(['/login']);
   }
   ngAfterViewInit(): void {
-    this.fixedBtnShowControl()
-    window.addEventListener('scroll', this.onScroll)
+    this.fixedBtnShowControl();
+    window.addEventListener('scroll', this.onScroll);
     if (this.defaultShow) {
       this.container.nativeElement.classList.add('active');
       this.container.nativeElement.classList.remove('hidden');
@@ -71,9 +70,9 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   //页面定位按钮的显示隐藏控制
   fixedBtnShowControl() {
     if (window.scrollY >= this.scrollTarget) {
-      document.getElementById('operate')!.style.opacity = '1'
+      document.getElementById('operate')!.style.opacity = '1';
     } else {
-      document.getElementById('operate')!.style.opacity = '0'
+      document.getElementById('operate')!.style.opacity = '0';
     }
   }
   //监控滚动事件
@@ -93,11 +92,11 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
       this.container.nativeElement.classList.remove('active');
       this.container.nativeElement.classList.remove('hidden');
     }
-    this.fixedBtnShowControl()
-  }
+    this.fixedBtnShowControl();
+  };
   //组件销毁同时清除滚动事件
   ngOnDestroy(): void {
-    window.removeEventListener('scroll', this.onScroll)
+    window.removeEventListener('scroll', this.onScroll);
   }
   //folder展开
   folderShow() {

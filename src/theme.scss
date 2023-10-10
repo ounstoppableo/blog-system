@@ -2,8 +2,8 @@
 @import '../node_modules/ng-zorro-antd/form/style/index.css';
 @import '../node_modules/ng-zorro-antd/button/style/index.css';
 
-html:has(.smallSize){
-  .ant-form-item{
+html:has(.smallSize) {
+  .ant-form-item {
     margin-right: 0px;
   }
 }

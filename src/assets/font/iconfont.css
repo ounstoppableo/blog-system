@@ -15,28 +15,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
 .icon-up:before {
-  content: "\e618";
+  content: '\e618';
 }
 
 .icon-github-fill:before {
-  content: "\e885";
+  content: '\e885';
 }
 
 .icon-email-fill:before {
-  content: "\e856";
+  content: '\e856';
 }
 
 .icon-telegram:before {
-  content: "\f245";
+  content: '\f245';
 }
 
 .icon-moon:before {
-  content: "\e6c3";
+  content: '\e6c3';
 }
 
 .icon-sun:before {
-  content: "\e886";
+  content: '\e886';
 }
-
