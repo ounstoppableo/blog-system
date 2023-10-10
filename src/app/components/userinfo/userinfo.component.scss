@@ -5,10 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   font-size: 16px;
   color: var(--fontColor);
-  padding: 25px;
+  padding: 30px;
 
   img {
     width: 150px;
@@ -58,16 +58,18 @@
 
   .outlink {
     display: flex;
-    gap: 20px;
+    gap: 10px;
 
     span {
-      transform: scale(1.4);
+      height: 25px;
+      font-size: 25px;
+      line-height: 25px;
       transition: all 0.2s ease;
       cursor: pointer;
     }
 
     span:hover {
-      transform: scale(1.6);
+      transform: scale(1.3);
       color: var(--styleColor);
     }
   }
@@ -79,7 +81,7 @@
   align-items: center;
   gap: 15px;
   font-size: 16px;
-  color: #888;
+  color: var(--cateColor);
 
   img {
     width: 100px;
@@ -107,7 +109,7 @@
 
       .num {
         font-weight: 800;
-        color: #000;
+        color: var(--userNameFontColor);
       }
     }
 

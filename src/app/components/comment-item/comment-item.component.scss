@@ -53,10 +53,10 @@
         & > [nz-button] {
           position: relative;
           background: none;
-          border:none;
-          box-shadow:none;
+          border: none;
+          box-shadow: none;
           color: #409eff;
-          &>[nz-icon]{
+          & > [nz-icon] {
             font-size: 18px;
           }
           & > .count {

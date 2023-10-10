@@ -11,7 +11,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -37,9 +38,8 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
 
   constructor(
     private router: Router,
-    private routes: ActivatedRoute,
     private ls: LoginService,
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: resType<any>) => {
@@ -57,7 +57,8 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
     this.router.navigate(['/login']);
   }
   ngAfterViewInit(): void {
-    this.onScroll();
+    this.fixedBtnShowControl()
+    window.addEventListener('scroll', this.onScroll)
     if (this.defaultShow) {
       this.container.nativeElement.classList.add('active');
       this.container.nativeElement.classList.remove('hidden');
@@ -67,29 +68,36 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   goSearch() {
     this.router.navigate(['search']);
   }
+  //页面定位按钮的显示隐藏控制
+  fixedBtnShowControl() {
+    if (window.scrollY >= this.scrollTarget) {
+      document.getElementById('operate')!.style.opacity = '1'
+    } else {
+      document.getElementById('operate')!.style.opacity = '0'
+    }
+  }
   //监控滚动事件
-  onScroll() {
-    window.onscroll = () => {
-      this.originScrollY < window.scrollY
-        ? (this.scrollDerection = 'down')
-        : (this.scrollDerection = 'up');
-      this.originScrollY = window.scrollY;
-      if (window.scrollY >= this.scrollTarget) {
-        this.container.nativeElement.classList.add('active');
-        if (this.scrollDerection === 'down') {
-          this.container.nativeElement.classList.add('hidden');
-        } else {
-          this.container.nativeElement.classList.remove('hidden');
-        }
+  onScroll = () => {
+    this.originScrollY < window.scrollY
+      ? (this.scrollDerection = 'down')
+      : (this.scrollDerection = 'up');
+    this.originScrollY = window.scrollY;
+    if (window.scrollY >= this.scrollTarget) {
+      this.container.nativeElement.classList.add('active');
+      if (this.scrollDerection === 'down') {
+        this.container.nativeElement.classList.add('hidden');
       } else {
-        this.container.nativeElement.classList.remove('active');
         this.container.nativeElement.classList.remove('hidden');
       }
-    };
+    } else {
+      this.container.nativeElement.classList.remove('active');
+      this.container.nativeElement.classList.remove('hidden');
+    }
+    this.fixedBtnShowControl()
   }
   //组件销毁同时清除滚动事件
   ngOnDestroy(): void {
-    window.onscroll = null;
+    window.removeEventListener('scroll', this.onScroll)
   }
   //folder展开
   folderShow() {

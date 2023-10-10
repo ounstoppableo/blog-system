@@ -2,6 +2,11 @@
 @import '../node_modules/ng-zorro-antd/form/style/index.css';
 @import '../node_modules/ng-zorro-antd/button/style/index.css';
 
+html:has(.smallSize){
+  .ant-form-item{
+    margin-right: 0px;
+  }
+}
 
 .ant-input-textarea-show-count::after {
   position: absolute;
@@ -16,27 +21,27 @@
 }
 
 .ant-pagination-item-active {
-  border-color: var(--styleColor)!important;
+  border-color: var(--styleColor) !important;
 
   & > a {
-    color: var(--styleColor)!important;
+    color: var(--styleColor) !important;
   }
 
   &:hover {
-    border-color: var(--styleColor)!important;
+    border-color: var(--styleColor) !important;
 
     & > a {
-      color: var(--styleColor)!important;
+      color: var(--styleColor) !important;
     }
   }
 }
 
 .ant-pagination-item {
   &:hover {
-    border-color: var(--styleColor)!important;
+    border-color: var(--styleColor) !important;
 
     & > a {
-      color: var(--styleColor)!important;
+      color: var(--styleColor) !important;
     }
   }
 }
@@ -44,10 +49,10 @@
 .ant-pagination-next .ant-pagination-item-link,
 .ant-pagination-prev .ant-pagination-item-link {
   &:hover {
-    border-color: var(--styleColor)!important;
+    border-color: var(--styleColor) !important;
 
     & > .anticon {
-      color: var(--styleColor)!important;
+      color: var(--styleColor) !important;
     }
   }
 }

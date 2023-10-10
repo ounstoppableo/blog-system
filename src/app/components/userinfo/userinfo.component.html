@@ -19,8 +19,8 @@
     </div>
   </div>
   <div class="outlink" *ngIf="!isSmall">
-    <span nz-icon nzType="mail" nzTheme="fill" title="邮箱"></span>
-    <span nz-icon nzType="github" nzTheme="outline" title="github"></span>
-    <span nz-icon nzType="twitter" nzTheme="outline" title="twitter"></span>
+    <span class="icon-email-fill" title="邮箱" (click)="copyMail()"></span>
+    <span class="icon-github-fill" title="github" (click)="toGitHub()"></span>
+    <span class="icon-telegram" title="telegram" (click)="toTelegram()"></span>
   </div>
 </div>

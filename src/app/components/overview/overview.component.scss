@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 30px;
 
-  &>.card {
+  & > .card {
     position: relative;
     background-color: var(--cardColor);
     width: calc(80vw - 350px);
@@ -27,14 +27,14 @@
       flex-direction: column-reverse;
     }
 
-    &>.info {
+    & > .info {
       flex: 1;
       padding: 30px;
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
 
-      &>h1 {
+      & > h1 {
         font-weight: 400;
         font-size: 24px;
         color: var(--fontColor);
@@ -42,7 +42,7 @@
         @include borderAnime;
       }
 
-      &>.folder {
+      & > .folder {
         display: flex;
         gap: 5px;
         align-items: center;
@@ -51,7 +51,7 @@
         @include borderAnime;
       }
 
-      &>.description {
+      & > .description {
         color: var(--fontColor);
         overflow: hidden;
         text-overflow: ellipsis;
@@ -60,11 +60,11 @@
         display: -webkit-box;
       }
 
-      &>.footer {
+      & > .footer {
         display: flex;
         justify-content: space-between;
 
-        &>.date {
+        & > .date {
           display: flex;
           gap: 5px;
           align-items: center;
@@ -74,7 +74,7 @@
       }
     }
 
-    &>.img {
+    & > .img {
       flex: 0.6;
 
       &.smallSize {
@@ -83,7 +83,7 @@
 
       overflow: hidden;
 
-      &>img {
+      & > img {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -92,18 +92,18 @@
     }
 
     &:hover {
-      &>.img {
-        &>img {
+      & > .img {
+        & > img {
           transform: scale(1.2);
         }
       }
 
-      &>.operate {
+      & > .operate {
         opacity: 1;
       }
     }
 
-    &>.operate {
+    & > .operate {
       position: absolute;
       right: 0;
       background-color: rgba(0, 0, 0, 0.5);
@@ -117,7 +117,7 @@
     }
   }
 
-  &>.pagination {
+  & > .pagination {
     text-align: center;
   }
 }

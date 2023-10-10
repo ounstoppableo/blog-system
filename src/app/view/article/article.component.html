@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <app-header
   [scrollTarget]="headerChangeHeight"
   [showFolderIcon]="smallSize"
@@ -9,7 +11,9 @@
     <div class="mask"></div>
     <img alt="" [src]="articleInfo.backImgUrl" />
     <div class="title">
-      <span class="belongFile" (click)="toBelongFile(articleInfo.folderId)">{{ articleInfo.folderName }}</span>
+      <span class="belongFile" (click)="toBelongFile(articleInfo.folderId)">
+        {{ articleInfo.folderName }}
+      </span>
       <div class="headLine">{{ articleInfo.title }}</div>
       <div class="info">
         发布于:{{ articleInfo.subTime | date }}&nbsp;&nbsp;&nbsp;最后更新:{{

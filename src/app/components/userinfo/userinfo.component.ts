@@ -4,6 +4,7 @@ import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'app-userinfo',
   templateUrl: './userinfo.component.html',
@@ -18,7 +19,8 @@ export class UserinfoComponent implements OnInit {
   constructor(
     private homeService: HomeService,
     private router: Router,
-  ) {}
+    private message: NzMessageService
+  ) { }
   ngOnInit(): void {
     this.homeService
       .getArticleInfo()
@@ -42,5 +44,33 @@ export class UserinfoComponent implements OnInit {
   }
   toTagsCate() {
     this.router.navigate(['/tagCate']);
+  }
+  //复制邮箱
+  copyMail() {
+    navigator.clipboard.writeText('unstoppable840@gmail.com').then(() => {
+      this.message.success('复制邮箱成功')
+    }, () => {
+      this.message.error('复制邮箱失败')
+    })
+  }
+  //去github
+  toGitHub() {
+    const a = document.createElement('a')
+    a.href = 'https://github.com/ounstoppableo'
+    a.id = 'toGitHub'
+    document.body.append(a)
+    const toGitHub = document.getElementById('toGitHub')
+    toGitHub?.click()
+    toGitHub?.remove()
+  }
+  //去telegram
+  toTelegram(){
+    const a = document.createElement('a')
+    a.href = 'https://t.me/Niubi666wodebaobei'
+    a.id = 'toGitHub'
+    document.body.append(a)
+    const toGitHub = document.getElementById('toGitHub')
+    toGitHub?.click()
+    toGitHub?.remove()
   }
 }

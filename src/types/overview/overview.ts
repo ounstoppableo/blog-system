@@ -1,7 +1,7 @@
 import { tag } from '../home/home';
 
 export interface articleInfo {
-  folderId:string,
+  folderId: string;
   articleId: string;
   title: string;
   tags: tag[];

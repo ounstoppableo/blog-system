@@ -5,7 +5,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
 } from '@angular/core';
 import {
@@ -53,22 +52,27 @@ export class CommentItemComponent implements OnChanges {
   showComponent = false;
   children: msgItem[] = [];
 
-  constructor(private boardMsgSerivce: BoardMsgService) { }
-
+  constructor(private boardMsgSerivce: BoardMsgService) {}
 
   ngOnChanges(changes: any): void {
     if (changes.msgItem.currentValue) {
       this.addChiren(changes.msgItem.currentValue);
-      this.checkUpvokeStatus(changes.msgItem.currentValue)
+      this.checkUpvokeStatus(changes.msgItem.currentValue);
     }
   }
   //从本地缓存取点赞状态
   checkUpvokeStatus(target: any) {
-    const upvokeStatus = JSON.parse(localStorage.getItem(this.msgItem.articleId ? this.msgItem.articleId : 'msgBoard') as string)
+    const upvokeStatus = JSON.parse(
+      localStorage.getItem(
+        this.msgItem.articleId ? this.msgItem.articleId : 'msgBoard',
+      ) as string,
+    );
     if (upvokeStatus) {
-      const targetUpvokeStatus = upvokeStatus.find((item: any) => item.msgId === target.msgId)
+      const targetUpvokeStatus = upvokeStatus.find(
+        (item: any) => item.msgId === target.msgId,
+      );
       if (targetUpvokeStatus) {
-        target.upvokeChecked = targetUpvokeStatus.checked
+        target.upvokeChecked = targetUpvokeStatus.checked;
       }
     }
   }
@@ -96,35 +100,59 @@ export class CommentItemComponent implements OnChanges {
   }
   //点赞功能
   upvoke(msgItem: any) {
-    msgItem.upvokeChecked = !msgItem.upvokeChecked
+    msgItem.upvokeChecked = !msgItem.upvokeChecked;
     if (msgItem.articleId) {
-      this.boardMsgSerivce.upvokeForArticleComment(msgItem.articleId, msgItem.msgId, msgItem.upvokeChecked ? 1 : 0).subscribe((res: resType<any>) => {
-        if (res.code === 200) {
-          msgItem.upvokeChecked ? msgItem.upvoke += 1 : msgItem.upvoke -= 1
-        }
-      })
+      this.boardMsgSerivce
+        .upvokeForArticleComment(
+          msgItem.articleId,
+          msgItem.msgId,
+          msgItem.upvokeChecked ? 1 : 0,
+        )
+        .subscribe((res: resType<any>) => {
+          if (res.code === 200) {
+            msgItem.upvokeChecked
+              ? (msgItem.upvoke += 1)
+              : (msgItem.upvoke -= 1);
+          }
+        });
     } else {
-      this.boardMsgSerivce.upvokeForBoardComment(msgItem.msgId, msgItem.upvokeChecked ? 1 : 0).subscribe((res: resType<any>) => {
-        if (res.code === 200) {
-          msgItem.upvokeChecked ? msgItem.upvoke += 1 : msgItem.upvoke -= 1
-        }
-      })
+      this.boardMsgSerivce
+        .upvokeForBoardComment(msgItem.msgId, msgItem.upvokeChecked ? 1 : 0)
+        .subscribe((res: resType<any>) => {
+          if (res.code === 200) {
+            msgItem.upvokeChecked
+              ? (msgItem.upvoke += 1)
+              : (msgItem.upvoke -= 1);
+          }
+        });
     }
     const storage = {
       msgId: msgItem.msgId,
-      checked: msgItem.upvokeChecked
-    }
-    const upvokeStatus = JSON.parse(localStorage.getItem(msgItem.articleId ? msgItem.articleId : 'msgBoard') as string)
+      checked: msgItem.upvokeChecked,
+    };
+    const upvokeStatus = JSON.parse(
+      localStorage.getItem(
+        msgItem.articleId ? msgItem.articleId : 'msgBoard',
+      ) as string,
+    );
     if (upvokeStatus) {
-      const targetUpvokeStatus = upvokeStatus.find((item: any) => item.msgId === storage.msgId)
+      const targetUpvokeStatus = upvokeStatus.find(
+        (item: any) => item.msgId === storage.msgId,
+      );
       if (targetUpvokeStatus) {
-        targetUpvokeStatus.checked = storage.checked
+        targetUpvokeStatus.checked = storage.checked;
       } else {
-        upvokeStatus.push(storage)
+        upvokeStatus.push(storage);
       }
-      localStorage.setItem(msgItem.articleId ? msgItem.articleId : 'msgBoard', JSON.stringify(upvokeStatus))
+      localStorage.setItem(
+        msgItem.articleId ? msgItem.articleId : 'msgBoard',
+        JSON.stringify(upvokeStatus),
+      );
     } else {
-      localStorage.setItem(msgItem.articleId ? msgItem.articleId : 'msgBoard', JSON.stringify([storage]))
+      localStorage.setItem(
+        msgItem.articleId ? msgItem.articleId : 'msgBoard',
+        JSON.stringify([storage]),
+      );
     }
   }
 }

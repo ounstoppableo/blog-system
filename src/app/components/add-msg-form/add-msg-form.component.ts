@@ -12,6 +12,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class AddMsgFormComponent implements OnInit {
   @Input()
+  smallSize!: boolean
+  @Input()
   articleId = '';
   @Input()
   fatherMsgId = '';
@@ -82,5 +84,5 @@ export class AddMsgFormComponent implements OnInit {
     private message: NzMessageService,
     private boardMsgService: BoardMsgService,
     private route: ActivatedRoute,
-  ) {}
+  ) { }
 }

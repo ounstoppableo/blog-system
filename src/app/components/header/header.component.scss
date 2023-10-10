@@ -26,17 +26,26 @@
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 0;
-
     li {
       height: 36px;
       padding: 0 15px;
       text-align: center;
       line-height: 36px;
       font-size: 16px;
-      overflow: hidden;
-      position: relative;
       cursor: pointer;
       @include borderAnime;
+    }
+
+    li:has(.list) {
+      &>[nzType="down"] {
+        transition: all 0.3s ease;
+      }
+
+      &:hover {
+        &>[nzType="down"] {
+          transform: rotate(180deg);
+        }
+      }
     }
   }
 
