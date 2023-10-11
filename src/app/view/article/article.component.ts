@@ -64,4 +64,5 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
   toBelongFile(folderId: string) {
     this.router.navigate(['folderPage', folderId]);
   }
+
 }

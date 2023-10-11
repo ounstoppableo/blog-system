@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,15 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 export class AppComponent {
   title = 'my-blog';
   darkMode = false;
-
+  isArticle = false
   @ViewChild('operate')
   operate!: ElementRef;
-
+  constructor(private router: Router) { }
+  ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) this.isArticle = event.url.includes('article')
+    })
+  }
   //暗黑模式
   changeDarkMode() {
     this.darkMode = !this.darkMode;
@@ -66,5 +72,10 @@ export class AppComponent {
     });
   }
   //到评论区
-  toCommentArea() {}
+  toCommentArea() {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  }
 }

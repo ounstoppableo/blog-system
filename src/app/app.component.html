@@ -1,9 +1,12 @@
 <router-outlet></router-outlet>
 <div id="operate">
-  <button class="toTop" (click)="changeDarkMode()">
+  <button class="btn" (click)="changeDarkMode()">
     <i [class]="darkMode ? 'icon-sun' : 'icon-moon'"></i>
   </button>
-  <button class="toTop" (click)="toTop()">
+  <button class="btn" *ngIf="isArticle" (click)="toCommentArea()">
+    <span nz-icon nzType="comment" nzTheme="outline"></span>
+  </button>
+  <button class="btn" (click)="toTop()">
     <span nz-icon nzType="arrow-up" nzTheme="outline"></span>
   </button>
 </div>
