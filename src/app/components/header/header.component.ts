@@ -104,13 +104,13 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
       this.folderControl === 'menu-fold' ? 'menu-unfold' : 'menu-fold';
     this.drawerOpen.emit();
   }
-  goDateCate(){
-    this.router.navigate(['dateCate'])
+  goDateCate() {
+    this.router.navigate(['dateCate']);
   }
-  goFolderCate(){
-    this.router.navigate(['category'])
+  goFolderCate() {
+    this.router.navigate(['category']);
   }
-  goTagCate(){
-    this.router.navigate(['tagCate'])
+  goTagCate() {
+    this.router.navigate(['tagCate']);
   }
 }

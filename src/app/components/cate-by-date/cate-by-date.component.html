@@ -5,7 +5,11 @@
     <app-none *ngIf="false"></app-none>
   </div>
   <div class="has">
-    <div class="dateSpace" *ngFor="let item of dateCategory" [id]="item.dateCate">
+    <div
+      class="dateSpace"
+      *ngFor="let item of dateCategory"
+      [id]="item.dateCate"
+    >
       <div class="date">{{ item.dateCate }}</div>
       <div class="articleSpace" [@toShow]="item.articleInfos.length">
         <div class="item" *ngFor="let articleInfo of item.articleInfos">

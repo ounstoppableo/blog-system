@@ -84,11 +84,11 @@ export class OverviewComponent implements OnInit {
     this.nextPage.emit(page);
   }
   //去日期分类页
-  toDateCate(date:string){
-    this.router.navigate(['dateCate'])
+  toDateCate() {
+    this.router.navigate(['dateCate']);
   }
   //去文件分类页
-  toFolderCate(){
-    this.router.navigate(['category'])
+  toFolderCate() {
+    this.router.navigate(['category']);
   }
 }

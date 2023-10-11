@@ -7,7 +7,7 @@
   margin: 0;
   color: var(--fontColor);
 
-  &>li {
+  & > li {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -20,25 +20,25 @@
       align-items: flex-start;
       gap: 20px;
 
-      &>div {
+      & > div {
         width: 100%;
         display: flex;
         align-items: center;
         gap: 10px;
         position: relative;
 
-        &>[nzType="down"] {
+        & > [nzType='down'] {
           position: absolute;
           right: 0;
           transform: rotate(90deg);
           transition: all 0.5s ease;
-          &.active{
+          &.active {
             transform: rotate(0);
           }
         }
       }
 
-      &>.list {
+      & > .list {
         display: none;
         transform-origin: top center;
         animation: show 0.5s forwards ease;
@@ -47,7 +47,7 @@
         gap: 15px;
         font-size: 15px;
 
-        &>li {
+        & > li {
           display: flex;
           align-items: center;
           gap: 10px;

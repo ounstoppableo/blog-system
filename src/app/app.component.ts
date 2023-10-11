@@ -66,5 +66,5 @@ export class AppComponent {
     });
   }
   //到评论区
-  toCommentArea(){}
+  toCommentArea() {}
 }
