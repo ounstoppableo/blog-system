@@ -22,6 +22,27 @@
         <span nz-icon nzType="form" nzTheme="outline"></span>
         留言板
       </li>
+      <li (click)="show(list,icon)">
+        <div>
+          <span nz-icon nzType="container" nzTheme="fill"></span>
+          <span>往期整理</span>
+          <span #icon nz-icon nzType="down" nzTheme="outline"></span>
+        </div>
+        <ul class="list" #list>
+          <li (click)="goDateCate()">
+            <span nz-icon nzType="clock-circle" nzTheme="outline"></span>
+            <span>历史归档</span>
+          </li>
+          <li (click)="goFolderCate()">
+            <span nz-icon nzType="appstore" nzTheme="outline"></span>
+            <span>文章分类</span>
+          </li>
+          <li (click)="goTagCate()">
+            <span nz-icon nzType="tags" nzTheme="outline"></span>
+            <span>文章标签</span>
+          </li>
+        </ul>
+      </li>
     </ul>
   </ng-container>
 </nz-drawer>

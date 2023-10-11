@@ -5,33 +5,32 @@
   <ul *ngIf="!showFolderIcon" class="right">
     <li (click)="goHome()">
       <span nz-icon nzType="home" nzTheme="fill"></span>
-      首页
+      <span>首页</span>
     </li>
     <li (click)="goSearch()">
       <span nz-icon nzType="search" nzTheme="outline"></span>
-      搜索
+      <span>搜索</span>
     </li>
     <li (click)="goMsgBoard()">
       <span nz-icon nzType="form" nzTheme="outline"></span>
-      留言板
+     <span> 留言板</span>
     </li>
     <li>
       <span nz-icon nzType="container" nzTheme="fill"></span>
       <span>往期整理</span>
-      &nbsp;
       <span nz-icon nzType="down" nzTheme="outline"></span>
       <ul class="list">
-        <li>
-          <span nz-icon nzType="container" nzTheme="fill"></span>
-          <span>往期整理</span>
+        <li (click)="goDateCate()">
+          <span nz-icon nzType="clock-circle" nzTheme="outline"></span>
+          <span>历史归档</span>
         </li>
-        <li>
-          <span nz-icon nzType="container" nzTheme="fill"></span>
-          <span>往期整理</span>
+        <li (click)="goFolderCate()">
+          <span nz-icon nzType="appstore" nzTheme="outline"></span>
+          <span>文章分类</span>
         </li>
-        <li>
-          <span nz-icon nzType="container" nzTheme="fill"></span>
-          <span>往期整理</span>
+        <li (click)="goTagCate()">
+          <span nz-icon nzType="tags" nzTheme="outline"></span>
+          <span>文章标签</span>
         </li>
       </ul>
     </li>

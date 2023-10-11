@@ -8,7 +8,7 @@
   >
     <div class="info">
       <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
-      <p class="folder">
+      <p class="folder" (click)="toFolderCate()">
         <span nz-icon nzType="folder" nzTheme="outline"></span>
         <span>{{ item.folderName }}</span>
       </p>
@@ -17,7 +17,7 @@
       </p>
 
       <div class="footer">
-        <div class="date">
+        <div class="date" (click)="toDateCate(item.lastModifyTime)">
           <span nz-icon nzType="calendar" nzTheme="outline"></span>
           <span>{{ item.lastModifyTime | date }}</span>
         </div>

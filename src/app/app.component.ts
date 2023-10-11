@@ -65,4 +65,6 @@ export class AppComponent {
       behavior: 'smooth',
     });
   }
+  //到评论区
+  toCommentArea(){}
 }
