@@ -1,22 +1,23 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'my-blog';
   darkMode = false;
-  isArticle = false
+  isArticle = false;
   @ViewChild('operate')
   operate!: ElementRef;
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
   ngOnInit(): void {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) this.isArticle = event.url.includes('article')
-    })
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd)
+        this.isArticle = event.url.includes('article');
+    });
   }
   //暗黑模式
   changeDarkMode() {

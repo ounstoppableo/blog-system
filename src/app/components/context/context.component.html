@@ -1,6 +1,6 @@
 <div class="card" [class]="smallSize ? 'smallSize' : ''">
   <app-none *ngIf="!article"></app-none>
-  <div *ngIf="article" [innerHTML]="article | marked" id="write"></div>
+  <div *ngIf="article" [innerHTML]="article" id="write"></div>
   <app-msg-board
     *ngIf="article"
     [articleId]="articleId"
