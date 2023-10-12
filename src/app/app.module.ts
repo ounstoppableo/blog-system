@@ -35,6 +35,7 @@ import { CommentItemComponent } from './components/comment-item/comment-item.com
 import { AddMsgFormComponent } from './components/add-msg-form/add-msg-form.component';
 import { MsgBoradPageComponent } from './view/msg-borad-page/msg-borad-page.component';
 import { ForMsgBoardPageComponent } from './components/for-msg-board-page/for-msg-board-page.component';
+import { CatalogueComponent } from './components/catalogue/catalogue.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ForMsgBoardPageComponent } from './components/for-msg-board-page/for-ms
     AddMsgFormComponent,
     MsgBoradPageComponent,
     ForMsgBoardPageComponent,
+    CatalogueComponent,
   ],
   imports: [
     BrowserModule,

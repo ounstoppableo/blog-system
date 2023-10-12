@@ -12,6 +12,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
@@ -33,8 +34,10 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     NzIconModule.forRoot(icons),
     NzPopconfirmModule,
     NzPaginationModule,
+    NzAnchorModule
   ],
   exports: [
+    NzAnchorModule,
     NzPaginationModule,
     NzPopconfirmModule,
     NzDrawerModule,

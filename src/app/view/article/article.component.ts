@@ -47,7 +47,7 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
     this.headerChangeHeight = this.backImg.nativeElement.offsetHeight;
   }
   @ViewResize()
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
   //打开抽屉
   open() {
     this.drawer.open();
@@ -60,7 +60,7 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) { }
   toBelongFile(folderId: string) {
     this.router.navigate(['folderPage', folderId]);
   }

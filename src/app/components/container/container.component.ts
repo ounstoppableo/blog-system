@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { articleInfo } from '@/types/overview/overview';
@@ -12,6 +12,7 @@ import { resType } from '@/types/response/response';
 })
 export class ContainerComponent implements OnInit {
   articleInfoList: articleInfo[] = [];
+  catalogue:any[] = []
   @Input()
   showInfo!: boolean;
   @Input()
@@ -36,6 +37,8 @@ export class ContainerComponent implements OnInit {
   search = false;
   @Input()
   msgboard = false;
+  @Output()
+  getCatalogue = new EventEmitter()
 
   page = 1;
   limit = 5;
@@ -62,5 +65,8 @@ export class ContainerComponent implements OnInit {
   nextPage(page: number) {
     this.page = page;
     this.getArticleInfo(this.page, this.limit);
+  }
+  _getCatalogue($event:any){
+    this.catalogue = $event
   }
 }

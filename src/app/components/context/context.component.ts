@@ -1,5 +1,5 @@
 import { ArticleService } from '@/app/service/article.service';
-import { AfterViewChecked, Component, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MD5 } from 'crypto-js';
 import hljs from 'highlight.js';
@@ -20,6 +20,8 @@ export class ContextComponent implements OnInit, AfterViewChecked {
   articleTitleTree: any[] = []  //文章标题树，用于构建目录
   @Input()
   smallSize!: boolean;
+  @Output()
+  getCatalogue = new EventEmitter()
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
@@ -33,8 +35,7 @@ export class ContextComponent implements OnInit, AfterViewChecked {
         let article = marked.parse(res.data.articleContent);
         const articleTitleList = article.match(/<h[1-6]{1}>.*?<\/h[1-6]{1}>/g) as any[]
         this.articleTitleTree = this.articleTitleListToTree(articleTitleList, true)
-        console.log(this.articleTitleTree)
-        console.log(articleTitleList)
+        this.getCatalogue.emit(this.articleTitleTree)
         article = article.replace(/<h[1-6]{1}>.*?<\/h[1-6]{1}>/g, (match: string) => {
           const temp = match.split('<')
           const tagEnd = temp[2]
@@ -51,31 +52,29 @@ export class ContextComponent implements OnInit, AfterViewChecked {
   //根据文章标题列表获取文章标题树
   articleTitleListToTree(articleTitleList: string[], flag: boolean = false) {
     const tree: any[] = []
-    let sonLevel: any = null
+    let firstSon: any = null
+    let stopFlag = false
     articleTitleList.forEach((item, index) => {
-      const temp = this.tagSplit(item)
-      if (tree.length === 0 || tree[tree.length - 1].level === temp.tagLevel) {
-        tree.push({ title: temp.title, level: temp.tagLevel, children: [] })
-        sonLevel = null
-      }
-      if (tree.length === 0 || tree[tree.length - 1].level > temp.tagLevel) {
-        if (flag) {
-          tree.push({ title: temp.title, level: temp.tagLevel, children: [] })
-          sonLevel = null
-        } else {
-          return tree
+      if(!stopFlag){
+        const temp = this.tagSplit(item)
+        if (!tree.length || temp.tagLevel === tree[tree.length - 1].tagLevel) {
+          tree.push({ ...temp, children: [] })
+          firstSon = null
+        } else if (temp.tagLevel < tree[tree.length - 1].tagLevel) {
+          if (flag) {
+            tree.push({ ...temp, children: [] })
+            firstSon = null
+          }
+          if(!flag) return stopFlag = true
+        } else if (temp.tagLevel > tree[tree.length - 1].tagLevel) {
+          if (!firstSon) {
+            firstSon = temp
+          }
+          if (firstSon === temp) {
+            tree[tree.length - 1].children = this.articleTitleListToTree(articleTitleList.slice(index))
+          }
         }
       }
-      if (tree[tree.length - 1].level < temp.tagLevel) {
-        if (!sonLevel || sonLevel === temp.tagLevel) {
-          sonLevel = temp.tagLevel
-          tree[tree.length - 1].children.push({ title: temp.title, level: temp.tagLevel, children: [] })
-        }
-        if (sonLevel < temp.tagLevel) {
-          tree[tree.length - 1].children[tree[tree.length - 1].children.length - 1].children = this.articleTitleListToTree(articleTitleList.slice(index))
-        }
-      }
-
     })
     return tree
   }

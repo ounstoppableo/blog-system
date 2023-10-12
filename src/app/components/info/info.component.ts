@@ -14,6 +14,10 @@ export class InfoComponent implements OnInit {
   showInfo!: boolean;
   @Input()
   smallSize = false;
+  @Input()
+  catalogue:any[] = []
+  @Input()
+  isArticle = false
   articleInfoList: articleInfo[] = []; //文章列表
   constructor(
     private homeService: HomeService,
