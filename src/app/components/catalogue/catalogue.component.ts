@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
-import {pinyin} from 'pinyin-pro'
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-catalogue',
   templateUrl: './catalogue.component.html',
@@ -9,7 +9,7 @@ import {pinyin} from 'pinyin-pro'
 export class CatalogueComponent implements OnChanges {
   @Input()
   catalogue: any[] = [];
-  url = ''
+  url = '';
   ngOnChanges(changes: any): void {
     if (changes.catalogue.currentValue) {
       this.catalogue = changes.catalogue.currentValue;
@@ -19,11 +19,8 @@ export class CatalogueComponent implements OnChanges {
 
   addUrlPatam(catalogue: any) {
     catalogue.forEach((item: any) => {
-      item.id = item.title.replace(/[\(\-\)]/g,'')
-      if (item.children.length !== 0) {
-        this.addUrlPatam(item.children);
-      }
+      item.id = item.title.replace(/[\(\-\)\$0-9\.\s\&\;]/g, '');
     });
   }
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 }

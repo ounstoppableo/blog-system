@@ -60,7 +60,9 @@
     <div class="container">
       <app-none *ngIf="false"></app-none>
       <div class="has">
-        <app-catalogue [catalogue]="catalogue"></app-catalogue>
+        <nz-anchor [nzAffix]="false">
+          <app-catalogue [catalogue]="catalogue"></app-catalogue>
+        </nz-anchor>
       </div>
     </div>
   </div>

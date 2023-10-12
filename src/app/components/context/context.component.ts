@@ -12,7 +12,6 @@ import hljs from 'highlight.js';
 import { marked } from 'marked';
 import { DomSanitizer } from '@angular/platform-browser';
 
-
 hljs.configure({
   ignoreUnescapedHTML: true,
 });
@@ -56,7 +55,10 @@ export class ContextComponent implements OnInit, AfterViewChecked {
             const temp2 = temp[1].split('>');
             const tagStart = temp2[0];
             const title = temp2[1];
-            return `<${tagStart} id="${title.replace(/[\(\-\)]/g,'')}">${title}<${tagEnd}`;
+            return `<${tagStart} id="${title.replace(
+              /[\(\-\)\$0-9\.\s\&\;]/g,
+              '',
+            )}">${title}<${tagEnd}`;
           },
         );
         this.article = this.sanitized.bypassSecurityTrustHtml(

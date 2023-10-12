@@ -57,7 +57,7 @@ export class OverviewComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.loginService.getUserInfo().subscribe((res) => {
@@ -85,7 +85,7 @@ export class OverviewComponent implements OnInit {
   }
   //去日期分类页
   toDateCate() {
-    this.router.navigate(['dateCate']);
+    this.router.navigate(['dateCate'])
   }
   //去文件分类页
   toFolderCate() {
