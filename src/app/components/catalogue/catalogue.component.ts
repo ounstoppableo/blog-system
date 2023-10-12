@@ -1,29 +1,29 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { MD5 } from 'crypto-js';
-
+import { ActivatedRoute} from '@angular/router';
+import {pinyin} from 'pinyin-pro'
 @Component({
   selector: 'app-catalogue',
   templateUrl: './catalogue.component.html',
-  styleUrls: ['./catalogue.component.scss']
+  styleUrls: ['./catalogue.component.scss'],
 })
 export class CatalogueComponent implements OnChanges {
   @Input()
-  catalogue: any[] = []
+  catalogue: any[] = [];
+  url = ''
   ngOnChanges(changes: any): void {
     if (changes.catalogue.currentValue) {
-      this.catalogue = changes.catalogue.currentValue
-      this.addUrlPatam(this.catalogue)
-      console.log(this.catalogue)
+      this.catalogue = changes.catalogue.currentValue;
+      this.addUrlPatam(this.catalogue);
     }
   }
 
   addUrlPatam(catalogue: any) {
     catalogue.forEach((item: any) => {
-      item.id = MD5(item.title).toString()
-      if(!!item.children.length){
-        this.addUrlPatam(item.children)
+      item.id = item.title.replace(/[\(\-\)]/g,'')
+      if (item.children.length !== 0) {
+        this.addUrlPatam(item.children);
       }
-    })
+    });
   }
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 }

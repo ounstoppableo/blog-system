@@ -1,5 +1,13 @@
 <nz-anchor [nzAffix]="false">
-  <nz-link [nzHref]="'#'+item.id" [nzTitle]="item.title" *ngFor="let item of catalogue">
-    <nz-link *ngFor="let child of item.children" [nzHref]="'#'+child.id" [nzTitle]="child.title"></nz-link>
+  <nz-link
+    [nzHref]="'#' + item.id"
+    [nzTitle]="item.title"
+    *ngFor="let item of catalogue"
+  >
+    <nz-link
+      *ngFor="let child of item.children"
+      [nzHref]="'#' + child.id"
+      [nzTitle]="child.title"
+    ></nz-link>
   </nz-link>
 </nz-anchor>

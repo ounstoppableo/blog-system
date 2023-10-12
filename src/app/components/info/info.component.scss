@@ -12,15 +12,16 @@
     margin-top: 30px;
   }
 
-  & > .card {
+  &>.card {
     background-color: var(--cardColor);
     border-radius: 20px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     color: var(--fontColor);
+
     .title {
       padding: 25px;
 
-      & > p {
+      &>p {
         font-size: 18px;
         display: flex;
         align-items: center;
@@ -28,30 +29,30 @@
         margin-bottom: 10px;
       }
 
-      & > .container {
-        & > .has {
+      &>.container {
+        &>.has {
           display: flex;
           flex-direction: column;
           gap: 10px;
 
-          & > .item {
+          &>.item {
             height: 60px;
             display: flex;
             gap: 10px;
             align-items: center;
 
-            & > img {
+            &>img {
               width: 60px;
               height: 100%;
               object-fit: cover;
             }
 
-            & > .text {
+            &>.text {
               flex: 1;
               display: flex;
               flex-direction: column;
 
-              & > .theme {
+              &>.theme {
                 width: fit-content;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -62,7 +63,7 @@
                 @include borderAnime;
               }
 
-              & > .date {
+              &>.date {
                 color: var(--cateColor);
                 cursor: pointer;
               }
@@ -75,7 +76,7 @@
     .announce {
       padding: 25px;
 
-      & > p {
+      &>p {
         font-size: 18px;
         display: flex;
         align-items: center;
@@ -87,20 +88,48 @@
 
       // }
     }
+
+    &:has(.catalogue) {
+      width: 300px;
+      height: 50vh;
+      position: sticky;
+      top: 10%;
+    }
+
     .catalogue {
       padding: 25px;
 
-      & > p {
+      &>p {
         font-size: 18px;
         display: flex;
         align-items: center;
         gap: 5px;
         margin-bottom: 10px;
       }
+    }
+  }
+}
 
-      // & > .container {
+.catelogue {
+  position: sticky;
+  top: 10%;
+  width: 300px;
+  height: 50vh;
+  background-color: var(--cardColor);
+  border-radius: 20px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  color: var(--fontColor);
+  margin-top: 30px;
 
-      // }
+  .catalogue {
+    padding: 25px;
+
+    &>p {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 10px;
     }
   }
 }

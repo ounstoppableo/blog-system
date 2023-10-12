@@ -45,17 +45,17 @@
       }
       & > .list {
         position: absolute;
-        opacity: 0;
-        top: calc(100% + 5px);
+        top: 100%;
         left: 5px;
         right: 5px;
-        transform: translateY(50%);
         transition: all 0.5s ease;
         border-radius: 8px;
         background-color: var(--cardColor);
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         color: var(--fontColor);
         overflow: hidden;
+        display: none;
+        animation: show 0.5s ease;
         & > li {
           font-size: 15px;
           display: flex;
@@ -73,8 +73,7 @@
           transform: rotate(180deg);
         }
         & > .list {
-          opacity: 1;
-          transform: translateY(0);
+          display: block;
         }
       }
     }
@@ -95,4 +94,14 @@
 .hidden {
   transform: translateY(-100%);
   opacity: 0;
+}
+@keyframes show{
+  from{
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

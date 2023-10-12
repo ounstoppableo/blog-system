@@ -12,7 +12,7 @@ import { resType } from '@/types/response/response';
 })
 export class ContainerComponent implements OnInit {
   articleInfoList: articleInfo[] = [];
-  catalogue:any[] = []
+  catalogue: any[] = [];
   @Input()
   showInfo!: boolean;
   @Input()
@@ -38,7 +38,7 @@ export class ContainerComponent implements OnInit {
   @Input()
   msgboard = false;
   @Output()
-  getCatalogue = new EventEmitter()
+  getCatalogue = new EventEmitter();
 
   page = 1;
   limit = 5;
@@ -53,6 +53,7 @@ export class ContainerComponent implements OnInit {
       this.getArticleInfo(this.page, this.limit);
     }
   }
+
   getArticleInfo(page: number, limit: number) {
     this.homeService
       .getArticleInfoByPage(page, limit)
@@ -66,7 +67,7 @@ export class ContainerComponent implements OnInit {
     this.page = page;
     this.getArticleInfo(this.page, this.limit);
   }
-  _getCatalogue($event:any){
-    this.catalogue = $event
+  _getCatalogue($event: any) {
+    this.catalogue = $event;
   }
 }

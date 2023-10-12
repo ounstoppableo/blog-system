@@ -1,6 +1,10 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
-<div class="cardContainerRight" *ngIf="showInfo" [class]="smallSize ? 'smallSize' : ''">
+<div
+  class="cardContainerRight"
+  *ngIf="showInfo"
+  [class]="smallSize ? 'smallSize' : ''"
+>
   <div class="card">
     <app-userinfo [isSmall]="false"></app-userinfo>
   </div>
@@ -14,7 +18,11 @@
         <div class="container">
           <app-none *ngIf="articleInfoList.length === 0"></app-none>
           <div class="has" *ngIf="articleInfoList.length !== 0">
-            <div class="item" *ngFor="let item of articleInfoList.slice(0, 6)" (click)="toArticle(item.articleId)">
+            <div
+              class="item"
+              *ngFor="let item of articleInfoList.slice(0, 6)"
+              (click)="toArticle(item.articleId)"
+            >
               <img [src]="item.backImgUrl" alt="" />
               <div class="text">
                 <span class="theme" [title]="item.title">
@@ -42,17 +50,17 @@
       </div>
     </div>
   </div>
-  <div class="card" *ngIf="isArticle">
-    <div class="catalogue">
-      <p>
-        <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
-        <span>目录</span>
-      </p>
-      <div class="container">
-        <app-none *ngIf="false"></app-none>
-        <div class="has">
-          <app-catalogue [catalogue]="catalogue"></app-catalogue>
-        </div>
+</div>
+<div class="catelogue" *ngIf="isArticle && !smallSize">
+  <div class="catalogue">
+    <p>
+      <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+      <span>目录</span>
+    </p>
+    <div class="container">
+      <app-none *ngIf="false"></app-none>
+      <div class="has">
+        <app-catalogue [catalogue]="catalogue"></app-catalogue>
       </div>
     </div>
   </div>

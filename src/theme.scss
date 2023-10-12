@@ -1,6 +1,7 @@
 @import '../node_modules/ng-zorro-antd/input/style/index.css';
 @import '../node_modules/ng-zorro-antd/form/style/index.css';
 @import '../node_modules/ng-zorro-antd/button/style/index.css';
+@import '../node_modules/ng-zorro-antd/anchor/style/index.css';
 
 html:has(.smallSize) {
   .ant-form-item {
@@ -55,4 +56,8 @@ html:has(.smallSize) {
       color: var(--styleColor) !important;
     }
   }
+}
+
+.ant-anchor-wrapper {
+  height: 36vh!important;
 }

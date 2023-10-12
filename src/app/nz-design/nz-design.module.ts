@@ -34,7 +34,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     NzIconModule.forRoot(icons),
     NzPopconfirmModule,
     NzPaginationModule,
-    NzAnchorModule
+    NzAnchorModule,
   ],
   exports: [
     NzAnchorModule,
