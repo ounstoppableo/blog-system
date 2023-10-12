@@ -39,7 +39,7 @@ export class OverviewComponent implements OnInit {
   @Input()
   articleInfoList: articleInfo[] = [];
   articleInfoLazyList: articleInfo[] = [];
-  lazyLoadIndex = 0
+  lazyLoadIndex = 0;
   @Input()
   smallSize!: boolean;
   //模态框组件
@@ -59,7 +59,7 @@ export class OverviewComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.loginService.getUserInfo().subscribe((res) => {
@@ -71,14 +71,29 @@ export class OverviewComponent implements OnInit {
   ngOnChanges(changes: any): void {
     //懒加载效果
     if (changes.articleInfoList.currentValue.length !== 0) {
-      this.articleInfoLazyList = [...this.articleInfoList.slice(this.lazyLoadIndex*3,(this.lazyLoadIndex+1)*3)]
-      this.lazyLoadIndex++
-      window.addEventListener('scroll',()=>{
-        if(document.documentElement.scrollTop>(this.lazyLoadIndex)*innerHeight && this.articleInfoLazyList.length<=this.articleInfoList.length){
-          this.articleInfoLazyList = [...this.articleInfoLazyList,...this.articleInfoList.slice(this.lazyLoadIndex*3,(this.lazyLoadIndex+1)*3)]
-          this.lazyLoadIndex++
+      this.articleInfoLazyList = [
+        ...this.articleInfoList.slice(
+          this.lazyLoadIndex * 3,
+          (this.lazyLoadIndex + 1) * 3,
+        ),
+      ];
+      this.lazyLoadIndex++;
+      window.addEventListener('scroll', () => {
+        if (
+          document.documentElement.scrollTop >
+            this.lazyLoadIndex * innerHeight &&
+          this.articleInfoLazyList.length <= this.articleInfoList.length
+        ) {
+          this.articleInfoLazyList = [
+            ...this.articleInfoLazyList,
+            ...this.articleInfoList.slice(
+              this.lazyLoadIndex * 3,
+              (this.lazyLoadIndex + 1) * 3,
+            ),
+          ];
+          this.lazyLoadIndex++;
         }
-      })
+      });
     }
   }
   toArticle(articleId: string) {

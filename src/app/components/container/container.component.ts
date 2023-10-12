@@ -47,7 +47,7 @@ export class ContainerComponent implements OnInit {
   constructor(
     private routes: ActivatedRoute,
     private homeService: HomeService,
-  ) { }
+  ) {}
   ngOnInit() {
     if (this.isHome) {
       this.getArticleInfo(this.page, this.limit);
@@ -59,7 +59,7 @@ export class ContainerComponent implements OnInit {
       .getArticleInfoByPage(page, limit)
       .subscribe((res: resType<any>) => {
         if (res.code === 200) {
-          this.articleInfoList = res.data.articleInfoList as articleInfo[]
+          this.articleInfoList = res.data.articleInfoList as articleInfo[];
           this.total = res.data.total;
         }
       });
