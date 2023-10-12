@@ -41,13 +41,13 @@ export class ContainerComponent implements OnInit {
   getCatalogue = new EventEmitter();
 
   page = 1;
-  limit = 5;
+  limit = 10;
   total = 0;
 
   constructor(
     private routes: ActivatedRoute,
     private homeService: HomeService,
-  ) {}
+  ) { }
   ngOnInit() {
     if (this.isHome) {
       this.getArticleInfo(this.page, this.limit);
@@ -58,9 +58,10 @@ export class ContainerComponent implements OnInit {
     this.homeService
       .getArticleInfoByPage(page, limit)
       .subscribe((res: resType<any>) => {
-        if (res.code === 200)
-          this.articleInfoList = res.data.articleInfoList as articleInfo[];
-        this.total = res.data.total;
+        if (res.code === 200) {
+          this.articleInfoList = res.data.articleInfoList as articleInfo[]
+          this.total = res.data.total;
+        }
       });
   }
   nextPage(page: number) {

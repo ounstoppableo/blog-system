@@ -3,7 +3,7 @@
 <div class="cardContainerLeft" [@toShow]="articleInfoList.length">
   <div
     class="card"
-    *ngFor="let item of articleInfoList"
+    *ngFor="let item of articleInfoLazyList"
     [class]="smallSize ? 'smallSize' : ''"
   >
     <div class="info">

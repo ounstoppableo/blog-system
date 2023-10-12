@@ -38,6 +38,8 @@ export class OverviewComponent implements OnInit {
   isLogin = false;
   @Input()
   articleInfoList: articleInfo[] = [];
+  articleInfoLazyList: articleInfo[] = [];
+  lazyLoadIndex = 0
   @Input()
   smallSize!: boolean;
   //模态框组件
@@ -66,6 +68,19 @@ export class OverviewComponent implements OnInit {
       });
     }
   }
+  ngOnChanges(changes: any): void {
+    //懒加载效果
+    if (changes.articleInfoList.currentValue.length !== 0) {
+      this.articleInfoLazyList = [...this.articleInfoList.slice(this.lazyLoadIndex*3,(this.lazyLoadIndex+1)*3)]
+      this.lazyLoadIndex++
+      window.addEventListener('scroll',()=>{
+        if(document.documentElement.scrollTop>(this.lazyLoadIndex)*innerHeight && this.articleInfoLazyList.length<=this.articleInfoList.length){
+          this.articleInfoLazyList = [...this.articleInfoLazyList,...this.articleInfoList.slice(this.lazyLoadIndex*3,(this.lazyLoadIndex+1)*3)]
+          this.lazyLoadIndex++
+        }
+      })
+    }
+  }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);
   }
@@ -85,7 +100,7 @@ export class OverviewComponent implements OnInit {
   }
   //去日期分类页
   toDateCate() {
-    this.router.navigate(['dateCate'])
+    this.router.navigate(['dateCate']);
   }
   //去文件分类页
   toFolderCate() {

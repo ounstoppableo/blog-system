@@ -1,3 +1,10 @@
-<nz-link [nzHref]="'#' + item.id" [nzTitle]="item.title" *ngFor="let item of catalogue">
-  <app-catalogue [catalogue]="item.children" *ngIf="item.children.length!==0"></app-catalogue>
+<nz-link
+  [nzHref]="'#' + item.id"
+  [nzTitle]="item.title"
+  *ngFor="let item of catalogue"
+>
+  <app-catalogue
+    [catalogue]="item.children"
+    *ngIf="item.children.length !== 0"
+  ></app-catalogue>
 </nz-link>
