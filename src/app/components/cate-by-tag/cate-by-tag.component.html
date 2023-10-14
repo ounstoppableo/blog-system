@@ -1,8 +1,8 @@
-<div class="card" [class]="smallSize ? 'smallSize' : ''">
-  <div class="none">
-    <app-none *ngIf="false"></app-none>
+<div class="card" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
+  <div class="none" *ngIf="tags.length === 0">
+    <app-none></app-none>
   </div>
-  <div class="has" *ngIf="true">
+  <div class="has" *ngIf="tags.length !== 0">
     <div class="title">
       <span nz-icon nzType="tags" nzTheme="fill"></span>
       &nbsp;&nbsp;
@@ -11,3 +11,4 @@
     <div class="tags"><app-tag [tagList]="tags" [gap]="20"></app-tag></div>
   </div>
 </div>
+<app-loading *ngIf="loading"></app-loading>

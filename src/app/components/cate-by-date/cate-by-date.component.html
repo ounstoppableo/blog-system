@@ -1,10 +1,10 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
-<div class="card" [class]="smallSize ? 'smallSize' : ''">
-  <div class="none">
-    <app-none *ngIf="false"></app-none>
+<div class="card" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
+  <div class="none" *ngIf="dateCategory.length === 0">
+    <app-none></app-none>
   </div>
-  <div class="has">
+  <div class="has" *ngIf="dateCategory.length !== 0">
     <div
       class="dateSpace"
       *ngFor="let item of dateCategory"
@@ -23,3 +23,4 @@
     </div>
   </div>
 </div>
+<app-loading *ngIf="loading"></app-loading>

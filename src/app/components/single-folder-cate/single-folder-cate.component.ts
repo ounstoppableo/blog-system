@@ -16,6 +16,7 @@ export class SingleFolderCateComponent implements OnInit {
   updateArticleModal!: AddArticleFormComponent;
   singleFolderMapArticleInfos: singleFolderMapArticleInfos =
     {} as singleFolderMapArticleInfos;
+  loading = true;
 
   page = 1;
   limit = 5;
@@ -29,10 +30,12 @@ export class SingleFolderCateComponent implements OnInit {
     this.getArticleInfos(this.page, this.limit);
   }
   getArticleInfos(page: number, limit: number) {
+    this.loading = true;
     this.route.params.subscribe((param) => {
       this.categoryService
         .getSingleFolderMapArticleInfos(param['folderId'], page, limit)
         .subscribe((res) => {
+          this.loading = false;
           if (res.code === 200) {
             this.singleFolderMapArticleInfos =
               res.data as singleFolderMapArticleInfos;

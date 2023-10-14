@@ -15,7 +15,8 @@
           <span nz-icon nzType="history" nzTheme="outline"></span>
           <span>最新发布</span>
         </p>
-        <div class="container">
+        <app-loading *ngIf="loading"></app-loading>
+        <div class="container" *ngIf="!loading">
           <app-none *ngIf="articleInfoList.length === 0"></app-none>
           <div class="has" *ngIf="articleInfoList.length !== 0">
             <div

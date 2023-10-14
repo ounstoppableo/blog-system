@@ -1,0 +1,6 @@
+.loading {
+  & > [nzType='loading'] {
+    font-size: 50px;
+    color: var(--styleColor);
+  }
+}

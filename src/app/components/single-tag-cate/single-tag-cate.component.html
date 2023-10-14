@@ -1,4 +1,4 @@
-<div class="container" [class]="smallSize ? 'smallSize' : ''">
+<div class="container" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
   <h1>#{{ singleTagMapArticleInfos.tagName }}</h1>
   <div
     class="none"
@@ -23,3 +23,4 @@
     (nextPage)="nextPage($event)"
   ></app-overview>
 </div>
+<app-loading *ngIf="loading"></app-loading>

@@ -19,6 +19,7 @@ export class InfoComponent implements OnInit {
   @Input()
   isArticle = false;
   articleInfoList: articleInfo[] = []; //文章列表
+  loading = true;
   constructor(
     private homeService: HomeService,
     private router: Router,
@@ -27,6 +28,7 @@ export class InfoComponent implements OnInit {
     this.homeService
       .getArticleInfo()
       .subscribe((res: resType<articleInfo[]>) => {
+        this.loading = false;
         if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
       });
   }

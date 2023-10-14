@@ -13,6 +13,7 @@ export class FolderCateComponent implements OnInit {
   @Input()
   smallSize!: boolean;
   folders: articleInFolderCount[] = [];
+  loading = true;
   constructor(
     private categoryService: CategoryService,
     private router: Router,
@@ -21,6 +22,7 @@ export class FolderCateComponent implements OnInit {
     this.categoryService
       .getArticleInFolderCount()
       .subscribe((res: resType<any>) => {
+        this.loading = false;
         if (res.code === 200) this.folders = res.data as articleInFolderCount[];
       });
   }

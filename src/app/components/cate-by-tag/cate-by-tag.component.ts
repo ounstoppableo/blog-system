@@ -12,11 +12,13 @@ export class CateByTagComponent implements OnInit {
   @Input()
   smallSize!: boolean;
   tags: tag[] = [];
+  loading = true;
   constructor(private categoryService: CategoryService) {}
   ngOnInit(): void {
     this.categoryService
       .getArticleInTagCount()
       .subscribe((res: resType<any>) => {
+        this.loading = false;
         if (res.code === 200) this.tags = res.data;
       });
   }

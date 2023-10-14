@@ -41,6 +41,7 @@ export class CateByDateComponent implements OnInit {
   @Input()
   smallSize = false;
   dateCategory: dateCaterory[] = [];
+  loading = true;
   constructor(
     private catecogyService: CategoryService,
     private router: Router,
@@ -52,6 +53,7 @@ export class CateByDateComponent implements OnInit {
     this.catecogyService
       .getAllArticleInfo()
       .subscribe((res: resType<articleInfo[]>) => {
+        this.loading = false;
         if (res.code === 200) {
           const dateCate = Array.from(
             new Set(

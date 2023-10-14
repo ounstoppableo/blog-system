@@ -1,8 +1,8 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
-<div class="card" [class]="smallSize ? 'smallSize' : ''">
-  <div class="none">
-    <app-none *ngIf="folders.length === 0"></app-none>
+<div class="card" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
+  <div class="none" *ngIf="folders.length === 0">
+    <app-none></app-none>
   </div>
   <div class="has" *ngIf="folders.length !== 0">
     <div class="title">
@@ -22,3 +22,4 @@
     </div>
   </div>
 </div>
+<app-loading *ngIf="loading"></app-loading>

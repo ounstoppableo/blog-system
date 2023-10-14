@@ -17,6 +17,7 @@ export class SingleTagCateComponent implements OnInit {
   updateArticleModal!: AddArticleFormComponent;
   singleTagMapArticleInfos: singleTagMapArticleInfos =
     {} as singleTagMapArticleInfos;
+  loading = true;
 
   page = 1;
   limit = 5;
@@ -33,6 +34,7 @@ export class SingleTagCateComponent implements OnInit {
     });
   }
   getArticleInfo(page: number, limit: number) {
+    this.loading = true;
     this.categoryService
       .getSingleTagMapArticleInfos(
         this.singleTagMapArticleInfos.tagName,
@@ -40,6 +42,7 @@ export class SingleTagCateComponent implements OnInit {
         limit,
       )
       .subscribe((res: resType<singleTagMapArticleInfos>) => {
+        this.loading = false;
         if (res.code === 200) {
           this.singleTagMapArticleInfos = res.data as singleTagMapArticleInfos;
           this.total = this.singleTagMapArticleInfos.total;
