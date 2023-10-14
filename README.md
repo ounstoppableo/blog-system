@@ -261,6 +261,25 @@ export class CustomReuseStrategt implements RouteReuseStrategy {
 })
 ```
 
+#### 页面跳转不滚动到顶部
+
+~~~js
+//只需要在app-routing.module.ts文件中这样修改
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, {
+      onSameUrlNavigation: 'reload',
+        //添加这个字段
+      scrollPositionRestoration: 'top',
+    }),
+  ],
+  exports: [RouterModule],
+  providers: [{ provide: RouteReuseStrategy, useClass: CustomReuseStrategt }],
+})
+~~~
+
+
+
 ### 待做事项
 
 - [x] 文章页面详情
@@ -270,10 +289,11 @@ export class CustomReuseStrategt implements RouteReuseStrategy {
 - [x] 搜索功能
 - [x] tag标签分类功能
 - [x] 文档分类功能
-- [ ] 留言板功能
+- [ ] 留言板功能（添加表情和图片）
 - [x] 更新/删除文章
 - [x] 懒加载动画效果
 - [ ] 懒加载
 - [x] 暗黑模式
 - [x] 目录功能
 - [ ] 目录功能代码抽取
+- [ ] 图片懒加载
