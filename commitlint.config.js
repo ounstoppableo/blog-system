@@ -17,6 +17,7 @@ module.exports = {
         'style',
         'revert',
         'test',
+        'delete',
       ],
     ],
     'type-case': [0],

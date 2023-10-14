@@ -7,10 +7,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import hljs from 'highlight.js';
 import { marked } from 'marked';
 import { DomSanitizer } from '@angular/platform-browser';
+import { resType } from '@/types/response/response';
 
 hljs.configure({
   ignoreUnescapedHTML: true,
@@ -32,11 +33,39 @@ export class ContextComponent implements OnInit, AfterViewChecked {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private sanitized: DomSanitizer,
-  ) {}
-  loading=true
+    private router: Router
+  ) { }
+  loading = true;
+  //前后文章的信息
+  pre = ''
+  preTitle = ''
+  next = ''
+  nextTitle = ''
 
   ngOnInit() {
     this.route.params.subscribe((res) => (this.articleId = res['articleId']));
+    this.route.queryParams.subscribe((res) => {
+      this.pre = res['pre']
+      this.next = res['next']
+      this.preTitle = res['preTitle']
+      this.nextTitle = res['nextTitle']
+    })
+    this.getPreAndNextArticleInfo()
+    this.getArticle()
+  }
+  //获取前一个和后一个文章
+  getPreAndNextArticleInfo() {
+    this.articleService.getPreAndNextArticleInfo(this.articleId).subscribe((res: resType<any>) => {
+      if (res.code === 200) {
+        this.pre = res.data.pre
+        this.preTitle = res.data.preTitle
+        this.next = res.data.next
+        this.nextTitle = res.data.nextTitle
+      }
+    })
+  }
+  //获取文章内容
+  getArticle() {
     this.articleService.getArticle(this.articleId).subscribe((res) => {
       if (res.code === 200) {
         let article = marked.parse(res.data.articleContent);
@@ -65,11 +94,10 @@ export class ContextComponent implements OnInit, AfterViewChecked {
         this.article = this.sanitized.bypassSecurityTrustHtml(
           article,
         ) as string;
-        this.loading=false
+        this.loading = false;
       }
     });
   }
-
   //根据文章标题列表获取文章标题树
   articleTitleListToTree(articleTitleList: string[], flag = false) {
     const tree: any[] = [];
@@ -127,5 +155,8 @@ export class ContextComponent implements OnInit, AfterViewChecked {
       el.className = 'language-javascript hljs';
       hljs.highlightElement(el);
     });
+  }
+  toArticle(articleId: string) {
+    this.router.navigate(['article', articleId]);
   }
 }
