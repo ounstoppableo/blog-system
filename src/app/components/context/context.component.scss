@@ -12,26 +12,34 @@
   &.smallSize {
     width: 100vw;
   }
-  & > .goPreAndNext {
+
+  &>.goPreAndNext {
     width: 100%;
     padding: 0 45px;
-    font-size: 16px;
-    & > .pre {
+    font-size: 15px;
+
+    &>.pre {
       float: left;
     }
-    & > .next {
+
+    &>.next {
       float: right;
     }
-    & > .pre,
-    & > .next {
+
+    &>.pre,
+    &>.next {
       display: flex;
       gap: 5px;
+      line-height: 15px;
       align-items: center;
       cursor: url(/assets/link.ico), pointer;
+
       &:hover {
         text-decoration: underline;
+        color: var(--styleColor)
       }
     }
+
     &::after,
     &::before {
       content: '';
@@ -49,35 +57,36 @@
   font-size: 16px;
   line-height: 1.8em;
   letter-spacing: 0.1em;
+
   :host ::ng-deep & img {
     width: 100%;
     object-fit: contain;
   }
 
-  :host ::ng-deep & > li {
+  :host ::ng-deep &>li {
     margin: 10px !important;
     list-style: circle !important;
   }
 
-  :host ::ng-deep & > pre,
-  :host ::ng-deep & > code {
+  :host ::ng-deep &>pre,
+  :host ::ng-deep &>code {
     font-size: 14px;
     margin: auto 5px;
   }
 
-  :host ::ng-deep & > code {
+  :host ::ng-deep &>code {
     white-space: pre-wrap;
     border-radius: 2px;
     display: inline;
   }
 
-  :host ::ng-deep & > pre {
+  :host ::ng-deep &>pre {
     font-size: 15px;
     line-height: 1.4em;
     display: block !important;
   }
 
-  :host ::ng-deep & > pre & > code {
+  :host ::ng-deep &>pre &>code {
     white-space: pre;
     overflow: auto;
     border-radius: 3px;
@@ -85,73 +94,73 @@
     display: block !important;
   }
 
-  :host ::ng-deep & > strong,
-  :host ::ng-deep & > b {
+  :host ::ng-deep &>strong,
+  :host ::ng-deep &>b {
     color: #bf360c;
   }
 
-  :host ::ng-deep & > em,
-  :host ::ng-deep & > i {
+  :host ::ng-deep &>em,
+  :host ::ng-deep &>i {
     color: #009688;
   }
 
-  :host ::ng-deep & > hr {
+  :host ::ng-deep &>hr {
     border: 1px solid #bf360c;
     margin: 1.5em auto;
   }
 
-  :host ::ng-deep & > p {
+  :host ::ng-deep &>p {
     margin: 1.5em 5px !important;
   }
 
-  :host ::ng-deep & > table,
-  :host ::ng-deep & > pre,
-  :host ::ng-deep & > dl,
-  :host ::ng-deep & > blockquote,
-  :host ::ng-deep & > q,
-  :host ::ng-deep & > ul,
-  :host ::ng-deep & > ol {
+  :host ::ng-deep &>table,
+  :host ::ng-deep &>pre,
+  :host ::ng-deep &>dl,
+  :host ::ng-deep &>blockquote,
+  :host ::ng-deep &>q,
+  :host ::ng-deep &>ul,
+  :host ::ng-deep &>ol {
     margin: 10px 5px;
   }
 
-  :host ::ng-deep & > ul,
-  :host ::ng-deep & > ol {
+  :host ::ng-deep &>ul,
+  :host ::ng-deep &>ol {
     padding-left: 15px;
   }
 
-  :host ::ng-deep & > p {
+  :host ::ng-deep &>p {
     margin: 10px 0 !important;
   }
 
-  :host ::ng-deep & > ul ul,
-  :host ::ng-deep & > ul ol,
-  :host ::ng-deep & > ol ul,
-  :host ::ng-deep & > ol ol {
+  :host ::ng-deep &>ul ul,
+  :host ::ng-deep &>ul ol,
+  :host ::ng-deep &>ol ul,
+  :host ::ng-deep &>ol ol {
     margin: 0;
     padding-left: 10px;
   }
 
-  :host ::ng-deep & > ul {
+  :host ::ng-deep &>ul {
     list-style-type: circle !important;
   }
 
-  :host ::ng-deep & > dl {
+  :host ::ng-deep &>dl {
     padding: 0;
   }
 
-  :host ::ng-deep & > dl dt {
+  :host ::ng-deep &>dl dt {
     font-size: 1em;
     font-weight: bold;
     font-style: italic;
   }
 
-  :host ::ng-deep & > dl dd {
+  :host ::ng-deep &>dl dd {
     margin: 0 0 10px;
     padding: 0 10px;
   }
 
-  :host ::ng-deep & > blockquote,
-  :host ::ng-deep & > q {
+  :host ::ng-deep &>blockquote,
+  :host ::ng-deep &>q {
     border-left: 2px solid #009688;
     padding: 0 10px;
     color: #777;
@@ -159,19 +168,19 @@
     margin-left: 1em;
   }
 
-  :host ::ng-deep & > blockquote::before,
-  :host ::ng-deep & > blockquote::after,
-  :host ::ng-deep & > q::before,
-  :host ::ng-deep & > q::after {
+  :host ::ng-deep &>blockquote::before,
+  :host ::ng-deep &>blockquote::after,
+  :host ::ng-deep &>q::before,
+  :host ::ng-deep &>q::after {
     content: none;
   }
 
-  :host ::ng-deep & > h1,
-  :host ::ng-deep & > h2,
-  :host ::ng-deep & > h3,
-  :host ::ng-deep & > h4,
-  :host ::ng-deep & > h5,
-  :host ::ng-deep & > h6 {
+  :host ::ng-deep &>h1,
+  :host ::ng-deep &>h2,
+  :host ::ng-deep &>h3,
+  :host ::ng-deep &>h4,
+  :host ::ng-deep &>h5,
+  :host ::ng-deep &>h6 {
     margin: 20px 0 10px;
     padding: 0;
     font-style: bold !important;
@@ -181,25 +190,25 @@
     padding: 0.5em 1em !important;
   }
 
-  :host ::ng-deep & > h1 {
+  :host ::ng-deep &>h1 {
     font-size: 24px !important;
     border-bottom: 1px solid #ddd !important;
   }
 
-  :host ::ng-deep & > h2 {
+  :host ::ng-deep &>h2 {
     font-size: 20px !important;
     border-bottom: 1px solid #eee !important;
   }
 
-  :host ::ng-deep & > h3 {
+  :host ::ng-deep &>h3 {
     font-size: 18px;
   }
 
-  :host ::ng-deep & > h4 {
+  :host ::ng-deep &>h4 {
     font-size: 16px;
   }
 
-  :host ::ng-deep & > table {
+  :host ::ng-deep &>table {
     padding: 0;
     border-collapse: collapse;
     border-spacing: 0;
@@ -209,13 +218,13 @@
     margin: 0 auto;
   }
 
-  :host ::ng-deep & > tbody {
+  :host ::ng-deep &>tbody {
     margin: 0;
     padding: 0;
     border: 0;
   }
 
-  :host ::ng-deep & > table tr {
+  :host ::ng-deep &>table tr {
     border: 0;
     border-top: 1px solid #ccc;
     background-color: white;
@@ -223,21 +232,15 @@
     padding: 0;
   }
 
-  :host ::ng-deep & > table tr:nth-child(2n) {
+  :host ::ng-deep &>table tr:nth-child(2n) {
     background-color: #f8f8f8;
   }
 
-  :host ::ng-deep & > table tr th,
-  :host ::ng-deep & > table tr td {
+  :host ::ng-deep &>table tr th,
+  :host ::ng-deep &>table tr td {
     font-size: 16px;
     border: 1px solid #ccc;
     margin: 0;
     padding: 5px 10px;
-  }
-}
-
-@media (max-width: 767px) {
-  #write {
-    padding: 15px;
   }
 }

@@ -32,7 +32,7 @@ export class ContextComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute,
     private sanitized: DomSanitizer,
     private router: Router,
-  ) { }
+  ) {}
   loading = true;
   //前后文章的信息
   pre = '';
@@ -142,9 +142,16 @@ export class ContextComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     document.querySelectorAll('pre code').forEach((el: any) => {
       const languageArr = el.className.split('-');
-      if (languageArr.length !== 2) { hljs.highlightElement(el); return true; };
+      if (languageArr.length !== 2) {
+        hljs.highlightElement(el);
+        return true;
+      }
       const language = languageArr[1].trim();
-      if (hljs.getLanguage(language)) { hljs.highlightElement(el); return true; } el.className = 'language-javascript hljs';
+      if (hljs.getLanguage(language)) {
+        hljs.highlightElement(el);
+        return true;
+      }
+      el.className = 'language-javascript hljs';
       hljs.highlightElement(el);
     });
   }
