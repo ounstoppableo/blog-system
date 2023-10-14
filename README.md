@@ -297,3 +297,5 @@ export class CustomReuseStrategt implements RouteReuseStrategy {
 - [x] 目录功能
 - [ ] 目录功能代码抽取
 - [ ] 图片懒加载
+- [ ] 监控页面访客
+- [ ] 优化包体积
