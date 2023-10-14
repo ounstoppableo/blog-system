@@ -8,7 +8,7 @@ html {
   &.dark {
     @import './assets/darkMode.scss';
   }
-  cursor: url(./assets/ayuda.cur),auto;
+  cursor: url(./assets/pointer.ico), default;
 }
 
 * {

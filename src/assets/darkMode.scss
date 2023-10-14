@@ -139,7 +139,7 @@ a {
   text-decoration: none;
   background-color: transparent;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: color 0.3s;
   -webkit-text-decoration-skip: objects;
 }
@@ -344,7 +344,7 @@ mark {
   vertical-align: 0;
 }
 .anticon[tabindex] {
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .anticon-spin::before {
   display: inline-block;
@@ -1446,7 +1446,7 @@ nz-affix {
   background-color: transparent;
   border: none;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-alert-close-icon .anticon-close {
   color: rgba(255, 255, 255, 0.45);
@@ -1754,7 +1754,7 @@ nz-link {
   z-index: 10;
   width: 40px;
   height: 40px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-back-top:empty {
   display: none;
@@ -2379,7 +2379,7 @@ nz-breadcrumb-item:last-child .ant-breadcrumb-separator {
   background-image: none;
   border: 1px solid transparent;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   user-select: none;
   touch-action: manipulation;
@@ -4267,7 +4267,7 @@ a.ant-btn-sm {
   direction: rtl;
 }
 .ant-card-hoverable {
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition:
     box-shadow 0.3s,
     border-color 0.3s;
@@ -4460,7 +4460,7 @@ a.ant-btn-sm {
   min-width: 32px;
   font-size: 14px;
   line-height: 1.5715;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-card-actions > li > span:hover {
   color: #177ddc;
@@ -4641,7 +4641,7 @@ nz-card-loading {
   outline: none;
 }
 .ant-carousel .slick-list.dragging {
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-carousel .slick-list .slick-slide {
   pointer-events: none;
@@ -4725,7 +4725,7 @@ nz-card-loading {
   background: transparent;
   border: 0;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-carousel .slick-prev:hover,
 .ant-carousel .slick-next:hover,
@@ -4804,7 +4804,7 @@ nz-card-loading {
   border: 0;
   border-radius: 1px;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   opacity: 0.3;
   transition: all 0.5s;
 }
@@ -4926,7 +4926,7 @@ nz-carousel {
   line-height: 1;
   white-space: nowrap;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-checkbox-wrapper:hover .ant-checkbox-inner,
 .ant-checkbox:hover .ant-checkbox-inner,
@@ -4990,7 +4990,7 @@ nz-carousel {
   z-index: 1;
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   opacity: 0;
 }
 .ant-checkbox-checked .ant-checkbox-inner::after {
@@ -5049,7 +5049,7 @@ nz-carousel {
   display: inline-flex;
   align-items: baseline;
   line-height: unset;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-checkbox-wrapper::after {
   display: inline-block;
@@ -5157,7 +5157,7 @@ nz-carousel {
   padding: 12px 16px;
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.5715;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition:
     all 0.3s,
     visibility 0s;
@@ -5188,7 +5188,7 @@ nz-carousel {
   > .ant-collapse-item
   .ant-collapse-header-collapsible-only
   .ant-collapse-header-text {
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-collapse
   > .ant-collapse-item.ant-collapse-no-arrow
@@ -5324,7 +5324,7 @@ nz-collapse-panel {
   position: relative;
   flex-shrink: 0;
   margin-right: 12px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-comment-avatar img {
   width: 32px;
@@ -5384,7 +5384,7 @@ nz-collapse-panel {
   margin-right: 10px;
   color: rgba(255, 255, 255, 0.45);
   font-size: 12px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: color 0.3s;
   user-select: none;
 }
@@ -5657,7 +5657,7 @@ textarea.ant-picker-input > input {
   line-height: 1;
   background: #141414;
   transform: translateY(-50%);
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   opacity: 0;
   transition:
     opacity 0.3s,
@@ -5790,7 +5790,7 @@ textarea.ant-picker-input > input {
   color: #177ddc;
   background: #111b26;
   border-color: #153450;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-picker-ranges .ant-picker-ok {
   float: right;
@@ -5893,7 +5893,7 @@ textarea.ant-picker-input > input {
   line-height: 40px;
   background: transparent;
   border: 0;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: color 0.3s;
 }
 .ant-picker-header > button {
@@ -5980,7 +5980,7 @@ textarea.ant-picker-input > input {
 .ant-picker-cell {
   padding: 3px 0;
   color: rgba(255, 255, 255, 0.3);
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-picker-cell-in-view {
   color: rgba(255, 255, 255, 0.85);
@@ -6400,7 +6400,7 @@ tr
   color: rgba(255, 255, 255, 0.85);
   line-height: 28px;
   border-radius: 0;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: background 0.3s;
 }
 .ant-picker-time-panel-column
@@ -7056,7 +7056,7 @@ nz-descriptions {
   background: transparent;
   border: 0;
   outline: 0;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: color 0.3s;
   text-rendering: auto;
 }
@@ -7432,7 +7432,7 @@ nz-descriptions {
   font-weight: normal;
   font-size: 14px;
   line-height: 22px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
 }
 .ant-dropdown-menu-item-selected,
@@ -13109,7 +13109,7 @@ textarea.ant-input-affix-wrapper {
   color: rgba(255, 255, 255, 0.3);
   font-size: 12px;
   vertical-align: -1px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: color 0.3s;
 }
 .anticon.ant-input-clear-icon:hover,
@@ -13755,7 +13755,7 @@ textarea.ant-input {
 }
 .ant-input-password-icon.anticon {
   color: rgba(255, 255, 255, 0.45);
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
 }
 .ant-input-password-icon.anticon:hover {
@@ -14989,7 +14989,7 @@ textarea.ant-input-number {
 }
 .ant-input-number-handler-up {
   border-top-right-radius: 2px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-input-number-handler-up-inner {
   top: 50%;
@@ -15003,7 +15003,7 @@ textarea.ant-input-number {
   top: 0;
   border-top: 1px solid #434343;
   border-bottom-right-radius: 2px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-input-number-handler-down-inner {
   top: 50%;
@@ -15139,7 +15139,7 @@ textarea.ant-input-number {
   line-height: 48px;
   text-align: center;
   background: #262626;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.2s;
 }
 .ant-layout-sider-zero-width > * {
@@ -15158,7 +15158,7 @@ textarea.ant-input-number {
   text-align: center;
   background: #1f1f1f;
   border-radius: 0 2px 2px 0;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: background 0.3s ease;
 }
 .ant-layout-sider-zero-width-trigger::after {
@@ -16399,7 +16399,7 @@ nz-list-item-extra {
   margin: 0;
   padding: 0 20px;
   white-space: nowrap;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition:
     border-color 0.3s,
     background 0.3s,
@@ -17634,7 +17634,7 @@ textarea.ant-mentions {
   line-height: 1.5715;
   white-space: nowrap;
   text-overflow: ellipsis;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: background 0.3s ease;
 }
 .ant-mentions-dropdown-menu-item:hover {
@@ -17871,7 +17871,7 @@ textarea.ant-mentions {
   background: transparent;
   border: 0;
   outline: 0;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: color 0.3s;
 }
 .ant-modal-close-x {
@@ -18285,7 +18285,7 @@ textarea.ant-mentions {
 }
 .ant-notification-close-icon {
   font-size: 14px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-notification-hook-holder {
   position: relative;
@@ -18562,7 +18562,7 @@ textarea.ant-mentions {
   outline: none;
   transition: color 0.3s;
   color: inherit;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-page-header-back-button:focus,
 .ant-page-header-back-button:hover {
@@ -18736,7 +18736,7 @@ nz-page-header-footer {
   border: 1px solid #434343;
   border-radius: 2px;
   outline: 0;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   user-select: none;
 }
 .ant-pagination-item a {
@@ -18872,7 +18872,7 @@ nz-page-header-footer {
   vertical-align: middle;
   list-style: none;
   border-radius: 2px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
 }
 .ant-pagination-prev,
@@ -18883,7 +18883,7 @@ nz-page-header-footer {
 .ant-pagination-prev button,
 .ant-pagination-next button {
   color: rgba(255, 255, 255, 0.85);
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   user-select: none;
 }
 .ant-pagination-prev:hover button,
@@ -19804,7 +19804,7 @@ nz-pagination {
   display: inline-flex;
   align-items: baseline;
   margin-right: 8px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-radio-wrapper-disabled {
   cursor: not-allowed;
@@ -19833,7 +19833,7 @@ nz-pagination {
   top: 0.2em;
   display: inline-block;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-radio-wrapper:hover .ant-radio,
 .ant-radio:hover .ant-radio-inner,
@@ -19899,7 +19899,7 @@ nz-pagination {
   bottom: 0;
   left: 0;
   z-index: 1;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   opacity: 0;
 }
 .ant-radio-checked .ant-radio-inner {
@@ -19945,7 +19945,7 @@ span.ant-radio + * {
   border: 1px solid #434343;
   border-top-width: 1.02px;
   border-left-width: 0;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition:
     color 0.3s,
     background 0.3s,
@@ -20175,7 +20175,7 @@ span.ant-radio + * {
   position: relative;
   display: inline-block;
   color: inherit;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-rate-star:not(:last-child) {
   margin-right: 8px;
@@ -20486,7 +20486,7 @@ span.ant-radio + * {
   font-weight: bold;
   font-size: 10px;
   line-height: inherit;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-select-multiple .ant-select-selection-item-remove > * {
   line-height: 1;
@@ -20663,7 +20663,7 @@ span.ant-radio + * {
   font-feature-settings: 'tnum';
   position: relative;
   display: inline-block;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-select:not(.ant-select-customize-input) .ant-select-selector {
   position: relative;
@@ -20673,7 +20673,7 @@ span.ant-radio + * {
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 .ant-select:not(.ant-select-customize-input) .ant-select-selector input {
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-select-show-search.ant-select:not(.ant-select-customize-input)
   .ant-select-selector {
@@ -20839,7 +20839,7 @@ span.ant-radio + * {
   text-align: center;
   text-transform: none;
   background: #141414;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   opacity: 0;
   transition:
     color 0.3s ease,
@@ -20920,7 +20920,7 @@ span.ant-radio + * {
   font-weight: normal;
   font-size: 14px;
   line-height: 22px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: background 0.3s ease;
 }
 .ant-select-item-group {
@@ -21137,7 +21137,7 @@ span.ant-radio + * {
 .ant-segmented-item {
   position: relative;
   text-align: center;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 .ant-segmented-item-selected {
@@ -21536,7 +21536,7 @@ span.ant-radio + * {
   height: 12px;
   margin: 10px 6px 10px;
   padding: 4px 0;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   touch-action: none;
 }
 .ant-slider-vertical {
@@ -21620,7 +21620,7 @@ span.ant-radio + * {
   border: solid 2px #153450;
   border-radius: 50%;
   box-shadow: 0;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition:
     border-color 0.3s,
     box-shadow 0.6s,
@@ -21659,7 +21659,7 @@ span.ant-radio + * {
   color: rgba(255, 255, 255, 0.45);
   text-align: center;
   word-break: keep-all;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   user-select: none;
 }
 .ant-slider-mark-text-active {
@@ -21680,7 +21680,7 @@ span.ant-radio + * {
   background-color: #141414;
   border: 2px solid #303030;
   border-radius: 50%;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-slider-dot-active {
   border-color: #16436e;
@@ -22224,7 +22224,7 @@ nz-spin {
 .ant-steps
   .ant-steps-item:not(.ant-steps-item-active)
   > .ant-steps-item-container[role='button'] {
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-steps
   .ant-steps-item:not(.ant-steps-item-active)
@@ -22615,7 +22615,7 @@ nz-spin {
 .ant-steps-navigation
   .ant-steps-item:not(.ant-steps-item-active)
   .ant-steps-item-container[role='button'] {
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-steps-navigation
   .ant-steps-item:not(.ant-steps-item-active)
@@ -22914,7 +22914,7 @@ nz-spin {
     linear-gradient(to right, #141414, #141414);
   border: 0;
   border-radius: 100px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.2s;
   user-select: none;
 }
@@ -23729,7 +23729,7 @@ div.ant-table-summary {
 }
 .ant-table-thead th.ant-table-column-has-sorters {
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
 }
 .ant-table-thead th.ant-table-column-has-sorters:hover {
@@ -23814,7 +23814,7 @@ td.ant-table-column-sort {
   color: #bfbfbf;
   font-size: 12px;
   border-radius: 2px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
 }
 .ant-table-filter-trigger:hover {
@@ -23935,7 +23935,7 @@ table tr th.ant-table-selection-column::after {
   position: absolute;
   top: 0;
   z-index: 1;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
   margin-inline-start: 100%;
   padding-inline-start: 4px;
@@ -23960,7 +23960,7 @@ table tr th.ant-table-selection-column::after {
 .ant-table-row-expand-icon {
   color: #177ddc;
   text-decoration: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: color 0.3s;
   position: relative;
   display: inline-flex;
@@ -24907,7 +24907,7 @@ cdk-virtual-scroll-viewport.ant-table-body {
   line-height: 22px;
   white-space: nowrap;
   text-overflow: ellipsis;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
 }
 .ant-tabs-dropdown-menu-item > span {
@@ -24921,7 +24921,7 @@ cdk-virtual-scroll-viewport.ant-table-body {
   font-size: 12px;
   background: transparent;
   border: 0;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-tabs-dropdown-menu-item-remove:hover {
   color: #165996;
@@ -25092,7 +25092,7 @@ cdk-virtual-scroll-viewport.ant-table-body {
   border: 1px solid #303030;
   border-radius: 2px 2px 0 0;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 .ant-tabs > .ant-tabs-nav .ant-tabs-nav-add:hover,
@@ -25131,7 +25131,7 @@ cdk-virtual-scroll-viewport.ant-table-body {
   background: transparent;
   border: 0;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-tabs-tab-btn:focus,
 .ant-tabs-tab-remove:focus,
@@ -25152,7 +25152,7 @@ cdk-virtual-scroll-viewport.ant-table-body {
   background: transparent;
   border: none;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
 }
 .ant-tabs-tab-remove:hover {
@@ -25250,7 +25250,7 @@ nz-tabs-nav {
   line-height: 22px;
   white-space: nowrap;
   text-overflow: ellipsis;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
 }
 .nz-tabs-dropdown.ant-dropdown .ant-dropdown-menu-item:hover {
@@ -25316,7 +25316,7 @@ nz-tabs-nav {
   margin-left: 3px;
   color: rgba(255, 255, 255, 0.45);
   font-size: 10px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
 }
 .ant-tag-close-icon:hover {
@@ -25335,7 +25335,7 @@ nz-tabs-nav {
 .ant-tag-checkable {
   background-color: transparent;
   border-color: transparent;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-tag-checkable:not(.ant-tag-checkable-checked):hover {
   color: #177ddc;
@@ -26260,7 +26260,7 @@ nz-tabs-nav {
 .ant-transfer-list-header-dropdown {
   font-size: 10px;
   transform: translateY(10%);
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-transfer-list-header-dropdown[disabled] {
   cursor: not-allowed;
@@ -26308,7 +26308,7 @@ nz-tabs-nav {
   color: #177ddc;
   text-decoration: none;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: color 0.3s;
   position: relative;
   color: #434343;
@@ -26335,7 +26335,7 @@ nz-tabs-nav {
     .ant-transfer-list-content-item-disabled
   ):hover {
   background-color: #262626;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-transfer-list-content-item:not(
     .ant-transfer-list-content-item-disabled
@@ -26569,7 +26569,7 @@ a.ant-typography,
 .ant-typography a {
   color: #177ddc;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: color 0.3s;
   text-decoration: none;
 }
@@ -26651,7 +26651,7 @@ a.ant-typography.ant-typography-disabled:active,
   color: #177ddc;
   text-decoration: none;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: color 0.3s;
   margin-left: 4px;
 }
@@ -26807,7 +26807,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   outline: none;
 }
 .ant-upload input[type='file'] {
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-upload.ant-upload-select {
   display: inline-block;
@@ -26825,7 +26825,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   background-color: rgba(255, 255, 255, 0.04);
   border: 1px dashed #434343;
   border-radius: 2px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: border-color 0.3s;
 }
 .ant-upload.ant-upload-select-picture-card > .ant-upload {
@@ -26849,7 +26849,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   background: rgba(255, 255, 255, 0.04);
   border: 1px dashed #434343;
   border-radius: 2px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: border-color 0.3s;
 }
 .ant-upload.ant-upload-drag .ant-upload {
@@ -27205,7 +27205,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   margin: 0 4px;
   color: rgba(255, 255, 255, 0.85);
   font-size: 16px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
 }
 .ant-upload-list-picture-card .ant-upload-list-item-actions .anticon-eye:hover,
@@ -27486,7 +27486,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   line-height: 1;
   white-space: nowrap;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-cascader-checkbox-wrapper:hover .ant-cascader-checkbox-inner,
 .ant-cascader-checkbox:hover .ant-cascader-checkbox-inner,
@@ -27550,7 +27550,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   z-index: 1;
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   opacity: 0;
 }
 .ant-cascader-checkbox-checked .ant-cascader-checkbox-inner::after {
@@ -27610,7 +27610,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   display: inline-flex;
   align-items: baseline;
   line-height: unset;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-cascader-checkbox-wrapper::after {
   display: inline-block;
@@ -27727,7 +27727,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   line-height: 22px;
   white-space: nowrap;
   text-overflow: ellipsis;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition: all 0.3s;
 }
 .ant-cascader-menu-item:hover {
@@ -27886,7 +27886,7 @@ nz-tree-view .ant-tree-list-holder-inner {
   line-height: 1;
   white-space: nowrap;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-tree-checkbox-wrapper:hover .ant-tree-checkbox-inner,
 .ant-tree-checkbox:hover .ant-tree-checkbox-inner,
@@ -27950,7 +27950,7 @@ nz-tree-view .ant-tree-list-holder-inner {
   z-index: 1;
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   opacity: 0;
 }
 .ant-tree-checkbox-checked .ant-tree-checkbox-inner::after {
@@ -28010,7 +28010,7 @@ nz-tree-view .ant-tree-list-holder-inner {
   display: inline-flex;
   align-items: baseline;
   line-height: unset;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-tree-checkbox-wrapper::after {
   display: inline-block;
@@ -28187,7 +28187,7 @@ nz-tree-view .ant-tree-list-holder-inner {
   margin: 0;
   line-height: 24px;
   text-align: center;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   user-select: none;
 }
 .ant-tree-switcher .ant-tree-switcher-icon,
@@ -28246,7 +28246,7 @@ nz-tree-view .ant-tree-list-holder-inner {
   line-height: 24px;
   background: transparent;
   border-radius: 2px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition:
     all 0.3s,
     border 0s,
@@ -28380,7 +28380,7 @@ nz-tree {
   line-height: 1;
   white-space: nowrap;
   outline: none;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-select-tree-checkbox-wrapper:hover .ant-select-tree-checkbox-inner,
 .ant-select-tree-checkbox:hover .ant-select-tree-checkbox-inner,
@@ -28444,7 +28444,7 @@ nz-tree {
   z-index: 1;
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   opacity: 0;
 }
 .ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner::after {
@@ -28505,7 +28505,7 @@ nz-tree {
   display: inline-flex;
   align-items: baseline;
   line-height: unset;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-select-tree-checkbox-wrapper::after {
   display: inline-block;
@@ -28709,7 +28709,7 @@ nz-tree {
   margin: 0;
   line-height: 24px;
   text-align: center;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   user-select: none;
 }
 .ant-select-tree-switcher .ant-tree-switcher-icon,
@@ -28768,7 +28768,7 @@ nz-tree {
   line-height: 24px;
   background: transparent;
   border-radius: 2px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   transition:
     all 0.3s,
     border 0s,
@@ -29224,7 +29224,7 @@ nz-space-item {
   justify-content: center;
   color: #fff;
   background: rgba(0, 0, 0, 0.5);
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -29348,7 +29348,7 @@ nz-space-item {
 .ant-image-preview-operations-operation {
   margin-left: 12px;
   padding: 12px;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
 }
 .ant-image-preview-operations-operation-disabled {
   color: rgba(255, 255, 255, 0.25);
@@ -29380,7 +29380,7 @@ nz-space-item {
   color: rgba(255, 255, 255, 0.85);
   background: rgba(0, 0, 0, 0.1);
   border-radius: 50%;
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   pointer-events: auto;
 }
 .ant-image-preview-switch-left-disabled,

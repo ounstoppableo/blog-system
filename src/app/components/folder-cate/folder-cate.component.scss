@@ -32,7 +32,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        cursor: pointer;
+        cursor: url(/assets/link.ico), pointer;
 
         &:hover {
           color: var(--styleColor);

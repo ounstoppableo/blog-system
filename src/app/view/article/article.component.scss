@@ -33,7 +33,7 @@
         border: 1px solid white;
         padding: 5px;
         border-radius: 3px;
-        cursor: pointer;
+        cursor: url(/assets/link.ico), pointer;
         &:hover {
           text-decoration: underline;
         }

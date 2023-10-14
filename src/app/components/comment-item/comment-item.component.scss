@@ -69,7 +69,7 @@
 
         // & > [nzType='message'] {
         //   position: relative;
-        //   cursor: pointer;
+        //   cursor: url(/assets/link.ico),pointer;;
 
         //   & > .count {
         //     position: absolute;
@@ -119,7 +119,7 @@
     & > .showChirdren {
       margin: 0 auto;
       color: var(--cateColor);
-      cursor: pointer;
+      cursor: url(/assets/link.ico), pointer;
     }
 
     & > .chirdenMsg {

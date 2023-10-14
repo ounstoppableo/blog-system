@@ -7,7 +7,7 @@
     padding: 2px 5px;
     border-radius: 4px;
     font-size: 12px;
-    cursor: pointer;
+    cursor: url(/assets/link.ico), pointer;
     transition: all 0.3s ease;
     &:hover {
       background-color: var(--styleColor) !important;

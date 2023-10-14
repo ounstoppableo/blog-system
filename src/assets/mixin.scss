@@ -1,7 +1,7 @@
 @mixin borderAnime {
   position: relative;
 
-  cursor: pointer;
+  cursor: url(/assets/link.ico), pointer;
   &:hover {
     color: var(--styleColor);
     &::after {

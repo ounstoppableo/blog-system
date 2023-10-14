@@ -282,28 +282,28 @@ export class CustomReuseStrategt implements RouteReuseStrategy {
 
 > 我们可以使用webpack-bundle-analyzer包，可视化监控打包后的项目体积分布
 
-~~~sh
+```sh
 #下载包
 npm install --save-dev webpack-bundle-analyzer
-~~~
+```
 
-~~~sh
+```sh
 #使用angular cli的构建功能如下就可以输出stats-json文件
 #production是angular.json中配置的构建环境
 ng build --configuration production --stats-json
 #执行完后会在dist文件夹生成stats.json文件
 #然后执行以下命令可以在浏览器打开一个窗口可视化监控
 webpack-bundle-analyzer dist/stats.json
-~~~
+```
 
-~~~json
+```json
 //我们可以将该命令配置到package.json文件中
 "scripts":{
     "analyzer": "ng build --configuration analyzer --stats-json && webpack-bundle-analyzer dist/stats.json",
 }
-~~~
+```
 
-~~~json
+```json
 //然后在angular.json中配置analyzer环境
 "build": {
     "configurations": {
@@ -331,7 +331,7 @@ webpack-bundle-analyzer dist/stats.json
             },
     }
 }
-~~~
+```
 
 ### 待做事项
 

@@ -45,7 +45,7 @@
           }
 
           & > .title {
-            cursor: pointer;
+            cursor: url(/assets/link.ico), pointer;
             &:hover {
               text-decoration: underline;
             }

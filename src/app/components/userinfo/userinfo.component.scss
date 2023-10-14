@@ -38,7 +38,7 @@
       align-items: center;
       transition: all 0.2s ease;
       line-height: normal;
-      cursor: pointer;
+      cursor: url(/assets/link.ico), pointer;
 
       .num {
         font-weight: 800;
@@ -65,7 +65,7 @@
       font-size: 25px;
       line-height: 25px;
       transition: all 0.2s ease;
-      cursor: pointer;
+      cursor: url(/assets/link.ico), pointer;
     }
 
     span:hover {
@@ -105,7 +105,7 @@
       align-items: center;
       transition: all 0.2s ease;
       line-height: normal;
-      cursor: pointer;
+      cursor: url(/assets/link.ico), pointer;
 
       .num {
         font-weight: 800;

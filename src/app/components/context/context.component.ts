@@ -30,14 +30,14 @@ export class ContextComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute,
     private sanitized: DomSanitizer,
     private router: Router,
-  ) { }
+  ) {}
   loading = true;
   //前后文章的信息
   pre = '';
   preTitle = '';
   next = '';
   nextTitle = '';
-  hljsScript: any = null
+  hljsScript: any = null;
   ngOnInit() {
     this.route.params.subscribe((res) => (this.articleId = res['articleId']));
     this.route.queryParams.subscribe((res) => {
@@ -149,20 +149,21 @@ export class ContextComponent implements OnInit, AfterViewChecked {
         const language = languageArr[1].trim();
         if (hljs.getLanguage(language)) { hljs.highlightElement(el); return true; } el.className = 'language-javascript hljs';
         hljs.highlightElement(el);
-      });`
+      });`;
       this.hljsScript = document.createElement('script');
-      this.hljsScript.src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js";
-      this.hljsScript.onload = (e: any) => {
-        const script = document.createElement('script')
-        script.type = "text/javascript";
+      this.hljsScript.src =
+        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js';
+      this.hljsScript.onload = () => {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
         try {
           script.appendChild(document.createTextNode(code));
         } catch (e) {
-          script.text = code
-        }finally{
+          script.text = code;
+        } finally {
           document.body.appendChild(script);
         }
-      }
+      };
       document.head.appendChild(this.hljsScript);
     }
   }
