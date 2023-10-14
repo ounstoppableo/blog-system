@@ -33,36 +33,38 @@ export class ContextComponent implements OnInit, AfterViewChecked {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private sanitized: DomSanitizer,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {}
   loading = true;
   //前后文章的信息
-  pre = ''
-  preTitle = ''
-  next = ''
-  nextTitle = ''
+  pre = '';
+  preTitle = '';
+  next = '';
+  nextTitle = '';
 
   ngOnInit() {
     this.route.params.subscribe((res) => (this.articleId = res['articleId']));
     this.route.queryParams.subscribe((res) => {
-      this.pre = res['pre']
-      this.next = res['next']
-      this.preTitle = res['preTitle']
-      this.nextTitle = res['nextTitle']
-    })
-    this.getPreAndNextArticleInfo()
-    this.getArticle()
+      this.pre = res['pre'];
+      this.next = res['next'];
+      this.preTitle = res['preTitle'];
+      this.nextTitle = res['nextTitle'];
+    });
+    this.getPreAndNextArticleInfo();
+    this.getArticle();
   }
   //获取前一个和后一个文章
   getPreAndNextArticleInfo() {
-    this.articleService.getPreAndNextArticleInfo(this.articleId).subscribe((res: resType<any>) => {
-      if (res.code === 200) {
-        this.pre = res.data.pre
-        this.preTitle = res.data.preTitle
-        this.next = res.data.next
-        this.nextTitle = res.data.nextTitle
-      }
-    })
+    this.articleService
+      .getPreAndNextArticleInfo(this.articleId)
+      .subscribe((res: resType<any>) => {
+        if (res.code === 200) {
+          this.pre = res.data.pre;
+          this.preTitle = res.data.preTitle;
+          this.next = res.data.next;
+          this.nextTitle = res.data.nextTitle;
+        }
+      });
   }
   //获取文章内容
   getArticle() {

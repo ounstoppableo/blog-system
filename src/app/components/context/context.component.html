@@ -1,10 +1,22 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="card" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
   <app-none *ngIf="!article"></app-none>
   <div *ngIf="article" [innerHTML]="article" id="write"></div>
-  <div class="goPreAndNext" *ngIf="pre||next">
-    <div class="pre" *ngIf="pre"  (click)="toArticle(pre)"><span nz-icon nzType="left" nzTheme="outline"></span><span>{{preTitle}}</span></div>
-    <div class="next" *ngIf="next" (click)="toArticle(next)"><span>{{nextTitle}}</span><span nz-icon nzType="right" nzTheme="outline"></span></div>
+  <div class="goPreAndNext" *ngIf="pre || next">
+    <div class="pre" *ngIf="pre" (click)="toArticle(pre)">
+      <span nz-icon nzType="left" nzTheme="outline"></span>
+      <span>{{ preTitle }}</span>
+    </div>
+    <div class="next" *ngIf="next" (click)="toArticle(next)">
+      <span>{{ nextTitle }}</span>
+      <span nz-icon nzType="right" nzTheme="outline"></span>
+    </div>
   </div>
-  <app-msg-board *ngIf=" article" [articleId]="articleId" [smallSize]="smallSize"></app-msg-board>
+  <app-msg-board
+    *ngIf="article"
+    [articleId]="articleId"
+    [smallSize]="smallSize"
+  ></app-msg-board>
 </div>
 <app-loading *ngIf="loading"></app-loading>

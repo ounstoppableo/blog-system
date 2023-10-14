@@ -2,7 +2,14 @@ import { HomeService } from '@/app/service/home.service';
 import { LoginService } from '@/app/service/login';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -34,7 +41,7 @@ import {
     ]),
   ],
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnChanges {
   isLogin = false;
   @Input()
   articleInfoList: articleInfo[] = [];
