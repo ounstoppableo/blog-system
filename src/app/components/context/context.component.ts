@@ -33,6 +33,7 @@ export class ContextComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute,
     private sanitized: DomSanitizer,
   ) {}
+  loading=true
 
   ngOnInit() {
     this.route.params.subscribe((res) => (this.articleId = res['articleId']));
@@ -64,6 +65,7 @@ export class ContextComponent implements OnInit, AfterViewChecked {
         this.article = this.sanitized.bypassSecurityTrustHtml(
           article,
         ) as string;
+        this.loading=false
       }
     });
   }
