@@ -263,7 +263,7 @@ export class CustomReuseStrategt implements RouteReuseStrategy {
 
 #### 页面跳转不滚动到顶部
 
-~~~js
+```js
 //只需要在app-routing.module.ts文件中这样修改
 @NgModule({
   imports: [
@@ -276,9 +276,62 @@ export class CustomReuseStrategt implements RouteReuseStrategy {
   exports: [RouterModule],
   providers: [{ provide: RouteReuseStrategy, useClass: CustomReuseStrategt }],
 })
+```
+
+### 包优化
+
+> 我们可以使用webpack-bundle-analyzer包，可视化监控打包后的项目体积分布
+
+~~~sh
+#下载包
+npm install --save-dev webpack-bundle-analyzer
 ~~~
 
+~~~sh
+#使用angular cli的构建功能如下就可以输出stats-json文件
+#production是angular.json中配置的构建环境
+ng build --configuration production --stats-json
+#执行完后会在dist文件夹生成stats.json文件
+#然后执行以下命令可以在浏览器打开一个窗口可视化监控
+webpack-bundle-analyzer dist/stats.json
+~~~
 
+~~~json
+//我们可以将该命令配置到package.json文件中
+"scripts":{
+    "analyzer": "ng build --configuration analyzer --stats-json && webpack-bundle-analyzer dist/stats.json",
+}
+~~~
+
+~~~json
+//然后在angular.json中配置analyzer环境
+"build": {
+    "configurations": {
+        "analyzer": {
+              "optimization": true,
+              "outputHashing": "all",
+            //配置sourceMap更好对比源代码
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": true,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+    }
+}
+~~~
 
 ### 待做事项
 
