@@ -16,6 +16,11 @@ html {
   margin: 0;
   padding: 0;
 }
+a {
+  &:hover {
+    cursor: url(/assets/link.ico),pointer!important;
+  }
+}
 
 body {
   font-size: 16px;

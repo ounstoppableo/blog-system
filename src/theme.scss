@@ -16,7 +16,7 @@ html:has(.smallSize) {
 }
 
 .ant-form-item {
-  &:last-child {
+  &:nth-child(n){
     margin-right: 0;
   }
 }
@@ -24,14 +24,14 @@ html:has(.smallSize) {
 .ant-pagination-item-active {
   border-color: var(--styleColor) !important;
 
-  & > a {
+  &>a {
     color: var(--styleColor) !important;
   }
 
   &:hover {
     border-color: var(--styleColor) !important;
 
-    & > a {
+    &>a {
       color: var(--styleColor) !important;
     }
   }
@@ -41,7 +41,7 @@ html:has(.smallSize) {
   &:hover {
     border-color: var(--styleColor) !important;
 
-    & > a {
+    &>a {
       color: var(--styleColor) !important;
     }
   }
@@ -52,7 +52,7 @@ html:has(.smallSize) {
   &:hover {
     border-color: var(--styleColor) !important;
 
-    & > .anticon {
+    &>.anticon {
       color: var(--styleColor) !important;
     }
   }
@@ -61,6 +61,7 @@ html:has(.smallSize) {
 .ant-anchor-wrapper {
   height: 50vh !important;
 }
-.ant-anchor-link-active > .ant-anchor-link-title {
+
+.ant-anchor-link-active>.ant-anchor-link-title {
   color: var(--styleColor);
 }
