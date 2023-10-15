@@ -1,5 +1,5 @@
 import { msgItem } from '@/types/msgBorad/msgBorad';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import {
   Component,
   EventEmitter,
@@ -54,7 +54,7 @@ export class CommentItemComponent implements OnChanges {
   @Input()
   smallSize = false;
 
-  constructor(private boardMsgSerivce: BoardMsgService) { }
+  constructor(private boardMsgSerivce: BoardMsgService) {}
 
   ngOnChanges(changes: any): void {
     if (changes.msgItem.currentValue) {
