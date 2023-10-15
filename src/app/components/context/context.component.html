@@ -1,4 +1,3 @@
-
 <div class="card" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
   <app-none *ngIf="!article"></app-none>
   <div *ngIf="article" [innerHTML]="article" id="write"></div>
