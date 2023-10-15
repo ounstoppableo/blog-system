@@ -6,20 +6,13 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzFormModule } from 'ng-zorro-antd/form';
-import { IconDefinition } from '@ant-design/icons-angular';
-import * as AllIcons from '@ant-design/icons-angular/icons';
-import { NzIconModule } from 'ng-zorro-antd/icon';
+
+import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
 
-const antDesignIcons = AllIcons as {
-  [key: string]: IconDefinition;
-};
-const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
-  (key) => antDesignIcons[key],
-);
 @NgModule({
   declarations: [],
   imports: [
@@ -31,7 +24,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     NzInputModule,
     NzSelectModule,
     NzFormModule,
-    NzIconModule.forRoot(icons),
+    NzIconModule,
     NzPopconfirmModule,
     NzPaginationModule,
     NzAnchorModule,
@@ -51,4 +44,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     NzIconModule,
   ],
 })
-export class NzDesignModule {}
+export class NzDesignModule {
+  constructor(private nzIconService: NzIconService) {
+    this.nzIconService.changeAssetsSource('');
+  }
+}
