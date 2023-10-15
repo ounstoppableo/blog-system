@@ -343,7 +343,7 @@ webpack-bundle-analyzer dist/stats.json
 
 #### highlight按需引入
 
-~~~ts
+```ts
 //context.component.ts文件
 //我们创建一个插入文章内容并渲染高亮的函数
 insertArticle() {
@@ -410,11 +410,11 @@ ngAfterViewChecked(): void {
       }
     }
   }
-~~~
+```
 
 #### icons按需引入
 
-~~~json
+```json
 //首先在angular.json中加入以下字段
  "assets": [
      {
@@ -425,20 +425,20 @@ ngAfterViewChecked(): void {
        "output": "/icons/"
      }
  ]
-~~~
+```
 
-~~~ts
+```ts
 //然后我们这样引入icon
 import { NzIconService } from 'ng-zorro-antd/icon';
 export class NzDesignModule {
   constructor(private nzIconService: NzIconService) {
-      //进行资源路径重写，原来会请求/assets/*，这样写后就请求/icons/assets/*
+    //进行资源路径重写，原来会请求/assets/*，这样写后就请求/icons/assets/*
     this.nzIconService.changeAssetsSource('/icons');
   }
 }
-~~~
+```
 
-~~~sh
+```sh
 # 在nginx上配置路径
 # 首先我们把打包后的dist下的icons文件单独拎出
 # 我是放到了/var/my-blog/下
@@ -455,7 +455,7 @@ location /icons/assets/ {
     proxy_pass http://fontend_server/icons/;
 }
 # 这样操作下来后就能正确请求了
-~~~
+```
 
 ### 待做事项
 
