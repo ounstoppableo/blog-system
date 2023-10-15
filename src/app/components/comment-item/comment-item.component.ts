@@ -1,5 +1,5 @@
 import { msgItem } from '@/types/msgBorad/msgBorad';
-import * as lodash from 'lodash';
+import { cloneDeep } from 'lodash';
 import {
   Component,
   EventEmitter,
@@ -54,7 +54,7 @@ export class CommentItemComponent implements OnChanges {
   @Input()
   smallSize = false;
 
-  constructor(private boardMsgSerivce: BoardMsgService) {}
+  constructor(private boardMsgSerivce: BoardMsgService) { }
 
   ngOnChanges(changes: any): void {
     if (changes.msgItem.currentValue) {
@@ -81,7 +81,7 @@ export class CommentItemComponent implements OnChanges {
   addChiren(parent: any) {
     if (parent.children) {
       parent.children.forEach((item: any) => {
-        const temp = lodash.cloneDeep(item);
+        const temp = cloneDeep(item);
         temp.children = null;
         this.children.push(temp);
         if (item.children) {

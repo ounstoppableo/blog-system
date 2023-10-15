@@ -45,7 +45,7 @@ import { NzAnchorModule } from 'ng-zorro-antd/anchor';
   ],
 })
 export class NzDesignModule {
-  constructor(private nzIconService:NzIconService){
-    this.nzIconService.changeAssetsSource('')
+  constructor(private nzIconService: NzIconService) {
+    this.nzIconService.changeAssetsSource('');
   }
 }
