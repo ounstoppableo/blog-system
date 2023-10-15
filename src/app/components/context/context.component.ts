@@ -7,12 +7,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { marked } from 'marked';
-import { DomSanitizer } from '@angular/platform-browser';
 import { resType } from '@/types/response/response';
-import hljs from 'highlight.js';
-hljs.configure({ ignoreUnescapedHTML: true });
+
 
 @Component({
   selector: 'app-context',
@@ -30,9 +28,8 @@ export class ContextComponent implements OnInit, AfterViewChecked {
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
-    private sanitized: DomSanitizer,
     private router: Router,
-  ) {}
+  ) { }
   loading = true;
   //前后文章的信息
   pre = '';
@@ -40,6 +37,8 @@ export class ContextComponent implements OnInit, AfterViewChecked {
   next = '';
   nextTitle = '';
   hljsScript: any = null;
+
+  write: any = null
   ngOnInit() {
     this.route.params.subscribe((res) => (this.articleId = res['articleId']));
     this.route.queryParams.subscribe((res) => {
@@ -50,6 +49,15 @@ export class ContextComponent implements OnInit, AfterViewChecked {
     });
     this.getPreAndNextArticleInfo();
     this.getArticle();
+    //监控路由变化
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        if (event.url.includes('article')) {
+          document.getElementById('hljs')?.remove()
+          document.getElementById('hljsExec')?.remove()
+        }
+      }
+    })
   }
   //获取前一个和后一个文章
   getPreAndNextArticleInfo() {
@@ -64,8 +72,45 @@ export class ContextComponent implements OnInit, AfterViewChecked {
         }
       });
   }
+  //插入文章内容并渲染高亮
+  insertArticle() {
+    this.write.innerHTML = this.article
+    const code = `
+    hljs.configure({ ignoreUnescapedHTML: true });
+    document.querySelectorAll('pre code').forEach((el) => {
+      const languageArr = el.className.split('-');
+      if (languageArr.length !== 2) {
+        hljs.highlightElement(el);
+        return true;
+      }
+      const language = languageArr[1].trim();
+      if (hljs.getLanguage(language)) {
+        hljs.highlightElement(el);
+        return true;
+      }
+      el.className = 'language-javascript hljs';
+      hljs.highlightElement(el);
+    });`
+    const hljsScript = document.createElement('script')
+    hljsScript.id = 'hljs'
+    hljsScript.src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"
+    document.body.append(hljsScript)
+    hljsScript.onload = () => {
+      const script = document.createElement('script')
+      script.id = 'hljsExec'
+      try {
+        script.appendChild(document.createTextNode(code))
+      } catch (e) {
+        script.text = code
+      } finally {
+        document.body.append(script)
+      }
+    }
+
+  }
   //获取文章内容
   getArticle() {
+    this.loading = true
     this.articleService.getArticle(this.articleId).subscribe((res) => {
       if (res.code === 200) {
         let article = marked.parse(res.data.articleContent);
@@ -91,9 +136,7 @@ export class ContextComponent implements OnInit, AfterViewChecked {
             )}">${title}<${tagEnd}`;
           },
         );
-        this.article = this.sanitized.bypassSecurityTrustHtml(
-          article,
-        ) as string;
+        this.article = article
         this.loading = false;
       }
     });
@@ -140,20 +183,15 @@ export class ContextComponent implements OnInit, AfterViewChecked {
     };
   }
   ngAfterViewChecked(): void {
-    document.querySelectorAll('pre code').forEach((el: any) => {
-      const languageArr = el.className.split('-');
-      if (languageArr.length !== 2) {
-        hljs.highlightElement(el);
-        return true;
+    if (!this.write) {
+      this.write = document.getElementById('write')
+      if (!this.article) {
+        this.write = null
       }
-      const language = languageArr[1].trim();
-      if (hljs.getLanguage(language)) {
-        hljs.highlightElement(el);
-        return true;
+      if (this.write) {
+        this.insertArticle()
       }
-      el.className = 'language-javascript hljs';
-      hljs.highlightElement(el);
-    });
+    }
   }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);
