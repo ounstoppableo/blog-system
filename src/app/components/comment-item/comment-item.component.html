@@ -83,12 +83,14 @@
       [articleId]="msgItem.articleId || ''"
       [fatherMsgId]="msgItem.msgId"
       (reloadMsg)="toReloadData()"
+      [smallSize]="smallSize"
     ></app-add-msg-form>
     <div class="chirdenMsg" *ngIf="showChirdren" [@toShow]="children!.length">
       <app-comment-item
         *ngFor="let item of children"
         [msgItem]="item"
         (reloadData)="toReloadData()"
+        [smallSize]="smallSize"
       ></app-comment-item>
     </div>
     <div

@@ -42,6 +42,8 @@ export class CommentAreaComponent implements OnInit {
   show = false;
   loading = false;
   msgItems: msgItem[] = [];
+  @Input()
+  smallSize=false
   //判断是不是留言板页面
   isMsgBoard = false;
   msgCount = 0;

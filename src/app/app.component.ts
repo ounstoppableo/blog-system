@@ -10,14 +10,21 @@ export class AppComponent implements OnInit {
   title = 'my-blog';
   darkMode = false;
   isArticle = false;
+  firstLoad = true
   @ViewChild('operate')
   operate!: ElementRef;
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd)
         this.isArticle = event.url.includes('article');
     });
+    if (this.firstLoad) {
+      this.loadCss(`./assets/darkMode.scss`, 'dark').finally(() => {
+        document.getElementById('dark')?.remove()
+        this.firstLoad = false
+      })
+    }
   }
   //暗黑模式
   changeDarkMode() {
@@ -34,9 +41,9 @@ export class AppComponent implements OnInit {
         '#d1d5db',
       );
       document.documentElement.style.setProperty('--footerBkColor', '#000');
-      this.loadCss(`./assets/darkMode.scss`, 'dark').then(() => {
-        document.documentElement.classList.add('dark');
-      });
+      this.loadCss(`./assets/darkMode.scss`, 'dark').finally(() => {
+        document.documentElement.classList.add('dark')
+      })
     } else {
       document.documentElement.style.setProperty(
         '--defaultBackgroundColor',
@@ -46,7 +53,7 @@ export class AppComponent implements OnInit {
       document.documentElement.style.setProperty('--fontColor', '#4b5563');
       document.documentElement.style.setProperty('--userNameFontColor', '#000');
       document.documentElement.style.setProperty('--footerBkColor', '#e5e5e5');
-      const removedThemeStyle = document.getElementById('dark')?.remove();
+      const removedThemeStyle = document.getElementById('dark');
       if (removedThemeStyle) {
         document.head.removeChild(removedThemeStyle);
       }
@@ -60,7 +67,7 @@ export class AppComponent implements OnInit {
       style.rel = 'stylesheet';
       style.href = href;
       style.id = id;
-      style.onload = resolve;
+      style.onload = resolve
       style.onerror = reject;
       document.head.append(style);
     });

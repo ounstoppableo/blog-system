@@ -24,6 +24,7 @@
       *ngFor="let item of msgItems"
       [msgItem]="item"
       (reloadData)="reload()"
+      [smallSize]="smallSize"
     ></app-comment-item>
   </div>
   <nz-pagination

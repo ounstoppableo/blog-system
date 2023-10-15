@@ -15,7 +15,7 @@
       <span nz-icon nzType="form" nzTheme="outline"></span>
       <span>留言板</span>
     </li>
-    <li>
+    <li #list (mouseover)="liOnMouseOver(list)" (mouseleave)="liOnMouseLeave(list)">
       <span nz-icon nzType="container" nzTheme="fill"></span>
       <span>往期整理</span>
       <span nz-icon nzType="down" nzTheme="outline"></span>

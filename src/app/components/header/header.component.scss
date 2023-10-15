@@ -26,7 +26,8 @@
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 0;
-    & > li {
+
+    &>li {
       display: flex;
       align-items: center;
       gap: 5px;
@@ -37,14 +38,14 @@
       font-size: 16px;
       cursor: url(/assets/link.ico), pointer;
       @include borderAnime;
-    }
 
-    li:has(.list) {
-      & > [nzType='down'] {
+      & [nzType='down'] {
         transition: all 0.3s ease;
       }
-      & > .list {
+
+      & .list {
         position: absolute;
+        display: none;
         top: 100%;
         left: 5px;
         right: 5px;
@@ -54,25 +55,28 @@
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         color: var(--fontColor);
         overflow: hidden;
-        display: none;
         animation: show 0.5s ease;
-        & > li {
+
+        &>li {
           font-size: 15px;
           display: flex;
           padding: 5px 0;
           padding-left: 15px;
           gap: 10px;
           align-items: center;
+
           &:hover {
             background-color: #a5b4fc;
           }
         }
       }
-      &:hover {
-        & > [nzType='down'] {
+
+      &.listActive {
+        & [nzType='down'] {
           transform: rotate(180deg);
         }
-        & > .list {
+
+        & .list {
           display: block;
         }
       }
@@ -95,11 +99,13 @@
   transform: translateY(-100%);
   opacity: 0;
 }
+
 @keyframes show {
   from {
     opacity: 0;
     transform: translateY(50%);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
