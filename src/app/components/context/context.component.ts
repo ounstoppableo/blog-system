@@ -11,7 +11,6 @@ import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { marked } from 'marked';
 import { resType } from '@/types/response/response';
 
-
 @Component({
   selector: 'app-context',
   templateUrl: './context.component.html',
@@ -29,7 +28,7 @@ export class ContextComponent implements OnInit, AfterViewChecked {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router,
-  ) { }
+  ) {}
   loading = true;
   //前后文章的信息
   pre = '';
@@ -38,7 +37,7 @@ export class ContextComponent implements OnInit, AfterViewChecked {
   nextTitle = '';
   hljsScript: any = null;
 
-  write: any = null
+  write: any = null;
   ngOnInit() {
     this.route.params.subscribe((res) => (this.articleId = res['articleId']));
     this.route.queryParams.subscribe((res) => {
@@ -50,14 +49,14 @@ export class ContextComponent implements OnInit, AfterViewChecked {
     this.getPreAndNextArticleInfo();
     this.getArticle();
     //监控路由变化
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (event.url.includes('article')) {
-          document.getElementById('hljs')?.remove()
-          document.getElementById('hljsExec')?.remove()
+          document.getElementById('hljs')?.remove();
+          document.getElementById('hljsExec')?.remove();
         }
       }
-    })
+    });
   }
   //获取前一个和后一个文章
   getPreAndNextArticleInfo() {
@@ -74,7 +73,7 @@ export class ContextComponent implements OnInit, AfterViewChecked {
   }
   //插入文章内容并渲染高亮
   insertArticle() {
-    this.write.innerHTML = this.article
+    this.write.innerHTML = this.article;
     const code = `
     hljs.configure({ ignoreUnescapedHTML: true });
     document.querySelectorAll('pre code').forEach((el) => {
@@ -90,27 +89,27 @@ export class ContextComponent implements OnInit, AfterViewChecked {
       }
       el.className = 'language-javascript hljs';
       hljs.highlightElement(el);
-    });`
-    const hljsScript = document.createElement('script')
-    hljsScript.id = 'hljs'
-    hljsScript.src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"
-    document.body.append(hljsScript)
+    });`;
+    const hljsScript = document.createElement('script');
+    hljsScript.id = 'hljs';
+    hljsScript.src =
+      'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js';
+    document.body.append(hljsScript);
     hljsScript.onload = () => {
-      const script = document.createElement('script')
-      script.id = 'hljsExec'
+      const script = document.createElement('script');
+      script.id = 'hljsExec';
       try {
-        script.appendChild(document.createTextNode(code))
+        script.appendChild(document.createTextNode(code));
       } catch (e) {
-        script.text = code
+        script.text = code;
       } finally {
-        document.body.append(script)
+        document.body.append(script);
       }
-    }
-
+    };
   }
   //获取文章内容
   getArticle() {
-    this.loading = true
+    this.loading = true;
     this.articleService.getArticle(this.articleId).subscribe((res) => {
       if (res.code === 200) {
         let article = marked.parse(res.data.articleContent);
@@ -136,7 +135,7 @@ export class ContextComponent implements OnInit, AfterViewChecked {
             )}">${title}<${tagEnd}`;
           },
         );
-        this.article = article
+        this.article = article;
         this.loading = false;
       }
     });
@@ -184,12 +183,12 @@ export class ContextComponent implements OnInit, AfterViewChecked {
   }
   ngAfterViewChecked(): void {
     if (!this.write) {
-      this.write = document.getElementById('write')
+      this.write = document.getElementById('write');
       if (!this.article) {
-        this.write = null
+        this.write = null;
       }
       if (this.write) {
-        this.insertArticle()
+        this.insertArticle();
       }
     }
   }
