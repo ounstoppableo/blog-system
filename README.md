@@ -333,6 +333,130 @@ webpack-bundle-analyzer dist/stats.json
 }
 ```
 
+#### lodash按需引入
+
+> 因为angular-cli已经开启tree-shaking了，所以直接引入使用es6写的lodash包，然后按需引入即可自动tree-shaking
+>
+> es6写的lodash包：lodash-es
+>
+> 按需引入需以以下格式：import {xxx} from 'lodash-es'
+
+#### highlight按需引入
+
+~~~ts
+//context.component.ts文件
+//我们创建一个插入文章内容并渲染高亮的函数
+insertArticle() {
+    //使用原生innerHTML会同步执行，所以不用担心页面没加载完就执行hljs的代码，导致高亮不全
+    this.write.innerHTML = this.article;
+    //hljs高亮逻辑
+    const code = `
+    hljs.configure({ ignoreUnescapedHTML: true });
+    document.querySelectorAll('pre code').forEach((el) => {
+      const languageArr = el.className.split('-');
+      if (languageArr.length !== 2) {
+        hljs.highlightElement(el);
+        return true;
+      }
+      const language = languageArr[1].trim();
+      if (hljs.getLanguage(language)) {
+        hljs.highlightElement(el);
+        return true;
+      }
+      el.className = 'language-javascript hljs';
+      hljs.highlightElement(el);
+    });`;
+    //要使用hljs实例需要引入外部hljs库
+    const hljsScript = document.createElement('script');
+    hljsScript.id = 'hljs';
+    hljsScript.src =
+      'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js';
+    document.body.append(hljsScript);
+    //引入之后插入hljs高亮逻辑代码
+    hljsScript.onload = () => {
+      const script = document.createElement('script');
+      script.id = 'hljsExec';
+      try {
+        script.appendChild(document.createTextNode(code));
+      } catch (e) {
+        script.text = code;
+      } finally {
+        document.body.append(script);
+      }
+    };
+  }
+//不要忘记离开页面时要删除添加的script标签
+//这里我是监听路由变化时删除
+this.router.events.subscribe((event) => {
+  if (event instanceof NavigationStart) {
+    if (event.url.includes('article')) {
+      document.getElementById('hljs')?.remove();
+      document.getElementById('hljsExec')?.remove();
+    }
+  }
+});
+
+//小坑
+//因为我这里文章是异步获取的，所以我们在执行insertArticle时需要做一些判断
+ngAfterViewChecked(): void {
+    if (!this.write) {
+      this.write = document.getElementById('write');
+      //需要等待article获取到再渲染
+      if (!this.article) {
+        this.write = null;
+      }
+      if (this.write) {
+        this.insertArticle();
+      }
+    }
+  }
+~~~
+
+#### icons按需引入
+
+~~~json
+//首先在angular.json中加入以下字段
+ "assets": [
+     {
+       "glob": "**/*",
+       "input": "node_modules/@ant-design/icons-angular/src/inline-svg/",
+         //这里官网写的是assets，因为我需要在nginx进行资源转发配置，所以取了icons替代
+         //这样配置后打包就会输出到dist/*/icons下
+       "output": "/icons/"
+     }
+ ]
+~~~
+
+~~~ts
+//然后我们这样引入icon
+import { NzIconService } from 'ng-zorro-antd/icon';
+export class NzDesignModule {
+  constructor(private nzIconService: NzIconService) {
+      //进行资源路径重写，原来会请求/assets/*，这样写后就请求/icons/assets/*
+    this.nzIconService.changeAssetsSource('/icons');
+  }
+}
+~~~
+
+~~~sh
+# 在nginx上配置路径
+# 首先我们把打包后的dist下的icons文件单独拎出
+# 我是放到了/var/my-blog/下
+# 配置一个负载均衡，因为前端请求的路径是/icons/assets/，但我们的文件是在/icons/，所以需要路径重写，当然，在icons文件下创建一个assets也是可以的
+# 这里我就进行路径重写了
+upstream fontend_server {
+    server localhost:80 weight=10;
+}
+# location的注意点：如下url中匹配到/icons/，则回到文件/var/my-blog/icons/去寻找，它会进行一个拼接
+location /icons/ {
+    root /var/my-blog;
+}
+location /icons/assets/ {
+    proxy_pass http://fontend_server/icons/;
+}
+# 这样操作下来后就能正确请求了
+~~~
+
 ### 待做事项
 
 - [x] 文章页面详情
