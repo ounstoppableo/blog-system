@@ -27,7 +27,7 @@
     justify-content: space-evenly;
     margin-bottom: 0;
 
-    &>li {
+    & > li {
       display: flex;
       align-items: center;
       gap: 5px;
@@ -57,7 +57,7 @@
         overflow: hidden;
         animation: show 0.5s ease;
 
-        &>li {
+        & > li {
           font-size: 15px;
           display: flex;
           padding: 5px 0;

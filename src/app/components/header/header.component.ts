@@ -35,11 +35,10 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   @Output()
   drawerOpen = new EventEmitter();
 
-
   constructor(
     private router: Router,
     private ls: LoginService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: resType<any>) => {
@@ -115,9 +114,9 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
     this.router.navigate(['tagCate']);
   }
   liOnMouseOver(listRef: any) {
-    listRef.classList.add('listActive')
+    listRef.classList.add('listActive');
   }
-  liOnMouseLeave(listRef:any){
-    listRef.classList.remove('listActive')
+  liOnMouseLeave(listRef: any) {
+    listRef.classList.remove('listActive');
   }
 }

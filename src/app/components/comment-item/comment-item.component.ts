@@ -52,9 +52,9 @@ export class CommentItemComponent implements OnChanges {
   showComponent = false;
   children: msgItem[] = [];
   @Input()
-  smallSize = false
+  smallSize = false;
 
-  constructor(private boardMsgSerivce: BoardMsgService) { }
+  constructor(private boardMsgSerivce: BoardMsgService) {}
 
   ngOnChanges(changes: any): void {
     if (changes.msgItem.currentValue) {

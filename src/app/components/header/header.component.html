@@ -1,5 +1,4 @@
-<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
-<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+
 <div class="container" #container>
   <div class="left" (click)="goHome()">Unstoppable840的小站</div>
   <ul *ngIf="!showFolderIcon" class="right">
@@ -15,7 +14,11 @@
       <span nz-icon nzType="form" nzTheme="outline"></span>
       <span>留言板</span>
     </li>
-    <li #list (mouseover)="liOnMouseOver(list)" (mouseleave)="liOnMouseLeave(list)">
+    <li
+      #list
+      (mouseover)="liOnMouseOver(list)"
+      (mouseleave)="liOnMouseLeave(list)"
+    >
       <span nz-icon nzType="container" nzTheme="fill"></span>
       <span>往期整理</span>
       <span nz-icon nzType="down" nzTheme="outline"></span>

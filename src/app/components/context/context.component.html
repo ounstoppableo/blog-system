@@ -1,5 +1,4 @@
-<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
-<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+
 <div class="card" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
   <app-none *ngIf="!article"></app-none>
   <div *ngIf="article" [innerHTML]="article" id="write"></div>

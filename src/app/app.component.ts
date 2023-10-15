@@ -10,10 +10,10 @@ export class AppComponent implements OnInit {
   title = 'my-blog';
   darkMode = false;
   isArticle = false;
-  firstLoad = true
+  firstLoad = true;
   @ViewChild('operate')
   operate!: ElementRef;
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd)
@@ -21,9 +21,9 @@ export class AppComponent implements OnInit {
     });
     if (this.firstLoad) {
       this.loadCss(`./assets/darkMode.scss`, 'dark').finally(() => {
-        document.getElementById('dark')?.remove()
-        this.firstLoad = false
-      })
+        document.getElementById('dark')?.remove();
+        this.firstLoad = false;
+      });
     }
   }
   //暗黑模式
@@ -42,8 +42,8 @@ export class AppComponent implements OnInit {
       );
       document.documentElement.style.setProperty('--footerBkColor', '#000');
       this.loadCss(`./assets/darkMode.scss`, 'dark').finally(() => {
-        document.documentElement.classList.add('dark')
-      })
+        document.documentElement.classList.add('dark');
+      });
     } else {
       document.documentElement.style.setProperty(
         '--defaultBackgroundColor',
@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
       style.rel = 'stylesheet';
       style.href = href;
       style.id = id;
-      style.onload = resolve
+      style.onload = resolve;
       style.onerror = reject;
       document.head.append(style);
     });
