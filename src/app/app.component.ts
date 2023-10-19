@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
@@ -6,14 +6,15 @@ import { NavigationEnd, Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
   title = 'my-blog';
   darkMode = false;
   isArticle = false;
   firstLoad = true;
+  imgLazyLoadMap = new Map()
   @ViewChild('operate')
   operate!: ElementRef;
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd)
@@ -25,6 +26,24 @@ export class AppComponent implements OnInit {
         this.firstLoad = false;
       });
     }
+    //图片懒加载
+    window.addEventListener('scroll', () => {
+      const imgs = document.querySelectorAll('img')
+      imgs.forEach(item => {
+        if (item.getBoundingClientRect().y <= innerHeight) {
+          const betaSrc = item.getAttribute('betaSrc')
+          const identification = item.getAttribute('identification')
+          if (betaSrc) {
+            if (!this.imgLazyLoadMap.has(identification)) {
+              const img = new Image()
+              img.src = betaSrc
+              img.onload = () => item.src = betaSrc
+              this.imgLazyLoadMap.set(identification, 1)
+            }
+          }
+        }
+      })
+    })
   }
   //暗黑模式
   changeDarkMode() {
@@ -85,5 +104,18 @@ export class AppComponent implements OnInit {
       top: document.documentElement.scrollHeight,
       behavior: 'smooth',
     });
+  }
+  ngAfterViewChecked(): void {
+    //给图片预加载
+    const imgs = document.querySelectorAll('img')
+    imgs.forEach((item,index) => {
+      const betaSrc = item.getAttribute('betaSrc')
+      if (!betaSrc) {
+        const tempSrc = item.src.split('/').slice(3).join('/')
+        item.src = '/assets/loading.gif'
+        item.setAttribute('betaSrc', tempSrc)
+        item.setAttribute('identification', Date.now() + index + '')
+      }
+    })
   }
 }
