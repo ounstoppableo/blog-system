@@ -1,7 +1,4 @@
-<div
-  #cardContainerLeft
-  class="cardContainerLeft"
->
+<div #cardContainerLeft class="cardContainerLeft">
   <div
     class="card"
     *ngFor="let item of articleInfoLazyList"
@@ -46,11 +43,11 @@
   </div>
 </div>
 <nz-pagination
-class="pagination"
-*ngIf="articleInfoList.length !== 0"
-[nzPageIndex]="page"
-[nzTotal]="total"
-[nzPageSize]="limit"
-(nzPageIndexChange)="pageIndexChange($event)"
+  class="pagination"
+  *ngIf="articleInfoList.length !== 0"
+  [nzPageIndex]="page"
+  [nzTotal]="total"
+  [nzPageSize]="limit"
+  (nzPageIndexChange)="pageIndexChange($event)"
 ></nz-pagination>
 <app-loading *ngIf="articleInfoList.length === 0"></app-loading>

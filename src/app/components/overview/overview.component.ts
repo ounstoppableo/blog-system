@@ -74,10 +74,18 @@ export class OverviewComponent implements OnInit, OnChanges {
     }
   }
   lazyLoadGetItem() {
-    if (this.articleInfoList.length !== 0 && this.lazyLoadIndex <= this.articleInfoList.length) {
+    if (
+      this.articleInfoList.length !== 0 &&
+      this.lazyLoadIndex <= this.articleInfoList.length
+    ) {
       this.articleInfoLazyList = [
         ...this.articleInfoLazyList,
-        ...this.articleInfoList.slice(this.lazyLoadIndex, this.lazyLoadIndex + 3 > this.articleInfoList.length ? this.articleInfoList.length : this.lazyLoadIndex + 3)
+        ...this.articleInfoList.slice(
+          this.lazyLoadIndex,
+          this.lazyLoadIndex + 3 > this.articleInfoList.length
+            ? this.articleInfoList.length
+            : this.lazyLoadIndex + 3,
+        ),
       ];
       this.lazyLoadIndex += 3;
     }
