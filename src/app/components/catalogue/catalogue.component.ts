@@ -19,7 +19,7 @@ export class CatalogueComponent implements OnChanges {
 
   addUrlPatam(catalogue: any) {
     catalogue.forEach((item: any) => {
-      item.id = item.title.replace(/[\(\-\)\$0-9\.\s\&\;]/g, '');
+      item.id = item.title.replace(/[\(\-\)\$0-9\.\s\&\@\;]/g, '');
     });
   }
   constructor(private route: ActivatedRoute) {}

@@ -9,6 +9,7 @@ import {
   OnChanges,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
@@ -30,10 +31,10 @@ import {
     trigger('toShow', [
       transition('*=>*', [
         query(
-          ':enter',
+          '.card',
           [
             style({ opacity: 0 }),
-            stagger(200, [animate('0.5s', style({ opacity: 1 }))]),
+            stagger(300, [animate('0.5s', style({ opacity: 1 }))]),
           ],
           { optional: true },
         ),
@@ -60,6 +61,8 @@ export class OverviewComponent implements OnInit, OnChanges {
   total = 0;
   @Output()
   nextPage = new EventEmitter();
+  @ViewChild('cardContainerLeft')
+  cardContainerLeft!: any;
 
   constructor(
     private homeService: HomeService,
@@ -67,6 +70,9 @@ export class OverviewComponent implements OnInit, OnChanges {
     private loginService: LoginService,
     private message: NzMessageService,
   ) {}
+  ngOnChanges(): void {
+    this.lazyLoadGetItem();
+  }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.loginService.getUserInfo().subscribe((res) => {
@@ -74,34 +80,30 @@ export class OverviewComponent implements OnInit, OnChanges {
         else this.isLogin = false;
       });
     }
+    //懒加载
+    // window.addEventListener('scroll', this.lazyLoad.bind(this));
   }
-  ngOnChanges(changes: any): void {
-    //懒加载效果
-    if (changes.articleInfoList.currentValue.length !== 0) {
-      this.articleInfoLazyList = [
-        ...this.articleInfoList.slice(
-          this.lazyLoadIndex * 3,
-          (this.lazyLoadIndex + 1) * 3,
-        ),
-      ];
-      this.lazyLoadIndex++;
-      window.addEventListener('scroll', () => {
-        if (
-          document.documentElement.scrollTop >
-            this.lazyLoadIndex * innerHeight &&
-          this.articleInfoLazyList.length <= this.articleInfoList.length
-        ) {
-          this.articleInfoLazyList = [
-            ...this.articleInfoLazyList,
-            ...this.articleInfoList.slice(
-              this.lazyLoadIndex * 3,
-              (this.lazyLoadIndex + 1) * 3,
-            ),
-          ];
-          this.lazyLoadIndex++;
-        }
-      });
+  lazyLoad() {
+    if (this.cardContainerLeft) {
+      const elems =
+        this.cardContainerLeft.nativeElement.querySelectorAll('.card');
+      if (
+        innerHeight - elems[elems.length - 1].getBoundingClientRect().y >
+          elems[elems.length - 1].offsetHeight &&
+        this.lazyLoadIndex < this.articleInfoList.length
+      ) {
+        this.lazyLoadGetItem();
+      }
     }
+  }
+  lazyLoadGetItem() {
+    // if (this.articleInfoList.length !== 0 && this.lazyLoadIndex <= this.articleInfoList.length) {
+    //   this.articleInfoLazyList = [
+    //     ...this.articleInfoLazyList,
+    //     ...this.articleInfoList.slice(this.lazyLoadIndex, this.lazyLoadIndex + 3 > this.articleInfoList.length ? this.articleInfoList.length : this.lazyLoadIndex + 3)
+    //   ];
+    //   this.lazyLoadIndex += 3;
+    // }
   }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);
@@ -119,6 +121,7 @@ export class OverviewComponent implements OnInit, OnChanges {
   }
   pageIndexChange(page: number) {
     this.nextPage.emit(page);
+    this.lazyLoadIndex = 0;
   }
   //去日期分类页
   toDateCate() {

@@ -130,7 +130,7 @@ export class ContextComponent implements OnInit, AfterViewChecked {
             const tagStart = temp2[0];
             const title = temp2[1];
             return `<${tagStart} id="${title.replace(
-              /[\(\-\)\$0-9\.\s\&\;]/g,
+              /[\(\-\)\$0-9\.\s\&\@\;]/g,
               '',
             )}">${title}<${tagEnd}`;
           },

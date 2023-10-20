@@ -63,5 +63,8 @@ html:has(.smallSize) {
 }
 
 .ant-anchor-link-active > .ant-anchor-link-title {
-  color: var(--styleColor);
+  color: var(--styleColor) !important;
+}
+.ant-anchor-ink-ball {
+  border: 2px solid var(--styleColor) !important;
 }
