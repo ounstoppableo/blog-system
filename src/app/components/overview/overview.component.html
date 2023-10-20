@@ -6,7 +6,7 @@
   >
     <div class="info">
       <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
-      <p class="folder" (click)="toFolderCate()">
+      <p class="folder" (click)="toFolderCate(item.folderId)">
         <span nz-icon nzType="folder" nzTheme="outline"></span>
         <span>{{ item.folderName }}</span>
       </p>
