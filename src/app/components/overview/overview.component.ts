@@ -9,7 +9,6 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -63,16 +62,16 @@ export class OverviewComponent implements OnInit, OnChanges {
   @Output()
   nextPage = new EventEmitter();
   @ViewChild('cardContainerLeft')
-  cardContainerLeft!: any
+  cardContainerLeft!: any;
 
   constructor(
     private homeService: HomeService,
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) { }
+  ) {}
   ngOnChanges(): void {
-    this.lazyLoadGetItem()
+    this.lazyLoadGetItem();
   }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
@@ -86,9 +85,14 @@ export class OverviewComponent implements OnInit, OnChanges {
   }
   lazyLoad() {
     if (this.cardContainerLeft) {
-      const elems = this.cardContainerLeft.nativeElement.querySelectorAll('.card')
-      if (innerHeight - elems[elems.length - 1].getBoundingClientRect().y > elems[elems.length - 1].offsetHeight && this.lazyLoadIndex < this.articleInfoList.length) {
-        this.lazyLoadGetItem()
+      const elems =
+        this.cardContainerLeft.nativeElement.querySelectorAll('.card');
+      if (
+        innerHeight - elems[elems.length - 1].getBoundingClientRect().y >
+          elems[elems.length - 1].offsetHeight &&
+        this.lazyLoadIndex < this.articleInfoList.length
+      ) {
+        this.lazyLoadGetItem();
       }
     }
   }
@@ -117,7 +121,7 @@ export class OverviewComponent implements OnInit, OnChanges {
   }
   pageIndexChange(page: number) {
     this.nextPage.emit(page);
-    this.lazyLoadIndex = 0
+    this.lazyLoadIndex = 0;
   }
   //去日期分类页
   toDateCate() {

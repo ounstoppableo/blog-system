@@ -1,5 +1,13 @@
-<div #cardContainerLeft class="cardContainerLeft" [@toShow]="articleInfoList.length !== 0">
-  <div class="card" *ngFor="let item of articleInfoList" [class]="smallSize ? 'smallSize' : ''">
+<div
+  #cardContainerLeft
+  class="cardContainerLeft"
+  [@toShow]="articleInfoList.length !== 0"
+>
+  <div
+    class="card"
+    *ngFor="let item of articleInfoList"
+    [class]="smallSize ? 'smallSize' : ''"
+  >
     <div class="info">
       <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
       <p class="folder" (click)="toFolderCate()">
@@ -25,13 +33,25 @@
       <button nz-button nzShape="circle" (click)="editArticle(item)">
         <span nz-icon nzType="edit"></span>
       </button>
-      <button nz-button nzDanger nzShape="circle" (nzOnConfirm)="delArticle(item.articleId)" nz-popconfirm
-        nzPopconfirmTitle="确定要删除吗？">
+      <button
+        nz-button
+        nzDanger
+        nzShape="circle"
+        (nzOnConfirm)="delArticle(item.articleId)"
+        nz-popconfirm
+        nzPopconfirmTitle="确定要删除吗？"
+      >
         <span nz-icon nzType="delete"></span>
       </button>
     </div>
   </div>
-  <nz-pagination class="pagination" *ngIf="articleInfoList.length !== 0" [nzPageIndex]="page" [nzTotal]="total"
-    [nzPageSize]="limit" (nzPageIndexChange)="pageIndexChange($event)"></nz-pagination>
+  <nz-pagination
+    class="pagination"
+    *ngIf="articleInfoList.length !== 0"
+    [nzPageIndex]="page"
+    [nzTotal]="total"
+    [nzPageSize]="limit"
+    (nzPageIndexChange)="pageIndexChange($event)"
+  ></nz-pagination>
 </div>
 <app-loading *ngIf="articleInfoList.length === 0"></app-loading>

@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
   imgLazyLoadMap = new Map();
   @ViewChild('operate')
   operate!: ElementRef;
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd)
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
       });
     }
     //图片懒加载
-    window.addEventListener('scroll',this.imgLazyLoad.bind(this));
+    window.addEventListener('scroll', this.imgLazyLoad.bind(this));
   }
   imgLazyLoad() {
     const imgs = document.querySelectorAll('img');
@@ -135,6 +135,5 @@ export class AppComponent implements OnInit, AfterViewChecked {
         }
       }
     });
-
   }
 }
