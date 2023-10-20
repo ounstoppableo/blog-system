@@ -14,33 +14,10 @@ import {
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import {
-  trigger,
-  style,
-  animate,
-  transition,
-  query,
-  stagger,
-} from '@angular/animations';
-
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
-  animations: [
-    trigger('toShow', [
-      transition('*=>*', [
-        query(
-          '.card',
-          [
-            style({ opacity: 0 }),
-            stagger(300, [animate('0.5s', style({ opacity: 1 }))]),
-          ],
-          { optional: true },
-        ),
-      ]),
-    ]),
-  ],
 })
 export class OverviewComponent implements OnInit, OnChanges {
   isLogin = false;
@@ -81,7 +58,7 @@ export class OverviewComponent implements OnInit, OnChanges {
       });
     }
     //懒加载
-    // window.addEventListener('scroll', this.lazyLoad.bind(this));
+    window.addEventListener('scroll', this.lazyLoad.bind(this));
   }
   lazyLoad() {
     if (this.cardContainerLeft) {
@@ -97,13 +74,21 @@ export class OverviewComponent implements OnInit, OnChanges {
     }
   }
   lazyLoadGetItem() {
-    // if (this.articleInfoList.length !== 0 && this.lazyLoadIndex <= this.articleInfoList.length) {
-    //   this.articleInfoLazyList = [
-    //     ...this.articleInfoLazyList,
-    //     ...this.articleInfoList.slice(this.lazyLoadIndex, this.lazyLoadIndex + 3 > this.articleInfoList.length ? this.articleInfoList.length : this.lazyLoadIndex + 3)
-    //   ];
-    //   this.lazyLoadIndex += 3;
-    // }
+    if (
+      this.articleInfoList.length !== 0 &&
+      this.lazyLoadIndex <= this.articleInfoList.length
+    ) {
+      this.articleInfoLazyList = [
+        ...this.articleInfoLazyList,
+        ...this.articleInfoList.slice(
+          this.lazyLoadIndex,
+          this.lazyLoadIndex + 3 > this.articleInfoList.length
+            ? this.articleInfoList.length
+            : this.lazyLoadIndex + 3,
+        ),
+      ];
+      this.lazyLoadIndex += 3;
+    }
   }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);
