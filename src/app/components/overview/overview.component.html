@@ -1,52 +1,36 @@
-<div class="cardContainerLeft" [@toShow]="articleInfoList.length">
-  <div
-    class="card"
-    *ngFor="let item of articleInfoList"
-    [class]="smallSize ? 'smallSize' : ''"
-  >
-    <div class="info">
-      <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
-      <p class="folder" (click)="toFolderCate()">
-        <span nz-icon nzType="folder" nzTheme="outline"></span>
-        <span>{{ item.folderName }}</span>
-      </p>
-      <p class="description" [title]="item.description">
-        {{ item.description }}
-      </p>
+<div #cardContainerLeft class="cardContainerLeft" [@toShow]="articleInfoList.length !== 0">
+    <div class="card" *ngFor="let item of articleInfoList" [class]="smallSize ? 'smallSize' : ''">
+      <div class="info">
+        <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
+        <p class="folder" (click)="toFolderCate()">
+          <span nz-icon nzType="folder" nzTheme="outline"></span>
+          <span>{{ item.folderName }}</span>
+        </p>
+        <p class="description" [title]="item.description">
+          {{ item.description }}
+        </p>
 
-      <div class="footer">
-        <div class="date" (click)="toDateCate()">
-          <span nz-icon nzType="calendar" nzTheme="outline"></span>
-          <span>{{ item.lastModifyTime | date }}</span>
+        <div class="footer">
+          <div class="date" (click)="toDateCate()">
+            <span nz-icon nzType="calendar" nzTheme="outline"></span>
+            <span>{{ item.lastModifyTime | date }}</span>
+          </div>
+          <app-tag [tagList]="item.tags"></app-tag>
         </div>
-        <app-tag [tagList]="item.tags"></app-tag>
+      </div>
+      <div class="img" [class]="smallSize ? 'smallSize' : ''">
+        <img [src]="item.backImgUrl" alt="" />
+      </div>
+      <div class="operate" *ngIf="isLogin">
+        <button nz-button nzShape="circle" (click)="editArticle(item)">
+          <span nz-icon nzType="edit"></span>
+        </button>
+        <button nz-button nzDanger nzShape="circle" (nzOnConfirm)="delArticle(item.articleId)" nz-popconfirm
+          nzPopconfirmTitle="确定要删除吗？">
+          <span nz-icon nzType="delete"></span>
+        </button>
       </div>
     </div>
-    <div class="img" [class]="smallSize ? 'smallSize' : ''">
-      <img [src]="item.backImgUrl" alt="" />
-    </div>
-    <div class="operate" *ngIf="isLogin">
-      <button nz-button nzShape="circle" (click)="editArticle(item)">
-        <span nz-icon nzType="edit"></span>
-      </button>
-      <button
-        nz-button
-        nzDanger
-        nzShape="circle"
-        (nzOnConfirm)="delArticle(item.articleId)"
-        nz-popconfirm
-        nzPopconfirmTitle="确定要删除吗？"
-      >
-        <span nz-icon nzType="delete"></span>
-      </button>
-    </div>
-  </div>
-  <nz-pagination
-    class="pagination"
-    *ngIf="articleInfoList.length !== 0"
-    [nzPageIndex]="page"
-    [nzTotal]="total"
-    [nzPageSize]="limit"
-    (nzPageIndexChange)="pageIndexChange($event)"
-  ></nz-pagination>
+  <nz-pagination class="pagination" *ngIf="articleInfoList.length !== 0" [nzPageIndex]="page" [nzTotal]="total"
+    [nzPageSize]="limit" (nzPageIndexChange)="pageIndexChange($event)"></nz-pagination>
 </div>
