@@ -46,7 +46,7 @@ export class OverviewComponent implements OnInit, OnChanges {
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) {}
+  ) { }
   ngOnChanges(): void {
     this.lazyLoadGetItem();
   }
@@ -66,7 +66,7 @@ export class OverviewComponent implements OnInit, OnChanges {
         this.cardContainerLeft.nativeElement.querySelectorAll('.card');
       if (
         innerHeight - elems[elems.length - 1].getBoundingClientRect().y >
-          elems[elems.length - 1].offsetHeight &&
+        elems[elems.length - 1].offsetHeight &&
         this.lazyLoadIndex < this.articleInfoList.length
       ) {
         this.lazyLoadGetItem();
@@ -113,7 +113,7 @@ export class OverviewComponent implements OnInit, OnChanges {
     this.router.navigate(['dateCate']);
   }
   //去文件分类页
-  toFolderCate() {
-    this.router.navigate(['category']);
+  toFolderCate(folderId: string) {
+    this.router.navigate(['folderPage', folderId]);
   }
 }
