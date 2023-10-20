@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
-
   & > .card {
     position: relative;
     background-color: var(--cardColor);
@@ -16,6 +15,7 @@
     color: var(--fontColor);
     font-size: 15px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    animation: 0.5s ease forwards toShow;
 
     &:nth-child(2n + 1) {
       flex-direction: row-reverse;
@@ -116,8 +116,16 @@
       transition: all 0.3s;
     }
   }
-
-  & > .pagination {
-    text-align: center;
+}
+.pagination {
+  margin-top: 30px;
+  text-align: center;
+}
+@keyframes toShow{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
