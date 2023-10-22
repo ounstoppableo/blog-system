@@ -4,6 +4,7 @@ import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -14,16 +15,16 @@ import {
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { transform } from 'lodash-es';
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
 })
-export class OverviewComponent implements OnInit, OnChanges {
+export class OverviewComponent implements OnInit {
   isLogin = false;
   @Input()
   articleInfoList: articleInfo[] = [];
-  articleInfoLazyList: articleInfo[] = [];
   lazyLoadIndex = 0;
   @Input()
   smallSize!: boolean;
@@ -40,6 +41,7 @@ export class OverviewComponent implements OnInit, OnChanges {
   nextPage = new EventEmitter();
   @ViewChild('cardContainerLeft')
   cardContainerLeft!: any;
+  isInit = false
 
   constructor(
     private homeService: HomeService,
@@ -47,9 +49,7 @@ export class OverviewComponent implements OnInit, OnChanges {
     private loginService: LoginService,
     private message: NzMessageService,
   ) { }
-  ngOnChanges(): void {
-    this.lazyLoadGetItem();
-  }
+
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.loginService.getUserInfo().subscribe((res) => {
@@ -57,41 +57,37 @@ export class OverviewComponent implements OnInit, OnChanges {
         else this.isLogin = false;
       });
     }
-    //懒加载
-    window.addEventListener('scroll', this.lazyLoad.bind(this));
-  }
-  lazyLoad() {
-    if (this.cardContainerLeft) {
-      const elems =
-        this.cardContainerLeft.nativeElement.querySelectorAll('.card');
-      if (
-        innerHeight - elems[elems.length - 1].getBoundingClientRect().y >
-        elems[elems.length - 1].offsetHeight &&
-        this.lazyLoadIndex < this.articleInfoList.length
-      ) {
-        this.lazyLoadGetItem();
-      }
-    }
-  }
-  lazyLoadGetItem() {
-    if (
-      this.articleInfoList.length !== 0 &&
-      this.lazyLoadIndex <= this.articleInfoList.length
-    ) {
-      this.articleInfoLazyList = [
-        ...this.articleInfoLazyList,
-        ...this.articleInfoList.slice(
-          this.lazyLoadIndex,
-          this.lazyLoadIndex + 3 > this.articleInfoList.length
-            ? this.articleInfoList.length
-            : this.lazyLoadIndex + 3,
-        ),
-      ];
-      this.lazyLoadIndex += 3;
-    }
   }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);
+  }
+  ngAfterViewChecked(): void {
+    //设置懒加载效果
+    if (!this.isInit && this.cardContainerLeft.nativeElement.querySelectorAll('.card').length !== 0) {
+      const cardArr = this.cardContainerLeft.nativeElement.querySelectorAll('.card')
+      window.addEventListener('scroll', () => {
+        cardArr.forEach((item: any) => {
+          if (item.getBoundingClientRect().y > -item.offsetHeight && item.getBoundingClientRect().y < innerHeight) {
+            item.style.opacity = 1
+            item.style.transform = 'translateY(0)'
+          } else if (item.getBoundingClientRect().y < -item.offsetHeight) {
+            item.style.opacity = 0
+            item.style.transform = 'translateY(-50%)'
+          } else if (item.getBoundingClientRect().y > innerHeight) {
+            item.style.opacity = 0
+            item.style.transform = 'translateY(50%)'
+          }
+        })
+      })
+      //初始化状态
+      cardArr.forEach((item: any) => {
+        if (item.getBoundingClientRect().y > -item.offsetHeight && item.getBoundingClientRect().y < innerHeight) {
+          item.style.opacity = 1
+          item.style.transform = 'translateY(0)'
+        }
+      })
+      this.isInit = true
+    }
   }
   //更新文章
   editArticle(item: articleInfo) {
