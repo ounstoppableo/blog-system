@@ -119,8 +119,8 @@
     }
   }
 }
-.pagination {
-  margin-top: 30px;
+:host ::ng-deep .ant-pagination {
+  margin-top: 30px!important;
   text-align: center;
 }
 @keyframes toShow {
