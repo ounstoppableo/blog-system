@@ -4,48 +4,27 @@ import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import {
-  trigger,
-  style,
-  animate,
-  transition,
-  query,
-  stagger,
-} from '@angular/animations';
-
+import { transform } from 'lodash-es';
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
-  animations: [
-    trigger('toShow', [
-      transition('*=>*', [
-        query(
-          ':enter',
-          [
-            style({ opacity: 0 }),
-            stagger(200, [animate('0.5s', style({ opacity: 1 }))]),
-          ],
-          { optional: true },
-        ),
-      ]),
-    ]),
-  ],
 })
-export class OverviewComponent implements OnInit, OnChanges {
+export class OverviewComponent implements OnInit {
   isLogin = false;
   @Input()
   articleInfoList: articleInfo[] = [];
-  articleInfoLazyList: articleInfo[] = [];
   lazyLoadIndex = 0;
   @Input()
   smallSize!: boolean;
@@ -60,13 +39,17 @@ export class OverviewComponent implements OnInit, OnChanges {
   total = 0;
   @Output()
   nextPage = new EventEmitter();
+  @ViewChild('cardContainerLeft')
+  cardContainerLeft!: any;
+  isInit = false
 
   constructor(
     private homeService: HomeService,
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) {}
+  ) { }
+
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.loginService.getUserInfo().subscribe((res) => {
@@ -75,36 +58,36 @@ export class OverviewComponent implements OnInit, OnChanges {
       });
     }
   }
-  ngOnChanges(changes: any): void {
-    //懒加载效果
-    if (changes.articleInfoList.currentValue.length !== 0) {
-      this.articleInfoLazyList = [
-        ...this.articleInfoList.slice(
-          this.lazyLoadIndex * 3,
-          (this.lazyLoadIndex + 1) * 3,
-        ),
-      ];
-      this.lazyLoadIndex++;
-      window.addEventListener('scroll', () => {
-        if (
-          document.documentElement.scrollTop >
-            this.lazyLoadIndex * innerHeight &&
-          this.articleInfoLazyList.length <= this.articleInfoList.length
-        ) {
-          this.articleInfoLazyList = [
-            ...this.articleInfoLazyList,
-            ...this.articleInfoList.slice(
-              this.lazyLoadIndex * 3,
-              (this.lazyLoadIndex + 1) * 3,
-            ),
-          ];
-          this.lazyLoadIndex++;
-        }
-      });
-    }
-  }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);
+  }
+  ngAfterViewChecked(): void {
+    //设置懒加载效果
+    if (!this.isInit && this.cardContainerLeft.nativeElement.querySelectorAll('.card').length !== 0) {
+      const cardArr = this.cardContainerLeft.nativeElement.querySelectorAll('.card')
+      window.addEventListener('scroll', () => {
+        cardArr.forEach((item: any) => {
+          if (item.getBoundingClientRect().y > -item.offsetHeight && item.getBoundingClientRect().y < innerHeight) {
+            item.style.opacity = 1
+            item.style.transform = 'translateY(0)'
+          } else if (item.getBoundingClientRect().y < -item.offsetHeight) {
+            item.style.opacity = 0
+            item.style.transform = 'translateY(-50%)'
+          } else if (item.getBoundingClientRect().y > innerHeight) {
+            item.style.opacity = 0
+            item.style.transform = 'translateY(50%)'
+          }
+        })
+      })
+      //初始化状态
+      cardArr.forEach((item: any) => {
+        if (item.getBoundingClientRect().y > -item.offsetHeight && item.getBoundingClientRect().y < innerHeight) {
+          item.style.opacity = 1
+          item.style.transform = 'translateY(0)'
+        }
+      })
+      this.isInit = true
+    }
   }
   //更新文章
   editArticle(item: articleInfo) {
@@ -119,13 +102,14 @@ export class OverviewComponent implements OnInit, OnChanges {
   }
   pageIndexChange(page: number) {
     this.nextPage.emit(page);
+    this.lazyLoadIndex = 0;
   }
   //去日期分类页
   toDateCate() {
     this.router.navigate(['dateCate']);
   }
   //去文件分类页
-  toFolderCate() {
-    this.router.navigate(['category']);
+  toFolderCate(folderId: string) {
+    this.router.navigate(['folderPage', folderId]);
   }
 }

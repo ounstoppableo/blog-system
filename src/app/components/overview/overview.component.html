@@ -1,12 +1,12 @@
-<div class="cardContainerLeft" [@toShow]="articleInfoList.length">
+<div #cardContainerLeft class="cardContainerLeft">
   <div
     class="card"
-    *ngFor="let item of articleInfoLazyList"
+    *ngFor="let item of articleInfoList"
     [class]="smallSize ? 'smallSize' : ''"
   >
     <div class="info">
       <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
-      <p class="folder" (click)="toFolderCate()">
+      <p class="folder" (click)="toFolderCate(item.folderId)">
         <span nz-icon nzType="folder" nzTheme="outline"></span>
         <span>{{ item.folderName }}</span>
       </p>
@@ -41,12 +41,13 @@
       </button>
     </div>
   </div>
-  <nz-pagination
-    class="pagination"
-    *ngIf="articleInfoList.length !== 0"
-    [nzPageIndex]="page"
-    [nzTotal]="total"
-    [nzPageSize]="limit"
-    (nzPageIndexChange)="pageIndexChange($event)"
-  ></nz-pagination>
 </div>
+<nz-pagination
+  class="pagination"
+  *ngIf="articleInfoList.length !== 0"
+  [nzPageIndex]="page"
+  [nzTotal]="total"
+  [nzPageSize]="limit"
+  (nzPageIndexChange)="pageIndexChange($event)"
+></nz-pagination>
+<app-loading *ngIf="articleInfoList.length === 0"></app-loading>
