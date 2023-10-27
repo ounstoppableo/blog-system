@@ -23,7 +23,6 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
   isLogin = false;
   @Input()
   articleInfoList: articleInfo[] = [];
-  lazyLoadIndex = 0;
   @Input()
   smallSize!: boolean;
   //模态框组件
@@ -111,7 +110,7 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
   }
   pageIndexChange(page: number) {
     this.nextPage.emit(page);
-    this.lazyLoadIndex = 0;
+    this.isInit=false
     window.scrollTo({top:0,behavior:'smooth'})
   }
   //去日期分类页
