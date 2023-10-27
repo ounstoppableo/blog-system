@@ -45,7 +45,7 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
@@ -59,15 +59,10 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
     this.router.navigate(['article', articleId]);
   }
   ngAfterViewChecked(): void {
-
     //设置懒加载效果
-    if (
-      !this.isInit &&
-      this.articleInfoList.length !==
-      0
-    ) {
+    if (!this.isInit && this.articleInfoList.length !== 0) {
       const cardArr =
-      this.cardContainerLeft.nativeElement.querySelectorAll('.card');
+        this.cardContainerLeft.nativeElement.querySelectorAll('.card');
       window.addEventListener('scroll', () => {
         cardArr.forEach((item: any) => {
           if (
@@ -112,7 +107,7 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
   pageIndexChange(page: number) {
     this.nextPage.emit(page);
     this.isInit = false;
-    this.articleInfoList = []
+    this.articleInfoList = [];
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   //去日期分类页
