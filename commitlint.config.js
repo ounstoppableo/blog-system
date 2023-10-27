@@ -18,6 +18,7 @@ module.exports = {
         'revert',
         'test',
         'delete',
+        'bug',
       ],
     ],
     'type-case': [0],

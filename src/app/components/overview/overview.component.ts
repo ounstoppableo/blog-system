@@ -3,11 +3,10 @@ import { LoginService } from '@/app/service/login';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import {
+  AfterViewChecked,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
   OnInit,
   Output,
   ViewChild,
@@ -15,17 +14,15 @@ import {
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { transform } from 'lodash-es';
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, AfterViewChecked {
   isLogin = false;
   @Input()
   articleInfoList: articleInfo[] = [];
-  lazyLoadIndex = 0;
   @Input()
   smallSize!: boolean;
   //模态框组件
@@ -41,14 +38,14 @@ export class OverviewComponent implements OnInit {
   nextPage = new EventEmitter();
   @ViewChild('cardContainerLeft')
   cardContainerLeft!: any;
-  isInit = false
+  isInit = false;
 
   constructor(
     private homeService: HomeService,
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
@@ -63,30 +60,37 @@ export class OverviewComponent implements OnInit {
   }
   ngAfterViewChecked(): void {
     //设置懒加载效果
-    if (!this.isInit && this.cardContainerLeft.nativeElement.querySelectorAll('.card').length !== 0) {
-      const cardArr = this.cardContainerLeft.nativeElement.querySelectorAll('.card')
+    if (!this.isInit && this.articleInfoList.length !== 0) {
+      const cardArr =
+        this.cardContainerLeft.nativeElement.querySelectorAll('.card');
       window.addEventListener('scroll', () => {
         cardArr.forEach((item: any) => {
-          if (item.getBoundingClientRect().y > -item.offsetHeight && item.getBoundingClientRect().y < innerHeight) {
-            item.style.opacity = 1
-            item.style.transform = 'translateY(0)'
+          if (
+            item.getBoundingClientRect().y > -item.offsetHeight &&
+            item.getBoundingClientRect().y < innerHeight
+          ) {
+            item.style.opacity = 1;
+            item.style.transform = 'translateY(0)';
           } else if (item.getBoundingClientRect().y < -item.offsetHeight) {
-            item.style.opacity = 0
-            item.style.transform = 'translateY(-50%)'
+            item.style.opacity = 0;
+            item.style.transform = 'translateY(-50%)';
           } else if (item.getBoundingClientRect().y > innerHeight) {
-            item.style.opacity = 0
-            item.style.transform = 'translateY(50%)'
+            item.style.opacity = 0;
+            item.style.transform = 'translateY(50%)';
           }
-        })
-      })
+        });
+      });
       //初始化状态
       cardArr.forEach((item: any) => {
-        if (item.getBoundingClientRect().y > -item.offsetHeight && item.getBoundingClientRect().y < innerHeight) {
-          item.style.opacity = 1
-          item.style.transform = 'translateY(0)'
+        if (
+          item.getBoundingClientRect().y > -item.offsetHeight &&
+          item.getBoundingClientRect().y < innerHeight
+        ) {
+          item.style.opacity = 1;
+          item.style.transform = 'translateY(0)';
         }
-      })
-      this.isInit = true
+      });
+      this.isInit = true;
     }
   }
   //更新文章
@@ -102,7 +106,9 @@ export class OverviewComponent implements OnInit {
   }
   pageIndexChange(page: number) {
     this.nextPage.emit(page);
-    this.lazyLoadIndex = 0;
+    this.isInit = false;
+    this.articleInfoList = [];
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   //去日期分类页
   toDateCate() {
