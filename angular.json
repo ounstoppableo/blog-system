@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/",
             "index": "src/index.html",
@@ -43,7 +43,19 @@
                 "inject": false
               }
             ],
-            "scripts": []
+            "scripts": [
+              {
+                "input": "./dll/vendor.dll.js",
+                "inject": true,
+                "bundleName": "vendor_library"
+             }
+            ],
+            "customWebpackConfig": {
+              // 引用要拓展的 webpack 配置
+              "path": "./webpack.extra.config.ts",
+              // 是否替换重复插件
+              "replaceDuplicatePlugins": true
+            }
           },
           "configurations": {
             "production": {
