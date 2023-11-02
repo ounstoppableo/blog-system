@@ -63,6 +63,7 @@
   :host ::ng-deep & img {
     width: 100%;
     object-fit: contain;
+    margin: 0!important;
   }
 
   :host ::ng-deep &>li {
