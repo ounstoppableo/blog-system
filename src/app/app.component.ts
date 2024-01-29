@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
   imgLazyLoadMap = new Map();
   @ViewChild('operate')
   operate!: ElementRef;
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd)
@@ -116,21 +116,23 @@ export class AppComponent implements OnInit, AfterViewChecked {
     //给图片预加载
     const imgs = document.querySelectorAll('img');
     imgs.forEach((item, index) => {
-      const betaSrc = item.getAttribute('betaSrc');
-      if (!betaSrc) {
-        const tempSrc = item.src.split('/').slice(3).join('/');
-        item.src = '/assets/loading.gif';
-        item.setAttribute('betaSrc', tempSrc);
-        item.setAttribute('identification', Date.now() + index + '');
-      }
-      if (item.getBoundingClientRect().y <= innerHeight) {
-        const identification = item.getAttribute('identification');
-        if (betaSrc) {
-          if (!this.imgLazyLoadMap.has(identification)) {
-            const img = new Image();
-            img.src = betaSrc;
-            img.onload = () => (item.src = betaSrc);
-            this.imgLazyLoadMap.set(identification, 1);
+      if(item.classList.value!=='snowfall-flakes'){
+        const betaSrc = item.getAttribute('betaSrc');
+        if (!betaSrc) {
+          const tempSrc = item.src.split('/').slice(3).join('/');
+          item.src = '/assets/loading.gif';
+          item.setAttribute('betaSrc', tempSrc);
+          item.setAttribute('identification', Date.now() + index + '');
+        }
+        if (item.getBoundingClientRect().y <= innerHeight) {
+          const identification = item.getAttribute('identification');
+          if (betaSrc) {
+            if (!this.imgLazyLoadMap.has(identification)) {
+              const img = new Image();
+              img.src = betaSrc;
+              img.onload = () => (item.src = betaSrc);
+              this.imgLazyLoadMap.set(identification, 1);
+            }
           }
         }
       }

@@ -66,8 +66,9 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
       window.addEventListener('scroll', () => {
         cardArr.forEach((item: any) => {
           if (
-            item.getBoundingClientRect().y > -item.offsetHeight - item.offsetHeight/2 &&
-            item.getBoundingClientRect().y < innerHeight + item.offsetHeight/2
+            item.getBoundingClientRect().y >
+              -item.offsetHeight - item.offsetHeight / 2 &&
+            item.getBoundingClientRect().y < innerHeight + item.offsetHeight / 2
           ) {
             item.style.opacity = 1;
             item.style.transform = 'translateY(0)';

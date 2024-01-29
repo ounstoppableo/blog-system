@@ -38,6 +38,7 @@
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "marked": "^9.1.5",
+    "ng-live2d": "^0.0.3",
     "ng-zorro-antd": "^16.2.2",
     "pinyin-pro": "^3.17.0",
     "rxjs": "~7.8.1",
