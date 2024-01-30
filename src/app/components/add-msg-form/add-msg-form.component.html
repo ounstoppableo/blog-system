@@ -7,7 +7,7 @@
             name!.valid ? 'success' : name!.touched ? 'error' : ''
           "
         >
-          <nz-input-group nzPrefixIcon="user">
+          <nz-input-group [nzPrefix]="userIcon">
             <input
               formControlName="name"
               nz-input
@@ -23,7 +23,7 @@
             mail!.valid ? 'success' : mail!.touched ? 'error' : ''
           "
         >
-          <nz-input-group nzPrefixIcon="mail">
+          <nz-input-group [nzPrefix]="mailIcon">
             <input
               formControlName="mail"
               nz-input
@@ -35,7 +35,7 @@
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
-          <nz-input-group nzPrefixIcon="global">
+          <nz-input-group [nzPrefix]="globalIcon">
             <input
               formControlName="website"
               nz-input
@@ -70,3 +70,8 @@
     </div>
   </form>
 </div>
+
+
+<ng-template #userIcon><span class="iconfont icon-custom-user"></span> </ng-template>
+<ng-template #mailIcon><span class="iconfont icon-mail"></span> </ng-template>
+<ng-template #globalIcon><span class="iconfont icon-global"></span> </ng-template>
