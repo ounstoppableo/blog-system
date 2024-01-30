@@ -15,7 +15,9 @@ import * as $ from 'jquery';
   styleUrls: ['./circle-menu.component.scss'],
 })
 export class CircleMenuComponent implements AfterViewInit, OnDestroy {
+  showMenu = false
   isPress = false;
+  currentSeason:'Spring'|'Summer'|'Winter'|'Autumn' = judgeSeason();
   @Input() flag = new Proxy(
     { value: true, that: this },
     {
@@ -50,7 +52,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
       },
       set: (target, prop, value) => {
         target[prop] = value;
-        this.changeSeason(judgeSeason());
+        this.changeSeason(this.currentSeason);
         return true;
       },
     },
@@ -62,12 +64,12 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
     if (this.timeout) {
       clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {
-        this.changeSeason(judgeSeason());
+        this.changeSeason(this.currentSeason);
         clearTimeout(this.timeout);
       }, 500);
     } else {
       this.timeout = setTimeout(() => {
-        this.changeSeason(judgeSeason());
+        this.changeSeason(this.currentSeason);
         clearTimeout(this.timeout);
       }, 500);
     }
@@ -86,6 +88,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
       ?.addEventListener('click', () => {
         document.getElementById('menu-btn')!.classList.toggle('clicked');
         this.menu.nativeElement.classList.toggle('open');
+        this.showMenu = !this.showMenu
         this.menu.nativeElement
           .querySelectorAll('a')
           .forEach((item: any, index: number) => {
@@ -106,6 +109,9 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
                   .getElementById('menu-btn')!
                   .classList.remove('clicked');
                 this.menu.nativeElement.classList.remove('open');
+                requestAnimationFrame(()=>{
+                  this.showMenu = false
+                })
                 clearTimeout(timer);
               }, 800);
             });
@@ -125,15 +131,18 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
 
   changeSeason(type: 'Spring' | 'Summer' | 'Winter' | 'Autumn') {
     this.flag.value = true;
-    seasonSelect(type);
+    this.currentSeason = type
+    seasonSelect(this.currentSeason);
   }
+
   toggleFloat() {
+    this.currentSeason = judgeSeason()
     if (this.flag.value) {
       closedFloat();
+      this.flag.value = false;
     } else {
-      seasonSelect(judgeSeason());
+      this.changeSeason(this.currentSeason);
     }
-    this.flag.value = !this.flag.value;
   }
 
   //模拟鼠标按压移动

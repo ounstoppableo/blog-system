@@ -70,6 +70,13 @@ $degFactor: 71.5;
   }
 }
 
+.menuIcon {
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .on-off-opened {
   background-color: white !important;
   & > span {
