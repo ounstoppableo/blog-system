@@ -34,10 +34,14 @@ $degFactor: 71.5;
 
     &.spin {
       z-index: 5;
-      .icon-holder {animation: spin $spin-speed linear forwards;}
+      .icon-holder {
+        animation: spin $spin-speed linear forwards;
+      }
       .circle-holder {
         display: block;
-        circle {animation: dash $spin-speed linear forwards;}
+        circle {
+          animation: dash $spin-speed linear forwards;
+        }
       }
     }
   }
@@ -52,7 +56,7 @@ $degFactor: 71.5;
     margin-top: 4.5rem;
     padding: 1rem;
     border-radius: 100%;
-    transform: scale(1,1);
+    transform: scale(1, 1);
 
     span {
       font-size: 30px;
@@ -68,13 +72,13 @@ $degFactor: 71.5;
 
 .on-off-opened {
   background-color: white !important;
-  & > span{
+  & > span {
     color: #6edfef !important;
   }
 }
 
 .menu-item {
-  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
 
 .icon-holder {
@@ -119,7 +123,7 @@ $degFactor: 71.5;
   padding: 1.3rem;
   background: white;
   border: none;
-  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
   border-radius: 100%;
   text-align: center;
   line-height: 1;
@@ -178,17 +182,21 @@ $degFactor: 71.5;
 }
 
 @for $i from 0 to length($color-collection) {
-  .menu li:nth-child(#{$i+1}) {
-    transform: rotate(#{$i*$degFactor}deg);
+  .menu li:nth-child(#{$i + 1}) {
+    transform: rotate(#{$i * $degFactor}deg);
 
     a {
-      transform: rotate(-#{$i*$degFactor}deg);
-      background: unquote(nth($color-collection, $i+1));
+      transform: rotate(-#{$i * $degFactor}deg);
+      background: unquote(nth($color-collection, $i + 1));
     }
-    circle {stroke: unquote(nth($color-collection, $i+1));}
+    circle {
+      stroke: unquote(nth($color-collection, $i + 1));
+    }
   }
 
-  .bg-#{$i} {background: unquote(nth($color-collection, $i+1));}
+  .bg-#{$i} {
+    background: unquote(nth($color-collection, $i + 1));
+  }
 }
 
 @keyframes spin {
@@ -268,8 +276,8 @@ $degFactor: 71.5;
 }
 
 @keyframes ripples {
-  0%   {
-    opacity: 1.0;
+  0% {
+    opacity: 1;
     transform: scale(0.5);
     border-width: 3rem;
   }

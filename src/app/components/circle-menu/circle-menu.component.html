@@ -1,4 +1,4 @@
-<nav  class="menu-wrapper">
+<nav class="menu-wrapper">
   <button class="menu-btn" id="menu-btn" has-ripple="true">
     <i></i>
     <i></i>
@@ -8,13 +8,17 @@
   <ul class="menu" #menu>
     <li class="menuitem-wrapper">
       <div class="icon-holder">
-        <a href="#" class="menu-item" [ngClass]="{'on-off-opened': this.flag}" (click)="toggleFloat()">
-            <span class="iconfont icon-kaiguan"></span>
+        <a
+          href="#"
+          class="menu-item"
+          [ngClass]="{ 'on-off-opened': this.flag }"
+          (click)="toggleFloat()"
+        >
+          <span class="iconfont icon-kaiguan"></span>
         </a>
       </div>
       <svg class="circle-holder">
-        <circle r="88" cx="50%" cy="50%" fill="none">
-        </circle>
+        <circle r="88" cx="50%" cy="50%" fill="none"></circle>
       </svg>
     </li>
     <li class="menuitem-wrapper">
@@ -24,8 +28,7 @@
         </a>
       </div>
       <svg class="circle-holder">
-        <circle r="88" cx="50%" cy="50%" fill="none">
-        </circle>
+        <circle r="88" cx="50%" cy="50%" fill="none"></circle>
       </svg>
     </li>
     <li class="menuitem-wrapper">
@@ -35,8 +38,7 @@
         </a>
       </div>
       <svg class="circle-holder">
-        <circle r="88" cx="50%" cy="50%" fill="none">
-        </circle>
+        <circle r="88" cx="50%" cy="50%" fill="none"></circle>
       </svg>
     </li>
     <li class="menuitem-wrapper">
@@ -46,19 +48,20 @@
         </a>
       </div>
       <svg class="circle-holder">
-        <circle r="88" cx="50%" cy="50%" fill="none">
-        </circle>
+        <circle r="88" cx="50%" cy="50%" fill="none"></circle>
       </svg>
     </li>
     <li class="menuitem-wrapper">
       <div class="icon-holder">
         <a href="#" class="menu-item">
-          <span class="iconfont icon-xuehua" (click)="changeSeason('Winter')"></span>
+          <span
+            class="iconfont icon-xuehua"
+            (click)="changeSeason('Winter')"
+          ></span>
         </a>
       </div>
       <svg class="circle-holder">
-        <circle r="88" cx="50%" cy="50%" fill="none">
-        </circle>
+        <circle r="88" cx="50%" cy="50%" fill="none"></circle>
       </svg>
     </li>
   </ul>
