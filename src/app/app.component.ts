@@ -1,13 +1,10 @@
-import * as $ from 'jquery';
 import { loadScript } from '@/utils/loadScript';
-import { closedFloat, judgeSeason, seasonSelect } from '@/utils/seasonFloat';
 import {
   AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
   Injector,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -21,15 +18,12 @@ import { CircleMenuComponent } from './components/circle-menu/circle-menu.compon
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent
-  implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy
+  implements OnInit, AfterViewChecked, AfterViewInit
 {
   title = 'my-blog';
   darkMode = false;
   isArticle = false;
   firstLoad = true;
-  intervel: any = null;
-  timeout: any = null;
-  seasonResizeCallback: any = null;
   imgLazyLoadMap = new Map();
   @ViewChild('operate')
   operate!: ElementRef;
@@ -56,7 +50,6 @@ export class AppComponent
   @ViewChild('vc', { read: ViewContainerRef }) vc!: ViewContainerRef;
   seasonFactory = this.r.resolveComponentFactory(CircleMenuComponent);
   componentRef = this.seasonFactory.create(this.injector);
-
   ngAfterViewInit(): void {
     //看板娘加载
     loadScript(
@@ -64,9 +57,9 @@ export class AppComponent
       function () {
         function showWaifu() {
           if (innerWidth > 1024) {
-            document.getElementById('waifu')!.style.display = '';
+            document.getElementById('waifu')?document.getElementById('waifu')!.style.display = '':null;
           } else {
-            document.getElementById('waifu')!.style.display = 'none';
+            document.getElementById('waifu')?document.getElementById('waifu')!.style.display = 'none':null;
           }
         }
         const observer = new MutationObserver((mutationsList, observer) => {
@@ -90,47 +83,7 @@ export class AppComponent
         loadScript(
           'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v3.0.1/snowfall.jquery.js',
           () => {
-            const heightObserver = new Proxy(
-              { height: 0 },
-              {
-                get: (target: any, prop) => {
-                  return target[prop];
-                },
-                set: (target, prop, value) => {
-                  target[prop] = value;
-                  seasonSelect(judgeSeason());
-                  return true;
-                },
-              },
-            );
             this.vc.insert(this.componentRef.hostView);
-            /*
-            页面大小变化时控制飘落显示
-            主要有这两种情况：
-            1.页面大小变化，引起页面高度变化，那么会走intervel,重新计算飘落面积
-            2.页面大小变化，不会引起高度变化，那么则不会走intervel，于是我用seasonResizeCallback来解决这种情况
-            3.初始化，由于一开始设置height为0，所以会搭配intervel进行一次初始化
-          */
-            this.seasonResizeCallback = () => {
-              closedFloat();
-              //使用节流
-              if (this.timeout) {
-                clearTimeout(this.timeout);
-                this.timeout = setTimeout(() => {
-                  seasonSelect(judgeSeason());
-                }, 500);
-              } else {
-                this.timeout = setTimeout(() => {
-                  seasonSelect(judgeSeason());
-                }, 500);
-              }
-            };
-            window.addEventListener('resize', this.seasonResizeCallback);
-            this.intervel = setInterval(() => {
-              if (heightObserver.height !== $(document as any).height()) {
-                heightObserver.height = $(document as any).height();
-              }
-            }, 100);
           },
         );
       },
@@ -238,10 +191,5 @@ export class AppComponent
         }
       }
     });
-  }
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    clearInterval(this.intervel);
   }
 }

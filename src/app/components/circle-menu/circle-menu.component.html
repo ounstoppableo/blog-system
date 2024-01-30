@@ -1,4 +1,4 @@
-<nav class="menu-wrapper">
+<nav #menu_wrapper class="menu-wrapper" (mousedown)="onMousedown()" (mouseup)="onMouseup()" (mousemove)="onMousemove($event)">
   <button class="menu-btn" id="menu-btn" has-ripple="true">
     <i></i>
     <i></i>
@@ -11,7 +11,7 @@
         <a
           href="#"
           class="menu-item"
-          [ngClass]="{ 'on-off-opened': this.flag }"
+          [ngClass]="{ 'on-off-opened': this.flag.value }"
           (click)="toggleFloat()"
         >
           <span class="iconfont icon-kaiguan"></span>
