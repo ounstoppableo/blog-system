@@ -41,6 +41,4 @@ import { NzAnchorModule } from 'ng-zorro-antd/anchor';
     NzFormModule,
   ],
 })
-export class NzDesignModule {
-
-}
+export class NzDesignModule {}
