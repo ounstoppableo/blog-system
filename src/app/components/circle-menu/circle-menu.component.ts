@@ -1,5 +1,12 @@
 import { closedFloat, judgeSeason, seasonSelect } from '@/utils/seasonFloat';
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import * as $ from 'jquery';
 
 @Component({
@@ -7,30 +14,33 @@ import * as $ from 'jquery';
   templateUrl: './circle-menu.component.html',
   styleUrls: ['./circle-menu.component.scss'],
 })
-export class CircleMenuComponent implements AfterViewInit,OnDestroy {
-  isPress = false
-  @Input() flag = new Proxy({value:true,that:this},{
-    get(target:any,prop){
-      return target[prop]
+export class CircleMenuComponent implements AfterViewInit, OnDestroy {
+  isPress = false;
+  @Input() flag = new Proxy(
+    { value: true, that: this },
+    {
+      get(target: any, prop) {
+        return target[prop];
+      },
+      set(target, prop, value) {
+        target[prop] = value;
+        window.removeEventListener('resize', target.that.seasonResizeCallback);
+        clearInterval(target.that.intervel);
+        if (value) {
+          window.addEventListener('resize', target.that.seasonResizeCallback);
+          target.that.intervel = setInterval(target.that.intervalCallback, 100);
+        }
+        return true;
+      },
     },
-    set(target,prop,value){
-      target[prop] = value
-      window.removeEventListener('resize',target.that.seasonResizeCallback);
-      clearInterval(target.that.intervel);
-      if(value) {
-      window.addEventListener('resize',target.that.seasonResizeCallback)
-      target.that.intervel = setInterval(target.that.intervalCallback,100)
-      }
-      return true
-    }
-  });
+  );
   intervel: any = null;
   timeout: any = null;
   @ViewChild('menu')
   menu!: ElementRef;
 
   @ViewChild('menu_wrapper')
-  menu_wrapper!: ElementRef
+  menu_wrapper!: ElementRef;
 
   heightObserver = new Proxy(
     { height: 0 },
@@ -67,7 +77,7 @@ export class CircleMenuComponent implements AfterViewInit,OnDestroy {
     if (this.heightObserver.height !== $(document as any).height()) {
       this.heightObserver.height = $(document as any).height();
     }
-  }
+  };
 
   ngAfterViewInit(): void {
     //面板样式控制
@@ -126,21 +136,20 @@ export class CircleMenuComponent implements AfterViewInit,OnDestroy {
     this.flag.value = !this.flag.value;
   }
 
-
   //模拟鼠标按压移动
-  onMousedown(){
-    this.isPress = true
+  onMousedown() {
+    this.isPress = true;
   }
 
-  onMousemove(e:any){
-    if(this.isPress){
-          this.menu_wrapper.nativeElement.style.top = e.y + 'px'
-          this.menu_wrapper.nativeElement.style.left = e.x + 'px'
+  onMousemove(e: any) {
+    if (this.isPress) {
+      this.menu_wrapper.nativeElement.style.top = e.y + 'px';
+      this.menu_wrapper.nativeElement.style.left = e.x + 'px';
     }
   }
 
-  onMouseup(){
-    this.isPress = false
+  onMouseup() {
+    this.isPress = false;
   }
 
   ngOnDestroy(): void {

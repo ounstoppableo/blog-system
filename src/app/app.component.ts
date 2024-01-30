@@ -17,9 +17,7 @@ import { CircleMenuComponent } from './components/circle-menu/circle-menu.compon
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent
-  implements OnInit, AfterViewChecked, AfterViewInit
-{
+export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
   title = 'my-blog';
   darkMode = false;
   isArticle = false;
@@ -57,9 +55,13 @@ export class AppComponent
       function () {
         function showWaifu() {
           if (innerWidth > 1024) {
-            document.getElementById('waifu')?document.getElementById('waifu')!.style.display = '':null;
+            document.getElementById('waifu')
+              ? (document.getElementById('waifu')!.style.display = '')
+              : null;
           } else {
-            document.getElementById('waifu')?document.getElementById('waifu')!.style.display = 'none':null;
+            document.getElementById('waifu')
+              ? (document.getElementById('waifu')!.style.display = 'none')
+              : null;
           }
         }
         const observer = new MutationObserver((mutationsList, observer) => {
