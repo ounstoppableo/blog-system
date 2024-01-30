@@ -18,7 +18,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
-  folderControl = 'menu-unfold'; //folder展开控制
   originScrollY = 0;
   scrollDerection = 'down';
   isLogin = false;
@@ -100,8 +99,6 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   }
   //folder展开
   folderShow() {
-    this.folderControl =
-      this.folderControl === 'menu-fold' ? 'menu-unfold' : 'menu-fold';
     this.drawerOpen.emit();
   }
   goDateCate() {

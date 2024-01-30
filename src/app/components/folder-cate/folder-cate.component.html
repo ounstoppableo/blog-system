@@ -4,7 +4,7 @@
   </div>
   <div class="has" *ngIf="folders.length !== 0">
     <div class="title">
-      <span nz-icon nzType="folder" nzTheme="outline"></span>
+      <span class="iconfont icon-folder" [style]="{ fontSize: '20px' }"></span>
       &nbsp;&nbsp;
       <span>分类:</span>
     </div>
@@ -14,7 +14,7 @@
         *ngFor="let item of folders"
         (click)="toSingleFolderCate(item.folderId)"
       >
-        <span nz-icon nzType="folder" nzTheme="fill"></span>
+        <span class="iconfont icon-folder"></span>
         <span>{{ item.folderName }}({{ item.count }})</span>
       </div>
     </div>

@@ -10,7 +10,10 @@
     <div class="news">
       <div class="title">
         <p>
-          <span nz-icon nzType="history" nzTheme="outline"></span>
+          <span
+            class="iconfont icon-time-history"
+            [style]="{ fontSize: '30px' }"
+          ></span>
           <span>最新发布</span>
         </p>
         <app-loading *ngIf="loading"></app-loading>
@@ -38,7 +41,10 @@
   <div class="card">
     <div class="announce">
       <p>
-        <span nz-icon nzType="notification" nzTheme="outline"></span>
+        <span
+          class="iconfont icon-notification"
+          [style]="{ fontSize: '30px' }"
+        ></span>
         <span>公告</span>
       </p>
       <div class="container">
@@ -53,7 +59,7 @@
 <div class="catelogue" *ngIf="isArticle && !smallSize">
   <div class="catalogue">
     <p>
-      <span nz-icon nzType="unordered-list" nzTheme="outline"></span>
+      <span class="iconfont icon-mulu" [style]="{ fontSize: '30px' }"></span>
       <span>目录</span>
     </p>
     <div class="container">

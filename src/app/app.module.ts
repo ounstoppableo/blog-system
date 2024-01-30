@@ -37,6 +37,7 @@ import { MsgBoradPageComponent } from './view/msg-borad-page/msg-borad-page.comp
 import { ForMsgBoardPageComponent } from './components/for-msg-board-page/for-msg-board-page.component';
 import { CatalogueComponent } from './components/catalogue/catalogue.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { CircleMenuComponent } from './components/circle-menu/circle-menu.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     ForMsgBoardPageComponent,
     CatalogueComponent,
     LoadingComponent,
+    CircleMenuComponent,
   ],
   imports: [
     BrowserModule,

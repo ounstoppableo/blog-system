@@ -3,13 +3,7 @@
   <div class="header" *ngIf="!loading">
     <div class="left">{{ msgCount }}&nbsp;条评论</div>
     <div class="right">
-      <span
-        nz-icon
-        nzType="reload"
-        nzTheme="outline"
-        class="icon"
-        (click)="reload()"
-      ></span>
+      <span class="icon iconfont icon-reload" (click)="reload()"></span>
     </div>
   </div>
   <app-none *ngIf="msgItems.length === 0 && show"></app-none>

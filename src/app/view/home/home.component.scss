@@ -134,7 +134,9 @@
       animation: vibrate2 1s infinite ease 0.05s;
     }
 
-    [nz-icon] {
+    [type='icondown'] {
+      display: flex;
+      justify-content: center;
       color: rgba(255, 255, 255, 0.5);
       animation: vibrate1 1s infinite ease;
     }

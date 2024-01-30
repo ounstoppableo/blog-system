@@ -3,12 +3,14 @@
   <div *ngIf="article" id="write"></div>
   <div class="goPreAndNext" *ngIf="pre || next">
     <div class="pre" *ngIf="pre" (click)="toArticle(pre)">
-      <span nz-icon nzType="left" nzTheme="outline"></span>
+      <span class="iconfont icon-left"></span>
+      &nbsp;
       <span>{{ preTitle }}</span>
     </div>
     <div class="next" *ngIf="next" (click)="toArticle(next)">
       <span>{{ nextTitle }}</span>
-      <span nz-icon nzType="right" nzTheme="outline"></span>
+      &nbsp;
+      <span class="iconfont icon-right"></span>
     </div>
   </div>
   <app-msg-board

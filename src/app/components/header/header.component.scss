@@ -39,7 +39,7 @@
       cursor: url(/assets/link.ico), pointer;
       @include borderAnime;
 
-      & [nzType='down'] {
+      & [class='iconfont icon-down'] {
         transition: all 0.3s ease;
       }
 
@@ -72,7 +72,7 @@
       }
 
       &.listActive {
-        & [nzType='down'] {
+        & [class='iconfont icon-down'] {
           transform: rotate(180deg);
         }
 

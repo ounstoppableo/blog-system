@@ -43,7 +43,7 @@ export class CircleMenuComponent implements AfterViewInit {
       });
   }
   changeSeason(type: 'Spring' | 'Summer' | 'Winter' | 'Autumn') {
-    this.flag = true
+    this.flag = true;
     seasonSelect(type);
   }
   toggleFloat() {

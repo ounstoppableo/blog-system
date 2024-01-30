@@ -1,13 +1,13 @@
 export function judgeSeason() {
-  const month = new Date().getMonth()
+  const month = new Date().getMonth();
   if (month === 10 || month === 11 || month === 0) {
-    return 'Winter'
+    return 'Winter';
   } else if (month === 7 || month === 8 || month === 9) {
-    return 'Autumn'
+    return 'Autumn';
   } else if (month === 4 || month === 5 || month === 6) {
-    return 'Summer'
+    return 'Summer';
   } else {
-    return 'Spring'
+    return 'Spring';
   }
 }
 
@@ -140,6 +140,6 @@ export function seasonSelect(type: 'Spring' | 'Summer' | 'Autumn' | 'Winter') {
   }
 }
 
-export function closedFloat(){
+export function closedFloat() {
   ($(document) as any).snowfall('');
 }

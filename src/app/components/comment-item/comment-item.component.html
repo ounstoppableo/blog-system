@@ -22,13 +22,19 @@
             {{ msgItem.upvoke > 99 ? '99+' : msgItem.upvoke }}
           </span>
           <span
-            nz-icon
-            nzType="like"
-            [nzTheme]="msgItem.upvokeChecked ? 'fill' : 'outline'"
+            class="iconfont"
+            [class]="{
+              'icon-like-fill': msgItem.upvokeChecked,
+              'icon-like': !msgItem.upvokeChecked
+            }"
+            [style]="{ fontSize: '20px' }"
           ></span>
         </button>
         <button nz-button nzShape="circle" (click)="toShowForm()">
-          <span nz-icon nzType="message" nzTheme="outline"></span>
+          <span
+            class="iconfont icon-message"
+            [style]="{ fontSize: '20px' }"
+          ></span>
         </button>
       </div>
     </div>
@@ -47,31 +53,31 @@
     <div class="footer">
       <div class="device">
         <span
-          nz-icon
-          [nzType]="
-            msgItem.device.toLowerCase().includes('window')
-              ? 'windows'
-              : msgItem.device.toLowerCase().includes('android')
-              ? 'android'
-              : msgItem.device.toLowerCase().includes('apple')
-              ? 'apple'
-              : 'question-circle'
-          "
-          nzTheme="outline"
+          class="iconfont"
+          [ngClass]="{
+            'icon-windows': msgItem.device.toLowerCase().includes('window'),
+            'icon-android': msgItem.device.toLowerCase().includes('android'),
+            'icon-apple': msgItem.device.toLowerCase().includes('iphone'),
+            'icon-question-circle':
+              !msgItem.device.toLowerCase().includes('window') &&
+              !msgItem.device.toLowerCase().includes('android') &&
+              !msgItem.device.toLowerCase().includes('iphone')
+          }"
         ></span>
         <span>{{ msgItem.device }}</span>
       </div>
       <div class="browser">
         <span
-          nz-icon
-          [nzType]="
-            msgItem.browser.toLowerCase().includes('chrome')
-              ? 'chrome'
-              : msgItem.browser.toLowerCase().includes('edg')
-              ? 'ie'
-              : 'question-circle'
-          "
-          nzTheme="outline"
+          class="iconfont"
+          [ngClass]="{
+            'icon-chrome': msgItem.browser.toLowerCase().includes('chrome'),
+            'icon-safari': msgItem.browser.toLowerCase().includes('safari'),
+            'icon-edge': msgItem.browser.toLowerCase().includes('edg'),
+            'icon-question-circle':
+              !msgItem.browser.toLowerCase().includes('edg') &&
+              !msgItem.browser.toLowerCase().includes('chrome') &&
+              !msgItem.browser.toLowerCase().includes('safari')
+          }"
         ></span>
         <span>{{ msgItem.browser }}</span>
       </div>
@@ -100,9 +106,11 @@
         children.length
       }}&nbsp;条评论
       <span
-        nz-icon
-        [nzType]="this.showChirdren ? 'up' : 'down'"
-        nzTheme="outline"
+        class="iconfont"
+        [ngClass]="{
+          'icon-up1': this.showChirdren,
+          'icon-down': !this.showChirdren
+        }"
       ></span>
     </div>
   </div>

@@ -27,7 +27,7 @@
         gap: 10px;
         position: relative;
 
-        & > [nzType='down'] {
+        & > [type='icondown'] {
           position: absolute;
           right: 0;
           transform: rotate(90deg);

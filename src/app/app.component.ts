@@ -3,9 +3,11 @@ import { loadScript } from '@/utils/loadScript';
 import { closedFloat, judgeSeason, seasonSelect } from '@/utils/seasonFloat';
 import {
   AfterViewChecked,
+  AfterViewInit,
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -13,25 +15,29 @@ import { NavigationEnd, Router } from '@angular/router';
 import { ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { CircleMenuComponent } from './components/circle-menu/circle-menu.component';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, AfterViewChecked {
+export class AppComponent
+  implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy
+{
   title = 'my-blog';
   darkMode = false;
   isArticle = false;
   firstLoad = true;
-  intervel:any = null
-  timeout:any = null
-  seasonResizeCallback:any = null
+  intervel: any = null;
+  timeout: any = null;
+  seasonResizeCallback: any = null;
   imgLazyLoadMap = new Map();
   @ViewChild('operate')
   operate!: ElementRef;
-  constructor(private router: Router,private r: ComponentFactoryResolver,private injector: Injector) {
-  }
+  constructor(
+    private router: Router,
+    private r: ComponentFactoryResolver,
+    private injector: Injector,
+  ) {}
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd)
@@ -47,8 +53,8 @@ export class AppComponent implements OnInit, AfterViewChecked {
     window.addEventListener('scroll', this.imgLazyLoad.bind(this));
   }
   //四季控制板工厂创建
-  @ViewChild("vc", { read: ViewContainerRef }) vc!: ViewContainerRef;
-  seasonFactory =  this.r.resolveComponentFactory(CircleMenuComponent);
+  @ViewChild('vc', { read: ViewContainerRef }) vc!: ViewContainerRef;
+  seasonFactory = this.r.resolveComponentFactory(CircleMenuComponent);
   componentRef = this.seasonFactory.create(this.injector);
 
   ngAfterViewInit(): void {
@@ -65,67 +71,70 @@ export class AppComponent implements OnInit, AfterViewChecked {
         }
         const observer = new MutationObserver((mutationsList, observer) => {
           if (
-            mutationsList.findIndex((item) => (item.target as any).id === 'waifu-tool') !==
-            -1
+            mutationsList.findIndex(
+              (item) => (item.target as any).id === 'waifu-tool',
+            ) !== -1
           ) {
             showWaifu();
             observer.disconnect();
           }
-        })
+        });
         observer.observe(document.body, { childList: true, subtree: true });
         window.addEventListener('resize', showWaifu);
       },
     );
     //四季飘落效果加载
-    loadScript('https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/jquery.min.js', () => {
-      loadScript(
-        'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v3.0.1/snowfall.jquery.js',
-        () => {
-          const heightObserver = new Proxy(
-            { height: 0 },
-            {
-              get: (target: any, prop, receiver) => {
-                return target[prop];
+    loadScript(
+      'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/jquery.min.js',
+      () => {
+        loadScript(
+          'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v3.0.1/snowfall.jquery.js',
+          () => {
+            const heightObserver = new Proxy(
+              { height: 0 },
+              {
+                get: (target: any, prop) => {
+                  return target[prop];
+                },
+                set: (target, prop, value) => {
+                  target[prop] = value;
+                  seasonSelect(judgeSeason());
+                  return true;
+                },
               },
-              set: (target, prop, value, receiver) => {
-                target[prop] = value;
-                seasonSelect(judgeSeason());
-                return true
-              },
-            },
-          );
-          this.vc.insert(this.componentRef.hostView);
-          /*
+            );
+            this.vc.insert(this.componentRef.hostView);
+            /*
             页面大小变化时控制飘落显示
             主要有这两种情况：
             1.页面大小变化，引起页面高度变化，那么会走intervel,重新计算飘落面积
             2.页面大小变化，不会引起高度变化，那么则不会走intervel，于是我用seasonResizeCallback来解决这种情况
             3.初始化，由于一开始设置height为0，所以会搭配intervel进行一次初始化
           */
-          this.seasonResizeCallback = ()=>{
-            closedFloat();
-            //使用节流
-            if(this.timeout){
-              clearTimeout(this.timeout)
-              this.timeout = setTimeout(()=>{
-                seasonSelect(judgeSeason())
-              },500)
-            }else {
-              this.timeout = setTimeout(()=>{
-                seasonSelect(judgeSeason())
-              },500)
-            }
-          }
-          window.addEventListener('resize',this.seasonResizeCallback)
-          this.intervel = setInterval(() => {
-            if (heightObserver.height !== $(document as any).height()) {
-              heightObserver.height = $(document as any).height()
-            }
-          }, 100)
-        },
-      );
-    })
-
+            this.seasonResizeCallback = () => {
+              closedFloat();
+              //使用节流
+              if (this.timeout) {
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(() => {
+                  seasonSelect(judgeSeason());
+                }, 500);
+              } else {
+                this.timeout = setTimeout(() => {
+                  seasonSelect(judgeSeason());
+                }, 500);
+              }
+            };
+            window.addEventListener('resize', this.seasonResizeCallback);
+            this.intervel = setInterval(() => {
+              if (heightObserver.height !== $(document as any).height()) {
+                heightObserver.height = $(document as any).height();
+              }
+            }, 100);
+          },
+        );
+      },
+    );
   }
   imgLazyLoad() {
     const imgs = document.querySelectorAll('img');
@@ -230,7 +239,9 @@ export class AppComponent implements OnInit, AfterViewChecked {
       }
     });
   }
-  destroyed() {
-    clearInterval(this.intervel)
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    clearInterval(this.intervel);
   }
 }

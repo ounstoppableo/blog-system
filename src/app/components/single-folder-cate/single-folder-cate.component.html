@@ -1,6 +1,9 @@
 <div class="container" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
   <h1>
-    <span nz-icon nzType="folder-open" nzTheme="fill"></span>
+    <span
+      class="iconfont icon-folder-open"
+      [style]="{ fontSize: '20px' }"
+    ></span>
     &nbsp;&nbsp;{{ singleFolderMapArticleInfos.folderName }}
   </h1>
   <div

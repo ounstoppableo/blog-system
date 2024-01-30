@@ -1,7 +1,9 @@
 <router-outlet></router-outlet>
 <div id="operate">
   <button class="btn" (click)="changeDarkMode()">
-    <span [class]="darkMode ? 'iconfont icon-sun' : 'iconfont icon-moon'"></span>
+    <span
+      [class]="darkMode ? 'iconfont icon-sun' : 'iconfont icon-moon'"
+    ></span>
   </button>
   <button class="btn" *ngIf="isArticle" (click)="toCommentArea()">
     <span class="iconfont icon-comment"></span>
@@ -11,4 +13,3 @@
   </button>
 </div>
 <ng-container #vc></ng-container>
-

@@ -77,9 +77,12 @@
           >
             <ng-container *ngIf="!backImgUrl!.valid">
               <span
+                [ngClass]="{
+                  iconfont: true,
+                  'icon-loading': ImgUploadLoading,
+                  'icon-plus': !ImgUploadLoading
+                }"
                 class="upload-icon"
-                nz-icon
-                [nzType]="ImgUploadLoading ? 'loading' : 'plus'"
               ></span>
               <div class="ant-upload-text">上传图片</div>
             </ng-container>
@@ -104,7 +107,7 @@
             [nzRemove]="removeFile"
           >
             <button nz-button [disabled]="articleUrl!.valid || uploadLoading">
-              <span nz-icon nzType="upload"></span>
+              <span class="iconfont icon-upload"></span>
               上传文件
             </button>
           </nz-upload>

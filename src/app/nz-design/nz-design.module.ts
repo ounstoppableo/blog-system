@@ -7,7 +7,6 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzFormModule } from 'ng-zorro-antd/form';
 
-import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
@@ -24,7 +23,6 @@ import { NzAnchorModule } from 'ng-zorro-antd/anchor';
     NzInputModule,
     NzSelectModule,
     NzFormModule,
-    NzIconModule,
     NzPopconfirmModule,
     NzPaginationModule,
     NzAnchorModule,
@@ -41,11 +39,8 @@ import { NzAnchorModule } from 'ng-zorro-antd/anchor';
     NzInputModule,
     NzSelectModule,
     NzFormModule,
-    NzIconModule,
   ],
 })
 export class NzDesignModule {
-  constructor(private nzIconService: NzIconService) {
-    this.nzIconService.changeAssetsSource('/icons');
-  }
+
 }

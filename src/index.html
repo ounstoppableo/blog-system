@@ -1,92 +1,14 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Unstoppable840的小站</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <title>Unstoppable840的小站</title>
-  <base href="/" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <script async>
-    function loadScript(src, callback) {
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = src;
-      script.async = true
-      script.onload = callback;
-      document.head.appendChild(script);
-    }
-    //看板娘加载
-    (new MutationObserver((mutationsList, observer) => {
-      if (mutationsList.findIndex(item => item.target.id === 'waifu-tool') !== -1) {
-        setWaifuCoordinate()
-      }
-    })).observe(document, { childList: true, subtree: true })
-    loadScript('https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@v4.1.1/autoload.js', function () {
-      window.addEventListener('resize', setWaifuCoordinate)
-    });
-    //四季飘落效果加载
-    loadScript('https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/jquery.min.js', function () {
-      loadScript('https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v1.1.1/snowfall.jquery.js', function () {
-        setTimeout(() => {
-          const heightObserver = new Proxy({ height: 0 }, {
-            get: (target, prop, receiver) => {
-              return target[prop]
-            },
-            set: (target, prop, value, receiver) => {
-              target[prop] = value;
-              seasonSelect('Summer')
-            }
-          })
-          const observer = new MutationObserver(function (mutationsList, observer) {
-            if (heightObserver.height !== $(document).height()) {
-              heightObserver.height = $(document).height()
-            }
-          })
-          observer.observe(document.getElementById('approot'), { childList: true, subtree: true })
-        }, 0)
-      })
-    })
-    function setWaifuCoordinate() {
-      if (innerWidth > 1024) {
-        document.getElementById('waifu').style.display = ''
-      } else {
-        document.getElementById('waifu').style.display = 'none'
-      }xt
-    }
-    function seasonSelect(type) {
-      if (type === 'Spring') {
-        $(document).snowfall('')
-        $(document).snowfall({ image: "https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/img/1.png", flakeCount: 50, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ image: "https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/img/2.png", flakeCount: 40, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ image: "https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/img/3.png", flakeCount: 30, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ image: "https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/img/4.png", flakeCount: 60, minSpeed: 1, minSize: 8, maxSize: 15, })
-      } else if (type === 'Summer') {
-        $(document).snowfall('')
-        $(document).snowfall({ icon: '🍀',fontSize: 10 +'px', flakeCount: 50, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ icon: '☘️',fontSize: 15 +'px', flakeCount: 40, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ icon: '☘️',fontSize: 20 +'px', flakeCount: 30, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ icon: '🍀',fontSize: 25 +'px', flakeCount: 60, minSpeed: 1, minSize: 8, maxSize: 15, })
-      } else if (type === 'Autumn') {
-        $(document).snowfall('')
-        $(document).snowfall({ icon: '🍁',fontSize: 10 +'px', flakeCount: 50, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ icon: '🍁',fontSize: 15 +'px', flakeCount: 40, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ icon: '🍁',fontSize: 20 +'px', flakeCount: 30, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ icon: '🍁',fontSize: 25 +'px', flakeCount: 60, minSpeed: 1, minSize: 8, maxSize: 15, })
-      } else if (type === 'Winter') {
-        $(document).snowfall('')
-        $(document).snowfall({ icon: '❄',fontSize: 10 +'px', flakeCount: 50, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ icon: 'xue',fontSize: 15 +'px', flakeCount: 40, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ icon: '❄',fontSize: 20 +'px', flakeCount: 30, minSpeed: 1, minSize: 8, maxSize: 15, })
-        $(document).snowfall({ icon: '❄',fontSize: 25 +'px', flakeCount: 60, minSpeed: 1, minSize: 8, maxSize: 15, })
-      }
-
-    }
-  </script>
-</head>
-
-<body>
-  <app-root id="approot"></app-root>
-</body>
-
+  <body>
+    <app-root id="approot"></app-root>
+  </body>
 </html>

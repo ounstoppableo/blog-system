@@ -48,7 +48,7 @@
 
       & > .operate {
         display: flex;
-        gap: 10px;
+        gap: 5px;
 
         & > [nz-button] {
           position: relative;
@@ -56,14 +56,11 @@
           border: none;
           box-shadow: none;
           color: #409eff;
-          & > [nz-icon] {
-            font-size: 18px;
-          }
           & > .count {
             position: absolute;
             font-size: 12px;
-            right: 0px;
-            top: -12px;
+            right: 2px;
+            top: -8px;
           }
         }
 
