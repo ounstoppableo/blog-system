@@ -19,7 +19,10 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   isPress = false;
   currentSeason: 'Spring' | 'Summer' | 'Winter' | 'Autumn' = judgeSeason();
   @Input() flag = new Proxy(
-    { value: true, that: this },
+    {
+      value: JSON.parse(localStorage.getItem('seasonFloat') || 'true'),
+      that: this,
+    },
     {
       get(target: any, prop) {
         return target[prop];
@@ -125,12 +128,15 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
       2.页面大小变化，不会引起高度变化，那么则不会走intervel，于是我用seasonResizeCallback来解决这种情况
       3.初始化，由于一开始设置height为0，所以会搭配intervel进行一次初始化
     */
-    window.addEventListener('resize', this.seasonResizeCallback);
-    this.intervel = setInterval(this.intervalCallback, 100);
+    if (this.flag.value) {
+      window.addEventListener('resize', this.seasonResizeCallback);
+      this.intervel = setInterval(this.intervalCallback, 100);
+    }
   }
 
   changeSeason(type: 'Spring' | 'Summer' | 'Winter' | 'Autumn') {
     this.flag.value = true;
+    localStorage.setItem('seasonFloat', 'true');
     this.currentSeason = type;
     seasonSelect(this.currentSeason);
   }
@@ -140,6 +146,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
     if (this.flag.value) {
       closedFloat();
       this.flag.value = false;
+      localStorage.setItem('seasonFloat', 'false');
     } else {
       this.changeSeason(this.currentSeason);
     }
