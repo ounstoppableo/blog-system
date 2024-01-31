@@ -1,20 +1,36 @@
 <div class="container">
-  <span class="pre iconfont icon-left" [ngClass]="{ 'unShow': this.total===1 }" (click)="prevPage()"></span>
-  <span class="next iconfont icon-right" [ngClass]="{ 'unShow': this.total===1 }" (click)="nextPage()"></span>
-  <div class="item active" *ngIf="newsList && newsList.length!==0">
-    <div class="day">{{getDay(currentNews.ctime)}}</div>
-    <div class="month">{{getMonth(currentNews.ctime) | monthToEnglish}},{{getYear(currentNews.ctime)}}</div>
-    <a class="title" target="_blank" [href]="currentNews.url">{{currentNews.title}}</a>
-    <div class="author">————&nbsp;&nbsp;{{currentNews.source}}</div>
-    <div class="description">
-      {{dealNewsDescription(currentNews.description)}}<a [href]="currentNews.url" target="_blank">[阅读更多]</a>
+  <span
+    class="pre iconfont icon-left"
+    [ngClass]="{ unShow: this.total === 1 }"
+    (click)="prevPage()"
+  ></span>
+  <span
+    class="next iconfont icon-right"
+    [ngClass]="{ unShow: this.total === 1 }"
+    (click)="nextPage()"
+  ></span>
+  <div class="item active" *ngIf="newsList && newsList.length !== 0">
+    <div class="day">{{ getDay(currentNews.ctime) }}</div>
+    <div class="month">
+      {{ getMonth(currentNews.ctime) | monthToEnglish }},{{
+        getYear(currentNews.ctime)
+      }}
     </div>
-    <img
-      [src]="currentNews.picUrl"
-      alt="news"
-    />
+    <a class="title" target="_blank" [href]="currentNews.url">
+      {{ currentNews.title }}
+    </a>
+    <div class="author">————&nbsp;&nbsp;{{ currentNews.source }}</div>
+    <div class="description">
+      {{ dealNewsDescription(currentNews.description) }}
+      <a [href]="currentNews.url" target="_blank">[阅读更多]</a>
+    </div>
+    <img [src]="currentNews.picUrl" alt="news" />
   </div>
-  <ul (click)="togglePage($event)" [ngClass]="{ 'unShow': this.total===1 }" >
-    <li [ngClass]="{'active': this.page===item }" [attr.data-index]="item" *ngFor="let item of getNumberArray(this.total)"></li>
+  <ul (click)="togglePage($event)" [ngClass]="{ unShow: this.total === 1 }">
+    <li
+      [ngClass]="{ active: this.page === item }"
+      [attr.data-index]="item"
+      *ngFor="let item of getNumberArray(this.total)"
+    ></li>
   </ul>
 </div>

@@ -49,7 +49,10 @@
       </p>
       <div class="container">
         <app-none *ngIf="!isHaveNews"></app-none>
-        <app-news-list *ngIf="isHaveNews" (newsShowControl)="newsShowControl($event)"></app-news-list>
+        <app-news-list
+          *ngIf="isHaveNews"
+          (newsShowControl)="newsShowControl($event)"
+        ></app-news-list>
       </div>
     </div>
   </div>
