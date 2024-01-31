@@ -42,6 +42,21 @@
     <div class="announce">
       <p>
         <span
+          class="iconfont icon-hotfill"
+          [style]="{ fontSize: '30px' }"
+        ></span>
+        <span>互联网资讯</span>
+      </p>
+      <div class="container">
+        <app-none *ngIf="!isHaveNews"></app-none>
+        <app-news-list *ngIf="isHaveNews" (newsShowControl)="newsShowControl($event)"></app-news-list>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="announce">
+      <p>
+        <span
           class="iconfont icon-notification"
           [style]="{ fontSize: '30px' }"
         ></span>

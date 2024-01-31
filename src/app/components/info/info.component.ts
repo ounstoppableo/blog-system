@@ -20,6 +20,8 @@ export class InfoComponent implements OnInit {
   isArticle = false;
   articleInfoList: articleInfo[] = []; //文章列表
   loading = true;
+
+  isHaveNews = true
   constructor(
     private homeService: HomeService,
     private router: Router,
@@ -31,6 +33,9 @@ export class InfoComponent implements OnInit {
         this.loading = false;
         if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
       });
+  }
+  newsShowControl($event:boolean){
+    this.isHaveNews = $event
   }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);

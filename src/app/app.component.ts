@@ -172,7 +172,7 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
     //给图片预加载
     const imgs = document.querySelectorAll('img');
     imgs.forEach((item, index) => {
-      if (item.classList.value !== 'snowfall-flakes') {
+      if (!item.src.includes('https')) {
         const betaSrc = item.getAttribute('betaSrc');
         if (!betaSrc) {
           const tempSrc = item.src.split('/').slice(3).join('/');

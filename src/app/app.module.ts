@@ -38,6 +38,8 @@ import { ForMsgBoardPageComponent } from './components/for-msg-board-page/for-ms
 import { CatalogueComponent } from './components/catalogue/catalogue.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { CircleMenuComponent } from './components/circle-menu/circle-menu.component';
+import { NewsListComponent } from './components/news-list/news-list.component';
+import { monthToEnglishPipe } from './pipe/monthToEnglish';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { CircleMenuComponent } from './components/circle-menu/circle-menu.compon
     UserinfoComponent,
     TagComponent,
     MarkedPipe,
+    monthToEnglishPipe,
     DrawerComponent,
     AddArticleFormComponent,
     NoneComponent,
@@ -73,6 +76,7 @@ import { CircleMenuComponent } from './components/circle-menu/circle-menu.compon
     CatalogueComponent,
     LoadingComponent,
     CircleMenuComponent,
+    NewsListComponent,
   ],
   imports: [
     BrowserModule,
