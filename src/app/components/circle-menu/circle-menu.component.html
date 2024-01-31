@@ -4,12 +4,22 @@
   (mousedown)="onMousedown()"
   (mouseup)="onMouseup()"
   (mousemove)="onMousemove($event)"
+  (touchmove)="onTouchmove($event)"
 >
   <button class="menu-btn" id="menu-btn" has-ripple="true">
-      <span *ngIf="!showMenu" class="iconfont menuIcon" [ngClass]="{'icon-yinghua':currentSeason==='Spring','icon-icon-test':currentSeason==='Summer','icon-fengye':currentSeason==='Autumn','icon-xuehua':currentSeason==='Winter' }"></span>
-      <i *ngIf="showMenu"></i>
-      <i *ngIf="showMenu"></i>
-      <i *ngIf="showMenu"></i>
+    <span
+      *ngIf="!showMenu"
+      class="iconfont menuIcon"
+      [ngClass]="{
+        'icon-yinghua': currentSeason === 'Spring',
+        'icon-icon-test': currentSeason === 'Summer',
+        'icon-fengye': currentSeason === 'Autumn',
+        'icon-xuehua': currentSeason === 'Winter'
+      }"
+    ></span>
+    <i *ngIf="showMenu"></i>
+    <i *ngIf="showMenu"></i>
+    <i *ngIf="showMenu"></i>
     <span class="ripple"></span>
   </button>
   <ul class="menu" #menu>

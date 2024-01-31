@@ -15,9 +15,9 @@ import * as $ from 'jquery';
   styleUrls: ['./circle-menu.component.scss'],
 })
 export class CircleMenuComponent implements AfterViewInit, OnDestroy {
-  showMenu = false
+  showMenu = false;
   isPress = false;
-  currentSeason:'Spring'|'Summer'|'Winter'|'Autumn' = judgeSeason();
+  currentSeason: 'Spring' | 'Summer' | 'Winter' | 'Autumn' = judgeSeason();
   @Input() flag = new Proxy(
     { value: true, that: this },
     {
@@ -88,7 +88,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
       ?.addEventListener('click', () => {
         document.getElementById('menu-btn')!.classList.toggle('clicked');
         this.menu.nativeElement.classList.toggle('open');
-        this.showMenu = !this.showMenu
+        this.showMenu = !this.showMenu;
         this.menu.nativeElement
           .querySelectorAll('a')
           .forEach((item: any, index: number) => {
@@ -109,9 +109,9 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
                   .getElementById('menu-btn')!
                   .classList.remove('clicked');
                 this.menu.nativeElement.classList.remove('open');
-                requestAnimationFrame(()=>{
-                  this.showMenu = false
-                })
+                requestAnimationFrame(() => {
+                  this.showMenu = false;
+                });
                 clearTimeout(timer);
               }, 800);
             });
@@ -131,12 +131,12 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
 
   changeSeason(type: 'Spring' | 'Summer' | 'Winter' | 'Autumn') {
     this.flag.value = true;
-    this.currentSeason = type
+    this.currentSeason = type;
     seasonSelect(this.currentSeason);
   }
 
   toggleFloat() {
-    this.currentSeason = judgeSeason()
+    this.currentSeason = judgeSeason();
     if (this.flag.value) {
       closedFloat();
       this.flag.value = false;
@@ -159,6 +159,14 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
 
   onMouseup() {
     this.isPress = false;
+  }
+  onTouchmove(e:any){
+    const firstTouch = e.touches[0];
+    if (firstTouch) {
+      e.preventDefault()
+      this.menu_wrapper.nativeElement.style.top = firstTouch.clientY + 'px';
+      this.menu_wrapper.nativeElement.style.left = firstTouch.clientX + 'px';
+    }
   }
 
   ngOnDestroy(): void {
