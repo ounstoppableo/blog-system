@@ -85,6 +85,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   };
 
   ngAfterViewInit(): void {
+    window.addEventListener('mouseup', this.closePress);
     //面板样式控制
     document
       .querySelector('[has-ripple="true"]')
@@ -153,19 +154,17 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   }
 
   //模拟鼠标按压移动
+  closePress = () => {
+    this.isPress = false;
+  };
   onMousedown() {
     this.isPress = true;
   }
-
   onMousemove(e: any) {
     if (this.isPress) {
       this.menu_wrapper.nativeElement.style.top = e.y + 'px';
       this.menu_wrapper.nativeElement.style.left = e.x + 'px';
     }
-  }
-
-  onMouseup() {
-    this.isPress = false;
   }
   onTouchmove(e: any) {
     const firstTouch = e.touches[0];
@@ -180,5 +179,6 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     clearInterval(this.intervel);
+    window.removeEventListener('mouseup', this.closePress);
   }
 }
