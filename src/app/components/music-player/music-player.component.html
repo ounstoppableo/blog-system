@@ -1,0 +1,44 @@
+<div class="container" [style]="{ display: 'none' }" #container>
+  <div
+    class="musicPic"
+    [ngStyle]="{
+      backgroundImage:
+        'url(http://localhost:4200/api/images/9ad1db4d451a795babeb4cb8c81f2c37.png)'
+    }"
+  ></div>
+  <div class="controler">
+    <span class="fontSize iconfont icon-close" (click)="close()"></span>
+    <span
+      class="fontSize iconfont"
+      (click)="toggleIyric()"
+      [ngClass]="{ 'icon-geciweidianji': !isIyric, 'icon-album1': isIyric }"
+      [style]="{ fontSize: '26px', lineHeight: '26px' }"
+    ></span>
+    <span class="fontSize iconfont icon-shangyiqu" (click)="prevSong()"></span>
+    <span class="fontSize iconfont icon-xiayiqu" (click)="nextSong()"></span>
+    <span style="flex: 1"></span>
+    <span
+      class="player iconfont"
+      [ngClass]="{ 'icon-24gf-play': !play, 'icon-tingzhi': play }"
+      (click)="playAudio()"
+    ></span>
+  </div>
+  <div class="musicInfo">
+    <div class="musicName">Norm Ender</div>
+    <div class="musicAuthor">Mekanin Sahibi</div>
+  </div>
+  <div class="player">
+    <div class="totalTime">03:09</div>
+    <div
+      class="progress"
+      (mousedown)="onMousedown()"
+      (click)="setProgress($event)"
+      (mousemove)="setProgress($event)"
+    ></div>
+    <div class="currentTime">01:09</div>
+  </div>
+</div>
+
+<div class="playerOpener toShow" #playerOpener (click)="open()">
+  <span class="iconfont icon-wangyiyunyinle"></span>
+</div>

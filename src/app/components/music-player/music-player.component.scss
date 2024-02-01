@@ -1,0 +1,248 @@
+.container {
+  position: fixed;
+  width: 380px;
+  height: 380px;
+  background-color: #eef3f7;
+  border-radius: 20px;
+  inset: 0;
+  margin: auto;
+  box-shadow: 0px 15px 35px -5px rgba(50, 88, 130, 0.32);
+  z-index: 9999;
+
+  & > .musicPic {
+    position: absolute;
+    width: 290px;
+    height: 290px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: -35%;
+    border-radius: 9999px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &::before {
+      content: '';
+      background: inherit;
+      width: 100%;
+      height: 100%;
+      z-index: -10;
+      position: absolute;
+      transition: all 0.3s ease;
+      box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+      top: 30px;
+      transform: scale(0.9);
+      filter: blur(10px);
+      opacity: 0.9;
+      border-radius: 9999px;
+    }
+
+    &::after {
+      content: '';
+      background: inherit;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+      display: block;
+      z-index: 2;
+      position: absolute;
+      border-radius: 9999px;
+    }
+  }
+
+  & > .controler {
+    position: absolute;
+    display: flex;
+    gap: 22px;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    bottom: 35%;
+    width: 100%;
+    color: #acb8cc;
+
+    & > .fontSize {
+      position: relative;
+      font-size: 22px;
+      font-weight: 1000;
+      line-height: 22px;
+      z-index: 10;
+      cursor: url(/assets/link.ico), pointer;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: scale(0) translate(-50%, -50%);
+        transform-origin: top left;
+        z-index: -1;
+        transition: all 0.3s ease;
+        border-radius: 9999px;
+        width: 50px;
+        height: 50px;
+        box-shadow: 0px 5px 10px 0px rgba(76, 70, 124, 0.2);
+        background-color: white;
+      }
+
+      &:hover {
+        color: #532ab9;
+
+        &::after {
+          transform: scale(1) translate(-50%, -50%);
+        }
+      }
+    }
+
+    & > .player {
+      border-radius: 9999px;
+      border: 8px solid white;
+      padding: 12px;
+      font-size: 30px;
+      line-height: 30px;
+      color: white;
+      cursor: url(/assets/link.ico), pointer;
+      filter: drop-shadow(0 11px 6px rgba(172, 184, 204, 0.45));
+    }
+  }
+
+  & > .musicInfo {
+    position: absolute;
+    bottom: 22%;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 20px;
+
+    & > .musicName {
+      color: #71829e;
+      font-weight: 600;
+    }
+
+    & > .musicAuthor {
+      color: #96a3b9;
+      font-weight: 300;
+    }
+  }
+
+  & > .player {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    bottom: 6%;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    & > .totalTime {
+      align-self: flex-end;
+      color: #b0baca;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    & > .progress {
+      position: relative;
+      width: 100%;
+      height: 6px;
+      background-color: #d0d8e6;
+      user-select: none;
+      border-radius: 6px;
+      cursor: url(/assets/link.ico), pointer;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: var(--progressWidth);
+        height: inherit;
+        background-color: #a3b3ce;
+        border-radius: 6px;
+      }
+    }
+
+    & > .currentTime {
+      color: #71829e;
+      font-weight: 700;
+      font-size: 16px;
+    }
+  }
+}
+
+.playingOnPic {
+  &::after {
+    animation: rotates 4s linear infinite;
+  }
+  &::before {
+    animation: rotates2 4s linear infinite;
+  }
+}
+@keyframes rotates {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotates2 {
+  from {
+    transform: rotate(0) scale(0.9);
+  }
+  to {
+    transform: rotate(360deg) scale(0.9);
+  }
+}
+
+.closePlayer {
+  animation: close 1s cubic-bezier(0, 0, 0.14, 1.25) forwards;
+}
+.openPlayer {
+  animation: close 1s cubic-bezier(0, 0, 0.14, 1.25) forwards reverse;
+}
+
+@media only screen and (max-width: 1600px) {
+  @keyframes close {
+    from {
+      transform: translate(0, 0) scale(1);
+    }
+    to {
+      transform: translate(-800px, 80px) scale(0);
+    }
+  }
+}
+@media only screen and (min-width: 2000px) {
+  @keyframes close {
+    from {
+      transform: translate(0, 0) scale(1);
+    }
+    to {
+      transform: translate(-1200px, 80px) scale(0);
+    }
+  }
+}
+
+.playerOpener {
+  position: fixed;
+  top: 60%;
+  transition: all 1.5s ease;
+  transform: translateX(-100%);
+  &:hover {
+    transform: translate(0);
+  }
+  & > span {
+    color: #ea3e3c;
+    font-size: 30px;
+  }
+}
+.toShow {
+  transform: translateX(-50%);
+}
+.toLeave {
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateX(-100%);
+  }
+}

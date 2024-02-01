@@ -40,6 +40,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { CircleMenuComponent } from './components/circle-menu/circle-menu.component';
 import { NewsListComponent } from './components/news-list/news-list.component';
 import { monthToEnglishPipe } from './pipe/monthToEnglish';
+import { MusicPlayerComponent } from './components/music-player/music-player.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { monthToEnglishPipe } from './pipe/monthToEnglish';
     LoadingComponent,
     CircleMenuComponent,
     NewsListComponent,
+    MusicPlayerComponent,
   ],
   imports: [
     BrowserModule,
