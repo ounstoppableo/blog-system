@@ -163,7 +163,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   onMousemove(e: any) {
     if (this.isPress) {
       this.menu_wrapper.nativeElement.style.top = e.y + 'px';
-      this.menu_wrapper.nativeElement.style.left = e.x + 'px';
+      this.menu_wrapper.nativeElement.style.left = e.x  +'px';
     }
   }
   onTouchmove(e: any) {
