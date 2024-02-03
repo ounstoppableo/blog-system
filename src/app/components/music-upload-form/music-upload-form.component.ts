@@ -41,9 +41,7 @@ export class MusicUploadFormComponent {
   }
 
   //上传音乐的逻辑
-  beforeMusicUpload = (
-    file: NzUploadFile,
-  ): boolean | Observable<boolean> => {
+  beforeMusicUpload = (file: NzUploadFile): boolean | Observable<boolean> => {
     if (file.size! > 10 * 1024 * 1024 * 8) {
       this.message.error('文件不能超过10MB');
       return false;
@@ -79,9 +77,7 @@ export class MusicUploadFormComponent {
   };
 
   //上传歌词的逻辑
-  beforeLyricUpload = (
-    file: NzUploadFile,
-  ): boolean | Observable<boolean> => {
+  beforeLyricUpload = (file: NzUploadFile): boolean | Observable<boolean> => {
     if (file.size! > 10 * 1024 * 1024 * 8) {
       this.message.error('文件不能超过10MB');
       return false;
@@ -113,9 +109,7 @@ export class MusicUploadFormComponent {
   };
 
   //上传海报逻辑
-  beforeUploadPic = (
-    file: NzUploadFile,
-  ): boolean | Observable<boolean> => {
+  beforeUploadPic = (file: NzUploadFile): boolean | Observable<boolean> => {
     if (file.size! > 10 * 1024 * 1024 * 8) {
       this.message.error('文件不能超过10MB');
       return false;
