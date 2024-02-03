@@ -49,9 +49,31 @@
       <span class="iconfont icon-login"></span>
       管理员登陆
     </li>
-    <li *ngIf="isLogin" (click)="upload.emit()">
+    <li
+      #list2
+      *ngIf="isLogin"
+      (mouseover)="liOnMouseOver(list2)"
+      (mouseleave)="liOnMouseLeave(list2)"
+    >
       <span class="iconfont icon-upload"></span>
-      上传文章
+      <span>内容操作</span>
+      <span class="iconfont icon-down"></span>
+      <ul class="list">
+        <li (click)="upload.emit()">
+          <span
+            class="iconfont icon-shiyongwendang"
+            [style]="{ fontSize: '20px' }"
+          ></span>
+          <span>上传文章</span>
+        </li>
+        <li (click)="addMusic()">
+          <span
+            class="iconfont icon-wangyiyunyinle"
+            [style]="{ fontSize: '20px' }"
+          ></span>
+          <span>上传音乐</span>
+        </li>
+      </ul>
     </li>
   </ul>
   <div *ngIf="showFolderIcon" class="folder" (click)="folderShow()">

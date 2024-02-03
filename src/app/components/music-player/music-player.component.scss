@@ -1,71 +1,199 @@
 .container {
   position: fixed;
-  width: 380px;
-  height: 380px;
-  background-color: #eef3f7;
+  width: 280px;
+  height: 450px;
+  background-color: var(--musicPlayerBgColor);
   border-radius: 20px;
   inset: 0;
   margin: auto;
   box-shadow: 0px 15px 35px -5px rgba(50, 88, 130, 0.32);
   z-index: 9999;
 
-  & > .musicPic {
+  & > .albumAndLyric {
     position: absolute;
-    width: 290px;
-    height: 290px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    top: -35%;
-    border-radius: 9999px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    perspective: 500px;
+    width: 100%;
+    height: 100%;
 
-    &::before {
-      content: '';
-      background: inherit;
-      width: 100%;
-      height: 100%;
-      z-index: -10;
+    & > .lyric {
       position: absolute;
-      transition: all 0.3s ease;
-      box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+      transition: all 1.5s linear;
+      transform: rotateY(180deg);
+      width: 250px;
+      height: 250px;
       top: 30px;
-      transform: scale(0.9);
-      filter: blur(10px);
-      opacity: 0.9;
-      border-radius: 9999px;
+      left: -80px;
+      border-radius: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      & > .noLyric {
+        position: absolute;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        color: white;
+      }
+      & > div {
+        position: absolute;
+        height: 100%;
+        padding: 30px;
+        z-index: 9999;
+
+        &::-webkit-scrollbar {
+          width: 0;
+          /* 隐藏滚动条宽度 */
+        }
+
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        overflow-y: scroll;
+
+        & > div {
+          font-size: 14px;
+          line-height: 16px;
+          padding: 10px 0;
+          transition: all 0.5s ease;
+          transform-origin: center;
+          cursor: url(/assets/link.ico), pointer;
+          &.active {
+            color: white;
+            transform: scale(1.2);
+          }
+        }
+      }
+
+      //反转时隐藏背面
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+
+      & > canvas {
+        position: absolute;
+        display: none;
+        inset: 0;
+        margin: auto;
+      }
+
+      &::before {
+        content: '';
+        background: inherit;
+        width: 100%;
+        height: 100%;
+        z-index: -10;
+        position: absolute;
+        transition: all 0.3s ease;
+        box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+        top: 20px;
+        transform: scale(0.9);
+        filter: blur(10px);
+        opacity: 0.9;
+        border-radius: inherit;
+      }
+
+      &::after {
+        content: '';
+        background: inherit;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+        display: block;
+        z-index: 2;
+        position: absolute;
+        border-radius: inherit;
+      }
     }
 
-    &::after {
-      content: '';
-      background: inherit;
-      width: 100%;
-      height: 100%;
-      box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-      display: block;
-      z-index: 2;
+    & > .album {
       position: absolute;
+      transition: all 1.5s linear;
+      width: 250px;
+      height: 250px;
+      top: 30px;
+      left: -80px;
       border-radius: 9999px;
+
+      //反转时隐藏背面
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+
+      & > .dot {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: var(--musicPlayerBgColor);
+        border: 5px solid white;
+        border-radius: 9999px;
+        inset: 0;
+        margin: auto;
+        z-index: 100;
+      }
+
+      & > #voiceFrequency {
+        position: absolute;
+        z-index: 9999;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 9999px;
+      }
+
+      & > .musicPic {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 9999px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        &::before {
+          content: '';
+          background: inherit;
+          width: 100%;
+          height: 100%;
+          z-index: -10;
+          position: absolute;
+          transition: all 0.3s ease;
+          box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+          top: 20px;
+          transform: scale(0.9);
+          filter: blur(10px);
+          opacity: 0.9;
+          border-radius: 9999px;
+        }
+
+        &::after {
+          content: '';
+          background: inherit;
+          width: 100%;
+          height: 100%;
+          box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+          display: block;
+          z-index: 2;
+          position: absolute;
+          border-radius: 9999px;
+        }
+      }
     }
   }
 
   & > .controler {
     position: absolute;
     display: flex;
+    flex-direction: column;
     gap: 22px;
     align-items: center;
-    justify-content: space-between;
-    padding-left: 20px;
-    padding-right: 20px;
-    bottom: 35%;
-    width: 100%;
+    right: 20px;
+    top: 40px;
+    width: fit-content;
     color: #acb8cc;
 
     & > .fontSize {
       position: relative;
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 1000;
       line-height: 22px;
       z-index: 10;
@@ -84,7 +212,7 @@
         width: 50px;
         height: 50px;
         box-shadow: 0px 5px 10px 0px rgba(76, 70, 124, 0.2);
-        background-color: white;
+        background-color: var(--cardColor);
       }
 
       &:hover {
@@ -98,11 +226,11 @@
 
     & > .player {
       border-radius: 9999px;
-      border: 8px solid white;
+      border: 8px solid var(--cardColor);
       padding: 12px;
       font-size: 30px;
       line-height: 30px;
-      color: white;
+      color: var(--cardColor);
       cursor: url(/assets/link.ico), pointer;
       filter: drop-shadow(0 11px 6px rgba(172, 184, 204, 0.45));
     }
@@ -110,7 +238,7 @@
 
   & > .musicInfo {
     position: absolute;
-    bottom: 22%;
+    bottom: 75px;
     width: 100%;
     padding-left: 20px;
     padding-right: 20px;
@@ -132,13 +260,14 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    bottom: 6%;
+    bottom: 20px;
     width: 100%;
     padding-left: 20px;
     padding-right: 20px;
 
     & > .totalTime {
       align-self: flex-end;
+      user-select: none;
       color: #b0baca;
       font-weight: 700;
       font-size: 20px;
@@ -158,12 +287,13 @@
         position: absolute;
         width: var(--progressWidth);
         height: inherit;
-        background-color: #a3b3ce;
+        background-color: var(--cateColor);
         border-radius: 6px;
       }
     }
 
     & > .currentTime {
+      user-select: none;
       color: #71829e;
       font-weight: 700;
       font-size: 16px;
@@ -175,22 +305,27 @@
   &::after {
     animation: rotates 4s linear infinite;
   }
+
   &::before {
     animation: rotates2 4s linear infinite;
   }
 }
+
 @keyframes rotates {
   from {
     transform: rotate(0);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
 @keyframes rotates2 {
   from {
     transform: rotate(0) scale(0.9);
   }
+
   to {
     transform: rotate(360deg) scale(0.9);
   }
@@ -199,6 +334,7 @@
 .closePlayer {
   animation: close 1s cubic-bezier(0, 0, 0.14, 1.25) forwards;
 }
+
 .openPlayer {
   animation: close 1s cubic-bezier(0, 0, 0.14, 1.25) forwards reverse;
 }
@@ -208,16 +344,19 @@
     from {
       transform: translate(0, 0) scale(1);
     }
+
     to {
       transform: translate(-800px, 80px) scale(0);
     }
   }
 }
+
 @media only screen and (min-width: 2000px) {
   @keyframes close {
     from {
       transform: translate(0, 0) scale(1);
     }
+
     to {
       transform: translate(-1200px, 80px) scale(0);
     }
@@ -229,19 +368,24 @@
   top: 60%;
   transition: all 1.5s ease;
   transform: translateX(-100%);
+
   &:hover {
     transform: translate(0);
   }
+
   & > span {
     color: #ea3e3c;
     font-size: 30px;
   }
 }
+
 .toShow {
   transform: translateX(-50%);
 }
+
 .toLeave {
   transition: all 0.3s ease;
+
   &:hover {
     transform: translateX(-100%);
   }

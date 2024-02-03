@@ -12,6 +12,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { MusicUploadFormComponent } from '../music-upload-form/music-upload-form.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -37,6 +41,8 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   constructor(
     private router: Router,
     private ls: LoginService,
+    private ms: NzModalService,
+    private message: NzMessageService,
   ) {}
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
@@ -115,5 +121,20 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   }
   liOnMouseLeave(listRef: any) {
     listRef.classList.remove('listActive');
+  }
+
+  //添加音乐
+  addMusic() {
+    const msRef = this.ms.create({
+      nzTitle: '上传音乐',
+      nzContent: MusicUploadFormComponent,
+      nzOnOk: async () => {
+        const state = msRef.componentInstance?.submitForm();
+        if (state === 'incorrectParam') return false;
+      },
+      nzOnCancel: () => {
+        msRef.componentInstance?.close();
+      },
+    });
   }
 }

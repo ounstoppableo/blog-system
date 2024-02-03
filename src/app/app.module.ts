@@ -41,6 +41,7 @@ import { CircleMenuComponent } from './components/circle-menu/circle-menu.compon
 import { NewsListComponent } from './components/news-list/news-list.component';
 import { monthToEnglishPipe } from './pipe/monthToEnglish';
 import { MusicPlayerComponent } from './components/music-player/music-player.component';
+import { MusicUploadFormComponent } from './components/music-upload-form/music-upload-form.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { MusicPlayerComponent } from './components/music-player/music-player.com
     CircleMenuComponent,
     NewsListComponent,
     MusicPlayerComponent,
+    MusicUploadFormComponent,
   ],
   imports: [
     BrowserModule,

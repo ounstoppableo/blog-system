@@ -117,6 +117,10 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
         '#000000',
       );
       document.documentElement.style.setProperty('--cardColor', '#101414');
+      document.documentElement.style.setProperty(
+        '--musicPlayerBgColor',
+        '#101414',
+      );
       document.documentElement.style.setProperty('--fontColor', '#d1d5db');
       document.documentElement.style.setProperty(
         '--userNameFontColor',
@@ -133,6 +137,10 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
       );
       document.documentElement.style.setProperty('--cardColor', '#fff');
       document.documentElement.style.setProperty('--fontColor', '#4b5563');
+      document.documentElement.style.setProperty(
+        '--musicPlayerBgColor',
+        '#eef3f7',
+      );
       document.documentElement.style.setProperty('--userNameFontColor', '#000');
       document.documentElement.style.setProperty('--footerBkColor', '#e5e5e5');
       const removedThemeStyle = document.getElementById('dark');

@@ -1,0 +1,87 @@
+<form nz-form [formGroup]="validateForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="musicName">
+      音乐名称
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="错误的音乐名称！">
+      <input
+        nz-input
+        formControlName="musicName"
+        id="musicName"
+        placeholder="请填写音乐名称"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="musicAuthor">
+      音乐作者
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="错误的音乐作者！">
+      <input
+        nz-input
+        formControlName="musicAuthor"
+        id="musicAuthor"
+        placeholder="请填写音乐作者"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>音乐源</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-upload
+        nzAction="/api/uploadMusic"
+        (nzChange)="uploadMusic($event)"
+        [nzName]="'music'"
+        [nzBeforeUpload]="beforeMusicUpload"
+        [nzDisabled]="hadUploadMusic"
+        [nzRemove]="removeMusic"
+        [nzAccept]="'audio/mpeg'"
+      >
+        <button nz-button>
+          <span class="iconfont icon-upload"></span>
+          上传音乐
+        </button>
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>歌词</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-upload
+        nzAction="/api/uploadLyric"
+        (nzChange)="uploadLyric($event)"
+        [nzBeforeUpload]="beforeLyricUpload"
+        [nzRemove]="removeLyric"
+        [nzAccept]="'text/plain'"
+        [nzName]="'lyric'"
+        [nzDisabled]="hadUploadLyric"
+      >
+        <button nz-button>
+          <span class="iconfont icon-upload"></span>
+          上传歌词
+        </button>
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>音乐海报</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-upload
+        class="pic-uploader"
+        nzAction="/api/uploadImg"
+        nzName="img"
+        nzListType="picture-card"
+        [nzShowUploadList]="false"
+        [nzBeforeUpload]="beforeUploadPic"
+        (nzChange)="handlePicChange($event)"
+        [nzAccept]="'image/*'"
+      >
+        <ng-container *ngIf="!picUrl">
+          <span class="iconfont icon-plus"></span>
+          <div class="ant-upload-text">Upload</div>
+        </ng-container>
+        <img *ngIf="picUrl" [src]="picUrl" style="width: 100%" alt=""/>
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+</form>

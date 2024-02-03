@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-type resType = { code: number; msg: string; result: any };
+type resType = { code: number; msg: string; result?: any };
 @Injectable({
   providedIn: 'root',
 })
