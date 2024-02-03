@@ -1,11 +1,11 @@
-<nav
-  #menu_wrapper
-  class="menu-wrapper"
->
-  <button class="menu-btn" id="menu-btn" has-ripple="true"
-  (mousedown)="onMousedown()"
-  (mousemove)="onMousemove($event)"
-  (touchmove)="onTouchmove($event)"
+<nav #menu_wrapper class="menu-wrapper">
+  <button
+    class="menu-btn"
+    id="menu-btn"
+    has-ripple="true"
+    (mousedown)="onMousedown()"
+    (mousemove)="onMousemove($event)"
+    (touchmove)="onTouchmove($event)"
   >
     <span
       *ngIf="!showMenu"
