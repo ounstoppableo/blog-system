@@ -64,7 +64,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   playerModel: 'danqu' | 'shunxu' | 'suiji' = 'shunxu';
 
-  constructor(private musicService: MusicService) { }
+  constructor(private musicService: MusicService) {}
 
   ngOnInit(): void {
     this.musicService.getMusicInfo().subscribe((res) => {
@@ -118,11 +118,11 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   lyricSegment = () => {
     this.currentLyric = this.currentMusic.lyric
       ? this.currentMusic.lyric.split('[').map((item: any) => {
-        const temp = item.split(']');
-        if (temp[0] && temp[1])
-          return [this.timecodeToSeconds(temp[0]), temp[1]];
-        else return [''];
-      })
+          const temp = item.split(']');
+          if (temp[0] && temp[1])
+            return [this.timecodeToSeconds(temp[0]), temp[1]];
+          else return [''];
+        })
       : '';
   };
 
@@ -152,7 +152,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       wantChangeColorEle.style.backgroundColor = darkColor;
       this.scrollContainer
         ? (this.scrollContainer.nativeElement.style.color =
-          getGrayishColor(darkColor))
+            getGrayishColor(darkColor))
         : '';
     };
 
@@ -256,7 +256,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.playerModelControler();
   };
   //audio停止事件
-  audioPauseCallback = () => { };
+  audioPauseCallback = () => {};
 
   //歌词点击跳转
   lyricTransform = (time: any) => {
@@ -299,8 +299,8 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.playerModel === 'shunxu'
         ? 'suiji'
         : this.playerModel === 'suiji'
-          ? 'danqu'
-          : 'shunxu';
+        ? 'danqu'
+        : 'shunxu';
     if (this.playerModel === 'shunxu') {
       this.playerModelControler = () => {
         this.nextSong();
@@ -407,11 +407,11 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
   randomSong() {
-    let i = Math.floor(Math.random() * this.musicList.length)
+    let i = Math.floor(Math.random() * this.musicList.length);
     while (i === this.index) {
-      i = Math.floor(Math.random() * this.musicList.length)
+      i = Math.floor(Math.random() * this.musicList.length);
     }
-    this.index = i
+    this.index = i;
     this.currentMusic = this.musicList[this.index];
     requestAnimationFrame(() => {
       if (this.play) this.audio.nativeElement.play();
