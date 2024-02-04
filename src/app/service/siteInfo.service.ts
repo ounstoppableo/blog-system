@@ -7,10 +7,8 @@ type resType = { code: number; VT?: any };
   providedIn: 'root',
 })
 export class SiteInfoService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   getVT(): Observable<resType> {
-    return this.http.get<resType>(
-      '/api/viewTimes',
-    );
+    return this.http.get<resType>('/api/viewTimes');
   }
 }

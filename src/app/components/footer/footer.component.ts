@@ -12,14 +12,14 @@ export class FooterComponent implements OnInit {
     private routes: ActivatedRoute,
     private siteInfoService: SiteInfoService,
     private router: Router,
-  ) { }
-  VT = 0
+  ) {}
+  VT = 0;
   ngOnInit(): void {
-    this.siteInfoService.getVT().subscribe(res=>{
-      if(res.code===200) {
-        this.VT = res.VT
+    this.siteInfoService.getVT().subscribe((res) => {
+      if (res.code === 200) {
+        this.VT = res.VT;
       }
-    })
+    });
   }
   goHome() {
     this.router.navigate(['home']);
