@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }, 300);
     //获取头部样式变化的高度
-    this.headerChangeHeight = this.root.nativeElement.offsetHeight;
+    this.headerChangeHeight = innerHeight;
   }
   //滑动到内容区域
   toContainer() {
