@@ -80,14 +80,9 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
     );
     //四季飘落效果加载
     loadScript(
-      'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/jquery.min.js',
+      'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v3.0.1/snowfall.jquery.js',
       () => {
-        loadScript(
-          'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v3.0.1/snowfall.jquery.js',
-          () => {
-            this.vc.insert(this.componentRef.hostView);
-          },
-        );
+        this.vc.insert(this.componentRef.hostView);
       },
     );
     this.implementDarkMode();
