@@ -10,4 +10,5 @@ export interface articleInfo {
   description: string;
   backImgUrl: string;
   folderName: string;
+  VT:number;
 }
