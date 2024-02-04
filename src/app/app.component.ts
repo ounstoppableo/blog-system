@@ -19,7 +19,7 @@ import { CircleMenuComponent } from './components/circle-menu/circle-menu.compon
 })
 export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
   title = 'my-blog';
-  darkMode = false;
+  darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
   isArticle = false;
   firstLoad = true;
   imgLazyLoadMap = new Map();
@@ -90,6 +90,7 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
         );
       },
     );
+    this.implementDarkMode();
   }
   imgLazyLoad() {
     const imgs = document.querySelectorAll('img');
@@ -111,6 +112,10 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
   //暗黑模式
   changeDarkMode() {
     this.darkMode = !this.darkMode;
+    localStorage.setItem('darkMode', this.darkMode);
+    this.implementDarkMode();
+  }
+  implementDarkMode() {
     if (this.darkMode) {
       document.documentElement.style.setProperty(
         '--defaultBackgroundColor',
@@ -127,7 +132,7 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
         '#d1d5db',
       );
       document.documentElement.style.setProperty('--footerBkColor', '#000');
-      this.loadCss(`./assets/darkMode.scss`, 'dark').finally(() => {
+      this.loadCss(`./assets/darkMode.scss`, 'darkMode').finally(() => {
         document.documentElement.classList.add('dark');
       });
     } else {
@@ -143,13 +148,14 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
       );
       document.documentElement.style.setProperty('--userNameFontColor', '#000');
       document.documentElement.style.setProperty('--footerBkColor', '#e5e5e5');
-      const removedThemeStyle = document.getElementById('dark');
+      const removedThemeStyle = document.getElementById('darkMode');
       if (removedThemeStyle) {
         document.head.removeChild(removedThemeStyle);
       }
       document.documentElement.classList.remove('dark');
     }
   }
+
   //加载css
   private loadCss(href: string, id: string): Promise<Event> {
     return new Promise((resolve, reject) => {
