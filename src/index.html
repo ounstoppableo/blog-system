@@ -795,9 +795,9 @@
           bongoDarkScript.src = '/assets/bongoCatDark.js';
           bongoDarkScript.type = 'text/javascript';
           bongoDarkScript.id = 'bongoDarkJs';
-          document.head.appendChild(bongoDarkScript);
           const clone = document.importNode(template.content, true);
           document.body.appendChild(clone);
+          document.body.appendChild(bongoDarkScript);
         } else {
           const clone = document.importNode(template.content, true);
           document.body.appendChild(clone);
