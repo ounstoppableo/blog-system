@@ -1,14 +1,18 @@
 @import '../node_modules/ng-zorro-antd/ng-zorro-antd.min.css';
 @import '../node_modules/highlight.js/scss/monokai-sublime.scss';
 
+
 /* You can add global styles to this file, and also import other style files */
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   &.dark {
     @import './assets/darkMode.scss';
   }
-  cursor: url(./assets/pointer.ico), default;
+
+  cursor: url(./assets/pointer.ico),
+  default;
 }
 
 * {
@@ -16,6 +20,7 @@ html {
   margin: 0;
   padding: 0;
 }
+
 a {
   &:hover {
     cursor: url(/assets/link.ico), pointer !important;
@@ -26,7 +31,6 @@ body {
   font-size: 16px;
   color: var(--fontColor);
   color: #232323;
-  font-family: 'Microsoft YaHei', Arial, sans-serif;
   -webkit-tap-highlight-color: transparent;
   position: relative;
   background-color: var(--defaultBackgroundColor) !important;
@@ -35,19 +39,24 @@ body {
 .snowfall-flakes {
   animation: sakura 1s linear 0s infinite;
 }
+
 @keyframes sakura {
   0% {
     transform: rotate3d(0, 0, 0, 0deg);
   }
+
   25% {
     transform: rotate3d(1, 1, 0, 60deg);
   }
+
   50% {
     transform: rotate3d(1, 1, 0, 0deg);
   }
+
   75% {
     transform: rotate3d(1, 0, 0, 60deg);
   }
+
   100% {
     transform: rotate3d(1, 0, 0, 0deg);
   }
@@ -126,6 +135,7 @@ a {
   color: #333;
   -webkit-tap-highlight-color: transparent;
   -webkit-focus-ring-color: transparent;
+
   &:hover {
     color: var(--styleColor) !important;
   }
