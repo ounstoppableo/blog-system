@@ -10,18 +10,18 @@
   padding: 45px;
   gap: 30px;
   line-height: 0;
-  &>.item {
+  & > .item {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    &> .title {
+    & > .title {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 12px;
     }
-    &> .content {
+    & > .content {
       display: flex;
       flex-direction: column;
       width: 100%;

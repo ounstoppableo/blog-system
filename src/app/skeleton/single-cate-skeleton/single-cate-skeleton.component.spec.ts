@@ -8,7 +8,7 @@ describe('SingleFolderSkeletonComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SingleFolderSkeletonComponent]
+      declarations: [SingleFolderSkeletonComponent],
     });
     fixture = TestBed.createComponent(SingleFolderSkeletonComponent);
     component = fixture.componentInstance;
