@@ -6,10 +6,10 @@ platformBrowserDynamic()
   .then(() => {
     window.addEventListener('load', () => {
       document.getElementById('approot')!.style.display = '';
-      document.getElementById('bongoCat')!.remove();
-      document.getElementById('bongoCatCss')!.remove();
-      document.getElementById('bongoDarkJs') &&
-        document.getElementById('bongoDarkJs')!.remove();
+      const bongoCat_dark = document.getElementById('bongoCat_dark');
+      const bongoCat_light = document.getElementById('bongoCat_light');
+      bongoCat_dark?.style.display==='none'?bongoCat_dark!.style.display='':bongoCat_light!.style.display=''
+      document.getElementById('bongoCatCss')?.remove()
     });
   })
   .catch((err) => console.error(err));
