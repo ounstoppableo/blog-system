@@ -1,7 +1,6 @@
 @import '../node_modules/ng-zorro-antd/ng-zorro-antd.min.css';
 @import '../node_modules/highlight.js/scss/monokai-sublime.scss';
 
-
 /* You can add global styles to this file, and also import other style files */
 html {
   -webkit-font-smoothing: antialiased;
@@ -11,8 +10,7 @@ html {
     @import './assets/darkMode.scss';
   }
 
-  cursor: url(./assets/pointer.ico),
-  default;
+  cursor: url(./assets/pointer.ico), default;
 }
 
 * {

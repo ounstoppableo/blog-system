@@ -110,7 +110,12 @@ import { CatalogueSkeletonComponent } from './skeleton/catalogue-skeleton/catalo
     NzDesignModule,
     BrowserAnimationsModule,
     NgxSkeletonLoaderModule.forRoot({
-      theme: { extendsFromRoot: true, margin: 0, padding: 0 ,background:'#d1d5db'},
+      theme: {
+        extendsFromRoot: true,
+        margin: 0,
+        padding: 0,
+        background: '#d1d5db',
+      },
     }),
   ],
   providers: [httpInterceptorProviders],
