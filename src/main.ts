@@ -8,8 +8,10 @@ platformBrowserDynamic()
       document.getElementById('approot')!.style.display = '';
       const bongoCat_dark = document.getElementById('bongoCat_dark');
       const bongoCat_light = document.getElementById('bongoCat_light');
-      bongoCat_dark?.style.display==='none'?bongoCat_dark!.style.display='':bongoCat_light!.style.display=''
-      document.getElementById('bongoCatCss')?.remove()
+      bongoCat_dark?.style.display === ''
+        ? (bongoCat_dark!.style.display = 'none')
+        : (bongoCat_light!.style.display = 'none');
+      document.getElementById('bongoCatCss')?.remove();
     });
   })
   .catch((err) => console.error(err));
