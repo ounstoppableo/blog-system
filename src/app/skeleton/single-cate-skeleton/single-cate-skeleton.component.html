@@ -1,0 +1,24 @@
+<div class="container" [class]="smallSize ? 'smallSize' : ''">
+  <h1>
+    <ngx-skeleton-loader
+      count="1"
+      appearance="line"
+      [theme]="{
+        display: 'inline-block',
+        width: '32px',
+        height: '32px'
+      }"
+    />
+    &nbsp;&nbsp;
+    <ngx-skeleton-loader
+      count="1"
+      appearance="line"
+      [theme]="{
+        display: 'inline-block',
+        width: '100px',
+        height: '32px'
+      }"
+    />
+  </h1>
+  <app-overview-skeleton [smallSize]="smallSize"></app-overview-skeleton>
+</div>

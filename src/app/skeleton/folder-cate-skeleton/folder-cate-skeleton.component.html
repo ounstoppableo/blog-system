@@ -1,0 +1,51 @@
+<div class="card" [class]="smallSize ? 'smallSize' : ''">
+  <div class="has">
+    <div class="title">
+      <span class="iconfont icon-folder" [style]="{ fontSize: '20px' }"></span>
+      &nbsp;&nbsp;
+      <span>分类:</span>
+    </div>
+    <div class="folder">
+      <div class="item">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '9vw',
+            height: '25px'
+          }"
+        />
+      </div>
+      <div class="item">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '11vw',
+            height: '25px'
+          }"
+        />
+      </div>
+      <div class="item">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '8vw',
+            height: '25px'
+          }"
+        />
+      </div>
+      <div class="item">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '7vw',
+            height: '25px'
+          }"
+        />
+      </div>
+    </div>
+  </div>
+</div>

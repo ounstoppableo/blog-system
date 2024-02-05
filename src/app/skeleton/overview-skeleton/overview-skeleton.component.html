@@ -1,0 +1,73 @@
+<div class="cardContainerLeft">
+  <div
+    [class]="smallSize ? 'smallSize' : ''"
+    class="card"
+    *ngFor="let item of generateNumbersArray(5)"
+  >
+    <div class="info">
+      <h1>
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '120px',
+            height: '38px'
+          }"
+        />
+      </h1>
+      <p class="folder">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '81px',
+            height: '25px'
+          }"
+        />
+      </p>
+      <p class="description">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '511px',
+            height: '24px'
+          }"
+        />
+      </p>
+
+      <div class="footer">
+        <div class="date">
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            [theme]="{
+              width: '104px',
+              height: '25px'
+            }"
+          />
+        </div>
+        <div class="tags">
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            [theme]="{
+              width: '50px',
+              height: '22px'
+            }"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="img" [class]="smallSize ? 'smallSize' : ''">
+      <ngx-skeleton-loader
+        count="1"
+        appearance="line"
+        [theme]="{
+          width: '100%',
+          height: '100%'
+        }"
+      />
+    </div>
+  </div>
+</div>

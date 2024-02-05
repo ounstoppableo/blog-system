@@ -42,6 +42,10 @@
     </div>
   </div>
 </div>
+<app-overview-skeleton
+  *ngIf="articleInfoList.length === 0"
+  [smallSize]="smallSize"
+></app-overview-skeleton>
 <nz-pagination
   class="pagination"
   *ngIf="articleInfoList.length !== 0"
@@ -50,4 +54,3 @@
   [nzPageSize]="limit"
   (nzPageIndexChange)="pageIndexChange($event)"
 ></nz-pagination>
-<app-loading *ngIf="articleInfoList.length === 0"></app-loading>

@@ -42,6 +42,16 @@ import { NewsListComponent } from './components/news-list/news-list.component';
 import { monthToEnglishPipe } from './pipe/monthToEnglish';
 import { MusicPlayerComponent } from './components/music-player/music-player.component';
 import { MusicUploadFormComponent } from './components/music-upload-form/music-upload-form.component';
+import { CateByDateSkeletonComponent } from './skeleton/cate-by-date-skeleton/cate-by-date-skeleton.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { CateByTagSkeletonComponent } from './skeleton/cate-by-tag-skeleton/cate-by-tag-skeleton.component';
+import { CommentAreaSkeletonComponent } from './skeleton/comment-area-skeleton/comment-area-skeleton.component';
+import { ArticleContentSkeletonComponent } from './skeleton/article-content-skeleton/article-content-skeleton.component';
+import { FolderCateSkeletonComponent } from './skeleton/folder-cate-skeleton/folder-cate-skeleton.component';
+import { InfoSkeletonComponent } from './skeleton/info-skeleton/info-skeleton.component';
+import { OverviewSkeletonComponent } from './skeleton/overview-skeleton/overview-skeleton.component';
+import { SingleCateSkeletonComponent } from './skeleton/single-cate-skeleton/single-cate-skeleton.component';
+import { CatalogueSkeletonComponent } from './skeleton/catalogue-skeleton/catalogue-skeleton.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +91,15 @@ import { MusicUploadFormComponent } from './components/music-upload-form/music-u
     NewsListComponent,
     MusicPlayerComponent,
     MusicUploadFormComponent,
+    CateByDateSkeletonComponent,
+    CateByTagSkeletonComponent,
+    CommentAreaSkeletonComponent,
+    ArticleContentSkeletonComponent,
+    FolderCateSkeletonComponent,
+    InfoSkeletonComponent,
+    OverviewSkeletonComponent,
+    SingleCateSkeletonComponent,
+    CatalogueSkeletonComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +109,7 @@ import { MusicUploadFormComponent } from './components/music-upload-form/music-u
     HttpClientModule,
     NzDesignModule,
     BrowserAnimationsModule,
+    NgxSkeletonLoaderModule.forRoot({ theme: {extendsFromRoot: true,margin:0,padding:0}})
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],

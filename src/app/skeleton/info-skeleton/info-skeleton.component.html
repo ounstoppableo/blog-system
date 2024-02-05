@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="has">
+    <div class="item" *ngFor="let item of generateNumbersArray(6)">
+      <div class="img">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '100%',
+            height: '100%'
+          }"
+        />
+      </div>
+      <div class="text">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '100%',
+            height: '22px'
+          }"
+        />
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '100%',
+            height: '22px'
+          }"
+        />
+      </div>
+    </div>
+  </div>
+</div>

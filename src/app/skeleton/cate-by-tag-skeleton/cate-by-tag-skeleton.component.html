@@ -1,0 +1,27 @@
+<div class="card" [class]="smallSize ? 'smallSize' : ''">
+  <div class="has">
+    <div class="title">
+      <span class="iconfont icon-tags" [style]="{ fontSize: '25px' }"></span>
+      &nbsp;&nbsp;
+      <span>标签:</span>
+    </div>
+    <div class="tags">
+      <div
+        class="tag"
+        [ngStyle]="{ width: widths[item] + 'px' }"
+        *ngFor="let item of generateNumbersArray(20)"
+      >
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            display: 'inline-block',
+            height: '100%',
+            width: '100%',
+            margin: '0'
+          }"
+        />
+      </div>
+    </div>
+  </div>
+</div>

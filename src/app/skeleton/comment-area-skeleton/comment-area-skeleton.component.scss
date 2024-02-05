@@ -1,0 +1,164 @@
+.container {
+  line-height: 0;
+  & > .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 20px 0;
+
+    & > .left {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    & > .right {
+      & > .icon {
+        font-size: 18px;
+        color: #409eff;
+        cursor: url(/assets/link.ico), pointer;
+      }
+    }
+  }
+
+  & > .body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    &>.item {
+      display: flex;
+      gap: 10px;
+
+      & > .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        overflow: hidden;
+
+        & > img {
+          width: 100%;
+          object-fit: contain;
+        }
+      }
+
+      & > .content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        & > .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+
+          & > .info {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            height: 32px;
+
+            & > .name {
+              font-size: 16px;
+
+              & > a {
+                color: #2f5cdb;
+
+                &:hover {
+                  color: #48a2ff;
+                }
+              }
+            }
+
+            & > .date {
+              color: var(--cateColor);
+            }
+          }
+
+          & > .operate {
+            display: flex;
+            gap: 5px;
+
+            & > [nz-button] {
+              position: relative;
+              background: none;
+              border: none;
+              box-shadow: none;
+              color: #409eff;
+              & > .count {
+                position: absolute;
+                font-size: 12px;
+                right: 2px;
+                top: -8px;
+              }
+            }
+
+            // & > [nzType='message'] {
+            //   position: relative;
+            //   cursor: url(/assets/link.ico),pointer;;
+
+            //   & > .count {
+            //     position: absolute;
+            //     font-size: 12px;
+            //     right: 0px;
+            //     top: -12px;
+            //   }
+            // }
+          }
+        }
+
+        & > .msg {
+          font-size: 16px;
+          color: var(--fontColor);
+
+          & > .reply {
+            font-size: 14px;
+
+            & > a {
+              color: #2f5cdb;
+
+              &:hover {
+                color: #48a2ff;
+              }
+            }
+          }
+        }
+
+        & > .footer {
+          display: flex;
+          gap: 10px;
+          color: var(--cateColor);
+
+          & > .device {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+          }
+
+          & > .browser {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+          }
+        }
+
+        & > .showChirdren {
+          margin: 0 auto;
+          color: var(--cateColor);
+          cursor: url(/assets/link.ico), pointer;
+        }
+
+        & > .chirdenMsg {
+          margin-top: 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+    }
+  }
+
+  & > .pagination {
+    text-align: center;
+    margin: 15px;
+  }
+}

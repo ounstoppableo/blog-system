@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="header">
+    <ngx-skeleton-loader
+      count="1"
+      appearance="line"
+      [theme]="{
+        width: '80px',
+        height: '30px'
+      }"
+    />
+  </div>
+  <div class="body">
+    <div class="item" *ngFor="let item of generateNumbersArray(5)">
+      <div class="avatar">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '100%',
+            height: '100%'
+          }"
+        />
+      </div>
+      <div class="content">
+        <div class="header">
+          <div class="info">
+            <ngx-skeleton-loader
+              count="1"
+              appearance="line"
+              [theme]="{
+                width: '180px',
+                height: '22px'
+              }"
+            />
+          </div>
+        </div>
+        <div class="msg">
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            [theme]="{
+              width: '100%',
+              height: '22px'
+            }"
+          />
+        </div>
+        <div class="footer">
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            [theme]="{
+              width: '160px',
+              height: '22px'
+            }"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

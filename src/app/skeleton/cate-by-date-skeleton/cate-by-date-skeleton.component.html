@@ -1,0 +1,36 @@
+<div class="card" [class]="smallSize ? 'smallSize' : ''">
+  <div class="has">
+    <div class="dateSpace">
+      <ngx-skeleton-loader
+        count="1"
+        appearance="line"
+        [theme]="{
+          height: '40px',
+          width: '120px'
+        }"
+      />
+      <ngx-skeleton-loader
+        [theme]="{
+          width: '80%'
+        }"
+        *ngFor="let item of generateNumbersArray(4)"
+      />
+    </div>
+    <div class="dateSpace">
+      <ngx-skeleton-loader
+        count="1"
+        appearance="line"
+        [theme]="{
+          height: '40px',
+          width: '120px'
+        }"
+      />
+      <ngx-skeleton-loader
+        [theme]="{
+          width: '80%'
+        }"
+        *ngFor="let item of generateNumbersArray(4)"
+      />
+    </div>
+  </div>
+</div>

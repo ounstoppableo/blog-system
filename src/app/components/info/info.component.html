@@ -16,7 +16,7 @@
           ></span>
           <span>最新发布</span>
         </p>
-        <app-loading *ngIf="loading"></app-loading>
+        <app-info-skeleton *ngIf="loading"></app-info-skeleton>
         <div class="container" *ngIf="!loading">
           <app-none *ngIf="articleInfoList.length === 0"></app-none>
           <div class="has" *ngIf="articleInfoList.length !== 0">

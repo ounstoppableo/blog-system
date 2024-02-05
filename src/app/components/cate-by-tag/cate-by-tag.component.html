@@ -11,4 +11,7 @@
     <div class="tags"><app-tag [tagList]="tags" [gap]="20"></app-tag></div>
   </div>
 </div>
-<app-loading *ngIf="loading"></app-loading>
+<app-cate-by-tag-skeleton
+  *ngIf="loading"
+  [smallSize]="smallSize"
+></app-cate-by-tag-skeleton>

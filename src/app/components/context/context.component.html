@@ -19,4 +19,7 @@
     [smallSize]="smallSize"
   ></app-msg-board>
 </div>
-<app-loading *ngIf="loading"></app-loading>
+<app-article-content-skeleton
+  *ngIf="loading"
+  [smallSize]="smallSize"
+></app-article-content-skeleton>
