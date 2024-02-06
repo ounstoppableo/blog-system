@@ -147,7 +147,8 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   }
   handleChangeSeason(type: 'Spring' | 'Summer' | 'Winter' | 'Autumn') {
     const timer = setTimeout(() => {
-      this.changeSeason(type);
+      localStorage.setItem('seasonFloat', 'true');
+      localStorage.setItem('seasonType',type)
       location.reload();
       clearTimeout(timer);
     }, 1000);
@@ -157,11 +158,11 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
     const timer = setTimeout(() => {
       this.currentSeason = judgeSeason();
       if (this.flag.value) {
-        closedFloat();
-        this.flag.value = false;
         localStorage.setItem('seasonFloat', 'false');
+        localStorage.setItem('seasonType',this.currentSeason)
       } else {
-        this.changeSeason(this.currentSeason);
+        localStorage.setItem('seasonFloat', 'true');
+        localStorage.setItem('seasonType',this.currentSeason)
       }
       location.reload();
       clearTimeout(timer);
