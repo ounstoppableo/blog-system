@@ -2,41 +2,42 @@
   <div class="left" (click)="goHome()">Unstoppable840的小站</div>
   <ul *ngIf="!showFolderIcon" class="right">
     <li (click)="goHome()">
-      <span class="iconfont icon-homefill"></span>
+      <span class="iconfont icon-homefill goHome"></span>
       <span>首页</span>
     </li>
     <li (click)="goSearch()">
-      <span class="iconfont icon-search"></span>
+      <span class="iconfont icon-search search"></span>
       <span>搜索</span>
     </li>
     <li (click)="goMsgBoard()">
-      <span class="iconfont icon-form"></span>
+      <span class="iconfont icon-form leaveMsg"></span>
       <span>留言板</span>
     </li>
     <li
       #list
       (mouseover)="liOnMouseOver(list)"
       (mouseleave)="liOnMouseLeave(list)"
+      class="archives"
     >
       <span class="iconfont icon-container-fill"></span>
       <span>往期整理</span>
       <span class="iconfont icon-down"></span>
       <ul class="list">
-        <li (click)="goDateCate()">
+        <li (click)="goDateCate()" class="archives">
           <span
             class="iconfont icon-time-history"
             [style]="{ fontSize: '20px' }"
           ></span>
           <span>历史归档</span>
         </li>
-        <li (click)="goFolderCate()">
+        <li (click)="goFolderCate()" class="categories">
           <span
             class="iconfont icon-appstore"
             [style]="{ fontSize: '20px' }"
           ></span>
           <span>文章分类</span>
         </li>
-        <li (click)="goTagCate()">
+        <li (click)="goTagCate()" class="tagCate">
           <span
             class="iconfont icon-tags"
             [style]="{ fontSize: '20px' }"

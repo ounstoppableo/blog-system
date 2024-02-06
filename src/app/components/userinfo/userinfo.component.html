@@ -1,29 +1,29 @@
 <div [class]="isSmall ? 'small' : 'userInfo'">
-  <img src="/assets/avatar.jpeg" alt="" />
+  <img src="/assets/avatar.jpeg" class="author" alt="" />
   <div class="name" *ngIf="!isSmall">Unstoppable840</div>
   <div class="motto" *ngIf="!isSmall">乐于探索前端新技术，前端开发者</div>
   <div class="assets">
-    <div class="item" (click)="toDateCate()">
+    <div class="item archives" (click)="toDateCate()">
       <span>文章</span>
       <span class="num">{{ articleInfoList.length }}</span>
     </div>
-    <div class="item" (click)="tofolderCate()">
+    <div class="item categories" (click)="tofolderCate()">
       <span>分类</span>
       <span class="num">{{ folderNum }}</span>
     </div>
-    <div class="item" (click)="toTagsCate()">
+    <div class="item tagCate" (click)="toTagsCate()">
       <span>标签</span>
       <span class="num">{{ tagsNum }}</span>
     </div>
   </div>
-  <div class="outlink" *ngIf="!isSmall">
+  <div class="outlink links-of-author" *ngIf="!isSmall">
     <span
-      class="iconfont icon-email-fill"
+      class="iconfont icon-email-fill mail"
       title="邮箱"
       (click)="copyMail()"
     ></span>
     <span
-      class="iconfont icon-github-fill"
+      class="iconfont icon-github-fill github"
       title="github"
       (click)="toGitHub()"
     ></span>

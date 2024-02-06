@@ -156,8 +156,14 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
     const firstTouch = e.touches[0];
     if (firstTouch) {
       e.preventDefault();
-      this.menu_wrapper.nativeElement.style.top = firstTouch.clientY - this.menu_wrapper.nativeElement.offsetHeight/2 + 'px';
-      this.menu_wrapper.nativeElement.style.left = firstTouch.clientX - this.menu_wrapper.nativeElement.offsetWidth/2+ 'px';
+      this.menu_wrapper.nativeElement.style.top =
+        firstTouch.clientY -
+        this.menu_wrapper.nativeElement.offsetHeight / 2 +
+        'px';
+      this.menu_wrapper.nativeElement.style.left =
+        firstTouch.clientX -
+        this.menu_wrapper.nativeElement.offsetWidth / 2 +
+        'px';
     }
   }
 

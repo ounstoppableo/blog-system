@@ -18,20 +18,22 @@ import { CircleMenuComponent } from './components/circle-menu/circle-menu.compon
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
+export class AppComponent
+  implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy
+{
   title = 'my-blog';
   darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
   isArticle = false;
   firstLoad = true;
   imgLazyLoadMap = new Map();
-  observer: any
+  observer: any;
   @ViewChild('operate')
   operate!: ElementRef;
   constructor(
     private router: Router,
     private r: ComponentFactoryResolver,
     private injector: Injector,
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd)
@@ -102,7 +104,7 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit, On
                 if (tempSrc) {
                   item.src = '/assets/loading.gif';
                   item.setAttribute('betaSrc', tempSrc);
-                  console.log(item.getAttribute('betaSrc'))
+                  console.log(item.getAttribute('betaSrc'));
                   item.setAttribute('identification', Date.now() + index + '');
                 }
               }
@@ -116,13 +118,13 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit, On
                   const img = new Image();
                   img.src = betaSrc;
                   img.onload = () => {
-                    item.src = betaSrc
+                    item.src = betaSrc;
                   };
                   this.imgLazyLoadMap.set(identification, 1);
                 }
               }
             }
-          })
+          });
         }
       });
       //给图片预加载
@@ -155,7 +157,7 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit, On
         }
       }
     });
-  }
+  };
   //暗黑模式
   changeDarkMode() {
     this.darkMode = !this.darkMode;
@@ -229,7 +231,7 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit, On
       behavior: 'smooth',
     });
   }
-  ngAfterViewChecked(): void { }
+  ngAfterViewChecked(): void {}
   ngOnDestroy(): void {
     this.observer?.disconnect();
   }
