@@ -18,7 +18,7 @@ export function seasonSelect(type: 'Spring' | 'Summer' | 'Autumn' | 'Winter') {
     ($(document) as any).snowfall({
       image:
         'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/img/1.png',
-      flakeCount: 50,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
@@ -26,7 +26,7 @@ export function seasonSelect(type: 'Spring' | 'Summer' | 'Autumn' | 'Winter') {
     ($(document) as any).snowfall({
       image:
         'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/img/2.png',
-      flakeCount: 40,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
@@ -34,7 +34,7 @@ export function seasonSelect(type: 'Spring' | 'Summer' | 'Autumn' | 'Winter') {
     ($(document) as any).snowfall({
       image:
         'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/img/3.png',
-      flakeCount: 25,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
@@ -42,7 +42,7 @@ export function seasonSelect(type: 'Spring' | 'Summer' | 'Autumn' | 'Winter') {
     ($(document) as any).snowfall({
       image:
         'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@vlatest/img/4.png',
-      flakeCount: 60,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
@@ -51,28 +51,28 @@ export function seasonSelect(type: 'Spring' | 'Summer' | 'Autumn' | 'Winter') {
     ($(document) as any).snowfall('');
     ($(document) as any).snowfall({
       icon: '🍀',
-      flakeCount: 50,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
       icon: '☘️',
-      flakeCount: 40,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
       icon: '☘️',
-      flakeCount: 25,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
       icon: '🍀',
-      flakeCount: 60,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
@@ -81,28 +81,28 @@ export function seasonSelect(type: 'Spring' | 'Summer' | 'Autumn' | 'Winter') {
     ($(document) as any).snowfall('');
     ($(document) as any).snowfall({
       icon: '🍁',
-      flakeCount: 50,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
       icon: '🍁',
-      flakeCount: 40,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
       icon: '🍁',
-      flakeCount: 25,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
       icon: '🍁',
-      flakeCount: 60,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
@@ -111,28 +111,28 @@ export function seasonSelect(type: 'Spring' | 'Summer' | 'Autumn' | 'Winter') {
     ($(document) as any).snowfall('');
     ($(document) as any).snowfall({
       icon: '❄',
-      flakeCount: 50,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
       icon: '❄',
-      flakeCount: 40,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
       icon: '❄',
-      flakeCount: 25,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
       icon: '❄',
-      flakeCount: 60,
+      flakeCount: 20,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
