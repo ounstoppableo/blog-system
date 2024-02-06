@@ -52,6 +52,7 @@ import { InfoSkeletonComponent } from './skeleton/info-skeleton/info-skeleton.co
 import { OverviewSkeletonComponent } from './skeleton/overview-skeleton/overview-skeleton.component';
 import { SingleCateSkeletonComponent } from './skeleton/single-cate-skeleton/single-cate-skeleton.component';
 import { CatalogueSkeletonComponent } from './skeleton/catalogue-skeleton/catalogue-skeleton.component';
+import { NumberTransPipe } from './pipe/numberTrans';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { CatalogueSkeletonComponent } from './skeleton/catalogue-skeleton/catalo
     TagComponent,
     MarkedPipe,
     monthToEnglishPipe,
+    NumberTransPipe,
     DrawerComponent,
     AddArticleFormComponent,
     NoneComponent,

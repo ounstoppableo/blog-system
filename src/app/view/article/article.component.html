@@ -16,7 +16,7 @@
       <div class="info">
         发布于:{{ articleInfo.subTime | date }}&nbsp;&nbsp;&nbsp;最后更新:{{
           articleInfo.lastModifyTime | date
-        }}&nbsp;&nbsp;&nbsp; {{ articleInfo.VT }}&nbsp;次查看
+        }}&nbsp;&nbsp;&nbsp; {{ articleInfo.VT | numberTrans }}&nbsp;次查看
       </div>
       <app-tag [tagList]="articleInfo.tags"></app-tag>
     </div>
