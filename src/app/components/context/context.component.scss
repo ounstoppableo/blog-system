@@ -63,6 +63,7 @@
     width: 100%;
     object-fit: contain;
     margin: 0 !important;
+    zoom: normal !important;
   }
 
   :host ::ng-deep & > li {
@@ -218,6 +219,8 @@
     font: inherit;
     border: 0;
     margin: 0 auto;
+    table-layout:fixed;
+    word-wrap: break-word;
   }
 
   :host ::ng-deep & > tbody {
