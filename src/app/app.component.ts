@@ -5,6 +5,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -17,19 +18,20 @@ import { CircleMenuComponent } from './components/circle-menu/circle-menu.compon
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
+export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
   title = 'my-blog';
   darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
   isArticle = false;
   firstLoad = true;
   imgLazyLoadMap = new Map();
+  observer: any
   @ViewChild('operate')
   operate!: ElementRef;
   constructor(
     private router: Router,
     private r: ComponentFactoryResolver,
     private injector: Injector,
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd)
@@ -41,8 +43,6 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
         this.firstLoad = false;
       });
     }
-    //图片懒加载
-    window.addEventListener('scroll', this.imgLazyLoad.bind(this));
   }
   //四季控制板工厂创建
   @ViewChild('vc', { read: ViewContainerRef }) vc!: ViewContainerRef;
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
   ngAfterViewInit(): void {
     //看板娘加载
     loadScript(
-      'https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@v4.1.1/autoload.js',
+      'https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@v1.1.1/autoload.js',
       function () {
         function showWaifu() {
           if (innerWidth > 1024) {
@@ -86,15 +86,67 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
       },
     );
     this.implementDarkMode();
+    //图片懒加载
+    this.observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.addedNodes) {
+          const imgs = document
+            .getElementById('approot')!
+            .querySelectorAll('img');
+          imgs.forEach((item, index) => {
+            const identification = item.getAttribute('identification');
+            if (!this.imgLazyLoadMap.has(identification)) {
+              const betaSrc = item.getAttribute('betaSrc');
+              if (!betaSrc) {
+                const tempSrc = item.src.split('/').slice(3).join('/');
+                if (tempSrc) {
+                  item.src = '/assets/loading.gif';
+                  item.setAttribute('betaSrc', tempSrc);
+                  console.log(item.getAttribute('betaSrc'))
+                  item.setAttribute('identification', Date.now() + index + '');
+                }
+              }
+              const rect = item.getBoundingClientRect();
+              if (
+                item.offsetHeight !== 0 &&
+                rect.y >= -rect.height &&
+                item.getBoundingClientRect().y <= innerHeight
+              ) {
+                if (betaSrc) {
+                  const img = new Image();
+                  img.src = betaSrc;
+                  img.onload = () => {
+                    item.src = betaSrc
+                  };
+                  this.imgLazyLoadMap.set(identification, 1);
+                }
+              }
+            }
+          })
+        }
+      });
+      //给图片预加载
+    });
+    this.observer.observe(document.getElementById('approot')!, {
+      childList: true,
+      subtree: true,
+    });
+    window.addEventListener('scroll', this.imgLazyLoad);
   }
-  imgLazyLoad() {
-    const imgs = document.querySelectorAll('img');
+  imgLazyLoad = () => {
+    const imgs = document.getElementById('approot')!.querySelectorAll('img');
     imgs.forEach((item) => {
-      if (item.getBoundingClientRect().y <= innerHeight) {
-        const betaSrc = item.getAttribute('betaSrc');
-        const identification = item.getAttribute('identification');
-        if (betaSrc) {
-          if (!this.imgLazyLoadMap.has(identification)) {
+      const rect = item.getBoundingClientRect();
+      const identification = item.getAttribute('identification');
+      if (!this.imgLazyLoadMap.has(identification)) {
+        if (
+          item.offsetHeight !== 0 &&
+          rect.y >= -rect.height &&
+          item.getBoundingClientRect().y <= innerHeight
+        ) {
+          const betaSrc = item.getAttribute('betaSrc');
+
+          if (betaSrc) {
             const img = new Image();
             img.src = betaSrc;
             img.onload = () => (item.src = betaSrc);
@@ -177,30 +229,8 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
       behavior: 'smooth',
     });
   }
-  ngAfterViewChecked(): void {
-    //给图片预加载
-    const imgs = document.querySelectorAll('img');
-    imgs.forEach((item, index) => {
-      if (!item.src.includes('https')) {
-        const betaSrc = item.getAttribute('betaSrc');
-        if (!betaSrc) {
-          const tempSrc = item.src.split('/').slice(3).join('/');
-          item.src = '/assets/loading.gif';
-          item.setAttribute('betaSrc', tempSrc);
-          item.setAttribute('identification', Date.now() + index + '');
-        }
-        if (item.getBoundingClientRect().y <= innerHeight) {
-          const identification = item.getAttribute('identification');
-          if (betaSrc) {
-            if (!this.imgLazyLoadMap.has(identification)) {
-              const img = new Image();
-              img.src = betaSrc;
-              img.onload = () => (item.src = betaSrc);
-              this.imgLazyLoadMap.set(identification, 1);
-            }
-          }
-        }
-      }
-    });
+  ngAfterViewChecked(): void { }
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
   }
 }
