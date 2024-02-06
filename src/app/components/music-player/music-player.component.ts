@@ -83,6 +83,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    if(innerWidth<500) this.container.nativeElement.style.transform = 'scale(0.7)'
     this.getMixLightColor(
       this.getBgLightColor.nativeElement,
       this.wantChangeColorEle.nativeElement,

@@ -343,7 +343,29 @@
   animation: close 1s cubic-bezier(0, 0, 0.14, 1.25) forwards reverse;
 }
 
-@media only screen and (max-width: 1600px) {
+@media only screen and (min-width: 320px) and (max-width: 500px) {
+  @keyframes close {
+    from {
+      transform: translate(0, 0) scale(0.7);
+    }
+
+    to {
+      transform: translate(-200px, 80px) scale(0);
+    }
+  }
+}
+@media only screen and (min-width: 500px) and (max-width: 1024px) {
+  @keyframes close {
+    from {
+      transform: translate(0, 0) scale(1);
+    }
+
+    to {
+      transform: translate(-600px, 80px) scale(0);
+    }
+  }
+}
+@media only screen and (min-width: 1024px) and (max-width: 1600px) {
   @keyframes close {
     from {
       transform: translate(0, 0) scale(1);
