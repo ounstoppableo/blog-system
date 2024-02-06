@@ -9,16 +9,62 @@
     <div class="mask"></div>
     <img alt="" [src]="articleInfo.backImgUrl" />
     <div class="title">
-      <span class="belongFile" (click)="toBelongFile(articleInfo.folderId)">
+      <span
+        class="belongFile"
+        *ngIf="articleInfo.folderId"
+        (click)="toBelongFile(articleInfo.folderId)"
+      >
         {{ articleInfo.folderName }}
       </span>
-      <div class="headLine">{{ articleInfo.title }}</div>
-      <div class="info">
+      <span
+        class="belongFile"
+        [style]="{ width: '60px', border: 'none' }"
+        *ngIf="!articleInfo.folderId"
+      >
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{ display: 'inline-block', width: '100%', height: '100%' }"
+        ></ngx-skeleton-loader>
+      </span>
+      <div class="headLine" *ngIf="articleInfo.title">
+        {{ articleInfo.title }}
+      </div>
+      <div
+        class="headLine"
+        *ngIf="!articleInfo.title"
+        [style]="{ width: '250px' }"
+      >
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{ display: 'inline-block', width: '100%', height: '100%' }"
+        ></ngx-skeleton-loader>
+      </div>
+      <div class="info" *ngIf="articleInfo.subTime">
         发布于:{{ articleInfo.subTime | date }}&nbsp;&nbsp;&nbsp;最后更新:{{
           articleInfo.lastModifyTime | date
         }}&nbsp;&nbsp;&nbsp; {{ articleInfo.VT | numberTrans }}&nbsp;次查看
       </div>
-      <app-tag [tagList]="articleInfo.tags"></app-tag>
+      <div
+        class="info"
+        *ngIf="!articleInfo.subTime"
+        [style]="{ width: '350px' }"
+      >
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{ display: 'inline-block', width: '100%', height: '100%' }"
+        ></ngx-skeleton-loader>
+      </div>
+      <app-tag [tagList]="articleInfo.tags" *ngIf="articleInfo.tags"></app-tag>
+      <div [style]="{ width: '100px' }" *ngIf="!articleInfo.tags">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{ display: 'inline-block', width: '100%', height: '100%' }"
+        ></ngx-skeleton-loader>
+      </div>
     </div>
   </div>
   <div class="context">

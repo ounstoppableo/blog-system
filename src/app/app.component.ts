@@ -104,7 +104,6 @@ export class AppComponent
                 if (tempSrc) {
                   item.src = '/assets/loading.gif';
                   item.setAttribute('betaSrc', tempSrc);
-                  console.log(item.getAttribute('betaSrc'));
                   item.setAttribute('identification', Date.now() + index + '');
                 }
               }

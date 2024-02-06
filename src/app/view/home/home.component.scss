@@ -74,6 +74,11 @@
         flex-direction: column;
         gap: 10px;
       }
+      &>div {
+        &.smallSize {
+          flex: 1;
+        }
+      }
 
       & > li {
         position: relative;

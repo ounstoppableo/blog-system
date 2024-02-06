@@ -12,7 +12,11 @@
         <span #wordSpan></span>
       </p>
     </div>
-    <ul class="itembox" [class]="smallSize ? 'smallSize' : 'normal'">
+    <ul
+      *ngIf="folderCategory"
+      class="itembox"
+      [class]="smallSize ? 'smallSize' : 'normal'"
+    >
       <li
         *ngFor="let item of folderCategory"
         [class]="smallSize ? 'smallSize' : ''"
@@ -20,6 +24,52 @@
       >
         <span>{{ item.folderName }}</span>
       </li>
+    </ul>
+    <ul
+      *ngIf="!folderCategory"
+      class="itembox"
+      [class]="smallSize ? 'smallSize' : 'normal'"
+    >
+      <div [class]="smallSize ? 'smallSize' : ''">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '100%',
+            height: '100%'
+          }"
+        />
+      </div>
+      <div [class]="smallSize ? 'smallSize' : ''">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '100%',
+            height: '100%'
+          }"
+        />
+      </div>
+      <div [class]="smallSize ? 'smallSize' : ''">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '100%',
+            height: '100%'
+          }"
+        />
+      </div>
+      <div [class]="smallSize ? 'smallSize' : ''">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="{
+            width: '100%',
+            height: '100%'
+          }"
+        />
+      </div>
     </ul>
   </div>
   <div class="footer" (click)="toContainer()">
