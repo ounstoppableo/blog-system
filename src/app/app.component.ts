@@ -40,7 +40,10 @@ export class AppComponent
         this.isArticle = event.url.includes('article');
     });
     if (this.firstLoad) {
-      this.loadCss(`https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`, 'dark').finally(() => {
+      this.loadCss(
+        `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
+        'dark',
+      ).finally(() => {
         document.getElementById('dark')?.remove();
         this.firstLoad = false;
       });
@@ -180,7 +183,10 @@ export class AppComponent
         '#d1d5db',
       );
       document.documentElement.style.setProperty('--footerBkColor', '#000');
-      this.loadCss(`https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`, 'darkMode').finally(() => {
+      this.loadCss(
+        `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
+        'darkMode',
+      ).finally(() => {
         document.documentElement.classList.add('dark');
       });
     } else {
