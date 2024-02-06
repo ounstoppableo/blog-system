@@ -40,7 +40,7 @@ export class AppComponent
         this.isArticle = event.url.includes('article');
     });
     if (this.firstLoad) {
-      this.loadCss(`./assets/darkMode.scss`, 'dark').finally(() => {
+      this.loadCss(`https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`, 'dark').finally(() => {
         document.getElementById('dark')?.remove();
         this.firstLoad = false;
       });
@@ -82,7 +82,7 @@ export class AppComponent
     );
     //四季飘落效果加载
     loadScript(
-      'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v3.0.1/snowfall.jquery.js',
+      'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v3.0.2/snowfall.jquery.js',
       () => {
         this.vc.insert(this.componentRef.hostView);
       },
@@ -180,7 +180,7 @@ export class AppComponent
         '#d1d5db',
       );
       document.documentElement.style.setProperty('--footerBkColor', '#000');
-      this.loadCss(`./assets/darkMode.scss`, 'darkMode').finally(() => {
+      this.loadCss(`https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`, 'darkMode').finally(() => {
         document.documentElement.classList.add('dark');
       });
     } else {

@@ -28,12 +28,7 @@
               "src/styles.scss",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/theme.scss",
-              "src/assets/font/iconfont.css",
-              {
-                "input": "src/assets/darkMode.scss",
-                "bundleName": "dark",
-                "inject": false
-              }
+              "src/assets/font/iconfont.css"
             ],
             "scripts": ["node_modules/jquery/dist/jquery.min.js"]
           },

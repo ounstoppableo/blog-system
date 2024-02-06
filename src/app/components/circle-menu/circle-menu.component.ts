@@ -16,7 +16,12 @@ import * as $ from 'jquery';
 })
 export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   showMenu = false;
-  currentSeason: 'Spring' | 'Summer' | 'Winter' | 'Autumn' = localStorage.getItem('seasonType') as  'Spring' | 'Summer' | 'Winter' | 'Autumn'  || judgeSeason();
+  currentSeason: 'Spring' | 'Summer' | 'Winter' | 'Autumn' =
+    (localStorage.getItem('seasonType') as
+      | 'Spring'
+      | 'Summer'
+      | 'Winter'
+      | 'Autumn') || judgeSeason();
   @Input() flag = new Proxy(
     {
       value: JSON.parse(localStorage.getItem('seasonFloat') || 'true'),
@@ -137,19 +142,19 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
     this.flag.value = true;
     localStorage.setItem('seasonFloat', 'true');
     this.currentSeason = type;
-    localStorage.setItem('seasonType', this.currentSeason)
+    localStorage.setItem('seasonType', this.currentSeason);
     seasonSelect(this.currentSeason);
   }
   handleChangeSeason(type: 'Spring' | 'Summer' | 'Winter' | 'Autumn') {
-    const timer = setTimeout(()=>{
-      this.changeSeason(type)
-      location.reload()
-      clearTimeout(timer)
-    },1000)
+    const timer = setTimeout(() => {
+      this.changeSeason(type);
+      location.reload();
+      clearTimeout(timer);
+    }, 1000);
   }
 
   toggleFloat() {
-    const timer = setTimeout(()=>{
+    const timer = setTimeout(() => {
       this.currentSeason = judgeSeason();
       if (this.flag.value) {
         closedFloat();
@@ -158,9 +163,9 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
       } else {
         this.changeSeason(this.currentSeason);
       }
-      location.reload()
-      clearTimeout(timer)
-    },1000)
+      location.reload();
+      clearTimeout(timer);
+    }, 1000);
   }
 
   //模拟鼠标按压移动
