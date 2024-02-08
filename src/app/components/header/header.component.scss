@@ -16,7 +16,8 @@
   .left {
     font-weight: 500;
     font-size: 20px;
-    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico), pointer;
+    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+      pointer;
     position: relative;
     overflow: hidden;
     @include borderAnime;
@@ -36,7 +37,8 @@
       text-align: center;
       line-height: 36px;
       font-size: 16px;
-      cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico), pointer;
+      cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+        pointer;
       @include borderAnime;
 
       & [class='iconfont icon-down'] {
@@ -84,7 +86,8 @@
   }
 
   .folder {
-    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico), pointer;
+    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+      pointer;
   }
 }
 

@@ -32,7 +32,8 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico), pointer;
+        cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+          pointer;
 
         &:hover {
           color: var(--styleColor);

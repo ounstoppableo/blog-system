@@ -52,7 +52,8 @@
     font-weight: 800;
     color: var(--cateColor);
     display: none;
-    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico), pointer;
+    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+      pointer;
     &:hover {
       animation: none;
     }
@@ -77,11 +78,13 @@
       width: 10px;
       height: 10px;
       border-radius: 9999px;
-      cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico), pointer;
+      cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+        pointer;
       transition: all 0.5s linear;
       background-color: var(--cateColor);
       &.active {
-        cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/umaro.ico), default;
+        cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/umaro.ico),
+          default;
         background-color: var(--styleColor);
         flex: 1;
       }
