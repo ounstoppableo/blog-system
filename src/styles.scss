@@ -5,7 +5,7 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: url(/assets/umaro.ico), default;
+  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/umaro.ico), default;
 }
 
 * {
@@ -16,7 +16,7 @@ html {
 
 a {
   &:hover {
-    cursor: url(/assets/cola.ico), pointer !important;
+    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico), pointer !important;
   }
 }
 

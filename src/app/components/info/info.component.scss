@@ -58,14 +58,14 @@
                 overflow: hidden;
                 word-break: break-all;
                 white-space: nowrap;
-                cursor: url(/assets/cola.ico), pointer;
+                cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico), pointer;
                 position: relative;
                 @include borderAnime;
               }
 
               & > .date {
                 color: var(--cateColor);
-                cursor: url(/assets/cola.ico), pointer;
+                cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico), pointer;
               }
             }
           }
