@@ -91,7 +91,7 @@
         font-size: 18px;
         font-weight: 300;
         overflow: hidden;
-        cursor: url(/assets/link.ico), pointer;
+        cursor: url(/assets/cola.ico), pointer;
         transition: all 0.2s linear;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 
@@ -133,7 +133,7 @@
     flex-direction: column;
     font-size: 12px;
     gap: 5px;
-    cursor: url(/assets/link.ico), pointer;
+    cursor: url(/assets/cola.ico), pointer;
 
     .word {
       animation: vibrate2 1s infinite ease 0.05s;

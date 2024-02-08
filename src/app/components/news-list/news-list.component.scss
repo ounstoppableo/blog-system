@@ -52,7 +52,7 @@
     font-weight: 800;
     color: var(--cateColor);
     display: none;
-    cursor: url(/assets/link.ico), pointer;
+    cursor: url(/assets/cola.ico), pointer;
     &:hover {
       animation: none;
     }
@@ -77,11 +77,11 @@
       width: 10px;
       height: 10px;
       border-radius: 9999px;
-      cursor: url(/assets/link.ico), pointer;
+      cursor: url(/assets/cola.ico), pointer;
       transition: all 0.5s linear;
       background-color: var(--cateColor);
       &.active {
-        cursor: url(/assets/pointer.ico), default;
+        cursor: url(/assets/umaro.ico), default;
         background-color: var(--styleColor);
         flex: 1;
       }

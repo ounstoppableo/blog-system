@@ -16,7 +16,7 @@
   .left {
     font-weight: 500;
     font-size: 20px;
-    cursor: url(/assets/link.ico), pointer;
+    cursor: url(/assets/cola.ico), pointer;
     position: relative;
     overflow: hidden;
     @include borderAnime;
@@ -36,7 +36,7 @@
       text-align: center;
       line-height: 36px;
       font-size: 16px;
-      cursor: url(/assets/link.ico), pointer;
+      cursor: url(/assets/cola.ico), pointer;
       @include borderAnime;
 
       & [class='iconfont icon-down'] {
@@ -84,7 +84,7 @@
   }
 
   .folder {
-    cursor: url(/assets/link.ico), pointer;
+    cursor: url(/assets/cola.ico), pointer;
   }
 }
 

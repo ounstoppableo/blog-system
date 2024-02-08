@@ -60,7 +60,7 @@
           padding: 10px 0;
           transition: all 0.5s ease;
           transform-origin: center;
-          cursor: url(/assets/link.ico), pointer;
+          cursor: url(/assets/cola.ico), pointer;
 
           &.active {
             color: white;
@@ -201,7 +201,7 @@
       font-weight: 1000;
       line-height: 22px;
       z-index: 10;
-      cursor: url(/assets/link.ico), pointer;
+      cursor: url(/assets/cola.ico), pointer;
 
       &::after {
         content: '';
@@ -235,7 +235,7 @@
       font-size: 30px;
       line-height: 30px;
       color: var(--cardColor);
-      cursor: url(/assets/link.ico), pointer;
+      cursor: url(/assets/cola.ico), pointer;
       filter: drop-shadow(0 11px 6px rgba(172, 184, 204, 0.45));
     }
   }
@@ -284,7 +284,7 @@
       background-color: #d0d8e6;
       user-select: none;
       border-radius: 6px;
-      cursor: url(/assets/link.ico), pointer;
+      cursor: url(/assets/cola.ico), pointer;
 
       &::before {
         content: '';
@@ -395,7 +395,7 @@
   transition: all 1.5s ease;
   transform: translateX(-100%);
   z-index: 9999;
-  cursor: url(/assets/link.ico), pointer;
+  cursor: url(/assets/cola.ico), pointer;
 
   &:hover {
     transform: translate(0);

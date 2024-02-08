@@ -5,7 +5,7 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: url(/assets/pointer.ico), default;
+  cursor: url(/assets/umaro.ico), default;
 }
 
 * {
@@ -16,7 +16,7 @@ html {
 
 a {
   &:hover {
-    cursor: url(/assets/link.ico), pointer !important;
+    cursor: url(/assets/cola.ico), pointer !important;
   }
 }
 
