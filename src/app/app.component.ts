@@ -104,10 +104,10 @@ export class AppComponent
               const betaSrc = item.getAttribute('betaSrc');
               if (!betaSrc) {
                 let tempSrc;
-                if(item.src.startsWith('http')){
-                  tempSrc = item.src
-                }else {
-                  tempSrc=item.src.split('/').slice(3).join('/')
+                if (item.src.startsWith('http')) {
+                  tempSrc = item.src;
+                } else {
+                  tempSrc = item.src.split('/').slice(3).join('/');
                 }
                 if (tempSrc) {
                   item.src = '/assets/loading.gif';
