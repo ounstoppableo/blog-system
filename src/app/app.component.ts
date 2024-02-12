@@ -103,7 +103,12 @@ export class AppComponent
             if (!this.imgLazyLoadMap.has(identification)) {
               const betaSrc = item.getAttribute('betaSrc');
               if (!betaSrc) {
-                const tempSrc = item.src.split('/').slice(3).join('/');
+                let tempSrc;
+                if(item.src.startsWith('http')){
+                  tempSrc = item.src
+                }else {
+                  tempSrc=item.src.split('/').slice(3).join('/')
+                }
                 if (tempSrc) {
                   item.src = '/assets/loading.gif';
                   item.setAttribute('betaSrc', tempSrc);

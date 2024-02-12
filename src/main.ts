@@ -8,7 +8,8 @@ platformBrowserDynamic()
       document.getElementById('approot')!.style.display = '';
       const bongoCat_dark = document.getElementById('bongoCat_dark');
       const bongoCat_light = document.getElementById('bongoCat_light');
-      bongoCat_dark ? bongoCat_dark!.remove() : bongoCat_light!.remove();
+      bongoCat_dark!.remove();
+      bongoCat_light!.remove();
       document.getElementById('bongoCatCss')?.remove();
     });
   })
