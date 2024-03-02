@@ -104,7 +104,10 @@ export class AppComponent
               const betaSrc = item.getAttribute('betaSrc');
               if (!betaSrc) {
                 let tempSrc;
-                if (item.src.startsWith('http')&&item.src.startsWith('https')) {
+                if (
+                  item.src.startsWith('http') &&
+                  item.src.startsWith('https')
+                ) {
                   tempSrc = item.src;
                 } else {
                   tempSrc = item.src.split('/').slice(3).join('/');
