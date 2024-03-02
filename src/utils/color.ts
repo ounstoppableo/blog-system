@@ -58,7 +58,13 @@ export function getGrayishColor(rgbaColor: string): string {
   grayishValue = Math.min(grayishValue + 50, 255); // 确保灰色值不超过 255
 
   // 计算对比度
-  const contrastRatio = Math.abs((rgbaArray[0] * 0.299 + rgbaArray[1] * 0.587 + rgbaArray[2] * 0.114 - grayishValue) / 255);
+  const contrastRatio = Math.abs(
+    (rgbaArray[0] * 0.299 +
+      rgbaArray[1] * 0.587 +
+      rgbaArray[2] * 0.114 -
+      grayishValue) /
+      255,
+  );
 
   // 如果对比度小于阈值，则根据对比度调整灰色值
   const contrastThreshold = 0.5; // 自定义对比度阈值

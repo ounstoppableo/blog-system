@@ -341,19 +341,19 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   toggleIyric() {
     this.isIyric = !this.isIyric;
     if (this.isIyric) {
-        this.wantChangeColorEle.nativeElement.style.transform = 'rotateY(360deg)';
-        this.album.nativeElement.style.transform = 'rotateY(180deg)';
-        this.wantChangeColorEle.nativeElement.style.borderRadius = '10%';
-        this.album.nativeElement.style.zIndex = '0';
-        this.wantChangeColorEle.nativeElement.style.zIndex = '1';
-        this.voiceFrequency.nativeElement.style.display = 'none';
+      this.wantChangeColorEle.nativeElement.style.transform = 'rotateY(360deg)';
+      this.album.nativeElement.style.transform = 'rotateY(180deg)';
+      this.wantChangeColorEle.nativeElement.style.borderRadius = '10%';
+      this.album.nativeElement.style.zIndex = '0';
+      this.wantChangeColorEle.nativeElement.style.zIndex = '1';
+      this.voiceFrequency.nativeElement.style.display = 'none';
     } else {
-        this.wantChangeColorEle.nativeElement.style.transform = 'rotateY(180deg)';
-        this.album.nativeElement.style.transform = 'rotateY(0deg)';
-        this.wantChangeColorEle.nativeElement.style.borderRadius = '100%';
-        this.album.nativeElement.style.zIndex = '1';
-        this.wantChangeColorEle.nativeElement.style.zIndex = '0';
-        this.voiceFrequency.nativeElement.style.display = '';
+      this.wantChangeColorEle.nativeElement.style.transform = 'rotateY(180deg)';
+      this.album.nativeElement.style.transform = 'rotateY(0deg)';
+      this.wantChangeColorEle.nativeElement.style.borderRadius = '100%';
+      this.album.nativeElement.style.zIndex = '1';
+      this.wantChangeColorEle.nativeElement.style.zIndex = '0';
+      this.voiceFrequency.nativeElement.style.display = '';
     }
   }
 
