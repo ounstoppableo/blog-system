@@ -45,16 +45,27 @@ export function getLighterColor(color: any) {
 }
 
 //根据底色计算偏灰字体颜色
-export function getGrayishColor(rgbaColor: any) {
+export function getGrayishColor(rgbaColor: string): string {
   // 将 RGBA 颜色字符串转换为数组 [r, g, b, a]
-  const rgbaArray = rgbaColor.slice(5, -1).split(',').map(Number);
+  const rgbaArray: number[] = rgbaColor.slice(5, -1).split(',').map(Number);
 
-  // 计算颜色的相对亮度
-  const brightness =
+  // 计算背景颜色的相对亮度
+  const bgBrightness: number =
     (rgbaArray[0] * 299 + rgbaArray[1] * 587 + rgbaArray[2] * 114) / 1000;
 
   // 计算偏向灰色的文字颜色
-  const grayishValue = Math.round(brightness * 0.8); // 调整 0.8 的值以控制灰色的深浅
+  let grayishValue: number = Math.round(bgBrightness * 0.6); // 调整系数以控制灰色偏向程度
+  grayishValue = Math.min(grayishValue + 50, 255); // 确保灰色值不超过 255
+
+  // 计算对比度
+  const contrastRatio = Math.abs((rgbaArray[0] * 0.299 + rgbaArray[1] * 0.587 + rgbaArray[2] * 0.114 - grayishValue) / 255);
+
+  // 如果对比度小于阈值，则根据对比度调整灰色值
+  const contrastThreshold = 0.5; // 自定义对比度阈值
+  if (contrastRatio < contrastThreshold) {
+    const adjustValue = (contrastThreshold - contrastRatio) * 255;
+    grayishValue = Math.min(grayishValue + adjustValue, 255);
+  }
 
   // 返回偏灰文字颜色的 RGBA 表示
   return `rgba(${grayishValue}, ${grayishValue}, ${grayishValue}, ${rgbaArray[3]})`;

@@ -4,8 +4,9 @@ import { AppModule } from './app/app.module';
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .then(() => {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
-    if(isIOS) {
+    const isIOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    if (isIOS) {
       setTimeout(() => {
         document.getElementById('approot')!.style.display = '';
         const bongoCat_dark = document.getElementById('bongoCat_dark');
