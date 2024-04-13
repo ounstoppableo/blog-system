@@ -5,6 +5,9 @@
   background-position: 0 0;
   background-size: cover;
   position: relative;
+  &.smallSize {
+    height: var(--bodyHeightForInvariant)!important;
+  }
 
   .body {
     display: flex;

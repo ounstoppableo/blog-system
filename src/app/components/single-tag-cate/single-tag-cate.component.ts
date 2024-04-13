@@ -34,7 +34,7 @@ export class SingleTagCateComponent implements OnInit {
     });
   }
   getArticleInfo(page: number, limit: number) {
-    return new Promise((resolve)=>{
+    return new Promise((resolve) => {
       this.loading = true;
       this.categoryService
         .getSingleTagMapArticleInfos(
@@ -43,19 +43,20 @@ export class SingleTagCateComponent implements OnInit {
           limit,
         )
         .subscribe((res: resType<singleTagMapArticleInfos>) => {
-          resolve(1)
+          resolve(1);
           this.loading = false;
           if (res.code === 200) {
-            this.singleTagMapArticleInfos = res.data as singleTagMapArticleInfos;
+            this.singleTagMapArticleInfos =
+              res.data as singleTagMapArticleInfos;
             this.total = this.singleTagMapArticleInfos.total;
           }
         });
-    })
+    });
   }
 
   nextPage(page: number) {
     this.page = page;
-    this.getArticleInfo(this.page, this.limit).then(()=>{
+    this.getArticleInfo(this.page, this.limit).then(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }

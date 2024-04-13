@@ -1,4 +1,4 @@
-<div class="root" #root>
+<div class="root" #root [class]="smallSize ? 'smallSize' : ''">
   <app-header
     [showFolderIcon]="smallSize"
     [scrollTarget]="headerChangeHeight"

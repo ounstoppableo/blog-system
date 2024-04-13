@@ -38,7 +38,7 @@ export class ContainerComponent implements OnInit {
   @Input()
   msgboard = false;
   @Input()
-  scrollTarget = 0
+  scrollTarget = 0;
   @Output()
   getCatalogue = new EventEmitter();
 
@@ -57,21 +57,21 @@ export class ContainerComponent implements OnInit {
   }
 
   getArticleInfo(page: number, limit: number) {
-    return new Promise((resolve)=>{
+    return new Promise((resolve) => {
       this.homeService
-      .getArticleInfoByPage(page, limit)
-      .subscribe((res: resType<any>) => {
-        resolve(1)
-        if (res.code === 200) {
-          this.articleInfoList = res.data.articleInfoList as articleInfo[];
-          this.total = res.data.total;
-        }
-      })
+        .getArticleInfoByPage(page, limit)
+        .subscribe((res: resType<any>) => {
+          resolve(1);
+          if (res.code === 200) {
+            this.articleInfoList = res.data.articleInfoList as articleInfo[];
+            this.total = res.data.total;
+          }
+        });
     });
   }
   nextPage(page: number) {
     this.page = page;
-    this.getArticleInfo(this.page, this.limit).then(()=>{
+    this.getArticleInfo(this.page, this.limit).then(() => {
       window.scrollTo({ top: this.scrollTarget, behavior: 'smooth' });
     });
   }

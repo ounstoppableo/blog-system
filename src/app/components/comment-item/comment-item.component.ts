@@ -17,6 +17,7 @@ import {
 } from '@angular/animations';
 import { BoardMsgService } from '@/app/service/board-msg.service';
 import { resType } from '@/types/response/response';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-comment-item',
@@ -54,7 +55,9 @@ export class CommentItemComponent implements OnChanges {
   @Input()
   smallSize = false;
 
-  constructor(private boardMsgSerivce: BoardMsgService) {}
+  timer:any = null
+
+  constructor(private boardMsgSerivce: BoardMsgService,private message:NzMessageService) {}
 
   ngOnChanges(changes: any): void {
     if (changes.msgItem.currentValue) {
@@ -102,32 +105,10 @@ export class CommentItemComponent implements OnChanges {
   }
   //点赞功能
   upvoke(msgItem: any) {
-    msgItem.upvokeChecked = !msgItem.upvokeChecked;
-    if (msgItem.articleId) {
-      this.boardMsgSerivce
-        .upvokeForArticleComment(
-          msgItem.articleId,
-          msgItem.msgId,
-          msgItem.upvokeChecked ? 1 : 0,
-        )
-        .subscribe((res: resType<any>) => {
-          if (res.code === 200) {
-            msgItem.upvokeChecked
-              ? (msgItem.upvoke += 1)
-              : (msgItem.upvoke -= 1);
-          }
-        });
-    } else {
-      this.boardMsgSerivce
-        .upvokeForBoardComment(msgItem.msgId, msgItem.upvokeChecked ? 1 : 0)
-        .subscribe((res: resType<any>) => {
-          if (res.code === 200) {
-            msgItem.upvokeChecked
-              ? (msgItem.upvoke += 1)
-              : (msgItem.upvoke -= 1);
-          }
-        });
-    }
+    if(this.timer) return this.message.warning('请不要频繁操作！')
+    this.timer = setTimeout(()=>{
+      this.timer = null
+    },5000)
     const storage = {
       msgId: msgItem.msgId,
       checked: msgItem.upvokeChecked,
@@ -155,6 +136,32 @@ export class CommentItemComponent implements OnChanges {
         msgItem.articleId ? msgItem.articleId : 'msgBoard',
         JSON.stringify([storage]),
       );
+    }
+    msgItem.upvokeChecked = !msgItem.upvokeChecked;
+    if (msgItem.articleId) {
+      this.boardMsgSerivce
+        .upvokeForArticleComment(
+          msgItem.articleId,
+          msgItem.msgId,
+          msgItem.upvokeChecked ? 1 : 0,
+        )
+        .subscribe((res: resType<any>) => {
+          if (res.code === 200) {
+            msgItem.upvokeChecked
+              ? (msgItem.upvoke += 1)
+              : (msgItem.upvoke -= 1);
+          }
+        });
+    } else {
+      this.boardMsgSerivce
+        .upvokeForBoardComment(msgItem.msgId, msgItem.upvokeChecked ? 1 : 0)
+        .subscribe((res: resType<any>) => {
+          if (res.code === 200) {
+            msgItem.upvokeChecked
+              ? (msgItem.upvoke += 1)
+              : (msgItem.upvoke -= 1);
+          }
+        });
     }
   }
 }

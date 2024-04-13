@@ -30,13 +30,13 @@ export class SingleFolderCateComponent implements OnInit {
     this.getArticleInfos(this.page, this.limit);
   }
   getArticleInfos(page: number, limit: number) {
-    return new Promise((resolve)=>{
+    return new Promise((resolve) => {
       this.loading = true;
       this.route.params.subscribe((param) => {
         this.categoryService
           .getSingleFolderMapArticleInfos(param['folderId'], page, limit)
           .subscribe((res) => {
-            resolve(1)
+            resolve(1);
             this.loading = false;
             if (res.code === 200) {
               this.singleFolderMapArticleInfos =
@@ -45,11 +45,11 @@ export class SingleFolderCateComponent implements OnInit {
             }
           });
       });
-    })
+    });
   }
   nextPage(page: number) {
     this.page = page;
-    this.getArticleInfos(this.page, this.limit).then(()=>{
+    this.getArticleInfos(this.page, this.limit).then(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }

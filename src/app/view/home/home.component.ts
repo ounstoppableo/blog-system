@@ -56,6 +56,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((res: resType<folderItem[]>) => {
         if (res.code === 200) this.folderCategory = res.data;
       });
+    document.documentElement.style.setProperty(
+        '--bodyHeightForInvariant',
+        innerHeight + 'px',
+    );
   }
   @ViewResize()
   ngAfterViewInit(): void {
