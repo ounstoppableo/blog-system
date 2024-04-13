@@ -37,6 +37,8 @@ export class ContainerComponent implements OnInit {
   search = false;
   @Input()
   msgboard = false;
+  @Input()
+  scrollTarget = 0
   @Output()
   getCatalogue = new EventEmitter();
 
@@ -55,18 +57,23 @@ export class ContainerComponent implements OnInit {
   }
 
   getArticleInfo(page: number, limit: number) {
-    this.homeService
+    return new Promise((resolve)=>{
+      this.homeService
       .getArticleInfoByPage(page, limit)
       .subscribe((res: resType<any>) => {
+        resolve(1)
         if (res.code === 200) {
           this.articleInfoList = res.data.articleInfoList as articleInfo[];
           this.total = res.data.total;
         }
-      });
+      })
+    });
   }
   nextPage(page: number) {
     this.page = page;
-    this.getArticleInfo(this.page, this.limit);
+    this.getArticleInfo(this.page, this.limit).then(()=>{
+      window.scrollTo({ top: this.scrollTarget, behavior: 'smooth' });
+    });
   }
   _getCatalogue($event: any) {
     this.catalogue = $event;

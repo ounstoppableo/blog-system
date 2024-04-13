@@ -34,24 +34,29 @@ export class SingleTagCateComponent implements OnInit {
     });
   }
   getArticleInfo(page: number, limit: number) {
-    this.loading = true;
-    this.categoryService
-      .getSingleTagMapArticleInfos(
-        this.singleTagMapArticleInfos.tagName,
-        page,
-        limit,
-      )
-      .subscribe((res: resType<singleTagMapArticleInfos>) => {
-        this.loading = false;
-        if (res.code === 200) {
-          this.singleTagMapArticleInfos = res.data as singleTagMapArticleInfos;
-          this.total = this.singleTagMapArticleInfos.total;
-        }
-      });
+    return new Promise((resolve)=>{
+      this.loading = true;
+      this.categoryService
+        .getSingleTagMapArticleInfos(
+          this.singleTagMapArticleInfos.tagName,
+          page,
+          limit,
+        )
+        .subscribe((res: resType<singleTagMapArticleInfos>) => {
+          resolve(1)
+          this.loading = false;
+          if (res.code === 200) {
+            this.singleTagMapArticleInfos = res.data as singleTagMapArticleInfos;
+            this.total = this.singleTagMapArticleInfos.total;
+          }
+        });
+    })
   }
 
   nextPage(page: number) {
     this.page = page;
-    this.getArticleInfo(this.page, this.limit);
+    this.getArticleInfo(this.page, this.limit).then(()=>{
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 }

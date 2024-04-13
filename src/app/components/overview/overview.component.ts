@@ -109,7 +109,6 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
     this.nextPage.emit(page);
     this.isInit = false;
     this.articleInfoList = [];
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   //去日期分类页
   toDateCate() {

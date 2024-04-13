@@ -30,22 +30,27 @@ export class SingleFolderCateComponent implements OnInit {
     this.getArticleInfos(this.page, this.limit);
   }
   getArticleInfos(page: number, limit: number) {
-    this.loading = true;
-    this.route.params.subscribe((param) => {
-      this.categoryService
-        .getSingleFolderMapArticleInfos(param['folderId'], page, limit)
-        .subscribe((res) => {
-          this.loading = false;
-          if (res.code === 200) {
-            this.singleFolderMapArticleInfos =
-              res.data as singleFolderMapArticleInfos;
-            this.total = this.singleFolderMapArticleInfos.total;
-          }
-        });
-    });
+    return new Promise((resolve)=>{
+      this.loading = true;
+      this.route.params.subscribe((param) => {
+        this.categoryService
+          .getSingleFolderMapArticleInfos(param['folderId'], page, limit)
+          .subscribe((res) => {
+            resolve(1)
+            this.loading = false;
+            if (res.code === 200) {
+              this.singleFolderMapArticleInfos =
+                res.data as singleFolderMapArticleInfos;
+              this.total = this.singleFolderMapArticleInfos.total;
+            }
+          });
+      });
+    })
   }
   nextPage(page: number) {
     this.page = page;
-    this.getArticleInfos(this.page, this.limit);
+    this.getArticleInfos(this.page, this.limit).then(()=>{
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 }
