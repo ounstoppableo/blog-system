@@ -57,8 +57,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         if (res.code === 200) this.folderCategory = res.data;
       });
     document.documentElement.style.setProperty(
-        '--bodyHeightForInvariant',
-        innerHeight + 'px',
+      '--bodyHeightForInvariant',
+      innerHeight + 'px',
     );
   }
   @ViewResize()

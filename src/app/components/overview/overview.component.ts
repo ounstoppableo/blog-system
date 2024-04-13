@@ -60,7 +60,7 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
   }
   ngAfterViewChecked(): void {
     //设置懒加载效果
-    if (!this.isInit && this.articleInfoList.length !== 0) {
+    if (!this.isInit && this.articleInfoList.length !== 0 && !this.smallSize) {
       const cardArr =
         this.cardContainerLeft.nativeElement.querySelectorAll('.card');
       window.addEventListener('scroll', () => {

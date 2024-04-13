@@ -6,7 +6,7 @@
   background-size: cover;
   position: relative;
   &.smallSize {
-    height: var(--bodyHeightForInvariant)!important;
+    height: var(--bodyHeightForInvariant) !important;
   }
 
   .body {

@@ -55,9 +55,12 @@ export class CommentItemComponent implements OnChanges {
   @Input()
   smallSize = false;
 
-  timer:any = null
+  timer: any = null;
 
-  constructor(private boardMsgSerivce: BoardMsgService,private message:NzMessageService) {}
+  constructor(
+    private boardMsgSerivce: BoardMsgService,
+    private message: NzMessageService,
+  ) {}
 
   ngOnChanges(changes: any): void {
     if (changes.msgItem.currentValue) {
@@ -105,10 +108,10 @@ export class CommentItemComponent implements OnChanges {
   }
   //点赞功能
   upvoke(msgItem: any) {
-    if(this.timer) return this.message.warning('请不要频繁操作！')
-    this.timer = setTimeout(()=>{
-      this.timer = null
-    },5000)
+    if (this.timer) return this.message.warning('请不要频繁操作！');
+    this.timer = setTimeout(() => {
+      this.timer = null;
+    }, 5000);
     const storage = {
       msgId: msgItem.msgId,
       checked: msgItem.upvokeChecked,
