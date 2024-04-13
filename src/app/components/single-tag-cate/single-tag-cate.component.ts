@@ -57,7 +57,9 @@ export class SingleTagCateComponent implements OnInit {
   nextPage(page: number) {
     this.page = page;
     this.getArticleInfo(this.page, this.limit).then(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      requestAnimationFrame(()=>{
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
     });
   }
 }
