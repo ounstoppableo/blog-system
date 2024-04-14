@@ -9,6 +9,7 @@
           </a>
           <span *ngIf="!msgItem.website">{{ msgItem.name }}</span>
         </div>
+        <div class="admin" *ngIf="msgItem.isAdmin">博主</div>
         <div class="date">{{ msgItem.subTime | date }}</div>
       </div>
       <div class="operate">

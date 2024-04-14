@@ -41,6 +41,13 @@
             }
           }
         }
+        &> .admin {
+          border: 1px solid #ffe58f;
+          background-color: #fffbe6;
+          color: #d48806;
+          padding: 0px 5px;
+          border-radius: 5px;
+        }
 
         & > .date {
           color: var(--cateColor);

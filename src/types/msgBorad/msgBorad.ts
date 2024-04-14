@@ -13,6 +13,7 @@ export interface msgItem extends addMsg {
   device: string;
   browser: string;
   avatar: string;
+  isAdmin: number;
   children?: msgItem[];
   upvokeChecked?: boolean;
   parent?: {
