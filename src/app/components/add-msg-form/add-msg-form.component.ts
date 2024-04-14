@@ -61,6 +61,8 @@ export class AddMsgFormComponent implements OnInit {
             this.message.success('评论成功');
             this.msgBoardData.reset();
             this.reloadMsg.emit();
+          }else {
+            this.message.warning(res.msg as string)
           }
         });
     } else {
@@ -71,6 +73,8 @@ export class AddMsgFormComponent implements OnInit {
             this.message.success('评论成功');
             this.msgBoardData.reset();
             this.reloadMsg.emit();
+          }else {
+            this.message.warning(res.msg as string)
           }
         });
     }

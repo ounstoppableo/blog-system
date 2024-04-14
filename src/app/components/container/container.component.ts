@@ -72,9 +72,9 @@ export class ContainerComponent implements OnInit {
   nextPage(page: number) {
     this.page = page;
     this.getArticleInfo(this.page, this.limit).then(() => {
-      requestAnimationFrame(()=>{
+      requestAnimationFrame(() => {
         window.scrollTo({ top: this.scrollTarget, behavior: 'smooth' });
-      })
+      });
     });
   }
   _getCatalogue($event: any) {

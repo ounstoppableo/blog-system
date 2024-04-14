@@ -50,9 +50,9 @@ export class SingleFolderCateComponent implements OnInit {
   nextPage(page: number) {
     this.page = page;
     this.getArticleInfos(this.page, this.limit).then(() => {
-      requestAnimationFrame(()=>{
+      requestAnimationFrame(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      })
+      });
     });
   }
 }
