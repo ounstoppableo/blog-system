@@ -53,6 +53,12 @@ import { OverviewSkeletonComponent } from './skeleton/overview-skeleton/overview
 import { SingleCateSkeletonComponent } from './skeleton/single-cate-skeleton/single-cate-skeleton.component';
 import { CatalogueSkeletonComponent } from './skeleton/catalogue-skeleton/catalogue-skeleton.component';
 import { NumberTransPipe } from './pipe/numberTrans';
+import { NzConfig, provideNzConfig } from 'ng-zorro-antd/core/config';
+const ngZorroConfig: NzConfig = {
+  message: {
+    nzMaxStack:1
+  }
+};
 
 @NgModule({
   declarations: [
@@ -120,7 +126,7 @@ import { NumberTransPipe } from './pipe/numberTrans';
       },
     }),
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders,provideNzConfig(ngZorroConfig)],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
