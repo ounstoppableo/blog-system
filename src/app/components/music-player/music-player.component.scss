@@ -426,7 +426,6 @@
     }
   }
   & > .noteAnimation {
-    $light-colors: #e57373, #81c784, #64b5f6, #ffb74d, #9575cd, #4db6ac;
     position: absolute;
     top: -5px;
     right: 15px;
@@ -435,15 +434,7 @@
     & > span {
       position: absolute;
       opacity: 0;
-    }
-
-    @for $i from 1 through 6 {
-      & > span {
-        &:nth-child(#{$i}) {
-          animation: noteFloat 3s linear ($i - 1) * 1s infinite;
-          color: nth($light-colors, $i);
-        }
-      }
+      animation: noteFloat 2s linear infinite;
     }
   }
 }

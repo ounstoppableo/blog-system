@@ -327,11 +327,16 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   playAudio() {
     this.play = !this.play;
     if (this.play) {
+      this.musicIconTimer = !this.musicIconTimer && setInterval(()=>{
+        this.musicIconControl()
+      },2000)
       this.container.nativeElement
         .querySelector('.musicPic')
         .classList.add('playingOnPic');
       this.audio.nativeElement.play();
     } else {
+      clearInterval(this.musicIconTimer)
+      this.musicIconTimer = null
       this.container.nativeElement
         .querySelector('.musicPic')
         .classList.remove('playingOnPic');
@@ -455,6 +460,12 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
         this.timer2 = null;
       }, 1000);
     }
+  }
+
+  iconCount = 1
+  musicIconTimer:any = null;
+  musicIconControl(){
+    this.iconCount = [1,2,3,4,5,6].filter(item=>item!==this.iconCount)[Math.floor(Math.random()*5)]
   }
 
   ngOnDestroy(): void {

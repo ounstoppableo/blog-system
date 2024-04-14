@@ -88,12 +88,36 @@
 >
   <span class="iconfont icon-wangyiyunyinle"></span>
   <div class="noteAnimation" *ngIf="play">
-    <span class="iconfont icon-yinle"></span>
-    <span class="iconfont icon-yinle1"></span>
-    <span class="iconfont icon-yinfu"></span>
-    <span class="iconfont icon-yinfu1"></span>
-    <span class="iconfont icon-yinfu2"></span>
-    <span class="iconfont icon-yinfu02"></span>
+    <span
+      class="iconfont icon-yinle"
+      *ngIf="iconCount === 1"
+      [ngStyle]="{ color: '#e57373' }"
+    ></span>
+    <span
+      class="iconfont icon-yinle1"
+      *ngIf="iconCount === 2"
+      [ngStyle]="{ color: '#9575cd' }"
+    ></span>
+    <span
+      class="iconfont icon-yinfu"
+      *ngIf="iconCount === 3"
+      [ngStyle]="{ color: '#81c784' }"
+    ></span>
+    <span
+      class="iconfont icon-yinfu1"
+      *ngIf="iconCount === 4"
+      [ngStyle]="{ color: '#64b5f6', fontSize: '20px' }"
+    ></span>
+    <span
+      class="iconfont icon-yinfu2"
+      *ngIf="iconCount === 5"
+      [ngStyle]="{ color: '#ffb74d', fontSize: '20px' }"
+    ></span>
+    <span
+      class="iconfont icon-yinfu02"
+      *ngIf="iconCount === 6"
+      [ngStyle]="{ color: '#4db6ac', fontSize: '20px' }"
+    ></span>
   </div>
 </div>
 
