@@ -89,6 +89,11 @@
               "browserTarget": "my-blog:build:development"
             }
           },
+          "options": {
+            "ssl": true,
+            "sslCert": "cert/server.crt",
+            "sslKey": "cert/server.key"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
