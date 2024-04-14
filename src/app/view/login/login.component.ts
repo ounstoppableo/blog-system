@@ -52,7 +52,7 @@ export class LoginComponent {
         sha256(this.loginInfo.value.password as string).toString(),
       )
       .subscribe((res: any) => {
-        if (res.code !== 200) return this.message.warning('用户名或密码错误!');
+        if (res.code !== 200) return this.message.warning(res.msg);
         localStorage.setItem('token', res.token);
         return this.location.back();
       });
