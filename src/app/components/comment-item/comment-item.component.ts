@@ -84,6 +84,7 @@ export class CommentItemComponent implements OnChanges {
       }
     }
   }
+
   addChiren(parent: any) {
     if (parent.children) {
       parent.children.forEach((item: any) => {
@@ -112,6 +113,7 @@ export class CommentItemComponent implements OnChanges {
     this.timer = setTimeout(() => {
       this.timer = null;
     }, 5000);
+    msgItem.upvokeChecked = !msgItem.upvokeChecked;
     const storage = {
       msgId: msgItem.msgId,
       checked: msgItem.upvokeChecked,
@@ -140,7 +142,6 @@ export class CommentItemComponent implements OnChanges {
         JSON.stringify([storage]),
       );
     }
-    msgItem.upvokeChecked = !msgItem.upvokeChecked;
     if (msgItem.articleId) {
       this.boardMsgSerivce
         .upvokeForArticleComment(

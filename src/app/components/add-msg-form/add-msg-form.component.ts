@@ -50,7 +50,7 @@ export class AddMsgFormComponent implements OnInit {
     }
   }
   addMsg() {
-    const data = { ...this.msgBoardData.value };
+    const data = { ...this.msgBoardData.value,name:this.msgBoardData.value.name.slice(0,10) };
     if (this.fatherMsgId) data.fatherMsgId = this.fatherMsgId;
     if (this.articleId) data.articleId = this.articleId;
     if (this.isMsgBoard) {
