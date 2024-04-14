@@ -3,6 +3,7 @@
     "target": "https://localhost:3000",
     //是否跨域
     "changeOrigin": true,
+    "secure": false,
     //是否重写路径
     "pathRewrite": {
       "/api": ""
@@ -11,6 +12,7 @@
   "/images/*": {
     "target": "https://localhost:3000",
     //是否跨域
-    "changeOrigin": true
+    "changeOrigin": true,
+    "secure": false
   }
 }
