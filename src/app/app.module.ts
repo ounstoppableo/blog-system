@@ -56,8 +56,8 @@ import { NumberTransPipe } from './pipe/numberTrans';
 import { NzConfig, provideNzConfig } from 'ng-zorro-antd/core/config';
 const ngZorroConfig: NzConfig = {
   message: {
-    nzMaxStack:1
-  }
+    nzMaxStack: 1,
+  },
 };
 
 @NgModule({
@@ -126,7 +126,7 @@ const ngZorroConfig: NzConfig = {
       },
     }),
   ],
-  providers: [httpInterceptorProviders,provideNzConfig(ngZorroConfig)],
+  providers: [httpInterceptorProviders, provideNzConfig(ngZorroConfig)],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
