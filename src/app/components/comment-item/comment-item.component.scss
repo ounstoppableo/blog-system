@@ -5,12 +5,11 @@
   & > .avatar {
     width: 40px;
     height: 40px;
-    border-radius: 20px;
-    overflow: hidden;
 
     & > img {
       width: 40px;
       height: 40px;
+      border-radius: 20px;
       object-fit: cover;
     }
   }
@@ -32,6 +31,7 @@
 
         & > .name {
           font-size: 16px;
+          word-break: break-all;
 
           & > a {
             color: #2f5cdb;
@@ -41,12 +41,14 @@
             }
           }
         }
-        &> .admin {
+        & > .admin {
+          align-self: flex-start;
           border: 1px solid #ffe58f;
           background-color: #fffbe6;
           color: #d48806;
           padding: 0px 5px;
           border-radius: 5px;
+          text-wrap: nowrap;
         }
 
         & > .date {
@@ -55,6 +57,7 @@
       }
 
       & > .operate {
+        align-self: flex-start;
         display: flex;
         gap: 5px;
 
