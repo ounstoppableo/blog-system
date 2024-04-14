@@ -99,6 +99,6 @@
 
 <audio
   #audio
-  [src]="currentMusic && '/api/music/' + currentMusic.musicUrl"
+  [src]="currentMusic.musicUrl && '/api/music/' + currentMusic.musicUrl"
   [ngStyle]="{ width: '0px', height: '0px' }"
 ></audio>
