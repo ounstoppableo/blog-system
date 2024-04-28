@@ -122,7 +122,7 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   liOnMouseLeave(listRef: any) {
     listRef.classList.remove('listActive');
   }
-  goChatPlatform(){
+  goChatPlatform() {
     const a = document.createElement('a');
     a.href = 'https://www.unstoppable840.cn:8080';
     a.click();

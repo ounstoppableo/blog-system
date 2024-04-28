@@ -40,7 +40,7 @@ export class DrawerComponent {
       ? iconEle.classList.remove('active')
       : iconEle.classList.add('active');
   }
-  goChatPlatform(){
+  goChatPlatform() {
     const a = document.createElement('a');
     a.href = 'https://www.unstoppable840.cn:8080';
     a.click();
