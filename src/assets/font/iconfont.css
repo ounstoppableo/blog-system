@@ -1,9 +1,9 @@
 @font-face {
   font-family: 'iconfont'; /* Project id 4278340 */
   src:
-    url('/assets/font/iconfont.woff2?t=1706964519145') format('woff2'),
-    url('/assets/font/iconfont.woff?t=1706964519145') format('woff'),
-    url('/assets/font/iconfont.ttf?t=1706964519145') format('truetype');
+    url('iconfont.woff2?t=1714312680486') format('woff2'),
+    url('iconfont.woff?t=1714312680486') format('woff'),
+    url('iconfont.ttf?t=1714312680486') format('truetype');
 }
 
 .iconfont {
@@ -12,6 +12,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-scene:before {
+  content: '\e604';
+}
+
+.icon-yule:before {
+  content: '\e662';
 }
 
 .icon-yinle:before {

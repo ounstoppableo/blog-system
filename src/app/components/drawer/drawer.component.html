@@ -41,6 +41,19 @@
           </li>
         </ul>
       </li>
+      <li (click)="show(list2, icon)">
+        <div>
+          <span class="iconfont icon-yule"></span>
+          <span>拓展功能</span>
+          <span #icon type="icondown" class="iconfont icon-down"></span>
+        </div>
+        <ul class="list" #list2>
+          <li (click)="goChatPlatform()">
+            <span class="iconfont icon-scene"></span>
+            <span>聊天室</span>
+          </li>
+        </ul>
+      </li>
     </ul>
   </ng-container>
 </nz-drawer>

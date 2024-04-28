@@ -46,6 +46,25 @@
         </li>
       </ul>
     </li>
+    <li
+      #list3
+      (mouseover)="liOnMouseOver(list3)"
+      (mouseleave)="liOnMouseLeave(list3)"
+      class="archives"
+    >
+      <span class="iconfont icon-yule"></span>
+      <span>拓展功能</span>
+      <span class="iconfont icon-down"></span>
+      <ul class="list">
+        <li (click)="goChatPlatform()" class="archives">
+          <span
+            class="iconfont icon-scene"
+            [style]="{ fontSize: '20px' }"
+          ></span>
+          <span>聊天室</span>
+        </li>
+      </ul>
+    </li>
     <li (click)="login()" *ngIf="!isLogin">
       <span class="iconfont icon-login"></span>
       管理员登陆
