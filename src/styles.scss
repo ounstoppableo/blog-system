@@ -1,5 +1,5 @@
 @import '../node_modules/ng-zorro-antd/ng-zorro-antd.min.css';
-@import '../node_modules/highlight.js/scss/monokai-sublime.scss';
+@import '../node_modules/highlight.js/scss/atom-one-dark-reasonable.scss';
 
 /* You can add global styles to this file, and also import other style files */
 html {
@@ -127,7 +127,6 @@ img {
 
 a {
   text-decoration: none;
-  color: #333;
   -webkit-tap-highlight-color: transparent;
   -webkit-focus-ring-color: transparent;
 

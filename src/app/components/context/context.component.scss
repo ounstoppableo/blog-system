@@ -59,204 +59,176 @@
   font-size: 16px;
   line-height: 1.8em;
   letter-spacing: 0.1em;
+  background-image: linear-gradient(
+      90deg,
+      rgba(50, 0, 0, 0.07) 3%,
+      transparent 0
+    ),
+    linear-gradient(1turn, rgba(50, 0, 0, 0.07) 3%, transparent 0);
+  background-size: 20px 20px;
+  background-position: 50%;
 
   :host ::ng-deep & img {
-    width: 100%;
+    border-radius: 6px;
+    display: block;
+    margin: 10px auto;
+    -o-object-fit: contain;
     object-fit: contain;
-    margin: 0 !important;
-    zoom: normal !important;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    max-width: 100%;
   }
 
-  :host ::ng-deep & > li {
-    margin: 10px !important;
-    list-style: circle !important;
+  :host ::ng-deep & code {
+    border-radius: 0.375rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font-weight: 500;
+    font-size: unset;
+    color: var(--styleColor);
+    background-color: #e0e7ff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      'Liberation Mono', 'Courier New', monospace;
   }
 
-  :host ::ng-deep & > pre,
-  :host ::ng-deep & > code {
-    font-size: 14px;
-    margin: auto 5px;
-  }
-
-  :host ::ng-deep & > code {
-    white-space: pre-wrap;
-    border-radius: 2px;
-    display: inline;
-  }
-
-  :host ::ng-deep & > pre {
-    font-size: 15px;
-    line-height: 1.4em;
-    display: block !important;
-  }
-
-  :host ::ng-deep & > pre & > code {
-    white-space: pre;
-    overflow: auto;
-    border-radius: 3px;
-    padding: 1px 1px;
-    display: block !important;
-  }
-
-  :host ::ng-deep & > strong,
-  :host ::ng-deep & > b {
-    color: #bf360c;
-  }
-
-  :host ::ng-deep & > em,
-  :host ::ng-deep & > i {
-    color: #009688;
-  }
-
-  :host ::ng-deep & > hr {
-    border: 1px solid #bf360c;
-    margin: 1.5em auto;
-  }
-
-  :host ::ng-deep & > p {
-    margin: 1.5em 5px !important;
-  }
-
-  :host ::ng-deep & > table,
-  :host ::ng-deep & > pre,
-  :host ::ng-deep & > dl,
-  :host ::ng-deep & > blockquote,
-  :host ::ng-deep & > q,
-  :host ::ng-deep & > ul,
-  :host ::ng-deep & > ol {
-    margin: 10px 5px;
-  }
-
-  :host ::ng-deep & > ul,
-  :host ::ng-deep & > ol {
-    padding-left: 15px;
-  }
-
-  :host ::ng-deep & > p {
-    margin: 10px 0 !important;
-  }
-
-  :host ::ng-deep & > ul ul,
-  :host ::ng-deep & > ul ol,
-  :host ::ng-deep & > ol ul,
-  :host ::ng-deep & > ol ol {
-    margin: 0;
-    padding-left: 10px;
-  }
-
-  :host ::ng-deep & > ul {
-    list-style-type: circle !important;
-  }
-
-  :host ::ng-deep & > dl {
+  :host ::ng-deep & pre {
+    display: block;
+    overflow-x: auto;
+    color: #abb2bf;
+    background: #282c34;
     padding: 0;
+    border-radius: 6px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    margin: 14px 0;
+    &::before {
+      content: '';
+      display: block;
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGwAAAAcCAYAAACERFoMAAAFdklEQVRoQ+2aTWwTRxiGv5nddez1/jjGAYJDEwhSCRzDjUKDgFagVAgQ7aURvVDEFXFFCHGlXBHiUkQvLSIIkYLagBpA3MgR0koEEogJEMfx/njX8e7OVLuOU0jjkKzXaSOtzzuzj+fd79U7Mx+C8LeiVgAtlvZxZye3plHcboPTgSik3HEUQZYFZujtlPZo2+Cgtdi56vHc40ud3Cpe2U4c0oEQKvNRmsUMHpo05Efbjv+3fJ2XOrm3ycJ2SlEHoPL6AYUsQnRoLBd/BIvk+6hgI7s/38Uw6CShdB/LMlqE4yIsg2Pu+2yHmCXLKtm2I2KE7jgOvdB27/4f9RCk2pzPrrTv4lw+QvdxLNYiESbCMjDDB2ap5JQsm4gYozuWQy9sOjq8rHzpnz/dBRx7kjpkH8OxGo6wEcSW14/axCQlu+RYtogYfAc5zg9jR/4cWGj9qgo28uWOZkSYyxjDTlkUxHgsChjjeecihEDBLIKi6Roh8IBi51jbbw/H6yncyNXWZgD2MgK0MyFxosCzgPH8f4cQCrphQ161NAr0AYB9rK1ntK58rdc7mm3AlwHBzgYpLrLxKKAqfJRQsApFKKkFDQDuswXy/WjP0Lx88/5Dt6oQhl5J4OWEJH60Ct8XJq9qVNUNhRI4VK9qc6uKRdAriZzcKEWWxDellqiqWYpN4VC9qs2rKpbp5cSY3CALS+KbVnRqqaaCKDk4X7X9a7IZsfpTjTLDx6K+isQwi5CdUhxKYG/QorliMQj6m5INTDzG+uIrmDZM5KYdh8LeoEVzxaIM7o+tkhmWb/DFZxvTYGYVBwPdM1e0DwQr2yB+mmqUE37FqhDOiJanmGwJyh49G6Ts01SyIeFXrAqfK1o2N50HZG8Jyh7LNoieRpNSwq9YFT5XtOKkmmcR3TJ6+B97/ECw0b1dfZIQ279UG6z2GZXt0bzd2j/Q7etTmzNo5Gp7nyRw+5dqg9Xe7dmjbt1u6xkOhC99fWsfJ0b3L9UGq/F59qgXf80cevJV5ZlZwbw0yKKbLWtXi0EsbmWOsTfvNMemB2q1Ri8NYnTzk3V8oHwvXxuaReiBWq1xJg3eFNKpQPn0TFYDyz6Q+eYvL93OCvbqi65bsiR0i3E+SL1AKxigqHrf+t8HZr8SPy8Y/WnTrYTIdUsC52d41TGqbkFes/pav31WE1+6d+utBinezYleYg/sZ2kmTKuFvkqVeYK5m+KmpGC2rG1iqkV3vwRu5B97M+FM5PSY3821tymO5c1PmnmmWnT3z0fh5bjhTJqJmN/NtbspHk8aptDSxFSL7n753Mivj004zTk+Nnh80PIEe7Wnqwtz+Ma61amE34kXGvf6XTZPLHJw/d2BBTeF1eZ4cXVTF8egG+k1sbrwZd6aecuhBzf0PPPF13JtcxfiuBt8c7IufMZ4Lk8ty4v5nmAv9uw4IfD8+VSjHKwfziiQnVIM3TBObbj78KKfD2L4x40nRCFyvqkxUhe+iamSoemlU+3fPffFl/6l4wQrRM9HV0l14StOqoatF09lvh666Ak2snvHaVkSzgaVDueK4qZFRdXPtN17eM6PYM+vtJ9OSNzZoNLhXAY3LeZV68zGo8O++NLXOk5zMn82qHQ4l89Li4pxJnNk6FwoGACsOMFCS1xhlhiGjhUWOsJYv8JivRftw43zytk4l5NieDTlJ8FWxiz70ZT74vDwtxbJAOpy+KsVb2cOP5k9nA6vV/7P1ys5Nc/CAtcrFWtEGMILTJ/FFtgF5qTiYPqRC8wKY9gi4FOtmWE1twhopoLIIlsEZkULm3BqUm1Zm3DeJw3b3GrSDZatzW0uZthIWptw7p3Zm4T+GSC8ua6NpLVhhqODXoG/AV56X1lhWm2vAAAAAElFTkSuQmCC);
+      height: 30px;
+      width: 100%;
+      background-size: 40px;
+      background-repeat: no-repeat;
+      background-color: #282c34;
+      margin-bottom: -7px;
+      border-radius: 5px;
+      background-position: 10px 10px;
+    }
   }
 
-  :host ::ng-deep & > dl dt {
-    font-size: 1em;
-    font-weight: bold;
-    font-style: italic;
+  :host ::ng-deep & pre > code {
+    font-weight: 400;
+    color: unset;
+    line-height: 1.6;
+    font-size: 12px;
+    background-color: inherit;
+    letter-spacing: 0;
+    &.hljs {
+      padding: 12px;
+      padding-top: 6px;
+    }
   }
 
-  :host ::ng-deep & > dl dd {
-    margin: 0 0 10px;
-    padding: 0 10px;
+  :host ::ng-deep & pre,
+  :host ::ng-deep & table,
+  :host ::ng-deep & ul {
+    margin-bottom: 1rem;
+  }
+  :host ::ng-deep & a {
+    font-weight: 500;
+    border-bottom: 1px solid;
+  }
+  :host ::ng-deep & strong {
+    font-weight: 700;
+    color: var(--styleColor);
+    &::after {
+      content: '」';
+    }
+    &::before {
+      content: '「';
+    }
+  }
+  :host ::ng-deep & blockquote {
+    border-color: #818cf8;
+    background-color: #e0e7ff;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: #6366f1;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-left: 0.25em solid;
+    & > :last-child {
+      margin-bottom: 0;
+    }
+    & > :first-child {
+      margin-top: 0;
+    }
+  }
+  :host ::ng-deep & blockquote,
+  :host ::ng-deep & details,
+  :host ::ng-deep & dl,
+  :host ::ng-deep & ol,
+  :host ::ng-deep & p,
+  :host ::ng-deep ol {
+    list-style: decimal;
   }
 
-  :host ::ng-deep & > blockquote,
-  :host ::ng-deep & > q {
-    border-left: 2px solid #009688;
-    padding: 0 10px;
-    color: #777;
-    quotes: none;
-    margin-left: 1em;
+  :host ::ng-deep & h1,
+  :host ::ng-deep & h2 {
+    border-bottom: 1px solid #eaecef !important;
+  }
+  :host ::ng-deep & h1,
+  :host ::ng-deep & h2,
+  :host ::ng-deep & h3,
+  :host ::ng-deep & h4,
+  :host ::ng-deep & h5,
+  :host ::ng-deep & h6 {
+    margin-bottom: 16px;
+    line-height: 1.25;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    font-weight: 500;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.75rem;
+    border-style: solid;
+    border-left-width: 6px;
+    border-color: var(--styleColor);
   }
 
-  :host ::ng-deep & > blockquote::before,
-  :host ::ng-deep & > blockquote::after,
-  :host ::ng-deep & > q::before,
-  :host ::ng-deep & > q::after {
-    content: none;
+  :host ::ng-deep & ol,
+  :host ::ng-deep & ul {
+    padding-left: 2em;
   }
-
-  :host ::ng-deep & > h1,
-  :host ::ng-deep & > h2,
-  :host ::ng-deep & > h3,
-  :host ::ng-deep & > h4,
-  :host ::ng-deep & > h5,
-  :host ::ng-deep & > h6 {
-    margin: 20px 0 10px;
-    padding: 0;
-    font-style: bold !important;
-    color: #009688 !important;
-    text-align: center !important;
-    margin: 1.5em 5px !important;
-    padding: 0.5em 1em !important;
+  :host ::ng-deep & ul {
+    list-style: disc;
   }
-
-  :host ::ng-deep & > h1 {
-    font-size: 24px !important;
-    border-bottom: 1px solid #ddd !important;
+  :host ::ng-deep & ul li {
+    list-style: disc;
+    & ul li {
+      list-style: circle;
+      & ul li {
+        list-style: square;
+      }
+    }
   }
-
-  :host ::ng-deep & > h2 {
-    font-size: 20px !important;
-    border-bottom: 1px solid #eee !important;
+  :host ::ng-deep & ol li {
+    list-style: decimal;
   }
-
-  :host ::ng-deep & > h3 {
-    font-size: 18px;
-  }
-
-  :host ::ng-deep & > h4 {
-    font-size: 16px;
-  }
-
-  :host ::ng-deep & > table {
-    padding: 0;
-    border-collapse: collapse;
-    border-spacing: 0;
-    font-size: 1em;
-    font: inherit;
-    border: 0;
-    margin: 0 auto;
-    word-break: break-all !important;
-  }
-
-  :host ::ng-deep & > tbody {
-    margin: 0;
-    padding: 0;
-    border: 0;
-  }
-
-  :host ::ng-deep & > table tr {
-    border: 0;
-    border-top: 1px solid var(--footerBkColor);
-    background-color: var(--cardColor);
-    margin: 0;
-    padding: 0;
-  }
-
-  :host ::ng-deep & > table tr:nth-child(2n) {
-    background-color: var(--defaultBackgroundColor);
-  }
-
-  :host ::ng-deep & > table tr th,
-  :host ::ng-deep & > table tr td {
-    font-size: 16px;
-    border: 1px solid var(--footerBkColor);
-    margin: 0;
-    padding: 5px 10px;
-  }
-
-  :host ::ng-deep & > ul li {
-    list-style: circle;
-  }
-  :host ::ng-deep & > p code {
-    margin: 0 1px;
-    padding: 0.1em 0.2em;
-    background: rgba(242, 244, 245);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    border-radius: 3px;
+  :host ::ng-deep & ul li {
+    &::marker {
+      font-size: 1.2rem;
+      unicode-bidi: isolate;
+      font-variant-numeric: tabular-nums;
+      text-transform: none;
+      text-indent: 0px !important;
+      text-align: start !important;
+      text-align-last: start !important;
+    }
   }
 }
