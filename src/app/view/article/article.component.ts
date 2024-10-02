@@ -41,7 +41,11 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
     this.articleService
       .getArticleInfo(this.articleId)
       .subscribe((res: resType<articleInfo>) => {
-        if (res.code === 200) this.articleInfo = res.data as articleInfo;
+        if (res.code === 200)
+          this.articleInfo = {
+            ...this.articleInfo,
+            ...res.data,
+          } as articleInfo;
       });
   }
   @ViewResize()
