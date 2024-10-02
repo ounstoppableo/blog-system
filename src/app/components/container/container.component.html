@@ -9,11 +9,16 @@
     [total]="total"
     (nextPage)="nextPage($event)"
   ></app-overview>
-  <app-cate-by-date *ngIf="dateCate" [smallSize]="smallSize"></app-cate-by-date>
+  <app-cate-by-date
+    *ngIf="dateCate"
+    [smallSize]="smallSize"
+    (scrollToAnchor)="this.scrollToAnchor.emit()"
+  ></app-cate-by-date>
   <app-context
     *ngIf="isArticle"
     [smallSize]="smallSize"
     (getCatalogue)="_getCatalogue($event)"
+    (getWordsCountAndReadTime)="this.getWordsCountAndReadTime.emit($event)"
   ></app-context>
   <app-folder-cate *ngIf="folderCate" [smallSize]="smallSize"></app-folder-cate>
   <app-cate-by-tag *ngIf="tagCate" [smallSize]="smallSize"></app-cate-by-tag>

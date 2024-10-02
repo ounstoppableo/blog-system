@@ -14,6 +14,7 @@ import {
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import dayjs from 'dayjs';
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
@@ -111,8 +112,9 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
     this.articleInfoList = [];
   }
   //去日期分类页
-  toDateCate() {
-    this.router.navigate(['dateCate']);
+  toDateCate(date: string) {
+    const dateId = dayjs(date).format('YYYY-MM');
+    this.router.navigate(['dateCate'], { fragment: dateId });
   }
   //去文件分类页
   toFolderCate(folderId: string) {

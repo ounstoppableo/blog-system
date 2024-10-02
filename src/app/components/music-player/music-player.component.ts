@@ -301,8 +301,8 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.playerModel === 'shunxu'
         ? 'suiji'
         : this.playerModel === 'suiji'
-        ? 'danqu'
-        : 'shunxu';
+          ? 'danqu'
+          : 'shunxu';
     if (this.playerModel === 'shunxu') {
       this.playerModelControler = () => {
         this.nextSong();

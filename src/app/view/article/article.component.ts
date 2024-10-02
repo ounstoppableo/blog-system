@@ -35,7 +35,9 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
   smallSize = false;
   @ViewResize()
   ngOnInit() {
-    this.route.params.subscribe((res) => (this.articleId = res['articleId']));
+    this.route.params.subscribe(
+      (res: any) => (this.articleId = res['articleId']),
+    );
     this.articleService
       .getArticleInfo(this.articleId)
       .subscribe((res: resType<articleInfo>) => {
@@ -60,6 +62,12 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
   showUploadModal() {
     this.addArticleForm.showUploadModal();
   }
+
+  // 从文章详情页获取文章字数和阅读时长
+  getWordsCountAndReadTime(e: any) {
+    this.articleInfo = { ...this.articleInfo, ...e };
+  }
+
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,

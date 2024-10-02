@@ -5,7 +5,7 @@
         count="1"
         appearance="line"
         [theme]="{
-          width: smallSize ? '20vw' : '5vw'
+          width: smallSize ? '20vw' : '5vw',
         }"
       />
     </div>
@@ -16,7 +16,7 @@
         [theme]="{
           width: smallSize
             ? widths[item2 + item * 10] + 'vw'
-            : 'calc(' + widths[item2 + item * 10] + 'vw' + ' - 350px - 90px)'
+            : 'calc(' + widths[item2 + item * 10] + 'vw' + ' - 350px - 90px)',
         }"
         *ngFor="let item2 of generateNumbersArray(10)"
       />

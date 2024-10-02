@@ -42,9 +42,20 @@
         ></ngx-skeleton-loader>
       </div>
       <div class="info" *ngIf="articleInfo.subTime">
-        发布于:{{ articleInfo.subTime | date }}&nbsp;&nbsp;&nbsp;最后更新:{{
-          articleInfo.lastModifyTime | date
-        }}&nbsp;&nbsp;&nbsp; {{ articleInfo.VT | numberTrans }}&nbsp;次查看
+        <div class="row">
+          <span class="iconfont icon-time"></span>
+          发表于：{{ articleInfo.subTime | date: 'YYYY-MM-dd' }}&nbsp;|
+          <span class="iconfont icon-update1"></span>
+          更新于：{{ articleInfo.lastModifyTime | date: 'YYYY-MM-dd' }}&nbsp;|
+          <span class="iconfont icon-eye-fill"></span>
+          阅读量：{{ articleInfo.VT | numberTrans }}
+        </div>
+        <div class="row">
+          <span class="iconfont icon-word"></span>
+          字数总计：{{ articleInfo.wordsCount }}&nbsp;|
+          <span class="iconfont icon-time1"></span>
+          阅读时长：{{ articleInfo.readTime }}
+        </div>
       </div>
       <div
         class="info"
@@ -73,6 +84,7 @@
       [showInfo]="!smallSize"
       [smallSize]="smallSize"
       [scrollTarget]="headerChangeHeight"
+      (getWordsCountAndReadTime)="getWordsCountAndReadTime($event)"
     ></app-container>
   </div>
 </div>

@@ -15,9 +15,9 @@
       </p>
 
       <div class="footer">
-        <div class="date" (click)="toDateCate()">
+        <div class="date" (click)="toDateCate(item.lastModifyTime)">
           <span class="iconfont icon-calendar"></span>
-          <span>{{ item.lastModifyTime | date }}</span>
+          <span>{{ item.lastModifyTime | date: 'YYYY-MM-dd' }}</span>
         </div>
         <app-tag [tagList]="item.tags"></app-tag>
       </div>

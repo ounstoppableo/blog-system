@@ -11,4 +11,6 @@ export interface articleInfo {
   backImgUrl: string;
   folderName: string;
   VT: number;
+  wordsCount?: number;
+  readTime?: string;
 }

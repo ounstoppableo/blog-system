@@ -48,8 +48,8 @@
             description!.valid
               ? 'success'
               : description!.untouched
-              ? ''
-              : 'error'
+                ? ''
+                : 'error'
           "
           nzHasFeedback
           nzErrorTip="请输入20~100字的文章描述"
@@ -80,7 +80,7 @@
                 [ngClass]="{
                   iconfont: true,
                   'icon-loading': ImgUploadLoading,
-                  'icon-plus': !ImgUploadLoading
+                  'icon-plus': !ImgUploadLoading,
                 }"
                 class="upload-icon"
               ></span>

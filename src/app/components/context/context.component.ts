@@ -1,6 +1,8 @@
 import { ArticleService } from '@/app/service/article.service';
 import {
   AfterViewChecked,
+  AfterContentInit,
+  OnDestroy,
   Component,
   EventEmitter,
   Input,
@@ -10,13 +12,16 @@ import {
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { marked } from 'marked';
 import { resType } from '@/types/response/response';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-context',
   templateUrl: './context.component.html',
   styleUrls: ['./context.component.scss'],
 })
-export class ContextComponent implements OnInit, AfterViewChecked {
+export class ContextComponent
+  implements OnInit, AfterViewChecked, AfterContentInit, OnDestroy
+{
   article = '';
   articleId = '';
   articleTitleTree: any[] = []; //文章标题树，用于构建目录
@@ -24,10 +29,13 @@ export class ContextComponent implements OnInit, AfterViewChecked {
   smallSize!: boolean;
   @Output()
   getCatalogue = new EventEmitter();
+  @Output()
+  getWordsCountAndReadTime = new EventEmitter();
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router,
+    private viewportScroller: ViewportScroller,
   ) {}
   loading = true;
   //前后文章的信息
@@ -112,6 +120,10 @@ export class ContextComponent implements OnInit, AfterViewChecked {
     this.loading = true;
     this.articleService.getArticle(this.articleId).subscribe((res) => {
       if (res.code === 200) {
+        this.getWordsCountAndReadTime.emit({
+          wordsCount: res.data.words,
+          readTime: res.data.text,
+        });
         let article = marked.parse(res.data.articleContent);
         const articleTitleList = article.match(
           /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
@@ -194,5 +206,24 @@ export class ContextComponent implements OnInit, AfterViewChecked {
   }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);
+  }
+  ngAfterContentInit() {
+    document.addEventListener('click', this._scrollToAnchor);
+  }
+  private _scrollToAnchor(e: any) {
+    if (
+      (e.target as any)?.nodeName === 'A' &&
+      (e.target as any).href.includes('#')
+    ) {
+      e.preventDefault();
+      const anchor = (e.target as any).href.split('#')[1];
+      const element = document.getElementById(anchor);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }
+  ngOnDestroy() {
+    document.removeEventListener('click', this._scrollToAnchor);
   }
 }

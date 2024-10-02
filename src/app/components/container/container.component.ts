@@ -41,6 +41,10 @@ export class ContainerComponent implements OnInit {
   scrollTarget = 0;
   @Output()
   getCatalogue = new EventEmitter();
+  @Output()
+  getWordsCountAndReadTime = new EventEmitter();
+  @Output()
+  scrollToAnchor = new EventEmitter();
 
   page = 1;
   limit = 10;
