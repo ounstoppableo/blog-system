@@ -11,6 +11,7 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
+import { NzImageModule } from 'ng-zorro-antd/image';
 
 @NgModule({
   declarations: [],
@@ -26,6 +27,7 @@ import { NzAnchorModule } from 'ng-zorro-antd/anchor';
     NzPopconfirmModule,
     NzPaginationModule,
     NzAnchorModule,
+    NzImageModule,
   ],
   exports: [
     NzAnchorModule,
@@ -39,6 +41,7 @@ import { NzAnchorModule } from 'ng-zorro-antd/anchor';
     NzInputModule,
     NzSelectModule,
     NzFormModule,
+    NzImageModule,
   ],
 })
 export class NzDesignModule {}

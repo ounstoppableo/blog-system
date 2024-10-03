@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="img" [class]="smallSize ? 'smallSize' : ''">
-      <img [src]="item.backImgUrl" alt="" />
+      <img nz-image [nzSrc]="item.backImgUrl" alt="" />
     </div>
     <div class="operate" *ngIf="isLogin">
       <button nz-button nzShape="circle" (click)="editArticle(item)">

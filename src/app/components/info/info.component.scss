@@ -45,6 +45,7 @@
             & > img {
               width: 60px;
               height: 60px;
+              border-radius: 4px;
               object-fit: cover;
             }
 
@@ -67,9 +68,11 @@
               }
 
               & > .date {
+                width: fit-content;
                 color: var(--cateColor);
                 cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
                   pointer;
+                @include borderAnime;
               }
             }
           }

@@ -9,10 +9,12 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { marked } from 'marked';
 import { resType } from '@/types/response/response';
-import { ViewportScroller } from '@angular/common';
+import addHighLight from '@/utils/addHighLight';
+import addMathJax from '@/utils/addMathJax';
+import { NzImageService } from 'ng-zorro-antd/image';
 
 @Component({
   selector: 'app-context',
@@ -35,7 +37,7 @@ export class ContextComponent
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router,
-    private viewportScroller: ViewportScroller,
+    private nzImageService: NzImageService,
   ) {}
   loading = true;
   //前后文章的信息
@@ -56,15 +58,6 @@ export class ContextComponent
     });
     this.getPreAndNextArticleInfo();
     this.getArticle();
-    //监控路由变化
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        if (event.url.includes('article')) {
-          document.getElementById('hljs')?.remove();
-          document.getElementById('hljsExec')?.remove();
-        }
-      }
-    });
   }
   //获取前一个和后一个文章
   getPreAndNextArticleInfo() {
@@ -79,41 +72,12 @@ export class ContextComponent
         }
       });
   }
-  //插入文章内容并渲染高亮
+  //插入文章内容并渲染高亮以及数学处理
   insertArticle() {
     this.write.innerHTML = this.article;
-    const code = `
-    hljs.configure({ ignoreUnescapedHTML: true });
-    document.querySelectorAll('pre code').forEach((el) => {
-      const languageArr = el.className.split('-');
-      if (languageArr.length !== 2) {
-        hljs.highlightElement(el);
-        return true;
-      }
-      const language = languageArr[1].trim();
-      if (hljs.getLanguage(language)) {
-        hljs.highlightElement(el);
-        return true;
-      }
-      el.className = 'language-javascript hljs';
-      hljs.highlightElement(el);
-    });`;
-    const hljsScript = document.createElement('script');
-    hljsScript.id = 'hljs';
-    hljsScript.src =
-      'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js';
-    document.body.append(hljsScript);
-    hljsScript.onload = () => {
-      const script = document.createElement('script');
-      script.id = 'hljsExec';
-      try {
-        script.appendChild(document.createTextNode(code));
-      } catch (e) {
-        script.text = code;
-      } finally {
-        document.body.append(script);
-      }
-    };
+    addHighLight();
+    addMathJax();
+    this.write.addEventListener('click', this._replaceImgToNzImg);
   }
   //获取文章内容
   getArticle() {
@@ -124,7 +88,7 @@ export class ContextComponent
           wordsCount: res.data.words,
           readTime: res.data.text,
         });
-        let article = marked.parse(res.data.articleContent);
+        let article = marked.parse(res.data.articleContent) as string;
         const articleTitleList = article.match(
           /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
         ) as any[];
@@ -223,7 +187,17 @@ export class ContextComponent
       }
     }
   }
+  private _replaceImgToNzImg = (e: any) => {
+    if ((e.target as any)?.nodeName === 'IMG') {
+      const imgInfo = {
+        src: (e.target as any).src,
+        alt: 'ng-zorro',
+      };
+      this.nzImageService.preview([imgInfo], { nzZoom: 1, nzRotate: 0 });
+    }
+  };
   ngOnDestroy() {
     document.removeEventListener('click', this._scrollToAnchor);
+    this.write.removeEventListener('click', this._replaceImgToNzImg);
   }
 }
