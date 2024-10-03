@@ -231,4 +231,25 @@
       text-align-last: start !important;
     }
   }
+  :host ::ng-deep & table {
+    display: block;
+    width: 100%;
+    border-collapse: collapse;
+    overflow: auto;
+    border-spacing: 0;
+  }
+  :host ::ng-deep & tr:nth-child(2n) {
+    background-color: #f6f8fa;
+  }
+  :host ::ng-deep & tr {
+    border-top: 1px solid #c6cbd1;
+  }
+  :host ::ng-deep & td,
+  :host ::ng-deep & th {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+  }
+  :host ::ng-deep & th {
+    font-weight: 600;
+  }
 }
