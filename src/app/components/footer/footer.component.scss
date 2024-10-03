@@ -1,11 +1,13 @@
 .bottom {
-  height: var(--bottomHeight);
+  position: relative;
   background-color: var(--footerBkColor);
+  height: var(--bottomHeight);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  vertical-align: center;
+  gap: 5px;
   margin-top: var(--distToFooter);
 
   .info {
@@ -17,5 +19,13 @@
     font-size: 12px;
     font-weight: 200;
     color: var(--fontColor);
+  }
+  .runtime {
+    font-size: 12px;
+    font-weight: 200;
+    color: var(--fontColor);
+    display: flex;
+    gap: 5px;
+    align-items: center;
   }
 }

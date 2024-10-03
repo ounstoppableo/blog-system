@@ -28,7 +28,7 @@ body {
   color: #232323;
   -webkit-tap-highlight-color: transparent;
   position: relative;
-  background-color: var(--defaultBackgroundColor) !important;
+  background: var(--defaultBackgroundColor) !important;
 }
 
 .snowfall-flakes {
@@ -206,7 +206,7 @@ input::-webkit-input-placeholder {
   --bodyHeight: 0px;
   --bodyHeightForInvariant: 0px;
   //底部高度
-  --bottomHeight: 200px;
+  --bottomHeight: 150px;
   //顶部高度
   --headerHeigth: 56px;
   //文章背景墙高度
@@ -219,7 +219,7 @@ input::-webkit-input-placeholder {
   --distToFooter: 30px;
 
   //默认背景颜色
-  --defaultBackgroundColor: #f5f5f5;
+  --defaultBackgroundColor: #f7f7f7;
   //卡片颜色
   --cardColor: #fff;
   //底部背景颜色
