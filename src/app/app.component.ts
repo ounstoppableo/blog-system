@@ -57,30 +57,19 @@ export class AppComponent
     //看板娘加载
     loadScript(
       'https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@v1.1.1/autoload.js',
-      function () {
-        function showWaifu() {
-          if (innerWidth > 1024) {
-            document.getElementById('waifu')
-              ? (document.getElementById('waifu')!.style.display = '')
-              : null;
-          } else {
-            document.getElementById('waifu')
-              ? (document.getElementById('waifu')!.style.display = 'none')
-              : null;
-          }
-        }
+      () => {
         const observer = new MutationObserver((mutationsList, observer) => {
           if (
             mutationsList.findIndex(
               (item) => (item.target as any).id === 'waifu-tool',
             ) !== -1
           ) {
-            showWaifu();
+            this._showWaifu();
             observer.disconnect();
           }
         });
         observer.observe(document.body, { childList: true, subtree: true });
-        window.addEventListener('resize', showWaifu);
+        window.addEventListener('resize', this._showWaifu);
       },
     );
     //四季飘落效果加载
@@ -144,6 +133,23 @@ export class AppComponent
       subtree: true,
     });
     window.addEventListener('scroll', this.imgLazyLoad);
+  }
+  private _showWaifu() {
+    if (innerWidth > 1024) {
+      document.getElementById('waifu')
+        ? (document.getElementById('waifu')!.style.display = '')
+        : null;
+      document.getElementById('waifu-toggle')
+        ? (document.getElementById('waifu-toggle')!.style.display = '')
+        : null;
+    } else {
+      document.getElementById('waifu')
+        ? (document.getElementById('waifu')!.style.display = 'none')
+        : null;
+      document.getElementById('waifu-toggle')
+        ? (document.getElementById('waifu-toggle')!.style.display = 'none')
+        : null;
+    }
   }
   imgLazyLoad = () => {
     const imgs = document.getElementById('approot')!.querySelectorAll('img');
@@ -247,5 +253,7 @@ export class AppComponent
   ngAfterViewChecked(): void {}
   ngOnDestroy(): void {
     this.observer?.disconnect();
+    window.removeEventListener('resize', this._showWaifu);
+    window.removeEventListener('scroll', this.imgLazyLoad);
   }
 }

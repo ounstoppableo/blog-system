@@ -189,5 +189,6 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     clearInterval(this.intervel);
+    window.removeEventListener('resize', this.seasonResizeCallback);
   }
 }

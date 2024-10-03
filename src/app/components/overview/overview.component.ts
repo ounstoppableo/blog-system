@@ -10,6 +10,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
@@ -20,7 +21,7 @@ import dayjs from 'dayjs';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
 })
-export class OverviewComponent implements OnInit, AfterViewChecked {
+export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
   isLogin = false;
   @Input()
   articleInfoList: articleInfo[] = [];
@@ -40,6 +41,7 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
   @ViewChild('cardContainerLeft')
   cardContainerLeft!: any;
   isInit = false;
+  private _cardShowWhileScroll: any;
 
   constructor(
     private homeService: HomeService,
@@ -64,7 +66,7 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
     if (!this.isInit && this.articleInfoList.length !== 0 && !this.smallSize) {
       const cardArr =
         this.cardContainerLeft.nativeElement.querySelectorAll('.card');
-      window.addEventListener('scroll', () => {
+      this._cardShowWhileScroll = () => {
         cardArr.forEach((item: any) => {
           if (
             item.getBoundingClientRect().y >
@@ -81,7 +83,8 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
             item.style.transform = 'translateY(50%)';
           }
         });
-      });
+      };
+      window.addEventListener('scroll', this._cardShowWhileScroll);
       //初始化状态
       cardArr.forEach((item: any) => {
         if (
@@ -119,5 +122,8 @@ export class OverviewComponent implements OnInit, AfterViewChecked {
   //去文件分类页
   toFolderCate(folderId: string) {
     this.router.navigate(['folderPage', folderId]);
+  }
+  ngOnDestroy(): void {
+    window.removeEventListener('scroll', this._cardShowWhileScroll);
   }
 }
