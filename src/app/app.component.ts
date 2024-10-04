@@ -88,6 +88,7 @@ export class AppComponent
             .getElementById('approot')!
             .querySelectorAll('img');
           imgs.forEach((item, index) => {
+            if ((item as any).getAttribute('noLazyLoad') === 'true') return;
             const identification = item.getAttribute('identification');
             if (!this.imgLazyLoadMap.has(identification)) {
               const betaSrc = item.getAttribute('betaSrc');
@@ -191,12 +192,20 @@ export class AppComponent
         '--musicPlayerBgColor',
         '#101414',
       );
+      document.documentElement.style.setProperty('--copyrightColor', '#cccccc');
       document.documentElement.style.setProperty('--fontColor', '#d1d5db');
       document.documentElement.style.setProperty(
         '--userNameFontColor',
         '#d1d5db',
       );
+      document.documentElement.style.setProperty('--copyrightBg', '#363636');
       document.documentElement.style.setProperty('--footerBkColor', '#000');
+      document.documentElement.style.setProperty('--metaColor', '#444444');
+      document.documentElement.style.setProperty('--readDoneColor', '#aaaaaa');
+      document.documentElement.style.setProperty(
+        '--articleMesh',
+        'linear-gradient(90deg, rgba(205, 255, 255, 0.07) 3%, transparent 0),linear-gradient(1turn, rgba(205, 255, 255, 0.07) 3%, transparent 0)',
+      );
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
         'darkMode',
@@ -214,8 +223,16 @@ export class AppComponent
         '--musicPlayerBgColor',
         '#eef3f7',
       );
+      document.documentElement.style.setProperty('--copyrightColor', '#66666');
       document.documentElement.style.setProperty('--userNameFontColor', '#000');
       document.documentElement.style.setProperty('--footerBkColor', '#e5e5e5');
+      document.documentElement.style.setProperty('--copyrightBg', '#f7f7f7');
+      document.documentElement.style.setProperty('--metaColor', '#eff2f3');
+      document.documentElement.style.setProperty('--readDoneColor', '#999999');
+      document.documentElement.style.setProperty(
+        '--articleMesh',
+        'linear-gradient(90deg, rgba(50, 0, 0, 0.07) 3%, transparent 0),linear-gradient(1turn, rgba(50, 0, 0, 0.07) 3%, transparent 0)',
+      );
       const removedThemeStyle = document.getElementById('darkMode');
       if (removedThemeStyle) {
         document.head.removeChild(removedThemeStyle);

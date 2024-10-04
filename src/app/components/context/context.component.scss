@@ -8,35 +8,144 @@
   color: var(--fontColor);
   align-items: center;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  & > .meta {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    & > .endLine {
+      position: absolute;
+      bottom: 5px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      color: var(--metaColor);
+      & > span {
+        flex: 1;
+        height: 1px;
+        background-color: var(--metaColor);
+      }
+    }
+    &::before {
+      position: absolute;
+      content: '🎉阅读完啦~~';
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      color: var(--readDoneColor);
+    }
+  }
+  & > .interaction {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    & > .oprators {
+      & > .reward {
+        outline: none;
+        border: none;
+        --antd-wave-shadow-color: #ff9501;
+        &:hover {
+          cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+            pointer !important;
+        }
+      }
+    }
+    & > .description {
+      color: var(--readDoneColor);
+      font-size: 12px;
+    }
+  }
+  & > .paycode {
+    width: calc(100% - 90px);
+    display: flex;
+    & > .paycodeItem {
+      width: calc(100% / 3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      color: var(--cateColor);
+      user-select: none;
+      & > img {
+        width: 100%;
+      }
+    }
+  }
 
   &.smallSize {
     width: 100vw;
+    & > .goPreAndNext {
+      flex-direction: column;
+      height: 300px;
+    }
   }
 
   & > .goPreAndNext {
-    width: 100%;
+    width: calc(100% + 90px);
+    height: 200px;
     padding: 0 45px;
     font-size: 15px;
-
-    & > .pre {
-      float: left;
-    }
+    display: flex;
 
     & > .next {
-      float: right;
+      & > .info {
+        text-align: right;
+      }
     }
 
     & > .pre,
     & > .next {
+      flex: 1;
+      height: inherit;
+      position: relative;
       display: flex;
       line-height: 15px;
       align-items: center;
+      color: white;
       cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
         pointer;
 
       &:hover {
-        text-decoration: underline;
-        color: var(--styleColor);
+        & .title {
+          text-decoration: underline;
+        }
+      }
+      &:hover {
+        &::after {
+          background-color: rgba(0, 0, 0, 0.15);
+        }
+      }
+      & > img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        object-fit: cover;
+      }
+      &::after {
+        position: absolute;
+        content: '';
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1;
+        transition: all 0.1s ease;
+      }
+      & > .info {
+        position: absolute;
+        z-index: 2;
+        right: 10%;
+        left: 10%;
+        top: 15%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.5);
+        & .title {
+          font-size: 20px;
+          word-break: break-all;
+        }
       }
     }
 
@@ -46,32 +155,41 @@
       clear: both;
     }
   }
+  & .copyright {
+    width: calc(100% - 90px);
+    background: var(--copyrightBg);
+    padding: 1rem 2rem;
+    font-size: 12px;
+    border-radius: 0.625rem;
+    margin: 30px 0px;
+    color: var(--copyrightColor);
+    & a {
+      color: var(--copyrightColor);
+    }
+  }
 }
 
 #write {
+  position: relative;
   width: 100%;
   overflow: auto;
   box-sizing: border-box;
   margin: 0 auto;
+  margin-bottom: 45px;
   padding: 45px;
   padding-bottom: 0;
-  margin-bottom: 45px;
   font-size: 16px;
   line-height: 1.8em;
   letter-spacing: 0.1em;
-  background-image: linear-gradient(
-      90deg,
-      rgba(50, 0, 0, 0.07) 3%,
-      transparent 0
-    ),
-    linear-gradient(1turn, rgba(50, 0, 0, 0.07) 3%, transparent 0);
+  background-image: var(--articleMesh);
   background-size: 20px 20px;
   background-position: 50%;
 
   :host ::ng-deep & img {
     border-radius: 6px;
     display: block;
-    margin: 10px auto;
+    zoom: 1 !important;
+    margin: 10px auto !important;
     -o-object-fit: contain;
     object-fit: contain;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);

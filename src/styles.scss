@@ -241,4 +241,16 @@ input::-webkit-input-placeholder {
   --musicPlayerBgColor: #eef3f7;
   //音乐进度条的长度
   --progressWidth: 0;
+
+  //copyright字体颜色
+  --copyrightBg: #f7f7f7;
+  --copyrightColor: #666666;
+
+  //文章读完meta
+  --metaColor: #eff2f3;
+  --readDoneColor: #b4b4b4;
+
+  //文章网格色
+  --articleMesh: linear-gradient(90deg, rgba(50, 0, 0, 0.07) 3%, transparent 0),
+    linear-gradient(1turn, rgba(50, 0, 0, 0.07) 3%, transparent 0);
 }

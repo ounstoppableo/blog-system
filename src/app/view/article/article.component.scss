@@ -33,6 +33,7 @@
         border: 1px solid white;
         padding: 5px;
         border-radius: 3px;
+        text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.5);
         cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
           pointer;
         &:hover {
@@ -44,11 +45,13 @@
         font-weight: 800;
         font-size: 50px;
         text-align: center;
+        text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.5);
       }
       & > .info {
         display: flex;
         flex-direction: column;
         align-items: center;
+        text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.5);
       }
 
       & > .tagSpace {

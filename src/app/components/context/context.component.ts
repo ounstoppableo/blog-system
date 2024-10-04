@@ -26,6 +26,8 @@ export class ContextComponent
 {
   article = '';
   articleId = '';
+  showPayCode = false;
+  location = window.location;
   articleTitleTree: any[] = []; //文章标题树，用于构建目录
   @Input()
   smallSize!: boolean;
@@ -41,21 +43,13 @@ export class ContextComponent
   ) {}
   loading = true;
   //前后文章的信息
-  pre = '';
-  preTitle = '';
-  next = '';
-  nextTitle = '';
+  preInfo = {} as { pre: string; preTitle: string; prebackImgUrl: string };
+  nextInfo = {} as { next: string; nextTitle: string; nextbackImgUrl: string };
   hljsScript: any = null;
 
   write: any = null;
   ngOnInit() {
     this.route.params.subscribe((res) => (this.articleId = res['articleId']));
-    this.route.queryParams.subscribe((res) => {
-      this.pre = res['pre'];
-      this.next = res['next'];
-      this.preTitle = res['preTitle'];
-      this.nextTitle = res['nextTitle'];
-    });
     this.getPreAndNextArticleInfo();
     this.getArticle();
   }
@@ -65,10 +59,8 @@ export class ContextComponent
       .getPreAndNextArticleInfo(this.articleId)
       .subscribe((res: resType<any>) => {
         if (res.code === 200) {
-          this.pre = res.data.pre;
-          this.preTitle = res.data.preTitle;
-          this.next = res.data.next;
-          this.nextTitle = res.data.nextTitle;
+          this.preInfo = res.data;
+          this.nextInfo = res.data;
         }
       });
   }
@@ -170,6 +162,9 @@ export class ContextComponent
   }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);
+  }
+  handleShowPayCode() {
+    this.showPayCode = !this.showPayCode;
   }
   ngAfterContentInit() {
     document.addEventListener('click', this._scrollToAnchor);
