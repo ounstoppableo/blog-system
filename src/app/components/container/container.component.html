@@ -16,6 +16,7 @@
   ></app-cate-by-date>
   <app-context
     *ngIf="isArticle"
+    [isLogin]="isLogin"
     [smallSize]="smallSize"
     (getCatalogue)="_getCatalogue($event)"
     (getWordsCountAndReadTime)="this.getWordsCountAndReadTime.emit($event)"
@@ -34,6 +35,7 @@
   ></app-single-folder-cate>
   <app-for-msg-board-page
     *ngIf="msgboard"
+    [isLogin]="isLogin"
     [smallSize]="smallSize"
   ></app-for-msg-board-page>
   <app-search *ngIf="search" [smallSize]="smallSize"></app-search>

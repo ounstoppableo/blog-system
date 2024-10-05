@@ -3,6 +3,7 @@
   [showFolderIcon]="smallSize"
   (drawerOpen)="open()"
   (upload)="showUploadModal()"
+  (loginCheck)="loginCheck()"
 ></app-header>
 <div class="container">
   <div class="backImg" #backImg>
@@ -81,6 +82,7 @@
   <div class="context">
     <app-container
       [isArticle]="true"
+      [isLogin]="isLogin"
       [showInfo]="!smallSize"
       [smallSize]="smallSize"
       [scrollTarget]="headerChangeHeight"

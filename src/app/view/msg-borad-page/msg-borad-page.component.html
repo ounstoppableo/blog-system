@@ -4,10 +4,12 @@
   [scrollTarget]="headerChangeHeight"
   (drawerOpen)="open()"
   (upload)="showUploadModal()"
+  (loginCheck)="loginCheck()"
 ></app-header>
 <div class="body">
   <app-container
     [msgboard]="true"
+    [isLogin]="isLogin"
     [showInfo]="!smallSize"
     [smallSize]="smallSize"
     [updateArticleModal]="addArticleForm"

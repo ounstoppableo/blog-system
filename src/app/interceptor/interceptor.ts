@@ -33,6 +33,9 @@ export class MyHttpInterceptor implements HttpInterceptor {
             if (event.body.code === 500) {
               this.message.error('服务器错误');
             }
+            if (event.body.code === 402) {
+              this.message.error(event.body.msg);
+            }
           }
         },
         (error) => {

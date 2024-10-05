@@ -30,6 +30,8 @@ export class ContextComponent
   location = window.location;
   articleTitleTree: any[] = []; //文章标题树，用于构建目录
   @Input()
+  isLogin = false;
+  @Input()
   smallSize!: boolean;
   @Output()
   getCatalogue = new EventEmitter();

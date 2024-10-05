@@ -16,8 +16,11 @@ export interface msgItem extends addMsg {
   isAdmin: number;
   children?: msgItem[];
   upvokeChecked?: boolean;
+  articleId?: string;
   parent?: {
     parentName: string;
     parentWebsite: string;
   };
+  audit: number;
+  toTop: string;
 }

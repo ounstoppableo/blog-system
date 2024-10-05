@@ -1,7 +1,17 @@
 .container {
   display: flex;
   gap: 10px;
+  position: relative;
 
+  & > .unAudit {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    right: 20%;
+    transform: rotate(-30deg);
+    background: url(/assets/unAudit.png) no-repeat;
+    background-size: contain;
+  }
   & > .avatar {
     width: 40px;
     height: 40px;
@@ -46,6 +56,15 @@
           border: 1px solid #ffe58f;
           background-color: #fffbe6;
           color: #d48806;
+          padding: 0px 5px;
+          border-radius: 5px;
+          text-wrap: nowrap;
+        }
+        & > .toTop {
+          align-self: flex-start;
+          border: 1px solid #ffa9b6;
+          background-color: #fee2e7;
+          color: #e9546b;
           padding: 0px 5px;
           border-radius: 5px;
           text-wrap: nowrap;

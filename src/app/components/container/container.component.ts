@@ -14,6 +14,8 @@ export class ContainerComponent implements OnInit {
   articleInfoList: articleInfo[] = [];
   catalogue: any[] = [];
   @Input()
+  isLogin = false;
+  @Input()
   showInfo!: boolean;
   @Input()
   smallSize!: boolean;

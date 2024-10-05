@@ -18,6 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
+  isLogin = false;
   articleId!: string;
   articleInfo: articleInfo = {} as articleInfo;
   headerChangeHeight!: number;
@@ -70,6 +71,10 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
   // 从文章详情页获取文章字数和阅读时长
   getWordsCountAndReadTime(e: any) {
     this.articleInfo = { ...this.articleInfo, ...e };
+  }
+
+  loginCheck() {
+    this.isLogin = true;
   }
 
   constructor(

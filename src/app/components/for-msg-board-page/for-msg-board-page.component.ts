@@ -8,4 +8,6 @@ import { Component, Input } from '@angular/core';
 export class ForMsgBoardPageComponent {
   @Input()
   smallSize!: boolean;
+  @Input()
+  isLogin = false;
 }

@@ -37,6 +37,8 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   upload = new EventEmitter();
   @Output()
   drawerOpen = new EventEmitter();
+  @Output()
+  loginCheck = new EventEmitter();
 
   constructor(
     private router: Router,
@@ -47,7 +49,10 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: resType<any>) => {
-        if (res.code === 200) this.isLogin = true;
+        if (res.code === 200) {
+          this.isLogin = true;
+          this.loginCheck.emit();
+        }
       });
     }
   }

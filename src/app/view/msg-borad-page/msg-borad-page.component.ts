@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./msg-borad-page.component.scss'],
 })
 export class MsgBoradPageComponent implements OnInit, AfterViewInit, OnDestroy {
+  isLogin = false;
   smallSize = false;
   headerChangeHeight = 0;
   @ViewChild('addArticleForm')
@@ -29,6 +30,9 @@ export class MsgBoradPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   showUploadModal() {
     this.addArticleForm.showUploadModal();
+  }
+  loginCheck() {
+    this.isLogin = true;
   }
 
   @ViewResize()
