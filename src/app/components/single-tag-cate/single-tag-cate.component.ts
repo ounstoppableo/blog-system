@@ -20,7 +20,7 @@ export class SingleTagCateComponent implements OnInit {
   loading = true;
 
   page = 1;
-  limit = 5;
+  limit = 7;
   total = 0;
 
   constructor(

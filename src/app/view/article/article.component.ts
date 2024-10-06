@@ -51,11 +51,17 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
   }
   @ViewResize()
   ngAfterViewInit(): void {
-    this.headerChangeHeight = Number.parseFloat(
-      getComputedStyle(document.documentElement).getPropertyValue(
-        '--articleBkImgHeight',
-      ),
-    );
+    this.headerChangeHeight =
+      Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          '--articleBkImgHeight',
+        ),
+      ) -
+      Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          '--headerHeigth',
+        ),
+      );
   }
   @ViewResize()
   ngOnDestroy(): void {}

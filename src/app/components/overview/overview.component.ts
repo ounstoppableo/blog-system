@@ -24,9 +24,13 @@ import dayjs from 'dayjs';
 export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
   isLogin = false;
   @Input()
+  toTopOverview = false;
+  @Input()
   articleInfoList: articleInfo[] = [];
   @Input()
   smallSize!: boolean;
+  @Input()
+  isHome = false;
   //模态框组件
   @Input()
   updateArticleModal!: AddArticleFormComponent;
@@ -41,6 +45,8 @@ export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('cardContainerLeft')
   cardContainerLeft!: any;
   isInit = false;
+  noToTop = '1970-01-01T00:00:01.000Z';
+  private _timer: any = null;
   private _cardShowWhileScroll: any;
 
   constructor(
@@ -57,45 +63,58 @@ export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
         else this.isLogin = false;
       });
     }
+    if (this.isHome && this.toTopOverview) {
+      this.homeService.getTopArticleInfo().subscribe((res) => {
+        if (res.code === 200) this.articleInfoList = res.data;
+      });
+    }
   }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);
   }
   ngAfterViewChecked(): void {
     //设置懒加载效果
-    if (!this.isInit && this.articleInfoList.length !== 0 && !this.smallSize) {
+    if (!this.isInit && this.articleInfoList.length !== 0) {
       const cardArr =
         this.cardContainerLeft.nativeElement.querySelectorAll('.card');
       this._cardShowWhileScroll = () => {
-        cardArr.forEach((item: any) => {
-          if (
-            item.getBoundingClientRect().y >
-              -item.offsetHeight - item.offsetHeight / 2 &&
-            item.getBoundingClientRect().y < innerHeight + item.offsetHeight / 2
-          ) {
-            item.style.opacity = 1;
-            item.style.transform = 'translateY(0)';
-          } else if (item.getBoundingClientRect().y < -item.offsetHeight) {
-            item.style.opacity = 0;
-            item.style.transform = 'translateY(-50%)';
-          } else if (item.getBoundingClientRect().y > innerHeight) {
-            item.style.opacity = 0;
-            item.style.transform = 'translateY(50%)';
-          }
-        });
-      };
-      window.addEventListener('scroll', this._cardShowWhileScroll);
-      //初始化状态
-      cardArr.forEach((item: any) => {
-        if (
-          item.getBoundingClientRect().y > -item.offsetHeight &&
-          item.getBoundingClientRect().y < innerHeight
-        ) {
-          item.style.opacity = 1;
-          item.style.transform = 'translateY(0)';
+        if (this._timer) {
+          clearTimeout(this._timer);
         }
-      });
-      this.isInit = true;
+        this._timer = setTimeout(() => {
+          cardArr.forEach((item: any) => {
+            if (
+              item.getBoundingClientRect().y >
+                -item.offsetHeight - item.offsetHeight / 2 &&
+              item.getBoundingClientRect().y <
+                innerHeight + item.offsetHeight / 2
+            ) {
+              item.style.transform = 'scale(1)';
+              item.style.transition =
+                'all 1s ease,box-shadow 0.5s ease,transform none';
+              if (item.querySelector('img')) {
+                item.querySelector('img').style.filter = 'blur(0)';
+              }
+            } else if (item.getBoundingClientRect().y < -item.offsetHeight) {
+              item.style.transform = 'scale(.8)';
+              item.style.transition = 'all 1s ease,box-shadow 0.5s ease';
+              if (item.querySelector('img'))
+                item.querySelector('img').style.filter = 'blur(10px)';
+            } else if (item.getBoundingClientRect().y > innerHeight) {
+              item.style.transform = 'scale(.8)';
+              item.style.transition = 'all 1s ease,box-shadow 0.5s ease';
+              if (item.querySelector('img'))
+                item.querySelector('img').style.filter = 'blur(10px)';
+            }
+          });
+          clearTimeout(this._timer);
+          this._timer = null;
+        }, 100);
+      };
+      if (cardArr[cardArr.length - 1].querySelector('img')) {
+        window.addEventListener('scroll', this._cardShowWhileScroll);
+        this.isInit = true;
+      }
     }
   }
   //更新文章
@@ -122,6 +141,17 @@ export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
   //去文件分类页
   toFolderCate(folderId: string) {
     this.router.navigate(['folderPage', folderId]);
+  }
+  toTopArticle(info: articleInfo) {
+    if (info.toTop === this.noToTop) {
+      this.homeService.toTopArticle(info.articleId).subscribe((res) => {
+        if (res.code === 200) this.message.success('置顶成功');
+      });
+    } else {
+      this.homeService.cancelTopArticle(info.articleId).subscribe((res) => {
+        if (res.code === 200) this.message.success('取消置顶成功');
+      });
+    }
   }
   ngOnDestroy(): void {
     window.removeEventListener('scroll', this._cardShowWhileScroll);

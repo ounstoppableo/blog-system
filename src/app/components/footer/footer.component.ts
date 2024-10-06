@@ -42,7 +42,7 @@ export class FooterComponent implements OnInit, OnDestroy {
     const hour = Math.floor((timeDiff / 3600) % 24);
     const minute = Math.floor((timeDiff / 60) % 60);
     const seconds = Math.floor(timeDiff % 60);
-    return `${day}天${hour > 10 ? hour : '0' + hour}时${minute > 10 ? minute : '0' + minute}分${seconds > 10 ? seconds : '0' + seconds}秒`;
+    return `${day}天${hour > 10 ? hour : '0' + hour}时${minute >= 10 ? minute : '0' + minute}分${seconds >= 10 ? seconds : '0' + seconds}秒`;
   }
   goHome() {
     this.router.navigate(['home']);

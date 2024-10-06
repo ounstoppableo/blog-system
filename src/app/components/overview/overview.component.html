@@ -1,10 +1,30 @@
 <div #cardContainerLeft class="cardContainerLeft" id="overview">
   <div
+    class="meta"
+    *ngIf="isHome && toTopOverview && articleInfoList.length !== 0"
+  >
+    <span class="line"></span>
+    <span class="words">置顶文章</span>
+    <span class="line"></span>
+  </div>
+  <app-overview
+    *ngIf="isHome && !toTopOverview"
+    [isHome]="isHome"
+    [smallSize]="smallSize"
+    [updateArticleModal]="updateArticleModal"
+    [toTopOverview]="true"
+  ></app-overview>
+  <div class="meta" *ngIf="isHome && !toTopOverview">
+    <span class="line"></span>
+    <span class="words">文章列表</span>
+    <span class="line"></span>
+  </div>
+  <div
     class="card"
     *ngFor="let item of articleInfoList"
     [class]="smallSize ? 'smallSize' : ''"
   >
-    <div class="info">
+    <div class="info" (click)="toArticle(item.articleId)">
       <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
       <p class="folder" (click)="toFolderCate(item.folderId)">
         <span class="iconfont icon-folder"></span>
@@ -26,6 +46,14 @@
       <img nz-image [nzSrc]="item.backImgUrl" alt="" />
     </div>
     <div class="operate" *ngIf="isLogin">
+      <button nz-button nzShape="circle" (click)="toTopArticle(item)">
+        <span
+          class="iconfont"
+          [class]="
+            item.toTop === noToTop ? ' icon-zhiding' : 'icon-quxiaozhiding'
+          "
+        ></span>
+      </button>
       <button nz-button nzShape="circle" (click)="editArticle(item)">
         <span class="iconfont icon-edit"></span>
       </button>
@@ -41,14 +69,14 @@
       </button>
     </div>
   </div>
+  <app-overview-skeleton
+    *ngIf="articleInfoList.length === 0 && !toTopOverview"
+    [smallSize]="smallSize"
+  ></app-overview-skeleton>
 </div>
-<app-overview-skeleton
-  *ngIf="articleInfoList.length === 0"
-  [smallSize]="smallSize"
-></app-overview-skeleton>
 <nz-pagination
   class="pagination"
-  *ngIf="articleInfoList.length !== 0"
+  *ngIf="articleInfoList.length !== 0 && !toTopOverview"
   [nzPageIndex]="page"
   [nzTotal]="total"
   [nzPageSize]="limit"

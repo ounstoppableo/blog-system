@@ -215,9 +215,9 @@ export class AppComponent
     } else {
       document.documentElement.style.setProperty(
         '--defaultBackgroundColor',
-        '#f5f5f5',
+        '#fdfdfd',
       );
-      document.documentElement.style.setProperty('--cardColor', '#fff');
+      document.documentElement.style.setProperty('--cardColor', '#fdfdfd');
       document.documentElement.style.setProperty('--fontColor', '#4b5563');
       document.documentElement.style.setProperty(
         '--musicPlayerBgColor',

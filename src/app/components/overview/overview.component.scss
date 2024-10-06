@@ -4,6 +4,22 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  & > .meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: var(--homeMetaColor);
+    & > .line {
+      flex: 1;
+      height: 2px;
+      background-color: var(--homeMetaColor);
+      border-radius: 2px;
+    }
+    & > .words {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
   & > .card {
     position: relative;
     background-color: var(--cardColor);
@@ -13,14 +29,28 @@
     display: flex;
     overflow: hidden;
     color: var(--fontColor);
+    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+      pointer;
     font-size: 15px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(50%);
-    transition: all 1s ease;
+    box-shadow: 0 0.625rem 1.875rem -0.9375rem rgba(0, 0, 0, 0.1);
+    &:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    & > .meta {
+      position: absolute;
+    }
 
     &:nth-child(2n + 1) {
       flex-direction: row-reverse;
+      & > .img {
+        clip-path: polygon(0 0, 92% 0%, 100% 100%, 0% 100%);
+      }
+    }
+    &:nth-child(2n) {
+      & > .img {
+        clip-path: polygon(0 0%, 100% 0%, 100% 100%, 8% 100%);
+      }
     }
 
     &.smallSize {
@@ -29,6 +59,16 @@
       flex-direction: column-reverse;
       transform: translateY(0);
       opacity: 1;
+      &:nth-child(2n + 1) {
+        & > .img {
+          clip-path: none;
+        }
+      }
+      &:nth-child(2n) {
+        & > .img {
+          clip-path: none;
+        }
+      }
     }
 
     & > .info {
@@ -79,7 +119,7 @@
     }
 
     & > .img {
-      flex: 0.6;
+      flex: 1;
 
       &.smallSize {
         flex: 1.5;
@@ -91,7 +131,9 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: all 0.2s ease;
+        transition:
+          filter 1s ease,
+          transform 0.2s ease;
       }
     }
 
@@ -112,9 +154,11 @@
       right: 0;
       background-color: rgba(0, 0, 0, 0.5);
       opacity: 0;
-      width: 10%;
+      width: fit-content;
       height: 100%;
       display: flex;
+      gap: 5px;
+      padding: 5px;
       justify-content: space-around;
       align-items: center;
       transition: all 0.3s;

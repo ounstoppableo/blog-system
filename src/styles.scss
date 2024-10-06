@@ -219,9 +219,9 @@ input::-webkit-input-placeholder {
   --distToFooter: 30px;
 
   //默认背景颜色
-  --defaultBackgroundColor: #f7f7f7;
+  --defaultBackgroundColor: #fdfdfd;
   //卡片颜色
-  --cardColor: #fff;
+  --cardColor: #fdfdfd;
   //底部背景颜色
   --footerBkColor: #e5e5e5;
 
@@ -249,6 +249,9 @@ input::-webkit-input-placeholder {
   //文章读完meta
   --metaColor: #eff2f3;
   --readDoneColor: #b4b4b4;
+
+  //首页metacolor
+  --homeMetaColor: #ccc;
 
   //文章网格色
   --articleMesh: linear-gradient(90deg, rgba(50, 0, 0, 0.07) 3%, transparent 0),

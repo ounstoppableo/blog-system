@@ -13,4 +13,5 @@ export interface articleInfo {
   VT: number;
   wordsCount?: number;
   readTime?: string;
+  toTop: string;
 }

@@ -11,8 +11,10 @@
           </a>
           <span *ngIf="!msgItem.website">{{ msgItem.name }}</span>
         </div>
-        <div class="admin" *ngIf="msgItem.isAdmin">博主</div>
-        <div class="toTop" *ngIf="msgItem.toTop !== noToTop">置顶留言</div>
+        <div class="tag">
+          <div class="admin" *ngIf="msgItem.isAdmin">博主</div>
+          <div class="toTop" *ngIf="msgItem.toTop !== noToTop">置顶留言</div>
+        </div>
         <div class="date">{{ msgItem.subTime | date:'YYYY-MM-dd' }}</div>
       </div>
       <div class="operate">

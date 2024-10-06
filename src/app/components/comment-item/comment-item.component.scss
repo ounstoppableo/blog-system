@@ -36,7 +36,7 @@
 
       & > .info {
         display: flex;
-        align-items: flex-end;
+        align-items: flex-start;
         gap: 10px;
 
         & > .name {
@@ -51,23 +51,29 @@
             }
           }
         }
-        & > .admin {
-          align-self: flex-start;
-          border: 1px solid #ffe58f;
-          background-color: #fffbe6;
-          color: #d48806;
-          padding: 0px 5px;
-          border-radius: 5px;
-          text-wrap: nowrap;
-        }
-        & > .toTop {
-          align-self: flex-start;
-          border: 1px solid #ffa9b6;
-          background-color: #fee2e7;
-          color: #e9546b;
-          padding: 0px 5px;
-          border-radius: 5px;
-          text-wrap: nowrap;
+        & > .tag {
+          display: flex;
+          gap: 5px;
+          flex-wrap: wrap;
+          width: fit-content;
+          & > .admin {
+            align-self: flex-start;
+            border: 1px solid #ffe58f;
+            background-color: #fffbe6;
+            color: #d48806;
+            padding: 0px 5px;
+            border-radius: 5px;
+            text-wrap: nowrap;
+          }
+          & > .toTop {
+            align-self: flex-start;
+            border: 1px solid #ffa9b6;
+            background-color: #fee2e7;
+            color: #e9546b;
+            padding: 0px 5px;
+            border-radius: 5px;
+            text-wrap: nowrap;
+          }
         }
 
         & > .date {

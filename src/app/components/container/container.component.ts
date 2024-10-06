@@ -58,6 +58,7 @@ export class ContainerComponent implements OnInit {
   ) {}
   ngOnInit() {
     if (this.isHome) {
+      this.limit = 5;
       this.getArticleInfo(this.page, this.limit);
     }
   }

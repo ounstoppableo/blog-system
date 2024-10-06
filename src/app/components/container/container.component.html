@@ -1,6 +1,7 @@
 <div class="cardContainer" [class]="smallSize ? 'smallSize' : ''">
   <app-overview
     *ngIf="isHome"
+    [isHome]="isHome"
     [smallSize]="smallSize"
     [updateArticleModal]="updateArticleModal"
     [articleInfoList]="articleInfoList"
