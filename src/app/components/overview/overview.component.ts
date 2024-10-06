@@ -132,7 +132,9 @@ export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
   pageIndexChange(page: number) {
     this.nextPage.emit(page);
-    this.articleListRef?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    requestAnimationFrame(() => {
+      this.articleListRef?.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    });
     this.isInit = false;
     this.articleInfoList = [];
   }

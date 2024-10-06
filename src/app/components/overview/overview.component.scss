@@ -22,6 +22,7 @@
   }
   & > .card {
     position: relative;
+    user-select: none;
     background-color: var(--cardColor);
     width: calc(80vw - 350px);
     height: 250px;

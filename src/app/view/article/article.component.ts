@@ -21,7 +21,8 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
   isLogin = false;
   articleId!: string;
   articleInfo: articleInfo = {} as articleInfo;
-  headerChangeHeight!: number;
+  headerChangeHeight = 0;
+  headerChangeHeightOldValue = 0;
   @ViewChild('backImg')
   backImg!: ElementRef;
 
@@ -50,21 +51,23 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
       });
   }
   @ViewResize()
-  ngAfterViewInit(): void {
-    this.headerChangeHeight =
-      Number.parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue(
-          '--articleBkImgHeight',
-        ),
-      ) -
-      Number.parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue(
-          '--headerHeigth',
-        ),
-      );
-  }
+  ngAfterViewInit(): void {}
   @ViewResize()
   ngOnDestroy(): void {}
+
+  ngAfterViewChecked(): void {
+    if (this.headerChangeHeight !== this.headerChangeHeightOldValue) {
+      this.headerChangeHeight =
+        Number.parseFloat(this.backImg.nativeElement.offsetHeight) -
+        Number.parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue(
+            '--headerHeigth',
+          ),
+        );
+      this.headerChangeHeightOldValue = this.headerChangeHeight;
+      console.log(this.headerChangeHeight);
+    }
+  }
   //打开抽屉
   open() {
     this.drawer.open();

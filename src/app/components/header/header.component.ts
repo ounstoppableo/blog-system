@@ -99,7 +99,12 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
         this.container.nativeElement.classList.remove('hidden');
       }
     } else {
-      this.container.nativeElement.classList.remove('active');
+      if (window.scrollY >= 0) {
+        this.container.nativeElement.classList.remove('active');
+        this.container.nativeElement.classList.remove('hidden');
+      }
+    }
+    if (window.scrollY <= 0) {
       this.container.nativeElement.classList.remove('hidden');
     }
     this.fixedBtnShowControl();

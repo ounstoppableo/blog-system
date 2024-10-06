@@ -190,7 +190,7 @@ export class AppComponent
       document.documentElement.style.setProperty('--cardColor', '#101414');
       document.documentElement.style.setProperty(
         '--musicPlayerBgColor',
-        '#101414',
+        'rgba(16, 20, 20,0.7)',
       );
       document.documentElement.style.setProperty('--copyrightColor', '#cccccc');
       document.documentElement.style.setProperty('--fontColor', '#d1d5db');
@@ -222,7 +222,7 @@ export class AppComponent
       document.documentElement.style.setProperty('--fontColor', '#4b5563');
       document.documentElement.style.setProperty(
         '--musicPlayerBgColor',
-        '#eef3f7',
+        'rgba(238, 243, 247, 0.7)',
       );
       document.documentElement.style.setProperty('--copyrightColor', '#66666');
       document.documentElement.style.setProperty('--userNameFontColor', '#000');
