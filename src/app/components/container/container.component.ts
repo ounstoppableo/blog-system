@@ -79,9 +79,11 @@ export class ContainerComponent implements OnInit {
   nextPage(page: number) {
     this.page = page;
     this.getArticleInfo(this.page, this.limit).then(() => {
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: this.scrollTarget, behavior: 'smooth' });
-      });
+      if (!this.isHome) {
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: this.scrollTarget, behavior: 'smooth' });
+        });
+      }
     });
   }
   _getCatalogue($event: any) {

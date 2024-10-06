@@ -44,6 +44,8 @@ export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
   nextPage = new EventEmitter();
   @ViewChild('cardContainerLeft')
   cardContainerLeft!: any;
+  @ViewChild('articleListRef')
+  articleListRef!: any;
   isInit = false;
   noToTop = '1970-01-01T00:00:01.000Z';
   private _timer: any = null;
@@ -130,6 +132,7 @@ export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
   pageIndexChange(page: number) {
     this.nextPage.emit(page);
+    this.articleListRef?.nativeElement.scrollIntoView({ behavior: 'smooth' });
     this.isInit = false;
     this.articleInfoList = [];
   }

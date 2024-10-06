@@ -14,7 +14,7 @@
     [updateArticleModal]="updateArticleModal"
     [toTopOverview]="true"
   ></app-overview>
-  <div class="meta" *ngIf="isHome && !toTopOverview">
+  <div class="meta" *ngIf="isHome && !toTopOverview" #articleListRef>
     <span class="line"></span>
     <span class="words">文章列表</span>
     <span class="line"></span>
