@@ -7,7 +7,7 @@
   overflow: hidden;
   color: var(--fontColor);
   align-items: center;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
   & > .meta {
     position: relative;
     width: 100%;
@@ -44,7 +44,7 @@
       & > .reward {
         outline: none;
         border: none;
-        --antd-wave-shadow-color: #ff9501;
+        --antd-wave-shadow-color: var(--antdBtnOrangeolor);
         &:hover {
           cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
             pointer !important;
@@ -103,7 +103,7 @@
       display: flex;
       line-height: 15px;
       align-items: center;
-      color: white;
+      color: var(--white);
       cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
         pointer;
 
@@ -114,7 +114,7 @@
       }
       &:hover {
         &::after {
-          background-color: rgba(0, 0, 0, 0.15);
+          background-color: var(--015-gray);
         }
       }
       & > img {
@@ -128,7 +128,7 @@
         position: absolute;
         content: '';
         inset: 0;
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: var(--03-gray);
         z-index: 1;
         transition: all 0.1s ease;
       }
@@ -141,7 +141,7 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-        text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.5);
+        text-shadow: 0 0.2rem 0.3rem var(--05-gray);
         & .title {
           font-size: 20px;
           word-break: break-all;
@@ -192,7 +192,7 @@
     margin: 10px auto !important;
     -o-object-fit: contain;
     object-fit: contain;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 10px var(--03-gray);
     max-width: 100%;
   }
 
@@ -205,7 +205,7 @@
     font-weight: 500;
     font-size: unset;
     color: var(--styleColor);
-    background-color: #e0e7ff;
+    background-color: var(--markdownTagBg);
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
       'Liberation Mono', 'Courier New', monospace;
   }
@@ -213,11 +213,11 @@
   :host ::ng-deep & pre {
     display: block;
     overflow-x: auto;
-    color: #abb2bf;
-    background: #282c34;
+    color: var(--markdownPreWord);
+    background: var(--markdownPreBg);
     padding: 0;
     border-radius: 6px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 10px var(--05-gray);
     margin: 14px 0;
     &::before {
       content: '';
@@ -227,7 +227,7 @@
       width: 100%;
       background-size: 40px;
       background-repeat: no-repeat;
-      background-color: #282c34;
+      background-color: var(--markdownPreBg);
       margin-bottom: -7px;
       border-radius: 5px;
       background-position: 10px 10px;
@@ -267,11 +267,11 @@
     }
   }
   :host ::ng-deep & blockquote {
-    border-color: #818cf8;
-    background-color: #e0e7ff;
+    border-color: var(--markdownBlockquoteBorder);
+    background-color: var(--markdownBlockquoteBg);
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    color: #6366f1;
+    color: var(--markdownBlockquoteWord);
     margin-left: 0;
     margin-right: 0;
     padding-left: 1rem;
@@ -297,7 +297,7 @@
 
   :host ::ng-deep & h1,
   :host ::ng-deep & h2 {
-    border-bottom: 1px solid #eaecef !important;
+    border-bottom: 1px solid var(--markdownTitleBorder) !important;
   }
   :host ::ng-deep & h1,
   :host ::ng-deep & h2,
@@ -357,15 +357,15 @@
     border-spacing: 0;
   }
   :host ::ng-deep & tr:nth-child(2n) {
-    background-color: #f6f8fa;
+    background-color: var(--markdownTrColor);
   }
   :host ::ng-deep & tr {
-    border-top: 1px solid #c6cbd1;
+    border-top: 1px solid var(--markdownTrColorBorder);
   }
   :host ::ng-deep & td,
   :host ::ng-deep & th {
     padding: 6px 13px;
-    border: 1px solid #dfe2e5;
+    border: 1px solid var(--markdownThColorBorder);
   }
   :host ::ng-deep & th {
     font-weight: 600;

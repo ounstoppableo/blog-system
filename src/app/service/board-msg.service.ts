@@ -97,4 +97,8 @@ export class BoardMsgService {
       {},
     );
   }
+  //获取最新消息
+  getNewMsg(limit: number) {
+    return this.http.get<resType<any>>(`/api/getNewMsg/${limit}`);
+  }
 }

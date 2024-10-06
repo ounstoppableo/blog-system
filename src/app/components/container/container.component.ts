@@ -24,6 +24,8 @@ export class ContainerComponent implements OnInit {
   @Input()
   dateCate = false;
   @Input()
+  isMsgBoard = false;
+  @Input()
   isHome = false;
   @Input()
   isArticle = false;

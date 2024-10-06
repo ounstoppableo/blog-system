@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: transparent;
-  color: #fafafa;
+  color: var(--headerColor);
   z-index: 99;
 
   .left {
@@ -54,7 +54,7 @@
         transition: all 0.5s ease;
         border-radius: 8px;
         background-color: var(--cardColor);
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 5px var(--03-gray);
         color: var(--fontColor);
         overflow: hidden;
         animation: show 0.5s ease;
@@ -68,7 +68,7 @@
           align-items: center;
 
           &:hover {
-            background-color: #a5b4fc;
+            background-color: var(--listHoverColor);
           }
         }
       }
@@ -94,7 +94,7 @@
 .active {
   background-color: var(--cardColor);
   color: var(--fontColor);
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 5px var(--02-gray);
   transition: all 0.5s linear;
 }
 

@@ -206,6 +206,7 @@ export class AppComponent
         '--articleMesh',
         'linear-gradient(90deg, rgba(205, 255, 255, 0.07) 3%, transparent 0),linear-gradient(1turn, rgba(205, 255, 255, 0.07) 3%, transparent 0)',
       );
+      document.documentElement.style.setProperty('--c-gray', '#666');
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
         'darkMode',
@@ -233,6 +234,7 @@ export class AppComponent
         '--articleMesh',
         'linear-gradient(90deg, rgba(50, 0, 0, 0.07) 3%, transparent 0),linear-gradient(1turn, rgba(50, 0, 0, 0.07) 3%, transparent 0)',
       );
+      document.documentElement.style.setProperty('--c-gray', '#ccc');
       const removedThemeStyle = document.getElementById('darkMode');
       if (removedThemeStyle) {
         document.head.removeChild(removedThemeStyle);

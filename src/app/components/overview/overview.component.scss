@@ -32,9 +32,9 @@
     cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
       pointer;
     font-size: 15px;
-    box-shadow: 0 0.625rem 1.875rem -0.9375rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
     &:hover {
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 15px var(--03-gray);
     }
 
     & > .meta {
@@ -152,7 +152,7 @@
     & > .operate {
       position: absolute;
       right: 0;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: var(--05-gray);
       opacity: 0;
       width: fit-content;
       height: 100%;

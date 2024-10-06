@@ -16,6 +16,8 @@ export class InfoComponent implements OnInit {
   @Input()
   smallSize = false;
   @Input()
+  isMsgBoard = false;
+  @Input()
   catalogue: any[] = [];
   @Input()
   isArticle = false;

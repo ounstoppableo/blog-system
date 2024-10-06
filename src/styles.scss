@@ -76,6 +76,10 @@ button {
   border: 0;
   outline: null;
 }
+button {
+  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+    pointer !important;
+}
 
 select {
   -webkit-appearance: none;
@@ -187,14 +191,14 @@ input::-webkit-input-placeholder {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 0 0 5px var(--02-gray);
   background: var(--styleColor);
   cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
     pointer !important;
 }
 
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 0 0 5px var(--02-gray);
   border-radius: 10px;
   background: #ededed;
   cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
@@ -217,6 +221,10 @@ input::-webkit-input-placeholder {
   --loginFontColor: #00d3f7;
   //底部距离内容的距离
   --distToFooter: 30px;
+
+  //头部颜色
+  --headerColor: #fafafa;
+  --listHoverColor: #a5b4fc;
 
   //默认背景颜色
   --defaultBackgroundColor: #fdfdfd;
@@ -251,9 +259,68 @@ input::-webkit-input-placeholder {
   --readDoneColor: #b4b4b4;
 
   //首页metacolor
-  --homeMetaColor: #ccc;
+  --homeMetaColor: var(--c-gray);
 
   //文章网格色
   --articleMesh: linear-gradient(90deg, rgba(50, 0, 0, 0.07) 3%, transparent 0),
     linear-gradient(1turn, rgba(50, 0, 0, 0.07) 3%, transparent 0);
+
+  //最新消息颜色
+  --newMsgTitle: #999;
+  --newMsgWord: #aaaaaa;
+  --newMsgSeq: var(--c-gray);
+
+  //按钮颜色
+  --primary: var(--styleColor);
+
+  //a链接颜色
+  --aColor: #2f5cdb;
+
+  //标签颜色
+  --yellowTagBorder: #ffe58f;
+  --yellowTagBg: #fffbe6;
+  --yellowTagWord: #d48806;
+  --pinkTagBorder: #ffa9b6;
+  --pinkTagBg: #fee2e7;
+  --pinkTagWord: #e9546b;
+
+  //nz相关color
+  --antdBtnOrangeolor: #ff9501;
+
+  //文章风格相关color
+  --markdownTagBg: #e0e7ff;
+  --markdownPreWord: #abb2bf;
+  --markdownPreBg: #282c34;
+  --markdownBlockquoteBorder: #818cf8;
+  --markdownBlockquoteBg: #e0e7ff;
+  --markdownBlockquoteWord: #6366f1;
+  --markdownTitleBorder: #eaecef;
+  --markdownTrColor: #f6f8fa;
+  --markdownTrColorBorder: #c6cbd1;
+  --markdownThColorBorder: #dfe2e5;
+
+  //musicColor
+  --musicWord: #acb8cc;
+  --musicBtnHover: #532ab9;
+  --musicName: #71829e;
+  --musicAuthor: #96a3b9;
+  --musicTotalTime: #b0baca;
+  --musicProgressBg: #d0d8e6;
+  --musicIcon: #ea3e3c;
+
+  //tag
+  --tagWord: #4b5563;
+  --tagHover: white;
+
+  --white: white;
+  --catagoryLiHoverWord: var(--fontColor);
+  --catagoryLiHoverBorder: var(--c-gray);
+
+  //透明灰度
+  --01-gray: rgba(0, 0, 0, 0.1);
+  --015-gray: rgba(0, 0, 0, 0.15);
+  --02-gray: rgba(0, 0, 0, 0.2);
+  --03-gray: rgba(0, 0, 0, 0.3);
+  --05-gray: rgba(0, 0, 0, 0.5);
+  --c-gray: #ccc;
 }
