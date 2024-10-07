@@ -9,6 +9,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  AfterViewChecked
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -17,12 +18,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
+export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy,AfterViewChecked {
   isLogin = false;
   articleId!: string;
   articleInfo: articleInfo = {} as articleInfo;
   headerChangeHeight = 0;
-  headerChangeHeightOldValue = 0;
   @ViewChild('backImg')
   backImg!: ElementRef;
 
@@ -56,17 +56,13 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
   ngOnDestroy(): void {}
 
   ngAfterViewChecked(): void {
-    if (this.headerChangeHeight !== this.headerChangeHeightOldValue) {
-      this.headerChangeHeight =
-        Number.parseFloat(this.backImg.nativeElement.offsetHeight) -
-        Number.parseFloat(
-          getComputedStyle(document.documentElement).getPropertyValue(
-            '--headerHeigth',
-          ),
-        );
-      this.headerChangeHeightOldValue = this.headerChangeHeight;
-      console.log(this.headerChangeHeight);
-    }
+    this.headerChangeHeight =
+      Number.parseFloat(this.backImg.nativeElement.offsetHeight) -
+      Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          '--headerHeigth',
+        ),
+      );
   }
   //打开抽屉
   open() {
