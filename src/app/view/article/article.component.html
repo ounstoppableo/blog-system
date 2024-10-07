@@ -3,6 +3,7 @@
   [showFolderIcon]="smallSize"
   (drawerOpen)="open()"
   (upload)="showUploadModal()"
+  (loginCheck)="loginCheck()"
 ></app-header>
 <div class="container">
   <div class="backImg" #backImg>
@@ -18,7 +19,7 @@
       </span>
       <span
         class="belongFile"
-        [style]="{ width: '60px', border: 'none' }"
+        [style]="{ width: '60px', height: '35px', border: 'none' }"
         *ngIf="!articleInfo.folderId"
       >
         <ngx-skeleton-loader
@@ -33,7 +34,7 @@
       <div
         class="headLine"
         *ngIf="!articleInfo.title"
-        [style]="{ width: '250px' }"
+        [style]="{ width: '250px', height: '75px' }"
       >
         <ngx-skeleton-loader
           count="1"
@@ -42,14 +43,34 @@
         ></ngx-skeleton-loader>
       </div>
       <div class="info" *ngIf="articleInfo.subTime">
-        发布于:{{ articleInfo.subTime | date }}&nbsp;&nbsp;&nbsp;最后更新:{{
-          articleInfo.lastModifyTime | date
-        }}&nbsp;&nbsp;&nbsp; {{ articleInfo.VT | numberTrans }}&nbsp;次查看
+        <div class="row">
+          <span>
+            <span class="iconfont icon-time"></span>
+            发表于&nbsp;{{ articleInfo.subTime | date: 'YYYY-MM-dd' }}
+          </span>
+          <span>
+            <span class="iconfont icon-update1"></span>
+            更新于&nbsp;{{ articleInfo.lastModifyTime | date: 'YYYY-MM-dd' }}
+          </span>
+          <span>
+            <span class="iconfont icon-eye-fill"></span>
+            阅读数&nbsp;{{ articleInfo.VT | numberTrans }}
+          </span>
+        </div>
+        <div class="row">
+          <span>
+            <span class="iconfont icon-word"></span>
+            字数总计&nbsp;{{ articleInfo.wordsCount }}
+          </span>
+          <span>
+            <span class="iconfont icon-time1"></span>
+            阅读时长&nbsp;{{ articleInfo.readTime }}
+          </span>
+        </div>
       </div>
       <div
-        class="info"
         *ngIf="!articleInfo.subTime"
-        [style]="{ width: '350px' }"
+        [style]="{ width: '350px', height: '25px' }"
       >
         <ngx-skeleton-loader
           count="1"
@@ -58,7 +79,10 @@
         ></ngx-skeleton-loader>
       </div>
       <app-tag [tagList]="articleInfo.tags" *ngIf="articleInfo.tags"></app-tag>
-      <div [style]="{ width: '100px' }" *ngIf="!articleInfo.tags">
+      <div
+        [style]="{ width: '100px', height: '25px' }"
+        *ngIf="!articleInfo.tags"
+      >
         <ngx-skeleton-loader
           count="1"
           appearance="line"
@@ -70,9 +94,11 @@
   <div class="context">
     <app-container
       [isArticle]="true"
+      [isLogin]="isLogin"
       [showInfo]="!smallSize"
       [smallSize]="smallSize"
       [scrollTarget]="headerChangeHeight"
+      (getWordsCountAndReadTime)="getWordsCountAndReadTime($event)"
     ></app-container>
   </div>
 </div>

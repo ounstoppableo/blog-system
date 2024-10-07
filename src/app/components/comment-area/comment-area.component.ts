@@ -38,6 +38,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CommentAreaComponent implements OnInit {
   @Input()
+  isLogin = false;
+  @Input()
   articleId = '';
   show = false;
   loading = false;

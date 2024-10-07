@@ -4,7 +4,7 @@
       <div
         class="musicPic"
         [ngStyle]="{
-          backgroundImage: 'url(' + currentMusic.picUrl + ')'
+          backgroundImage: 'url(' + currentMusic.picUrl + ')',
         }"
       ></div>
       <div class="dot"></div>
@@ -26,7 +26,7 @@
             active:
               audio.currentTime >= item[0] &&
               (i === currentLyric.length - 1 ||
-                audio.currentTime < currentLyric[i + 1][0])
+                audio.currentTime < currentLyric[i + 1][0]),
           }"
           [attr.data-index]="item[0]"
           (click)="lyricTransform(item[0])"
@@ -55,7 +55,7 @@
       [ngClass]="{
         'icon-danquxunhuan': playerModel === 'danqu',
         'icon-shunxubofang': playerModel === 'shunxu',
-        'icon-suijibofang': playerModel === 'suiji'
+        'icon-suijibofang': playerModel === 'suiji',
       }"
     ></span>
     <span

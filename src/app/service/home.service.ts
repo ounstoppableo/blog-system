@@ -47,4 +47,16 @@ export class HomeService {
       `/api/getArticleInfoByPage/${_page}/${_limit}`,
     );
   }
+  //获取置顶文章信息
+  getTopArticleInfo() {
+    return this.http.get<resType<any>>(`/api/getTopArticleInfo`);
+  }
+  //置顶文章
+  toTopArticle(articleId: string) {
+    return this.http.get<resType<any>>(`/api/toTopArticle/${articleId}`);
+  }
+  //取消文章
+  cancelTopArticle(articleId: string) {
+    return this.http.get<resType<any>>(`/api/cancelTopArticle/${articleId}`);
+  }
 }

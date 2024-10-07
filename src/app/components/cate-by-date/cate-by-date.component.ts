@@ -2,7 +2,7 @@ import { CategoryService } from '@/app/service/category.service';
 import { dateCaterory } from '@/types/category/category';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   trigger,
@@ -46,6 +46,8 @@ export class CateByDateComponent implements OnInit {
     private catecogyService: CategoryService,
     private router: Router,
   ) {}
+  @Output()
+  scrollToAnchor = new EventEmitter();
   ngOnInit(): void {
     this.getDateCategoty();
   }
@@ -70,6 +72,9 @@ export class CateByDateComponent implements OnInit {
               ),
             });
           });
+          setTimeout(() => {
+            this.scrollToAnchor.emit();
+          }, 0);
         }
       });
   }

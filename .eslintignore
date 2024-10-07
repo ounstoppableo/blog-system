@@ -38,6 +38,7 @@ testem.log
 /typings
 
 **/assets
+.eslintrc.json
 
 # System files
 .DS_Store

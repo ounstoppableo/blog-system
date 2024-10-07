@@ -56,4 +56,49 @@ export class BoardMsgService {
       `/api/upvokeForBoard/${msgId}/${checked}`,
     );
   }
+  //删除评论
+  deleteMsg(msgId: number, articleId?: string): Observable<resType<any>> {
+    if (articleId) {
+      return this.http.delete<resType<any>>(`/api/deleteMsgForArticle`, {
+        body: { msgId },
+      });
+    }
+    return this.http.delete<resType<any>>(`/api/deleteMsgForBoard`, {
+      body: { msgId },
+    });
+  }
+  //审核评论
+  auditMsg(msgId: number, articleId?: string): Observable<resType<any>> {
+    if (articleId) {
+      return this.http.get<resType<any>>(
+        `/api/auditMsgForArticle/${msgId}`,
+        {},
+      );
+    }
+    return this.http.get<resType<any>>(`/api/auditMsgForBoard/${msgId}`, {});
+  }
+  //置顶评论
+  topMsg(msgId: number, articleId?: string): Observable<resType<any>> {
+    if (articleId) {
+      return this.http.get<resType<any>>(`/api/topMsgForArticle/${msgId}`, {});
+    }
+    return this.http.get<resType<any>>(`/api/topMsgForBoard/${msgId}`, {});
+  }
+  //取消置顶
+  cancelTopMsg(msgId: number, articleId?: string): Observable<resType<any>> {
+    if (articleId) {
+      return this.http.get<resType<any>>(
+        `/api/cancelTopMsgForArticle/${msgId}`,
+        {},
+      );
+    }
+    return this.http.get<resType<any>>(
+      `/api/cancelTopMsgForBoard/${msgId}`,
+      {},
+    );
+  }
+  //获取最新消息
+  getNewMsg(limit: number) {
+    return this.http.get<resType<any>>(`/api/getNewMsg/${limit}`);
+  }
 }

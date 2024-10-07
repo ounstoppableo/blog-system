@@ -1,0 +1,21 @@
+<div class="newMsgBoard">
+  <div class="title" id="newMsgtitleRef">
+    <span class="iconfont icon-message" style="font-size: 30px"></span>
+    <span>最新评论</span>
+  </div>
+  <div class="msgContainer">
+    <div class="msgItem" *ngFor="let item of msgList; let i = index">
+      <div class="seq">{{ i + 1 }}</div>
+      <div class="content">
+        <div class="nameSpace">
+          <div class="name">{{ item.name }}</div>
+          &#64;
+          <div class="date">{{ item.subTime | date: 'YYYY-MM-dd' }}</div>
+        </div>
+        <div class="msgContent">
+          {{ item.content }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

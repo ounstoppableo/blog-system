@@ -9,6 +9,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  AfterViewChecked
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -17,10 +18,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
+export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy,AfterViewChecked {
+  isLogin = false;
   articleId!: string;
   articleInfo: articleInfo = {} as articleInfo;
-  headerChangeHeight!: number;
+  headerChangeHeight = 0;
   @ViewChild('backImg')
   backImg!: ElementRef;
 
@@ -35,23 +37,33 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
   smallSize = false;
   @ViewResize()
   ngOnInit() {
-    this.route.params.subscribe((res) => (this.articleId = res['articleId']));
+    this.route.params.subscribe(
+      (res: any) => (this.articleId = res['articleId']),
+    );
     this.articleService
       .getArticleInfo(this.articleId)
       .subscribe((res: resType<articleInfo>) => {
-        if (res.code === 200) this.articleInfo = res.data as articleInfo;
+        if (res.code === 200)
+          this.articleInfo = {
+            ...this.articleInfo,
+            ...res.data,
+          } as articleInfo;
       });
   }
   @ViewResize()
-  ngAfterViewInit(): void {
-    this.headerChangeHeight = Number.parseFloat(
-      getComputedStyle(document.documentElement).getPropertyValue(
-        '--articleBkImgHeight',
-      ),
-    );
-  }
+  ngAfterViewInit(): void {}
   @ViewResize()
   ngOnDestroy(): void {}
+
+  ngAfterViewChecked(): void {
+    this.headerChangeHeight =
+      Number.parseFloat(this.backImg.nativeElement.offsetHeight) -
+      Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          '--headerHeigth',
+        ),
+      );
+  }
   //打开抽屉
   open() {
     this.drawer.open();
@@ -60,6 +72,16 @@ export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy {
   showUploadModal() {
     this.addArticleForm.showUploadModal();
   }
+
+  // 从文章详情页获取文章字数和阅读时长
+  getWordsCountAndReadTime(e: any) {
+    this.articleInfo = { ...this.articleInfo, ...e };
+  }
+
+  loginCheck() {
+    this.isLogin = true;
+  }
+
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,

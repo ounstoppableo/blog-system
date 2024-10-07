@@ -17,6 +17,7 @@
     [smallSize]="smallSize"
     [updateArticleModal]="addArticleForm"
     [scrollTarget]="headerChangeHeight"
+    (scrollToAnchor)="scrollToAnchor()"
   ></app-container>
 </div>
 <app-info [showInfo]="smallSize" [smallSize]="true"></app-info>

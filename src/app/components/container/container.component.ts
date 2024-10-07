@@ -14,6 +14,8 @@ export class ContainerComponent implements OnInit {
   articleInfoList: articleInfo[] = [];
   catalogue: any[] = [];
   @Input()
+  isLogin = false;
+  @Input()
   showInfo!: boolean;
   @Input()
   smallSize!: boolean;
@@ -21,6 +23,8 @@ export class ContainerComponent implements OnInit {
   updateArticleModal!: AddArticleFormComponent;
   @Input()
   dateCate = false;
+  @Input()
+  isMsgBoard = false;
   @Input()
   isHome = false;
   @Input()
@@ -41,6 +45,10 @@ export class ContainerComponent implements OnInit {
   scrollTarget = 0;
   @Output()
   getCatalogue = new EventEmitter();
+  @Output()
+  getWordsCountAndReadTime = new EventEmitter();
+  @Output()
+  scrollToAnchor = new EventEmitter();
 
   page = 1;
   limit = 10;
@@ -52,6 +60,7 @@ export class ContainerComponent implements OnInit {
   ) {}
   ngOnInit() {
     if (this.isHome) {
+      this.limit = 5;
       this.getArticleInfo(this.page, this.limit);
     }
   }
@@ -72,9 +81,11 @@ export class ContainerComponent implements OnInit {
   nextPage(page: number) {
     this.page = page;
     this.getArticleInfo(this.page, this.limit).then(() => {
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: this.scrollTarget, behavior: 'smooth' });
-      });
+      if (!this.isHome) {
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: this.scrollTarget, behavior: 'smooth' });
+        });
+      }
     });
   }
   _getCatalogue($event: any) {

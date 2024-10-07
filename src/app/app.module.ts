@@ -42,6 +42,7 @@ import { NewsListComponent } from './components/news-list/news-list.component';
 import { monthToEnglishPipe } from './pipe/monthToEnglish';
 import { MusicPlayerComponent } from './components/music-player/music-player.component';
 import { MusicUploadFormComponent } from './components/music-upload-form/music-upload-form.component';
+import { NewMsgBoardComponent } from './components/new-msg-board/new-msg-board.component';
 import { CateByDateSkeletonComponent } from './skeleton/cate-by-date-skeleton/cate-by-date-skeleton.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CateByTagSkeletonComponent } from './skeleton/cate-by-tag-skeleton/cate-by-tag-skeleton.component';
@@ -108,6 +109,7 @@ const ngZorroConfig: NzConfig = {
     OverviewSkeletonComponent,
     SingleCateSkeletonComponent,
     CatalogueSkeletonComponent,
+    NewMsgBoardComponent,
   ],
   imports: [
     BrowserModule,

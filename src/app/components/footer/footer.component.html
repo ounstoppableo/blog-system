@@ -1,11 +1,10 @@
 <div class="bottom">
-  <div class="info">
-    <span>
-      <span>琼备</span>
-      <span class="iconfont icon-copyright"></span>
+  <div class="info" style="display: flex">
+    <span style="display: flex; align-items: center; gap: 5px">
+      <span class="iconfont icon-copyright" style="font-size: 12px"></span>
       <span>2023-2024</span>
     </span>
-    &nbsp;
+    &nbsp;|&nbsp;
     <span>
       <span class="iconfont icon-heart-fill"></span>
       <span
@@ -20,19 +19,11 @@
       </span>
     </span>
   </div>
-  <div class="info">
-    <span>
-      <span class="iconfont icon-eye-fill"></span>
-      <span>{{ VT | numberTrans }}</span>
-    </span>
-    &nbsp;
-    <span>
-      <span class="iconfont icon-like-fill"></span>
-      <span>10</span>
-    </span>
+  <div class="runtime">
+    <span class="iconfont icon-safe" style="font-size: 12px"></span>
+    <span>已安全运行：{{ baseInfo?.runtime || '' }}</span>
   </div>
-  <div class="power">Unstoppable840小站 | 乐于探索前端开发新技术</div>
   <a class="power" href="https://github.com/ounstoppableo/blog-system">
-    Powered by BlogSystem 1.1.2.
+    Powered by BlogSystem 1.1.3.
   </a>
 </div>

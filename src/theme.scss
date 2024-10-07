@@ -68,3 +68,20 @@ html:has(.smallSize) {
 .ant-anchor-ink-ball {
   border: 2px solid var(--styleColor) !important;
 }
+a {
+  color: var(--aColor);
+}
+.ant-btn-primary {
+  border-color: var(--styleColor);
+  background: var(--styleColor);
+  &:focus {
+    border-color: var(--listHoverColor);
+    background: var(--listHoverColor);
+  }
+  &:hover {
+    border-color: var(--listHoverColor);
+    background: var(--listHoverColor);
+  }
+  --antd-wave-shadow-color: var(--antdBtnOrangeolor);
+}
+

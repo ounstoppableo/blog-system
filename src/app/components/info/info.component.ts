@@ -3,6 +3,7 @@ import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-info',
@@ -14,6 +15,8 @@ export class InfoComponent implements OnInit {
   showInfo!: boolean;
   @Input()
   smallSize = false;
+  @Input()
+  isMsgBoard = false;
   @Input()
   catalogue: any[] = [];
   @Input()
@@ -31,7 +34,10 @@ export class InfoComponent implements OnInit {
       .getArticleInfo()
       .subscribe((res: resType<articleInfo[]>) => {
         this.loading = false;
-        if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
+        if (res.code === 200)
+          this.articleInfoList = res.data?.sort(
+            (a, b) => dayjs(b.subTime).unix() - dayjs(a.subTime).unix(),
+          ) as articleInfo[];
       });
   }
   newsShowControl($event: boolean) {
@@ -39,5 +45,10 @@ export class InfoComponent implements OnInit {
   }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);
+  }
+  //去日期分类页
+  toDateCate(date: string) {
+    const dateId = dayjs(date).format('YYYY-MM');
+    this.router.navigate(['dateCate'], { fragment: dateId });
   }
 }

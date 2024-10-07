@@ -61,7 +61,7 @@ export class AddMsgFormComponent implements OnInit {
         .addMsgForBoard(data)
         .subscribe((res: resType<any>) => {
           if (res.code === 200) {
-            this.message.success('评论成功');
+            this.message.success('评论成功，博主审核后才能看见o~~');
             this.msgBoardData.reset();
             this.reloadMsg.emit();
           } else {
@@ -73,7 +73,7 @@ export class AddMsgFormComponent implements OnInit {
         .addMsgForArticle(data)
         .subscribe((res: resType<any>) => {
           if (res.code === 200) {
-            this.message.success('评论成功');
+            this.message.success('评论成功，博主审核后才能看见o~~');
             this.msgBoardData.reset();
             this.reloadMsg.emit();
           } else {

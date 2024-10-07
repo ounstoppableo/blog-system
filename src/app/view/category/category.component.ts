@@ -9,6 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-category',
@@ -28,7 +29,10 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
   tagPage = false;
   category = false;
   search = false;
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private viewportScroller: ViewportScroller,
+  ) {}
   open() {
     this.drawer.open();
   }
@@ -38,7 +42,7 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewResize()
   ngOnInit(): void {
-    this.route.url.subscribe((pathRes) => {
+    this.route.url.subscribe((pathRes: any) => {
       type path =
         | 'dateCate'
         | 'folderPage'
@@ -53,4 +57,12 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {}
   @ViewResize()
   ngOnDestroy(): void {}
+
+  scrollToAnchor() {
+    this.route.fragment.subscribe((fragment: any) => {
+      if (fragment) {
+        this.viewportScroller.scrollToAnchor(fragment);
+      }
+    });
+  }
 }

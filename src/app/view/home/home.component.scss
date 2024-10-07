@@ -29,9 +29,9 @@
 
       h1 {
         font-weight: 800;
-        color: white;
+        color: var(--white);
         font-size: 60px;
-        text-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
+        text-shadow: 5px 5px 10px var(--01-gray);
 
         &.smallSize {
           font-size: 40px;
@@ -44,7 +44,7 @@
         align-items: center;
         white-space: nowrap;
         overflow: hidden;
-        color: white;
+        color: var(--white);
         font-size: 20px;
         padding: 2px 0;
         padding-right: 5px;
@@ -89,15 +89,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        color: white;
-        border: 2px solid white;
+        color: var(--white);
+        border: 2px solid var(--white);
         font-size: 18px;
         font-weight: 300;
         overflow: hidden;
         cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
           pointer;
         transition: all 0.2s linear;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+        text-shadow: 2px 2px 4px var(--01-gray);
 
         &.smallSize {
           flex: 1;
@@ -118,10 +118,10 @@
 
       & > li:hover {
         transform: scale(1.05);
-        background-color: white;
+        background-color: var(--white);
         font-weight: 300;
-        color: #4b5563;
-        border: 2px solid #ccc;
+        color: var(--catagoryLiHoverBorder);
+        border: 2px solid var(--catagoryLiHoverBorder);
         backdrop-filter: blur(0);
       }
     }

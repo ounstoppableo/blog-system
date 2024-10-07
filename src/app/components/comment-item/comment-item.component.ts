@@ -45,6 +45,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class CommentItemComponent implements OnChanges {
   @Input()
+  isLogin = false;
+  @Input()
   msgItem: msgItem = {} as msgItem;
   @Output()
   reloadData = new EventEmitter();
@@ -56,6 +58,8 @@ export class CommentItemComponent implements OnChanges {
   smallSize = false;
 
   timer: any = null;
+
+  noToTop = '1970-01-01T08:00:01.000Z';
 
   constructor(
     private boardMsgSerivce: BoardMsgService,
@@ -93,6 +97,39 @@ export class CommentItemComponent implements OnChanges {
         this.children.push(temp);
         if (item.children) {
           this.addChiren(item);
+        }
+      });
+    }
+  }
+  deleteMsg(msgId: any, article?: string) {
+    this.boardMsgSerivce.deleteMsg(msgId, article).subscribe((res) => {
+      if (res.code === 200) {
+        this.message.success(res.msg as string);
+        this.toReloadData();
+      }
+    });
+  }
+  auditMsg(msgId: any, article?: string) {
+    this.boardMsgSerivce.auditMsg(msgId, article).subscribe((res) => {
+      if (res.code === 200) {
+        this.message.success(res.msg as string);
+        this.toReloadData();
+      }
+    });
+  }
+  topMsg(msgId: any, article?: string) {
+    if (this.msgItem.toTop === this.noToTop) {
+      this.boardMsgSerivce.topMsg(msgId, article).subscribe((res) => {
+        if (res.code === 200) {
+          this.message.success(res.msg as string);
+          this.toReloadData();
+        }
+      });
+    } else {
+      this.boardMsgSerivce.cancelTopMsg(msgId, article).subscribe((res) => {
+        if (res.code === 200) {
+          this.message.success(res.msg as string);
+          this.toReloadData();
         }
       });
     }

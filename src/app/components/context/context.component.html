@@ -1,20 +1,98 @@
 <div class="card" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
   <app-none *ngIf="!article"></app-none>
   <div *ngIf="article" id="write"></div>
-  <div class="goPreAndNext" *ngIf="pre || next">
-    <div class="pre" *ngIf="pre" (click)="toArticle(pre)">
-      <span class="iconfont icon-left"></span>
-      &nbsp;
-      <span>{{ preTitle }}</span>
+  <div class="meta">
+    <div class="endLine">
+      <span></span>
+      &nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;
+      <span></span>
     </div>
-    <div class="next" *ngIf="next" (click)="toArticle(next)">
-      <span>{{ nextTitle }}</span>
-      &nbsp;
-      <span class="iconfont icon-right"></span>
+  </div>
+  <div class="interaction">
+    <div class="oprators">
+      <button
+        nz-button
+        nzPopoverPlacement="top"
+        class="reward"
+        [style]="{
+          backgroundColor: 'var(--antdBtnOrangeolor)',
+          color: 'var(--white)',
+          borderRadius: '5px',
+        }"
+        (click)="handleShowPayCode()"
+      >
+        <span class="iconfont icon-heartbeat"></span>
+        &nbsp; 打赏
+      </button>
+    </div>
+    <div class="description">请我喝[茶]~(￣▽￣)~*</div>
+  </div>
+  <div class="paycode" *ngIf="showPayCode">
+    <div class="paycodeItem">
+      <img noLazyLoad="true" src="/assets/wechat_paycode.jpg" alt="" />
+      <div class="paycodeDescreption">WeChat</div>
+    </div>
+    <div class="paycodeItem">
+      <img noLazyLoad="true" src="/assets/alipay_paycode.png" alt="" />
+      <div class="paycodeDescreption">AliPay</div>
+    </div>
+    <div class="paycodeItem">
+      <img noLazyLoad="true" src="/assets/erc20_usdt.png" alt="" />
+      <div class="paycodeDescreption">USDT_ERC20</div>
+    </div>
+  </div>
+  <div class="copyright">
+    <div class="row">
+      <span style="font-weight: 600">
+        <span class="iconfont icon-User" style="font-size: 12px"></span>
+        本文作者：
+      </span>
+      unstoppable840
+    </div>
+    <div class="row">
+      <span style="font-weight: 600">
+        <span class="iconfont icon-link" style="font-size: 12px"></span>
+        本文链接：
+      </span>
+      <a [href]="location.href">{{ location.href }}</a>
+    </div>
+    <div class="row">
+      <span style="font-weight: 600">
+        <span class="iconfont icon-declare" style="font-size: 12px"></span>
+        版权声明：
+      </span>
+      本站所有文章除特别声明外，均采用 (CC)BY-NC-SA 许可协议。转载请注明出处！
+    </div>
+  </div>
+  <div class="goPreAndNext" *ngIf="preInfo.pre || nextInfo.next">
+    <div class="pre" *ngIf="preInfo.pre" (click)="toArticle(preInfo.pre)">
+      <img [src]="preInfo.prebackImgUrl" alt="" noLazyLoad="true" />
+      <div class="info">
+        <div>
+          <span class="iconfont icon-left"></span>
+          上一篇
+        </div>
+        <div class="title">
+          {{ preInfo.preTitle }}
+        </div>
+      </div>
+    </div>
+    <div class="next" *ngIf="nextInfo.next" (click)="toArticle(nextInfo.next)">
+      <img [src]="nextInfo.nextbackImgUrl" alt="" noLazyLoad="true" />
+      <div class="info">
+        <div>
+          下一篇
+          <span class="iconfont icon-right"></span>
+        </div>
+        <div class="title">
+          {{ nextInfo.nextTitle }}
+        </div>
+      </div>
     </div>
   </div>
   <app-msg-board
     *ngIf="article"
+    [isLogin]="isLogin"
     [articleId]="articleId"
     [smallSize]="smallSize"
   ></app-msg-board>

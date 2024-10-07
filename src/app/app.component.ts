@@ -57,30 +57,19 @@ export class AppComponent
     //看板娘加载
     loadScript(
       'https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@v1.1.1/autoload.js',
-      function () {
-        function showWaifu() {
-          if (innerWidth > 1024) {
-            document.getElementById('waifu')
-              ? (document.getElementById('waifu')!.style.display = '')
-              : null;
-          } else {
-            document.getElementById('waifu')
-              ? (document.getElementById('waifu')!.style.display = 'none')
-              : null;
-          }
-        }
+      () => {
         const observer = new MutationObserver((mutationsList, observer) => {
           if (
             mutationsList.findIndex(
               (item) => (item.target as any).id === 'waifu-tool',
             ) !== -1
           ) {
-            showWaifu();
+            this._showWaifu();
             observer.disconnect();
           }
         });
         observer.observe(document.body, { childList: true, subtree: true });
-        window.addEventListener('resize', showWaifu);
+        window.addEventListener('resize', this._showWaifu);
       },
     );
     //四季飘落效果加载
@@ -99,6 +88,7 @@ export class AppComponent
             .getElementById('approot')!
             .querySelectorAll('img');
           imgs.forEach((item, index) => {
+            if ((item as any).getAttribute('noLazyLoad') === 'true') return;
             const identification = item.getAttribute('identification');
             if (!this.imgLazyLoadMap.has(identification)) {
               const betaSrc = item.getAttribute('betaSrc');
@@ -145,6 +135,23 @@ export class AppComponent
     });
     window.addEventListener('scroll', this.imgLazyLoad);
   }
+  private _showWaifu() {
+    if (innerWidth > 1024) {
+      document.getElementById('waifu')
+        ? (document.getElementById('waifu')!.style.display = '')
+        : null;
+      document.getElementById('waifu-toggle')
+        ? (document.getElementById('waifu-toggle')!.style.display = '')
+        : null;
+    } else {
+      document.getElementById('waifu')
+        ? (document.getElementById('waifu')!.style.display = 'none')
+        : null;
+      document.getElementById('waifu-toggle')
+        ? (document.getElementById('waifu-toggle')!.style.display = 'none')
+        : null;
+    }
+  }
   imgLazyLoad = () => {
     const imgs = document.getElementById('approot')!.querySelectorAll('img');
     imgs.forEach((item) => {
@@ -183,14 +190,23 @@ export class AppComponent
       document.documentElement.style.setProperty('--cardColor', '#101414');
       document.documentElement.style.setProperty(
         '--musicPlayerBgColor',
-        '#101414',
+        'rgba(16, 20, 20,0.7)',
       );
+      document.documentElement.style.setProperty('--copyrightColor', '#cccccc');
       document.documentElement.style.setProperty('--fontColor', '#d1d5db');
       document.documentElement.style.setProperty(
         '--userNameFontColor',
         '#d1d5db',
       );
+      document.documentElement.style.setProperty('--copyrightBg', '#363636');
       document.documentElement.style.setProperty('--footerBkColor', '#000');
+      document.documentElement.style.setProperty('--metaColor', '#444444');
+      document.documentElement.style.setProperty('--readDoneColor', '#aaaaaa');
+      document.documentElement.style.setProperty(
+        '--articleMesh',
+        'linear-gradient(90deg, rgba(205, 255, 255, 0.07) 3%, transparent 0),linear-gradient(1turn, rgba(205, 255, 255, 0.07) 3%, transparent 0)',
+      );
+      document.documentElement.style.setProperty('--c-gray', '#666');
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
         'darkMode',
@@ -200,16 +216,25 @@ export class AppComponent
     } else {
       document.documentElement.style.setProperty(
         '--defaultBackgroundColor',
-        '#f5f5f5',
+        '#fdfdfd',
       );
-      document.documentElement.style.setProperty('--cardColor', '#fff');
+      document.documentElement.style.setProperty('--cardColor', '#fdfdfd');
       document.documentElement.style.setProperty('--fontColor', '#4b5563');
       document.documentElement.style.setProperty(
         '--musicPlayerBgColor',
-        '#eef3f7',
+        'rgba(238, 243, 247, 0.7)',
       );
+      document.documentElement.style.setProperty('--copyrightColor', '#66666');
       document.documentElement.style.setProperty('--userNameFontColor', '#000');
       document.documentElement.style.setProperty('--footerBkColor', '#e5e5e5');
+      document.documentElement.style.setProperty('--copyrightBg', '#f7f7f7');
+      document.documentElement.style.setProperty('--metaColor', '#eff2f3');
+      document.documentElement.style.setProperty('--readDoneColor', '#999999');
+      document.documentElement.style.setProperty(
+        '--articleMesh',
+        'linear-gradient(90deg, rgba(50, 0, 0, 0.07) 3%, transparent 0),linear-gradient(1turn, rgba(50, 0, 0, 0.07) 3%, transparent 0)',
+      );
+      document.documentElement.style.setProperty('--c-gray', '#ccc');
       const removedThemeStyle = document.getElementById('darkMode');
       if (removedThemeStyle) {
         document.head.removeChild(removedThemeStyle);
@@ -247,5 +272,7 @@ export class AppComponent
   ngAfterViewChecked(): void {}
   ngOnDestroy(): void {
     this.observer?.disconnect();
+    window.removeEventListener('resize', this._showWaifu);
+    window.removeEventListener('scroll', this.imgLazyLoad);
   }
 }

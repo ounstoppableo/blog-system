@@ -20,17 +20,15 @@
         <div class="container" *ngIf="!loading">
           <app-none *ngIf="articleInfoList.length === 0"></app-none>
           <div class="has" *ngIf="articleInfoList.length !== 0">
-            <div
-              class="item"
-              *ngFor="let item of articleInfoList.slice(0, 6)"
-              (click)="toArticle(item.articleId)"
-            >
-              <img [src]="item.backImgUrl" alt="" />
-              <div class="text">
+            <div class="item" *ngFor="let item of articleInfoList.slice(0, 6)">
+              <img nz-image [nzSrc]="item.backImgUrl" alt="" />
+              <div class="text" (click)="toArticle(item.articleId)">
                 <span class="theme" [title]="item.title">
                   {{ item.title }}
                 </span>
-                <span class="date">{{ item.subTime | date }}</span>
+                <span class="date" (click)="toDateCate(item.subTime)">
+                  {{ item.subTime | date: 'YYYY-MM-dd' }}
+                </span>
               </div>
             </div>
           </div>
@@ -72,6 +70,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="!isArticle && !isMsgBoard">
+    <app-new-msg-board></app-new-msg-board>
   </div>
 </div>
 <div class="catelogue" *ngIf="isArticle && !smallSize">

@@ -12,7 +12,11 @@
     overflow: hidden;
     color: var(--fontColor);
     font-size: 15px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+    &:hover {
+      box-shadow: 0 0 15px var(--03-gray);
+    }
+    transition: all 1s ease;
     &:nth-child(2n + 1) {
       flex-direction: row-reverse;
     }
@@ -68,7 +72,7 @@
     }
 
     & > .img {
-      flex: 0.6;
+      flex: 1;
 
       &.smallSize {
         flex: 1.5;

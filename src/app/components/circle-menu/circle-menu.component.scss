@@ -83,7 +83,7 @@ $degFactor: 71.5;
 }
 
 .menu-item {
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 8px var(--03-gray);
 }
 
 .icon-holder {
@@ -128,7 +128,7 @@ $degFactor: 71.5;
   padding: 1.3rem;
   background: var(--cardColor);
   border: none;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 8px var(--03-gray);
   border-radius: 100%;
   text-align: center;
   line-height: 1;

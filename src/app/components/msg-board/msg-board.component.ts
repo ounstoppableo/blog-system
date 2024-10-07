@@ -8,6 +8,8 @@ import { CommentAreaComponent } from '../comment-area/comment-area.component';
 })
 export class MsgBoardComponent {
   @Input()
+  isLogin = false;
+  @Input()
   articleId = '';
   @ViewChild('commentArea')
   commentArea!: CommentAreaComponent;

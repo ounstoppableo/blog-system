@@ -5,6 +5,10 @@
     [ngStyle]="{ 'background-color': tag.tagColor }"
     (click)="toSingleTag(tag.tagName)"
   >
+    <span
+      class="iconfont icon-tag"
+      style="font-size: 12px; font-weight: 500"
+    ></span>
     {{ tag.showWord || tag.tagName }}
   </span>
 </div>

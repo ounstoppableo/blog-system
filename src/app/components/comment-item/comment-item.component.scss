@@ -1,7 +1,17 @@
 .container {
   display: flex;
   gap: 10px;
+  position: relative;
 
+  & > .unAudit {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    right: 20%;
+    transform: rotate(-30deg);
+    background: url(/assets/unAudit.png) no-repeat;
+    background-size: contain;
+  }
   & > .avatar {
     width: 40px;
     height: 40px;
@@ -26,7 +36,7 @@
 
       & > .info {
         display: flex;
-        align-items: flex-end;
+        align-items: flex-start;
         gap: 10px;
 
         & > .name {
@@ -34,21 +44,36 @@
           word-break: break-all;
 
           & > a {
-            color: #2f5cdb;
+            color: var(--aColor);
 
             &:hover {
-              color: #48a2ff;
+              color: var(--styleColor);
             }
           }
         }
-        & > .admin {
-          align-self: flex-start;
-          border: 1px solid #ffe58f;
-          background-color: #fffbe6;
-          color: #d48806;
-          padding: 0px 5px;
-          border-radius: 5px;
-          text-wrap: nowrap;
+        & > .tag {
+          display: flex;
+          gap: 5px;
+          flex-wrap: wrap;
+          width: fit-content;
+          & > .admin {
+            align-self: flex-start;
+            border: 1px solid var(--yellowTagBorder);
+            background-color: var(--yellowTagBg);
+            color: var(--yellowTagWord);
+            padding: 0px 5px;
+            border-radius: 5px;
+            text-wrap: nowrap;
+          }
+          & > .toTop {
+            align-self: flex-start;
+            border: 1px solid var(--pinkTagBorder);
+            background-color: var(--pinkTagBg);
+            color: var(--pinkTagWord);
+            padding: 0px 5px;
+            border-radius: 5px;
+            text-wrap: nowrap;
+          }
         }
 
         & > .date {
@@ -66,7 +91,7 @@
           background: none;
           border: none;
           box-shadow: none;
-          color: #409eff;
+          color: var(--primary);
           & > .count {
             position: absolute;
             font-size: 12px;
@@ -97,10 +122,10 @@
         font-size: 14px;
 
         & > a {
-          color: #2f5cdb;
+          color: var(--aColor);
 
           &:hover {
-            color: #48a2ff;
+            color: var(--styleColor);
           }
         }
       }

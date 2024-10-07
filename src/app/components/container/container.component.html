@@ -1,6 +1,7 @@
 <div class="cardContainer" [class]="smallSize ? 'smallSize' : ''">
   <app-overview
     *ngIf="isHome"
+    [isHome]="isHome"
     [smallSize]="smallSize"
     [updateArticleModal]="updateArticleModal"
     [articleInfoList]="articleInfoList"
@@ -9,11 +10,17 @@
     [total]="total"
     (nextPage)="nextPage($event)"
   ></app-overview>
-  <app-cate-by-date *ngIf="dateCate" [smallSize]="smallSize"></app-cate-by-date>
+  <app-cate-by-date
+    *ngIf="dateCate"
+    [smallSize]="smallSize"
+    (scrollToAnchor)="this.scrollToAnchor.emit()"
+  ></app-cate-by-date>
   <app-context
     *ngIf="isArticle"
+    [isLogin]="isLogin"
     [smallSize]="smallSize"
     (getCatalogue)="_getCatalogue($event)"
+    (getWordsCountAndReadTime)="this.getWordsCountAndReadTime.emit($event)"
   ></app-context>
   <app-folder-cate *ngIf="folderCate" [smallSize]="smallSize"></app-folder-cate>
   <app-cate-by-tag *ngIf="tagCate" [smallSize]="smallSize"></app-cate-by-tag>
@@ -29,10 +36,12 @@
   ></app-single-folder-cate>
   <app-for-msg-board-page
     *ngIf="msgboard"
+    [isLogin]="isLogin"
     [smallSize]="smallSize"
   ></app-for-msg-board-page>
   <app-search *ngIf="search" [smallSize]="smallSize"></app-search>
   <app-info
+    [isMsgBoard]="isMsgBoard"
     [showInfo]="showInfo"
     [smallSize]="smallSize"
     [catalogue]="catalogue"
