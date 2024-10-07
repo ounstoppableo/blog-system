@@ -59,7 +59,7 @@ export class CommentItemComponent implements OnChanges {
 
   timer: any = null;
 
-  noToTop = '1970-01-01T00:00:01.000Z';
+  noToTop = '1970-01-01T08:00:01.000Z';
 
   constructor(
     private boardMsgSerivce: BoardMsgService,

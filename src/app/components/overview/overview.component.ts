@@ -47,7 +47,7 @@ export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('articleListRef')
   articleListRef!: any;
   isInit = false;
-  noToTop = '1970-01-01T00:00:01.000Z';
+  noToTop = '1970-01-01T08:00:01.000Z';
   private _timer: any = null;
   private _cardShowWhileScroll: any;
 
