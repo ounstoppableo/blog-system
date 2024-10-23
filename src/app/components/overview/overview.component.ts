@@ -56,7 +56,7 @@ export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
@@ -77,19 +77,19 @@ export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
   ngAfterViewChecked(): void {
     //设置懒加载效果
     if (!this.isInit && this.articleInfoList.length !== 0) {
-      const cardArr =
-        this.cardContainerLeft.nativeElement.querySelectorAll('.card');
       this._cardShowWhileScroll = () => {
         if (this._timer) {
-          clearTimeout(this._timer);
+          return;
         }
-        this._timer = setTimeout(() => {
+        const _callback = () => {
+          const cardArr =
+            this.cardContainerLeft.nativeElement.querySelectorAll('.card');
           cardArr.forEach((item: any) => {
             if (
               item.getBoundingClientRect().y >
-                -item.offsetHeight - item.offsetHeight / 2 &&
+              -item.offsetHeight - item.offsetHeight / 2 &&
               item.getBoundingClientRect().y <
-                innerHeight + item.offsetHeight / 2
+              innerHeight + item.offsetHeight / 2
             ) {
               item.style.transform = 'scale(1)';
               item.style.transition =
@@ -111,8 +111,11 @@ export class OverviewComponent implements OnInit, AfterViewChecked, OnDestroy {
           });
           clearTimeout(this._timer);
           this._timer = null;
-        }, 100);
+        }
+        this._timer = setTimeout(_callback, 100);
       };
+      const cardArr =
+        this.cardContainerLeft.nativeElement.querySelectorAll('.card');
       if (cardArr[cardArr.length - 1].querySelector('img')) {
         window.addEventListener('scroll', this._cardShowWhileScroll);
         this.isInit = true;
