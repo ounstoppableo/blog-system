@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class HomeService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   //获取文章分类
   getFolderCategory(): Observable<resType<folderItem[]>> {
     return this.http.get<resType<any>>('/api/folder');
@@ -58,5 +58,8 @@ export class HomeService {
   //取消文章
   cancelTopArticle(articleId: string) {
     return this.http.get<resType<any>>(`/api/cancelTopArticle/${articleId}`);
+  }
+  subscribe(mail: string) {
+    return this.http.post<resType<any>>(`/api/subscribe`, { mail });
   }
 }

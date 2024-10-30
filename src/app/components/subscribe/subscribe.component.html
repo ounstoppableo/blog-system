@@ -1,0 +1,27 @@
+<div class="c-subscribe-box u-align-center">
+  <div class="rainbow">
+    <span></span>
+    <span></span>
+  </div>
+  <div class="c-subscribe-box__wrapper">
+    <h3 class="c-subscribe-box__title">Subscribe my blog site</h3>
+    <p class="c-subscribe-box__desc">
+      订阅后本站文章更新时会同步推送到邮箱哦~~🥳🥳
+    </p>
+    <p style="height: 10px"></p>
+    <form class="c-form c-form--accent c-subscribe-box__form">
+      <input
+        class="u-align-center"
+        type="email"
+        placeholder="name@cool.internet"
+        [formControl]="mail"
+      />
+      <input
+        class="full-button"
+        type="submit"
+        value="Subscribe"
+        (click)="submit()"
+      />
+    </form>
+  </div>
+</div>

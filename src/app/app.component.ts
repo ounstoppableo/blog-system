@@ -12,6 +12,8 @@ import {
 import { NavigationEnd, Router } from '@angular/router';
 import { ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { CircleMenuComponent } from './components/circle-menu/circle-menu.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +21,7 @@ import { CircleMenuComponent } from './components/circle-menu/circle-menu.compon
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent
-  implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy
-{
+  implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
   title = 'my-blog';
   darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
   isArticle = false;
@@ -33,7 +34,8 @@ export class AppComponent
     private router: Router,
     private r: ComponentFactoryResolver,
     private injector: Injector,
-  ) {}
+    private modal: NzModalService
+  ) { }
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd)
@@ -262,6 +264,19 @@ export class AppComponent
       behavior: 'smooth',
     });
   }
+  //订阅
+  subscribe() {
+    this.modal.create({
+      nzTitle: undefined,
+      nzContent: SubscribeComponent,
+      nzWidth: 'fit-content',
+      nzClassName: 'customModal',
+      nzStyle: { top: '30%' },
+      nzFooter: null,
+      nzClosable: false
+    })
+  }
+
   //到评论区
   toCommentArea() {
     window.scrollTo({
@@ -269,7 +284,7 @@ export class AppComponent
       behavior: 'smooth',
     });
   }
-  ngAfterViewChecked(): void {}
+  ngAfterViewChecked(): void { }
   ngOnDestroy(): void {
     this.observer?.disconnect();
     window.removeEventListener('resize', this._showWaifu);

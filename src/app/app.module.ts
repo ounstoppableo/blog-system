@@ -55,6 +55,7 @@ import { SingleCateSkeletonComponent } from './skeleton/single-cate-skeleton/sin
 import { CatalogueSkeletonComponent } from './skeleton/catalogue-skeleton/catalogue-skeleton.component';
 import { NumberTransPipe } from './pipe/numberTrans';
 import { NzConfig, provideNzConfig } from 'ng-zorro-antd/core/config';
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
 const ngZorroConfig: NzConfig = {
   message: {
     nzMaxStack: 1,
@@ -110,6 +111,7 @@ const ngZorroConfig: NzConfig = {
     SingleCateSkeletonComponent,
     CatalogueSkeletonComponent,
     NewMsgBoardComponent,
+    SubscribeComponent,
   ],
   imports: [
     BrowserModule,

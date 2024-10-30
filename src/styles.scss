@@ -217,6 +217,7 @@ input::-webkit-input-placeholder {
   --articleBkImgHeight: 380px;
   //风格颜色
   --styleColor: #928cee;
+  --styleColorAlpha: rgba(146, 140, 238, 0.3);
   //登录字体颜色
   --loginFontColor: #00d3f7;
   //底部距离内容的距离
@@ -323,4 +324,33 @@ input::-webkit-input-placeholder {
   --03-gray: rgba(0, 0, 0, 0.3);
   --05-gray: rgba(0, 0, 0, 0.5);
   --c-gray: #ccc;
+
+  //订阅框
+  --color-first: #65587f;
+  --color-second: #f18867;
+  --color-third: #e85f99;
+  --color-forth: #50bda1;
+  --border-width: 0.625rem;
+  --border-radius-outer: 8px;
+  --border-radius-inner: calc(var(--border-radius-outer) / 2);
+  --font-plain: 'IBM Plex Sans', sans-serif;
+  // --font-special: ;
+}
+
+@font-face {
+  font-family: 'Fredoka';
+  src:
+    url('/assets/font/FredokaOne-Regular.otf') format('opentype'),
+    url('/assets/font/FredokaOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.customModal {
+  & .ant-modal-content {
+    background: transparent;
+  }
+  & .ant-modal-body {
+    padding: 0;
+  }
 }
