@@ -54,12 +54,14 @@ export class SingleTagCateComponent implements OnInit {
     });
   }
 
-  nextPage(page: number) {
-    this.page = page;
+  nextPage(param: any) {
+    this.page = param.page;
+    const resolve = param.resolve;
     this.getArticleInfo(this.page, this.limit).then(() => {
       requestAnimationFrame(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
+      if (resolve) resolve(1);
     });
   }
 }

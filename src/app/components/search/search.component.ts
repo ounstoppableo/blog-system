@@ -1,7 +1,8 @@
 import { ArticleService } from '@/app/service/article.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
+import { OverviewComponent } from '../overview/overview.component';
 
 @Component({
   selector: 'app-search',
@@ -13,6 +14,9 @@ export class SearchComponent implements OnInit {
   smallSize!: boolean;
   @Input()
   updateArticleModal!: AddArticleFormComponent;
+  @ViewChild(OverviewComponent) overviewComponent:
+    | OverviewComponent
+    | undefined = undefined;
 
   searchText = '';
   page = 1;
@@ -38,12 +42,14 @@ export class SearchComponent implements OnInit {
       this.timer = undefined;
     }, 200);
   }
-  nextPage(page: number) {
-    this.page = page;
+  nextPage(param: any) {
+    this.page = param.page;
+    const resolve = param.resolve;
     this.getArticleInfos().then(() => {
       requestAnimationFrame(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
+      if (resolve) resolve(1);
     });
   }
   getArticleInfos() {

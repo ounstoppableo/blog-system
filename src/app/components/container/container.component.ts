@@ -49,7 +49,6 @@ export class ContainerComponent implements OnInit {
   getWordsCountAndReadTime = new EventEmitter();
   @Output()
   scrollToAnchor = new EventEmitter();
-
   page = 1;
   limit = 10;
   total = 0;
@@ -78,14 +77,11 @@ export class ContainerComponent implements OnInit {
         });
     });
   }
-  nextPage(page: number) {
-    this.page = page;
+  nextPage(param: any) {
+    this.page = param.page;
+    const resolve = param.resolve;
     this.getArticleInfo(this.page, this.limit).then(() => {
-      if (!this.isHome) {
-        requestAnimationFrame(() => {
-          window.scrollTo({ top: this.scrollTarget, behavior: 'smooth' });
-        });
-      }
+      if (resolve) resolve(1);
     });
   }
   _getCatalogue($event: any) {
