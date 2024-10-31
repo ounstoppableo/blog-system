@@ -1,13 +1,36 @@
 <div class="container" [class]="smallSize ? 'smallSize' : ''">
-  <h1>
-    <span>&nbsp;&nbsp;搜索文章</span>
-    <span>
-      <span class="iconfont icon-search icon" (click)="goHome()"></span>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-    </span>
-  </h1>
+  <div class="card">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input
+        type="text"
+        nz-input
+        placeholder="请输入文章名称~~"
+        [(ngModel)]="searchText"
+        (ngModelChange)="search()"
+      />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <span class="iconfont icon-search" style="color: var(--fontColor)"></span>
+    </ng-template>
+  </div>
   <div class="footer">
-    <app-folder-cate [smallSize]="smallSize"></app-folder-cate>
-    <app-cate-by-tag [smallSize]="smallSize"></app-cate-by-tag>
+    <app-folder-cate
+      *ngIf="articleInfoList.length === 0"
+      [smallSize]="smallSize"
+    ></app-folder-cate>
+    <app-cate-by-tag
+      *ngIf="articleInfoList.length === 0"
+      [smallSize]="smallSize"
+    ></app-cate-by-tag>
+    <app-overview
+      *ngIf="articleInfoList.length !== 0"
+      [articleInfoList]="articleInfoList"
+      [updateArticleModal]="updateArticleModal"
+      [smallSize]="smallSize"
+      [page]="page"
+      [limit]="limit"
+      [total]="total"
+      (nextPage)="nextPage($event)"
+    ></app-overview>
   </div>
 </div>

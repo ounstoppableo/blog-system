@@ -8,6 +8,29 @@ html:has(.smallSize) {
     margin-right: 0px;
   }
 }
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: var(--styleColor);
+  box-shadow: 0 0 0 2px var(--styleColorAlpha);
+  border-right-width: 1px;
+  outline: 0;
+}
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+  border-color: var(--styleColor);
+}
+
+.ant-input {
+  &:hover {
+    border-color: var(--styleColor);
+  }
+}
+.ant-input:focus,
+.ant-input-focused {
+  border-color: var(--styleColor);
+  box-shadow: 0 0 0 2px var(--styleColorAlpha);
+  border-right-width: 1px;
+  outline: 0;
+}
 
 .ant-input-textarea-show-count::after {
   position: absolute;
@@ -84,4 +107,3 @@ a {
   }
   --antd-wave-shadow-color: var(--antdBtnOrangeolor);
 }
-
