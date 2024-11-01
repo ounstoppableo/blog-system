@@ -62,7 +62,14 @@
     </div>
     <div footer>
       <nz-form-item>
-        <span class="iconfont icon-picture"></span>
+        <span
+          class="iconfont icon-emoji emojiBtn"
+          nz-popover
+          nzPopoverTitle=""
+          [(nzPopoverVisible)]="emojiBoardVisible"
+          nzPopoverTrigger="click"
+          [nzPopoverContent]="emojiBoardTemp"
+        ></span>
       </nz-form-item>
       <nz-form-item>
         <button nz-button nzType="primary" (click)="sendMsg()">发送</button>
@@ -77,4 +84,15 @@
 <ng-template #mailIcon><span class="iconfont icon-mail"></span></ng-template>
 <ng-template #globalIcon>
   <span class="iconfont icon-global"></span>
+</ng-template>
+<ng-template #emojiBoardTemp>
+  <div class="emojiBoard">
+    <div
+      class="emojiItem"
+      *ngFor="let emoji of emojis"
+      (click)="addEmoji(emoji)"
+    >
+      {{ emoji }}
+    </div>
+  </div>
 </ng-template>

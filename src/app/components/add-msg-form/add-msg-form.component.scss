@@ -38,6 +38,34 @@
     & > [footer] {
       display: flex;
       justify-content: space-between;
+      & .emojiBtn {
+        font-size: 18px;
+        cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+          pointer;
+      }
+    }
+  }
+}
+.emojiBoard {
+  display: flex;
+  flex-wrap: wrap;
+  width: 250px;
+  height: 250px;
+  overflow-y: scroll;
+
+  & > .emojiItem {
+    user-select: none;
+    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+      pointer;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    &:hover {
+      background-color: var(--02-gray);
     }
   }
 }
