@@ -1,11 +1,14 @@
 <nz-link
+  #links
   [nzHref]="'#' + item.id"
   [nzTitle]="item.title"
+  [ngClass]="smallSize ? 'smallSize' : ''"
   *ngFor="let item of catalogue"
 >
   <app-catalogue
     [catalogue]="item.children"
     *ngIf="item.children.length !== 0"
+    [smallSize]="smallSize"
   ></app-catalogue>
 </nz-link>
 <app-catalogue-skeleton *ngIf="catalogue.length === 0"></app-catalogue-skeleton>

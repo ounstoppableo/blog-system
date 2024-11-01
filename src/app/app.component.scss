@@ -8,6 +8,7 @@
   overflow: hidden;
   opacity: 0;
   transition: all 0.3s ease;
+  z-index: 999;
 
   & > .btn {
     width: 30px;
@@ -16,5 +17,16 @@
       pointer;
     color: var(--fixedBtnFontColor);
     background-color: var(--styleColor);
+  }
+}
+.catalogue {
+  padding: 25px;
+
+  & > p {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
   }
 }

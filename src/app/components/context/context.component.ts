@@ -15,7 +15,6 @@ import { resType } from '@/types/response/response';
 import addHighLight from '@/utils/addHighLight';
 import addMathJax from '@/utils/addMathJax';
 import { NzImageService } from 'ng-zorro-antd/image';
-
 @Component({
   selector: 'app-context',
   templateUrl: './context.component.html',
@@ -91,6 +90,10 @@ export class ContextComponent
           true,
         );
         this.getCatalogue.emit(this.articleTitleTree);
+        localStorage.setItem(
+          'catalogue',
+          JSON.stringify(this.articleTitleTree),
+        );
         article = article.replace(
           /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
           (match: string) => {

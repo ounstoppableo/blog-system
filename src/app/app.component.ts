@@ -7,6 +7,7 @@ import {
   Injector,
   OnDestroy,
   OnInit,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
@@ -14,7 +15,6 @@ import { ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { CircleMenuComponent } from './components/circle-menu/circle-menu.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -29,9 +29,14 @@ export class AppComponent
   firstLoad = true;
   imgLazyLoadMap = new Map();
   observer: any;
+  smallSize = false;
+  catalogue: any[] = [];
+  private _modelInstance: any;
   private _darkModeLock = false;
   @ViewChild('operate')
   operate!: ElementRef;
+  @ViewChild('catalogueTemp')
+  catalogueTemp!: TemplateRef<any>;
   constructor(
     private router: Router,
     private r: ComponentFactoryResolver,
@@ -57,6 +62,15 @@ export class AppComponent
   @ViewChild('vc', { read: ViewContainerRef }) vc!: ViewContainerRef;
   seasonFactory = this.r.resolveComponentFactory(CircleMenuComponent);
   componentRef = this.seasonFactory.create(this.injector);
+
+  pageControl = () => {
+    if (window.innerWidth < 1024) {
+      this.smallSize = true;
+    } else {
+      this.smallSize = false;
+    }
+  };
+
   ngAfterViewInit(): void {
     //看板娘加载
     loadScript(
@@ -138,6 +152,9 @@ export class AppComponent
       subtree: true,
     });
     window.addEventListener('scroll', this.imgLazyLoad);
+
+    window.addEventListener('resize', this.pageControl);
+    this.pageControl();
   }
   private _showWaifu() {
     if (innerWidth > 1024) {
@@ -294,10 +311,37 @@ export class AppComponent
       behavior: 'smooth',
     });
   }
+
+  //打开目录
+  openCatalogue() {
+    this.catalogue = JSON.parse(localStorage.getItem('catalogue') as any);
+    requestAnimationFrame(() => {
+      this._modelInstance = this.modal.create({
+        nzTitle: undefined,
+        nzContent: this.catalogueTemp,
+        nzWidth: 'fit-content',
+        nzClassName: 'customModal_catalogue',
+        nzStyle: { top: '20%' },
+        nzFooter: null,
+        nzClosable: false,
+      });
+    });
+  }
+
+  handleCatalogueClick(e: any) {
+    this._modelInstance.close();
+    setTimeout(() => {
+      document
+        .getElementById(e.replace(/[\(\-\)\$0-9\.\s\&\@\;#]/g, ''))
+        ?.scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+  }
+
   ngAfterViewChecked(): void {}
   ngOnDestroy(): void {
     this.observer?.disconnect();
     window.removeEventListener('resize', this._showWaifu);
     window.removeEventListener('scroll', this.imgLazyLoad);
+    window.removeEventListener('resize', this.pageControl);
   }
 }

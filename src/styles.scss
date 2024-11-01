@@ -355,3 +355,12 @@ input::-webkit-input-placeholder {
     padding: 0;
   }
 }
+.customModal_catalogue {
+  & .ant-modal-content {
+    background: var(--cardColor);
+    border-radius: 20px;
+  }
+  & .ant-modal-body {
+    padding: 0;
+  }
+}

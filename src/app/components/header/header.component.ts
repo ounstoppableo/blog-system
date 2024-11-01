@@ -10,6 +10,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  OnChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -21,7 +22,9 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
+export class HeaderComponent
+  implements OnDestroy, AfterViewInit, OnInit, OnChanges
+{
   originScrollY = 0;
   scrollDerection = 'down';
   isLogin = false;
@@ -56,6 +59,11 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
       });
     }
   }
+  ngOnChanges(changes: any): void {
+    if (changes['scrollTarget']) {
+      this.fixedBtnShowControl();
+    }
+  }
   goHome() {
     this.router.navigate(['home']);
   }
@@ -79,10 +87,18 @@ export class HeaderComponent implements OnDestroy, AfterViewInit, OnInit {
   }
   //页面定位按钮的显示隐藏控制
   fixedBtnShowControl() {
+    const operate = document.getElementById('operate');
     if (window.scrollY >= this.scrollTarget) {
-      document.getElementById('operate')!.style.opacity = '1';
+      operate!.style.display = 'flex';
+      operate!.style.opacity = '1';
     } else {
-      document.getElementById('operate')!.style.opacity = '0';
+      operate!.style.opacity = '0';
+      const timer = setTimeout(() => {
+        if (operate!.style.opacity === '0') {
+          operate!.style.display = 'none';
+        }
+        clearTimeout(timer);
+      }, 300);
     }
   }
   //监控滚动事件
