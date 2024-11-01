@@ -236,6 +236,14 @@ export class AppComponent
         'linear-gradient(90deg, rgba(205, 255, 255, 0.07) 3%, transparent 0),linear-gradient(1turn, rgba(205, 255, 255, 0.07) 3%, transparent 0)',
       );
       document.documentElement.style.setProperty('--c-gray', '#666');
+      document.documentElement.style.setProperty(
+        '--markdownThColorBorder',
+        '#444',
+      );
+      document.documentElement.style.setProperty(
+        '--markdownTrColor',
+        '#21252b',
+      );
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
         'darkMode',
@@ -264,6 +272,14 @@ export class AppComponent
         'linear-gradient(90deg, rgba(50, 0, 0, 0.07) 3%, transparent 0),linear-gradient(1turn, rgba(50, 0, 0, 0.07) 3%, transparent 0)',
       );
       document.documentElement.style.setProperty('--c-gray', '#ccc');
+      document.documentElement.style.setProperty(
+        '--markdownThColorBorder',
+        '#dfe2e5',
+      );
+      document.documentElement.style.setProperty(
+        '--markdownTrColor',
+        '#f6f8fa',
+      );
       const removedThemeStyle = document.getElementById('darkMode');
       if (removedThemeStyle) {
         document.head.removeChild(removedThemeStyle);

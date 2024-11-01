@@ -54,7 +54,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #fff;
+    background: var(--cardColor);
     padding: 1.2rem 1rem 1.8rem;
     display: flex;
     flex-direction: column;
