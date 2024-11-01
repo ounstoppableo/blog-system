@@ -21,21 +21,23 @@ import { SubscribeComponent } from './components/subscribe/subscribe.component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent
-  implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy
+{
   title = 'my-blog';
   darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
   isArticle = false;
   firstLoad = true;
   imgLazyLoadMap = new Map();
   observer: any;
+  private _darkModeLock = false;
   @ViewChild('operate')
   operate!: ElementRef;
   constructor(
     private router: Router,
     private r: ComponentFactoryResolver,
     private injector: Injector,
-    private modal: NzModalService
-  ) { }
+    private modal: NzModalService,
+  ) {}
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd)
@@ -179,9 +181,17 @@ export class AppComponent
   };
   //暗黑模式
   changeDarkMode() {
+    if (this._darkModeLock) return;
+    this._darkModeLock = true;
     this.darkMode = !this.darkMode;
     localStorage.setItem('darkMode', this.darkMode);
-    this.implementDarkMode();
+    window.location.reload();
+    const _cb = () => {
+      this.implementDarkMode();
+      this._darkModeLock = false;
+      window.removeEventListener('load', _cb);
+    };
+    window.addEventListener('load', _cb);
   }
   implementDarkMode() {
     if (this.darkMode) {
@@ -273,8 +283,8 @@ export class AppComponent
       nzClassName: 'customModal',
       nzStyle: { top: '30%' },
       nzFooter: null,
-      nzClosable: false
-    })
+      nzClosable: false,
+    });
   }
 
   //到评论区
@@ -284,7 +294,7 @@ export class AppComponent
       behavior: 'smooth',
     });
   }
-  ngAfterViewChecked(): void { }
+  ngAfterViewChecked(): void {}
   ngOnDestroy(): void {
     this.observer?.disconnect();
     window.removeEventListener('resize', this._showWaifu);
