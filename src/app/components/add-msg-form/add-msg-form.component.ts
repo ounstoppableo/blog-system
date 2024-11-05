@@ -65,7 +65,18 @@ export class AddMsgFormComponent implements OnInit {
         .addMsgForBoard(data)
         .subscribe((res: resType<any>) => {
           if (res.code === 200) {
-            this.message.success('评论成功，博主审核后才能看见o~~');
+            this.message.success('评论成功，博主审核后才能被别人看见o~~');
+            const msgCache = JSON.parse(
+              localStorage.getItem('msgCacheForAll') as any,
+            );
+            localStorage.setItem(
+              'msgCacheForAll',
+              JSON.stringify(
+                msgCache
+                  ? [...msgCache, { ...res.data, isLocal: true }]
+                  : [{ ...res.data, isLocal: true }],
+              ),
+            );
             this.msgBoardData.reset();
             this.reloadMsg.emit();
           } else {
@@ -77,7 +88,18 @@ export class AddMsgFormComponent implements OnInit {
         .addMsgForArticle(data)
         .subscribe((res: resType<any>) => {
           if (res.code === 200) {
-            this.message.success('评论成功，博主审核后才能看见o~~');
+            this.message.success('评论成功，博主审核后才能被别人看见o~~');
+            const msgCache = JSON.parse(
+              localStorage.getItem('msgCacheForArticle') as any,
+            );
+            localStorage.setItem(
+              'msgCacheForArticle',
+              JSON.stringify(
+                msgCache
+                  ? [...msgCache, { ...res.data, isLocal: true }]
+                  : [{ ...res.data, isLocal: true }],
+              ),
+            );
             this.msgBoardData.reset();
             this.reloadMsg.emit();
           } else {

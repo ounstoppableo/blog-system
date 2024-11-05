@@ -23,4 +23,5 @@ export interface msgItem extends addMsg {
   };
   audit: number;
   toTop: string;
+  isLocal?: boolean;
 }

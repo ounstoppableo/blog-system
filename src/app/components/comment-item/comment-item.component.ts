@@ -101,7 +101,23 @@ export class CommentItemComponent implements OnChanges {
       });
     }
   }
-  deleteMsg(msgId: any, article?: string) {
+  deleteMsg(msgId: any, article: any, isLocal: any) {
+    if (isLocal) {
+      const msgCache = JSON.parse(
+        localStorage.getItem(
+          article ? 'msgCacheForArticle' : 'msgCacheForAll',
+        ) as any,
+      );
+      if (msgCache)
+        localStorage.setItem(
+          article ? 'msgCacheForArticle' : 'msgCacheForAll',
+          JSON.stringify(
+            msgCache.filter((msgItem: any) => msgItem.msgId !== msgId),
+          ),
+        );
+      this.toReloadData();
+      return;
+    }
     this.boardMsgSerivce.deleteMsg(msgId, article).subscribe((res) => {
       if (res.code === 200) {
         this.message.success(res.msg as string);

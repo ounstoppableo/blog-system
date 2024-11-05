@@ -36,7 +36,7 @@
         <button nz-button nzShape="circle" (click)="auditMsg(msgItem.msgId,msgItem.articleId)" *ngIf="msgItem.audit === 0 && isLogin">
           <span class="iconfont icon-AUDIT" [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
         </button>
-        <button nz-button nzShape="circle" nz-popconfirm nzPopconfirmTitle="您确定要删除该评论吗?" (nzOnConfirm)="deleteMsg(msgItem.msgId,msgItem.articleId)" *ngIf="isLogin">
+        <button nz-button nzShape="circle" nz-popconfirm nzPopconfirmTitle="您确定要删除该评论吗?" (nzOnConfirm)="deleteMsg(msgItem.msgId,msgItem.articleId,msgItem.isLocal)" *ngIf="isLogin || msgItem.isLocal">
           <span class="iconfont icon-delete" [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
         </button>
       </div>
