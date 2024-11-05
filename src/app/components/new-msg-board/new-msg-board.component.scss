@@ -23,13 +23,15 @@
       padding-bottom: 10px;
       & > .seq {
         width: fit-content;
-        font-size: 18px;
+        line-height: 24px;
+        font-size: 24px;
         color: var(--newMsgSeq);
       }
       & > .content {
         flex: 1;
-        overflow: hidden;
+        width: 0;
         color: var(--newMsgWord);
+
         & > .nameSpace {
           display: flex;
           gap: 5px;
@@ -51,4 +53,7 @@
       }
     }
   }
+}
+a {
+  color: var(--newMsgTitle);
 }

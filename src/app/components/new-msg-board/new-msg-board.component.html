@@ -1,4 +1,4 @@
-<div class="newMsgBoard">
+<div class="newMsgBoard" *ngIf="msgList.length !== 0">
   <div class="title" id="newMsgtitleRef">
     <span class="iconfont icon-message" style="font-size: 30px"></span>
     <span>最新评论</span>
@@ -6,7 +6,7 @@
   <div class="msgContainer">
     <div class="msgItem" *ngFor="let item of msgList; let i = index">
       <div class="seq">{{ i + 1 }}</div>
-      <div class="content">
+      <a class="content" (click)="handelMsgJump($event, item)">
         <div class="nameSpace">
           <div class="name">{{ item.name }}</div>
           &#64;
@@ -15,7 +15,12 @@
         <div class="msgContent">
           {{ item.content }}
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>
+<app-msg-and-article-board-skeleton
+  *ngIf="msgList.length === 0"
+  [title]="'最新评论'"
+  [limit]="limit"
+></app-msg-and-article-board-skeleton>

@@ -11,6 +11,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CateByTagComponent implements OnInit {
   @Input()
   smallSize!: boolean;
+  @Input()
+  showMsgAndArticle = true;
   tags: tag[] = [];
   loading = true;
   constructor(private categoryService: CategoryService) {}

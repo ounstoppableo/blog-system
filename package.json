@@ -9,6 +9,7 @@
     "test": "ng test",
     "analyzer": "ng build --configuration analyzer --stats-json && webpack-bundle-analyzer dist/stats.json",
     "dll": "webpack --config webpack.dll.js",
+    "fix:eslint": "eslint src --fix --ignore-path .eslintignore",
     "lint:eslint": "eslint src --ignore-path .eslintignore",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",

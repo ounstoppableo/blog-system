@@ -15,3 +15,7 @@
   *ngIf="loading"
   [smallSize]="smallSize"
 ></app-cate-by-tag-skeleton>
+<app-random-article-and-new-msg
+  *ngIf="showMsgAndArticle && !smallSize"
+  [limit]="20"
+></app-random-article-and-new-msg>

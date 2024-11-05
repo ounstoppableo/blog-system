@@ -56,6 +56,9 @@ import { CatalogueSkeletonComponent } from './skeleton/catalogue-skeleton/catalo
 import { NumberTransPipe } from './pipe/numberTrans';
 import { NzConfig, provideNzConfig } from 'ng-zorro-antd/core/config';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
+import { RandomArticleBoardComponent } from './components/random-article-board/random-article-board.component';
+import { RandomArticleAndNewMsgComponent } from './components/random-article-and-new-msg/random-article-and-new-msg.component';
+import { MsgAndArticleBoardSkeletonComponent } from './skeleton/msg-and-article-board-skeleton/msg-and-article-board-skeleton.component';
 const ngZorroConfig: NzConfig = {
   message: {
     nzMaxStack: 1,
@@ -112,6 +115,9 @@ const ngZorroConfig: NzConfig = {
     CatalogueSkeletonComponent,
     NewMsgBoardComponent,
     SubscribeComponent,
+    RandomArticleBoardComponent,
+    RandomArticleAndNewMsgComponent,
+    MsgAndArticleBoardSkeletonComponent,
   ],
   imports: [
     BrowserModule,

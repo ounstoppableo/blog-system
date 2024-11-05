@@ -16,10 +16,12 @@
   <div class="footer">
     <app-folder-cate
       *ngIf="articleInfoList.length === 0"
+      [showMsgAndArticle]="false"
       [smallSize]="smallSize"
     ></app-folder-cate>
     <app-cate-by-tag
       *ngIf="articleInfoList.length === 0"
+      [showMsgAndArticle]="false"
       [smallSize]="smallSize"
     ></app-cate-by-tag>
     <app-overview
@@ -34,3 +36,7 @@
     ></app-overview>
   </div>
 </div>
+<app-random-article-and-new-msg
+  *ngIf="!smallSize"
+  [limit]="15"
+></app-random-article-and-new-msg>
