@@ -28,19 +28,22 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 8px;
 
     & > .header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
 
       & > .info {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
         gap: 10px;
 
         & > .name {
           font-size: 16px;
+          line-height: 16px;
           word-break: break-all;
 
           & > a {
@@ -77,6 +80,8 @@
         }
 
         & > .date {
+          font-size: 16px;
+          line-height: 16px;
           color: var(--cateColor);
         }
       }
@@ -92,6 +97,8 @@
           border: none;
           box-shadow: none;
           color: var(--primary);
+          height: fit-content;
+          padding: 0;
           & > .count {
             position: absolute;
             font-size: 12px;
@@ -116,10 +123,15 @@
 
     & > .msg {
       font-size: 16px;
+      line-height: 16px;
       color: var(--fontColor);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
 
       & > .reply {
         font-size: 14px;
+        line-height: 14px;
 
         & > a {
           color: var(--aColor);
@@ -135,6 +147,8 @@
       display: flex;
       gap: 10px;
       color: var(--cateColor);
+      font-size: 14px;
+      line-height: 14px;
 
       & > .device {
         display: flex;

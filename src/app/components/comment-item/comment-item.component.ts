@@ -59,7 +59,7 @@ export class CommentItemComponent implements OnChanges {
 
   timer: any = null;
 
-  noToTop = '1970-01-01T08:00:01.000Z';
+  noToTop = '1970-01-01 08:00:01';
 
   constructor(
     private boardMsgSerivce: BoardMsgService,
@@ -67,7 +67,7 @@ export class CommentItemComponent implements OnChanges {
   ) {}
 
   ngOnChanges(changes: any): void {
-    if (changes.msgItem.currentValue) {
+    if (changes?.msgItem?.currentValue) {
       this.addChiren(changes.msgItem.currentValue);
       this.checkUpvokeStatus(changes.msgItem.currentValue);
     }

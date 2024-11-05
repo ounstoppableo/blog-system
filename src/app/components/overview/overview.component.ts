@@ -50,7 +50,7 @@ export class OverviewComponent
   @ViewChild('articleListRef')
   articleListRef!: any;
   isInit = false;
-  noToTop = '1970-01-01T08:00:01.000Z';
+  noToTop = '1970-01-01 08:00:01';
   private _timer: any = null;
   private _cardShowWhileScroll: any;
   private _loadedEventCb: any;
