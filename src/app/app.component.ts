@@ -244,6 +244,10 @@ export class AppComponent
         '--markdownTrColor',
         '#21252b',
       );
+      document.documentElement.style.setProperty(
+        '--ramdonArticleAndNewMsg',
+        '#aaa',
+      );
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
         'darkMode',
@@ -279,6 +283,10 @@ export class AppComponent
       document.documentElement.style.setProperty(
         '--markdownTrColor',
         '#f6f8fa',
+      );
+      document.documentElement.style.setProperty(
+        '--ramdonArticleAndNewMsg',
+        '#999',
       );
       const removedThemeStyle = document.getElementById('darkMode');
       if (removedThemeStyle) {

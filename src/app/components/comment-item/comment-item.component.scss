@@ -83,6 +83,8 @@
           font-size: 16px;
           line-height: 16px;
           color: var(--cateColor);
+          display: flex;
+          align-items: center;
         }
       }
 
@@ -106,18 +108,6 @@
             top: -8px;
           }
         }
-
-        // & > [nzType='message'] {
-        //   position: relative;
-        //   cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),pointer;;
-
-        //   & > .count {
-        //     position: absolute;
-        //     font-size: 12px;
-        //     right: 0px;
-        //     top: -12px;
-        //   }
-        // }
       }
     }
 
