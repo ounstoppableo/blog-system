@@ -81,7 +81,17 @@ export class ContextComponent
           wordsCount: res.data.words,
           readTime: res.data.text,
         });
-        let article = marked.parse(res.data.articleContent) as string;
+
+        let article = marked.parse(
+          res.data.articleContent.replace(
+            /\$\$([\s\S]+?)\$\$/g,
+            (match: any, math: any) => {
+              math = math.replace(/\\\\/g, '@@line_break@@');
+              return `$$${math}$$`;
+            },
+          ),
+        ) as string;
+        article = article.replace(/@@line_break@@/g, '\\\\');
         const articleTitleList = article.match(
           /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
         ) as any[];
