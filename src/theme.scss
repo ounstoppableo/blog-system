@@ -111,6 +111,13 @@ html:has(.smallSize) {
 a {
   color: var(--aColor);
 }
+
+.ant-btn {
+  &::after {
+    --antd-wave-shadow-color: var(--styleColor) !important;
+  }
+}
+
 .ant-btn:hover {
   border-color: var(--styleColor) !important;
   color: var(--styleColor) !important;
@@ -127,7 +134,6 @@ a {
     background: var(--listHoverColor) !important;
     color: var(--fixedBtnFontColor) !important;
   }
-  --antd-wave-shadow-color: var(--antdBtnOrangeolor) !important;
 }
 .ant-upload {
   &:hover {

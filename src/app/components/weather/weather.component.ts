@@ -202,7 +202,8 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
           .getWeatherByLocation('116.40,39.90')
           .subscribe((res) => {
             if (res.code === 200) {
-              this.hoursData = res.data;
+              this.hoursData = res.data.weatherData;
+              this.location = res.data.location[0];
               this.init();
             }
           });
@@ -271,7 +272,7 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
             'filter',
             'brightness(200%) drop-shadow(0 0 10px rgba(255, 255, 255, 1))',
           );
-          cloud.css('mix-blend-mode', 'normal');
+          cloud.css('mix-blend-mode', that.smallSize ? 'soft-light' : 'normal');
           rain.css('mix-blend-mode', 'normal');
         } else {
           moon.css('opacity', '1');

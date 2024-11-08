@@ -59,12 +59,17 @@ const addMathJax = () => {
   mathJaxScript.src =
     'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
   document.body.append(mathJaxScript);
-
+  init();
   window.addEventListener('load', () => {
-    requestIdleCallback(() => {
-      mathFontSizeResize();
-      window.addEventListener('resize', mathFontSizeResize);
-    });
+    init();
+  });
+};
+
+const init = () => {
+  requestIdleCallback(() => {
+    mathFontSizeResize();
+    window.removeEventListener('resize', mathFontSizeResize);
+    window.addEventListener('resize', mathFontSizeResize);
   });
 };
 
@@ -75,7 +80,6 @@ const mathFontSizeResize = () => {
     const parentWidth = item.parentNode.offsetWidth;
     const child = item.querySelectorAll('mjx-mlabeledtr')[0];
     const childWidth = Math.max(child.offsetWidth, item.offsetWidth);
-
     const ratio = childWidth / parentWidth;
     const originalFontSize = parseInt(item.style.fontSize);
 
