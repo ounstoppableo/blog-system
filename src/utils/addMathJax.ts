@@ -61,25 +61,25 @@ const addMathJax = () => {
   document.body.append(mathJaxScript);
 };
 
-const init = () => {
-  requestIdleCallback(() => {
-    mathFontSizeResize();
-    window.removeEventListener('resize', mathFontSizeResize);
-    window.addEventListener('resize', mathFontSizeResize);
-  });
-};
+// const init = () => {
+//   requestIdleCallback(() => {
+//     mathFontSizeResize();
+//     window.removeEventListener('resize', mathFontSizeResize);
+//     window.addEventListener('resize', mathFontSizeResize);
+//   });
+// };
 
-const mathFontSizeResize = () => {
-  const mjxContainer = document.querySelectorAll('mjx-container');
+// const mathFontSizeResize = () => {
+//   const mjxContainer = document.querySelectorAll('mjx-container');
 
-  mjxContainer.forEach((item: any) => {
-    const parentWidth = item.parentNode.offsetWidth;
-    const child = item.querySelectorAll('mjx-mlabeledtr')[0];
-    const childWidth = Math.max(child.offsetWidth, item.offsetWidth);
-    const ratio = childWidth / parentWidth;
-    const originalFontSize = parseInt(item.style.fontSize);
+//   mjxContainer.forEach((item: any) => {
+//     const parentWidth = item.parentNode.offsetWidth;
+//     const child = item.querySelectorAll('mjx-mlabeledtr')[0];
+//     const childWidth = Math.max(child.offsetWidth, item.offsetWidth);
+//     const ratio = childWidth / parentWidth;
+//     const originalFontSize = parseInt(item.style.fontSize);
 
-    item.style.fontSize = Math.floor(originalFontSize / ratio) + '%';
-  });
-};
+//     item.style.fontSize = Math.floor(originalFontSize / ratio) + '%';
+//   });
+// };
 export default addMathJax;
