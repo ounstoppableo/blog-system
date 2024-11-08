@@ -6,6 +6,69 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "367810",
+      "name": "foggy",
+      "font_class": "iconfontfoggynight",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "924580",
+      "name": "cloud",
+      "font_class": "cloud",
+      "unicode": "e973",
+      "unicode_decimal": 59763
+    },
+    {
+      "icon_id": "1089786",
+      "name": "sunny",
+      "font_class": "qing",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "3092871",
+      "name": "clear-night",
+      "font_class": "clear-night",
+      "unicode": "e6af",
+      "unicode_decimal": 59055
+    },
+    {
+      "icon_id": "6988445",
+      "name": "ac-unit",
+      "font_class": "ac-unit",
+      "unicode": "ec40",
+      "unicode_decimal": 60480
+    },
+    {
+      "icon_id": "22141197",
+      "name": "rainy",
+      "font_class": "rainy",
+      "unicode": "ea12",
+      "unicode_decimal": 59922
+    },
+    {
+      "icon_id": "27300857",
+      "name": "thunderstorm",
+      "font_class": "thunderstorm",
+      "unicode": "e75b",
+      "unicode_decimal": 59227
+    },
+    {
+      "icon_id": "39648494",
+      "name": "partly-cloudy-night",
+      "font_class": "partly-cloudy-night",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "39648496",
+      "name": "partly-cloudy-day",
+      "font_class": "partly-cloudy-day",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
       "icon_id": "109735",
       "name": "emoji",
       "font_class": "emoji",

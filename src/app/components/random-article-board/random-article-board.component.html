@@ -11,7 +11,10 @@
           <div class="name" style="display: flex; gap: 5px">
             <a [href]="'/folderPage/' + item.folderId">{{ item.folderName }}</a>
             <span>></span>
-            <span *ngFor="let tag of item.tags; let i = index" style="display: flex; gap: 5px">
+            <span
+              *ngFor="let tag of item.tags; let i = index"
+              style="display: flex; gap: 5px"
+            >
               <a [href]="'/tagPage/' + tag.tagName">{{ tag.tagName }}</a>
               <span *ngIf="i !== item.tags.length - 1">></span>
             </span>

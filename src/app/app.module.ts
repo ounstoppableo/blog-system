@@ -59,6 +59,7 @@ import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { RandomArticleBoardComponent } from './components/random-article-board/random-article-board.component';
 import { RandomArticleAndNewMsgComponent } from './components/random-article-and-new-msg/random-article-and-new-msg.component';
 import { MsgAndArticleBoardSkeletonComponent } from './skeleton/msg-and-article-board-skeleton/msg-and-article-board-skeleton.component';
+import { WeatherComponent } from './components/weather/weather.component';
 const ngZorroConfig: NzConfig = {
   message: {
     nzMaxStack: 1,
@@ -118,6 +119,7 @@ const ngZorroConfig: NzConfig = {
     RandomArticleBoardComponent,
     RandomArticleAndNewMsgComponent,
     MsgAndArticleBoardSkeletonComponent,
+    WeatherComponent,
   ],
   imports: [
     BrowserModule,
