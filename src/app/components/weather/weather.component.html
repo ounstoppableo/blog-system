@@ -1,0 +1,25 @@
+<div class="cardForWeather" #card>
+  <div class="card-body">
+    <div class="backgroundNight"></div>
+    <div class="background"></div>
+    <div class="temperature cardInfo">
+      <span id="temperature">21</span>
+      °C
+    </div>
+    <div class="weatherType cardInfo">
+      <span id="weatherType">Sunny</span>
+    </div>
+    <div class="currentDay cardInfo"><span id="currentDay">Today</span></div>
+    <div id="thunderstorm">
+      <div id="lightning"></div>
+    </div>
+    <div class="sun" [ngClass]="{ smallSize: smallSize }"></div>
+    <div class="moon" [ngClass]="{ smallSize: smallSize }"></div>
+    <div id="cloud"></div>
+    <canvas id="rain"></canvas>
+    <div id="snow"></div>
+    <div class="hours-container" [ngClass]="{ smallSize: smallSize }">
+      <div class="hours"></div>
+    </div>
+  </div>
+</div>

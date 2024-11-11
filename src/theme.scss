@@ -8,6 +8,45 @@ html:has(.smallSize) {
     margin-right: 0px;
   }
 }
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: var(--styleColor) !important;
+  box-shadow: 0 0 0 2px var(--styleColorAlpha) !important;
+  border-right-width: 1px;
+  outline: 0;
+}
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+  border-color: var(--styleColor) !important;
+}
+
+.ant-input {
+  &:hover {
+    border-color: var(--styleColor) !important;
+  }
+}
+.ant-input:focus,
+.ant-input-focused {
+  border-color: var(--styleColor) !important;
+  box-shadow: 0 0 0 2px var(--styleColorAlpha) !important;
+  border-right-width: 1px;
+  outline: 0;
+}
+
+.ant-select-selector {
+  &:hover {
+    border-color: var(--styleColor) !important;
+  }
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(
+    .ant-select-customize-input
+  )
+  .ant-select-selector {
+  border-color: var(--styleColor) !important;
+  box-shadow: 0 0 0 2px var(--styleColorAlpha) !important;
+  border-right-width: 1px;
+  outline: 0;
+}
 
 .ant-input-textarea-show-count::after {
   position: absolute;
@@ -68,20 +107,45 @@ html:has(.smallSize) {
 .ant-anchor-ink-ball {
   border: 2px solid var(--styleColor) !important;
 }
+
 a {
   color: var(--aColor);
 }
-.ant-btn-primary {
-  border-color: var(--styleColor);
-  background: var(--styleColor);
-  &:focus {
-    border-color: var(--listHoverColor);
-    background: var(--listHoverColor);
+
+.ant-btn {
+  &::after {
+    --antd-wave-shadow-color: var(--styleColor) !important;
   }
-  &:hover {
-    border-color: var(--listHoverColor);
-    background: var(--listHoverColor);
-  }
-  --antd-wave-shadow-color: var(--antdBtnOrangeolor);
 }
 
+.ant-btn:hover {
+  border-color: var(--styleColor) !important;
+  color: var(--styleColor) !important;
+}
+.ant-btn-primary {
+  border-color: var(--styleColor) !important;
+  background: var(--styleColor) !important;
+  &:focus {
+    border-color: var(--listHoverColor) !important;
+    background: var(--listHoverColor) !important;
+  }
+  &:hover {
+    border-color: var(--listHoverColor) !important;
+    background: var(--listHoverColor) !important;
+    color: var(--fixedBtnFontColor) !important;
+  }
+}
+.ant-upload {
+  &:hover {
+    border-color: var(--styleColor) !important;
+  }
+}
+
+.ant-modal .ant-picker-clear,
+.ant-modal .ant-slider-handle,
+.ant-modal .ant-anchor-wrapper,
+.ant-modal .ant-collapse-content,
+.ant-modal .ant-timeline-item-head,
+.ant-modal .ant-card {
+  background-color: var(--cardColor) !important;
+}

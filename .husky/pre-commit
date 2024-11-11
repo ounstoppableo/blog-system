@@ -3,4 +3,5 @@
 
 # pnpm run format
 pnpm run commitlint
+pnpm run fix:eslint
 pnpm run lint:eslint

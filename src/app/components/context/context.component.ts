@@ -15,7 +15,6 @@ import { resType } from '@/types/response/response';
 import addHighLight from '@/utils/addHighLight';
 import addMathJax from '@/utils/addMathJax';
 import { NzImageService } from 'ng-zorro-antd/image';
-
 @Component({
   selector: 'app-context',
   templateUrl: './context.component.html',
@@ -82,7 +81,17 @@ export class ContextComponent
           wordsCount: res.data.words,
           readTime: res.data.text,
         });
-        let article = marked.parse(res.data.articleContent) as string;
+
+        let article = marked.parse(
+          res.data.articleContent.replace(
+            /\$\$([\s\S]+?)\$\$/g,
+            (match: any, math: any) => {
+              math = math.replace(/\\\\/g, '@@line_break@@');
+              return `$$${math}$$`;
+            },
+          ),
+        ) as string;
+        article = article.replace(/@@line_break@@/g, '\\\\');
         const articleTitleList = article.match(
           /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
         ) as any[];
@@ -91,6 +100,10 @@ export class ContextComponent
           true,
         );
         this.getCatalogue.emit(this.articleTitleTree);
+        localStorage.setItem(
+          'catalogue',
+          JSON.stringify(this.articleTitleTree),
+        );
         article = article.replace(
           /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
           (match: string) => {

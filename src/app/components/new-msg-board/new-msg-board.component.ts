@@ -1,5 +1,6 @@
 import { BoardMsgService } from '@/app/service/board-msg.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-msg-board',
@@ -9,8 +10,12 @@ import { Component, OnInit } from '@angular/core';
 export class NewMsgBoardComponent implements OnInit {
   msgList: any[] = [];
   msgListLength = 0;
+  @Input()
   limit = 10;
-  constructor(private boardMsgService: BoardMsgService) {}
+  constructor(
+    private boardMsgService: BoardMsgService,
+    private router: Router,
+  ) {}
   ngOnInit() {
     this.boardMsgService.getNewMsg(this.limit).subscribe((res) => {
       if (res.code === 200) this.msgList = res.data;
@@ -21,5 +26,14 @@ export class NewMsgBoardComponent implements OnInit {
     return Array(count)
       .fill(0)
       .map((_, index) => index);
+  }
+  handelMsgJump(e: any, msgInfo: any) {
+    e.preventDefault();
+    const articleId = msgInfo.articleId;
+    if (articleId) {
+      this.router.navigate(['article', articleId]);
+    } else {
+      this.router.navigate(['msgboard']);
+    }
   }
 }

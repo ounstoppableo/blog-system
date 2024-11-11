@@ -54,25 +54,8 @@
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="announce">
-      <p>
-        <span
-          class="iconfont icon-notification"
-          [style]="{ fontSize: '30px' }"
-        ></span>
-        <span>公告</span>
-      </p>
-      <div class="container">
-        <app-none></app-none>
-        <div class="has">
-          <div class="item"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="!isArticle && !isMsgBoard">
-    <app-new-msg-board></app-new-msg-board>
+  <div class="card" style="height: 450px">
+    <app-weather [smallSize]="smallSize"></app-weather>
   </div>
 </div>
 <div class="catelogue" *ngIf="isArticle && !smallSize">

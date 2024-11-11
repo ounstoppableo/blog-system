@@ -1,5 +1,8 @@
 <router-outlet></router-outlet>
 <div id="operate">
+  <button class="btn" *ngIf="isArticle && smallSize" (click)="openCatalogue()">
+    <span class="iconfont icon-mulu"></span>
+  </button>
   <button class="btn" (click)="changeDarkMode()">
     <span
       [class]="darkMode ? 'iconfont icon-sun' : 'iconfont icon-moon'"
@@ -11,6 +14,32 @@
   <button class="btn" (click)="toTop()">
     <span class="iconfont icon-Arrows_Arrow_Up"></span>
   </button>
+  <button class="btn" (click)="subscribe()">
+    <span class="iconfont icon-dingyue"></span>
+  </button>
 </div>
 <ng-container #vc></ng-container>
 <app-music-player></app-music-player>
+<ng-template #catalogueTemp>
+  <div class="catalogue">
+    <p>
+      <span class="iconfont icon-mulu" [style]="{ fontSize: '30px' }"></span>
+      <span>目录</span>
+    </p>
+    <div class="container">
+      <div class="has">
+        <nz-anchor
+          [nzAffix]="false"
+          [nzShowInkInFixed]="true"
+          [nzContainer]="'#write'"
+          (nzClick)="handleCatalogueClick($event)"
+        >
+          <app-catalogue
+            [catalogue]="catalogue"
+            [smallSize]="smallSize"
+          ></app-catalogue>
+        </nz-anchor>
+      </div>
+    </div>
+  </div>
+</ng-template>

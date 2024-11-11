@@ -24,3 +24,7 @@
   *ngIf="loading"
   [smallSize]="smallSize"
 ></app-folder-cate-skeleton>
+<app-random-article-and-new-msg
+  *ngIf="showMsgAndArticle && !smallSize"
+  [limit]="20"
+></app-random-article-and-new-msg>

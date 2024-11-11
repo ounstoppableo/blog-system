@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+.cardForWeather {
+  position: relative;
+  overflow: hidden; /* Ensure vertical scrolling */
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  border: none;
+  border-radius: 32px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 300;
+}
+
+.sun,
+.moon {
+  position: absolute;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  transform-origin: 0px 200px;
+  transition: all 1s;
+  transform: rotate(-90deg); /* Initial rotation of -90 degrees */
+  &.smallSize {
+    transform-origin: 0px 60vw;
+  }
+}
+
+.sun {
+  bottom: 300px;
+  background: #fceabb;
+  box-shadow: 0px 0px 40px 15px #fceabb;
+  opacity: 1;
+}
+
+.moon {
+  bottom: 250px;
+  background: url('/assets/weather/moon.jpg');
+  background-size: contain;
+  box-shadow: 0px 0px 20px 5px #ffffff;
+  opacity: 0;
+}
+
+@keyframes rise-set {
+  0% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+.hours-container {
+  position: absolute;
+  bottom: 0;
+  right: -100px;
+  height: 300px;
+  &.smallSize {
+    height: 90vw;
+  }
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  transform: rotate(-90deg);
+  transform-origin: left bottom;
+  white-space: nowrap;
+  backdrop-filter: blur(20px);
+}
+
+.hours-container {
+  scroll-behavior: smooth;
+  & > .hours {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: 8px;
+  }
+}
+
+:host ::ng-deep .hour {
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 2px;
+  transition: background-color 0.3s ease;
+  border-radius: 16px;
+  height: 80px;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(90deg);
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+:host ::ng-deep .active {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+:host ::ng-deep .last {
+  min-width: 150px;
+}
+
+:host ::ng-deep .background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(0deg, #fefefe 0%, #00a4e4 74%);
+  z-index: 0;
+  transition: all 2s linear;
+}
+
+:host ::ng-deep .backgroundNight {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(0deg, #4c5177 0%, #051428 74%);
+  transition: all 2s linear;
+}
+
+.cardForWeather,
+.card-body {
+  background: transparent !important;
+  padding: 0;
+}
+
+:host ::ng-deep .rain {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+:host ::ng-deep .drop {
+  background: -webkit-gradient(
+    linear,
+    0% 0%,
+    0% 100%,
+    to(rgba(255, 255, 255, 0.6)),
+    from(rgba(255, 255, 255, 0))
+  );
+  background: -moz-linear-gradient(
+    top,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  width: 1px;
+  height: 30px;
+  position: absolute;
+  bottom: 0px;
+  -webkit-animation: fall 0.3s linear infinite;
+  -moz-animation: fall 0.3s linear infinite;
+}
+
+/* animate the drops*/
+@-webkit-keyframes fall {
+  to {
+    margin-top: 500px;
+  }
+}
+@-moz-keyframes fall {
+  to {
+    margin-top: 500px;
+  }
+}
+
+:host ::ng-deep .location {
+  position: absolute;
+  z-index: 2;
+  right: 24px;
+  top: 24px;
+  text-align: right;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+:host ::ng-deep .temperature {
+  position: absolute;
+  z-index: 2;
+  right: 24px;
+  top: 64px;
+  text-align: right;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+:host ::ng-deep .weatherType {
+  position: absolute;
+  z-index: 2;
+  right: 24px;
+  top: 120px;
+  text-align: right;
+  font-size: 16px;
+  line-height: 34px;
+  text-transform: capitalize;
+}
+
+:host ::ng-deep .currentDay {
+  position: absolute;
+  z-index: 2;
+  left: 8px;
+  bottom: 100px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 34px;
+}
+
+:host ::ng-deep .hour span {
+  position: relative;
+  display: flex;
+  text-align: center;
+  color: black;
+}
+
+:host ::ng-deep .hour .timeSpan {
+  font-size: 14px;
+  font-weight: 300;
+}
+:host ::ng-deep .hour .tempSpan {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+:host ::ng-deep .hour:last-child::after {
+  width: 300px;
+  height: 1px;
+  content: '';
+}
+
+:host ::ng-deep .hour .iconfont {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+:host ::ng-deep .hour[data-weather='sunny'] .iconfont::before {
+  content: '\e605';
+}
+
+:host ::ng-deep .hour[data-weather='clear-night'] .iconfont::before {
+  content: '\e6af';
+}
+
+:host ::ng-deep .hour[data-weather='partly-cloudy'] .iconfont::before {
+  content: '\e607';
+}
+
+:host ::ng-deep .hour[data-weather='partly-cloudy-night'] .iconfont::before {
+  content: '\e606';
+}
+
+:host ::ng-deep .hour[data-weather='cloudy'] .iconfont::before {
+  content: '\e973';
+}
+
+:host ::ng-deep .hour[data-weather='foggy'] .iconfont::before {
+  content: '\e617';
+}
+
+:host ::ng-deep .hour[data-weather='rainy'] .iconfont::before {
+  content: '\ea12';
+}
+
+:host ::ng-deep .hour[data-weather='snowy'] .iconfont::before {
+  content: '\ec40';
+}
+
+:host ::ng-deep .hour[data-weather='thunderstorm'] .iconfont::before {
+  content: '\e75b';
+}
+
+.cardForWeather {
+  color: black;
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  border: none;
+}
+
+:host ::ng-deep #cloud {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  filter: brightness(200%) drop-shadow(0 0 10px rgba(255, 255, 255, 1));
+  top: 0;
+  transition: all 2s;
+}
+
+:host ::ng-deep #snow {
+  opacity: 0;
+  top: 0;
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 2s;
+}
+
+:host ::ng-deep #rain {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transition: all 2s;
+}
+
+:host ::ng-deep #lightning {
+  position: absolute;
+  top: -200px;
+  left: 0;
+  width: 100%;
+  height: 150%;
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.5)
+  );
+  opacity: 0;
+  pointer-events: none;
+  animation: lightningFlash var(--lightning-duration) linear infinite;
+}
+
+@keyframes lightningFlash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  24% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  26% {
+    opacity: 0;
+  }
+  28% {
+    opacity: 1;
+  }
+  29% {
+    opacity: 0;
+  }
+}

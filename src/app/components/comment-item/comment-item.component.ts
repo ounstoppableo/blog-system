@@ -59,7 +59,7 @@ export class CommentItemComponent implements OnChanges {
 
   timer: any = null;
 
-  noToTop = '1970-01-01T08:00:01.000Z';
+  noToTop = '1970-01-01 08:00:01';
 
   constructor(
     private boardMsgSerivce: BoardMsgService,
@@ -67,7 +67,7 @@ export class CommentItemComponent implements OnChanges {
   ) {}
 
   ngOnChanges(changes: any): void {
-    if (changes.msgItem.currentValue) {
+    if (changes?.msgItem?.currentValue) {
       this.addChiren(changes.msgItem.currentValue);
       this.checkUpvokeStatus(changes.msgItem.currentValue);
     }
@@ -101,7 +101,23 @@ export class CommentItemComponent implements OnChanges {
       });
     }
   }
-  deleteMsg(msgId: any, article?: string) {
+  deleteMsg(msgId: any, article: any, isLocal: any) {
+    if (isLocal) {
+      const msgCache = JSON.parse(
+        localStorage.getItem(
+          article ? 'msgCacheForArticle' : 'msgCacheForAll',
+        ) as any,
+      );
+      if (msgCache)
+        localStorage.setItem(
+          article ? 'msgCacheForArticle' : 'msgCacheForAll',
+          JSON.stringify(
+            msgCache.filter((msgItem: any) => msgItem.msgId !== msgId),
+          ),
+        );
+      this.toReloadData();
+      return;
+    }
     this.boardMsgSerivce.deleteMsg(msgId, article).subscribe((res) => {
       if (res.code === 200) {
         this.message.success(res.msg as string);

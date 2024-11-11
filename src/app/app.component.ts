@@ -7,12 +7,14 @@ import {
   Injector,
   OnDestroy,
   OnInit,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { CircleMenuComponent } from './components/circle-menu/circle-menu.component';
-
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,12 +29,19 @@ export class AppComponent
   firstLoad = true;
   imgLazyLoadMap = new Map();
   observer: any;
+  smallSize = false;
+  catalogue: any[] = [];
+  private _modelInstance: any;
+  private _darkModeLock = false;
   @ViewChild('operate')
   operate!: ElementRef;
+  @ViewChild('catalogueTemp')
+  catalogueTemp!: TemplateRef<any>;
   constructor(
     private router: Router,
     private r: ComponentFactoryResolver,
     private injector: Injector,
+    private modal: NzModalService,
   ) {}
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
@@ -53,6 +62,15 @@ export class AppComponent
   @ViewChild('vc', { read: ViewContainerRef }) vc!: ViewContainerRef;
   seasonFactory = this.r.resolveComponentFactory(CircleMenuComponent);
   componentRef = this.seasonFactory.create(this.injector);
+
+  pageControl = () => {
+    if (window.innerWidth < 1024) {
+      this.smallSize = true;
+    } else {
+      this.smallSize = false;
+    }
+  };
+
   ngAfterViewInit(): void {
     //看板娘加载
     loadScript(
@@ -134,6 +152,9 @@ export class AppComponent
       subtree: true,
     });
     window.addEventListener('scroll', this.imgLazyLoad);
+
+    window.addEventListener('resize', this.pageControl);
+    this.pageControl();
   }
   private _showWaifu() {
     if (innerWidth > 1024) {
@@ -177,9 +198,17 @@ export class AppComponent
   };
   //暗黑模式
   changeDarkMode() {
+    if (this._darkModeLock) return;
+    this._darkModeLock = true;
     this.darkMode = !this.darkMode;
     localStorage.setItem('darkMode', this.darkMode);
-    this.implementDarkMode();
+    window.location.reload();
+    const _cb = () => {
+      this.implementDarkMode();
+      this._darkModeLock = false;
+      window.removeEventListener('load', _cb);
+    };
+    window.addEventListener('load', _cb);
   }
   implementDarkMode() {
     if (this.darkMode) {
@@ -207,6 +236,18 @@ export class AppComponent
         'linear-gradient(90deg, rgba(205, 255, 255, 0.07) 3%, transparent 0),linear-gradient(1turn, rgba(205, 255, 255, 0.07) 3%, transparent 0)',
       );
       document.documentElement.style.setProperty('--c-gray', '#666');
+      document.documentElement.style.setProperty(
+        '--markdownThColorBorder',
+        '#444',
+      );
+      document.documentElement.style.setProperty(
+        '--markdownTrColor',
+        '#21252b',
+      );
+      document.documentElement.style.setProperty(
+        '--ramdonArticleAndNewMsg',
+        '#aaa',
+      );
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
         'darkMode',
@@ -235,6 +276,18 @@ export class AppComponent
         'linear-gradient(90deg, rgba(50, 0, 0, 0.07) 3%, transparent 0),linear-gradient(1turn, rgba(50, 0, 0, 0.07) 3%, transparent 0)',
       );
       document.documentElement.style.setProperty('--c-gray', '#ccc');
+      document.documentElement.style.setProperty(
+        '--markdownThColorBorder',
+        '#dfe2e5',
+      );
+      document.documentElement.style.setProperty(
+        '--markdownTrColor',
+        '#f6f8fa',
+      );
+      document.documentElement.style.setProperty(
+        '--ramdonArticleAndNewMsg',
+        '#999',
+      );
       const removedThemeStyle = document.getElementById('darkMode');
       if (removedThemeStyle) {
         document.head.removeChild(removedThemeStyle);
@@ -262,6 +315,19 @@ export class AppComponent
       behavior: 'smooth',
     });
   }
+  //订阅
+  subscribe() {
+    this.modal.create({
+      nzTitle: undefined,
+      nzContent: SubscribeComponent,
+      nzWidth: 'fit-content',
+      nzClassName: 'customModal',
+      nzStyle: { top: '30%' },
+      nzFooter: null,
+      nzClosable: false,
+    });
+  }
+
   //到评论区
   toCommentArea() {
     window.scrollTo({
@@ -269,10 +335,37 @@ export class AppComponent
       behavior: 'smooth',
     });
   }
+
+  //打开目录
+  openCatalogue() {
+    this.catalogue = JSON.parse(localStorage.getItem('catalogue') as any);
+    requestAnimationFrame(() => {
+      this._modelInstance = this.modal.create({
+        nzTitle: undefined,
+        nzContent: this.catalogueTemp,
+        nzWidth: 'fit-content',
+        nzClassName: 'customModal_catalogue',
+        nzStyle: { top: '20%' },
+        nzFooter: null,
+        nzClosable: false,
+      });
+    });
+  }
+
+  handleCatalogueClick(e: any) {
+    this._modelInstance.close();
+    setTimeout(() => {
+      document
+        .getElementById(e.replace(/[\(\-\)\$0-9\.\s\&\@\;#]/g, ''))
+        ?.scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+  }
+
   ngAfterViewChecked(): void {}
   ngOnDestroy(): void {
     this.observer?.disconnect();
     window.removeEventListener('resize', this._showWaifu);
     window.removeEventListener('scroll', this.imgLazyLoad);
+    window.removeEventListener('resize', this.pageControl);
   }
 }

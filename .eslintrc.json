@@ -1,9 +1,13 @@
 {
   "root": true,
-  "ignorePatterns": ["projects/**/*"],
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
@@ -28,6 +32,7 @@
           }
         ],
         "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-this-alias": "off",
         "@angular-eslint/no-empty-lifecycle-method": "off",
         // eslint（https://eslint.bootcss.com/docs/rules/）
         "no-var": "error", // 要求使用 let 或 const 而不是 var
@@ -37,6 +42,7 @@
             "max": 1
           }
         ], // 不允许多个空行
+        "no-inner-declarations": "off",
         "no-unexpected-multiline": "error", // 禁止空余的多行
         "no-useless-escape": "off", // 禁止不必要的转义字符
         // typeScript (https://typescript-eslint.io/rules)
@@ -49,7 +55,9 @@
       }
     },
     {
-      "files": ["*.html"],
+      "files": [
+        "*.html"
+      ],
       "extends": [
         "plugin:@angular-eslint/template/recommended",
         "plugin:@angular-eslint/template/accessibility",

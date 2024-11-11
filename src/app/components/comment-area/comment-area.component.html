@@ -24,7 +24,7 @@
     *ngIf="msgItems.length !== 0 && show"
     [nzPageIndex]="page"
     [nzPageSize]="limit"
-    [nzTotal]="total"
+    [nzTotal]="msgCount"
     class="pagination"
     (nzPageIndexChange)="pageIndexChange($event)"
   ></nz-pagination>

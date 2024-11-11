@@ -55,6 +55,11 @@ import { SingleCateSkeletonComponent } from './skeleton/single-cate-skeleton/sin
 import { CatalogueSkeletonComponent } from './skeleton/catalogue-skeleton/catalogue-skeleton.component';
 import { NumberTransPipe } from './pipe/numberTrans';
 import { NzConfig, provideNzConfig } from 'ng-zorro-antd/core/config';
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
+import { RandomArticleBoardComponent } from './components/random-article-board/random-article-board.component';
+import { RandomArticleAndNewMsgComponent } from './components/random-article-and-new-msg/random-article-and-new-msg.component';
+import { MsgAndArticleBoardSkeletonComponent } from './skeleton/msg-and-article-board-skeleton/msg-and-article-board-skeleton.component';
+import { WeatherComponent } from './components/weather/weather.component';
 const ngZorroConfig: NzConfig = {
   message: {
     nzMaxStack: 1,
@@ -110,6 +115,11 @@ const ngZorroConfig: NzConfig = {
     SingleCateSkeletonComponent,
     CatalogueSkeletonComponent,
     NewMsgBoardComponent,
+    SubscribeComponent,
+    RandomArticleBoardComponent,
+    RandomArticleAndNewMsgComponent,
+    MsgAndArticleBoardSkeletonComponent,
+    WeatherComponent,
   ],
   imports: [
     BrowserModule,

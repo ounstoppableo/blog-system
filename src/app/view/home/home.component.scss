@@ -1,6 +1,6 @@
 .root {
   height: var(--bodyHeight);
-  background-image: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/background.b760b7c3ebe8fc9c.jpeg);
+  background-image: url(/assets/background.jpeg);
   background-repeat: no-repeat;
   background-position: 0 0;
   background-size: cover;
@@ -90,7 +90,7 @@
         justify-content: center;
         align-items: center;
         color: var(--white);
-        border: 2px solid var(--white);
+        border: 2px solid #fff;
         font-size: 18px;
         font-weight: 300;
         overflow: hidden;
@@ -121,7 +121,7 @@
         background-color: var(--white);
         font-weight: 300;
         color: var(--catagoryLiHoverBorder);
-        border: 2px solid var(--catagoryLiHoverBorder);
+        border: 2px solid #ccc;
         backdrop-filter: blur(0);
       }
     }

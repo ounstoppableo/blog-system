@@ -15,7 +15,7 @@
           <div class="admin" *ngIf="msgItem.isAdmin">博主</div>
           <div class="toTop" *ngIf="msgItem.toTop !== noToTop">置顶留言</div>
         </div>
-        <div class="date">{{ msgItem.subTime | date:'YYYY-MM-dd' }}</div>
+        <div class="date"><span class="iconfont icon-calendar"></span>&nbsp;{{ msgItem.subTime | date:'YYYY-MM-dd' }}</div>
       </div>
       <div class="operate">
         <button #upvokeButton nz-button nzShape="circle" (click)="upvoke(msgItem)" *ngIf="msgItem.audit === 1">
@@ -25,19 +25,19 @@
           <span class="iconfont" [class]="{
               'icon-like-fill': msgItem.upvokeChecked,
               'icon-like': !msgItem.upvokeChecked
-            }" [style]="{ fontSize: '20px' }"></span>
+            }" [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
         </button>
         <button nz-button nzShape="circle" (click)="toShowForm()" *ngIf="msgItem.audit === 1">
-          <span class="iconfont icon-message" [style]="{ fontSize: '20px' }"></span>
+          <span class="iconfont icon-message" [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
         </button>
         <button nz-button nzShape="circle" (click)="topMsg(msgItem.msgId,msgItem.articleId)" *ngIf="msgItem.audit === 1 && isLogin">
-          <span class="iconfont" [class]="msgItem.toTop === noToTop ? 'icon-zhiding' : 'icon-quxiaozhiding' " [style]="{ fontSize: '20px' }"></span>
+          <span class="iconfont" [class]="msgItem.toTop === noToTop ? 'icon-zhiding' : 'icon-quxiaozhiding' " [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
         </button>
         <button nz-button nzShape="circle" (click)="auditMsg(msgItem.msgId,msgItem.articleId)" *ngIf="msgItem.audit === 0 && isLogin">
-          <span class="iconfont icon-AUDIT" [style]="{ fontSize: '20px' }"></span>
+          <span class="iconfont icon-AUDIT" [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
         </button>
-        <button nz-button nzShape="circle" nz-popconfirm nzPopconfirmTitle="您确定要删除该评论吗?" (nzOnConfirm)="deleteMsg(msgItem.msgId,msgItem.articleId)" *ngIf="isLogin">
-          <span class="iconfont icon-delete" [style]="{ fontSize: '20px' }"></span>
+        <button nz-button nzShape="circle" nz-popconfirm nzPopconfirmTitle="您确定要删除该评论吗?" (nzOnConfirm)="deleteMsg(msgItem.msgId,msgItem.articleId,msgItem.isLocal)" *ngIf="isLogin || msgItem.isLocal">
+          <span class="iconfont icon-delete" [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
         </button>
       </div>
     </div>

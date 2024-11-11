@@ -17,4 +17,16 @@ export class ArticleService {
   getPreAndNextArticleInfo(articleId: string): Observable<resType<any>> {
     return this.http.get<resType<any>>(`/api/preAndNextArticle/${articleId}`);
   }
+  searchArticle(
+    searchText: string,
+    page: number,
+    limit: number,
+  ): Observable<resType<any>> {
+    return this.http.get<resType<any>>(
+      `/api/search?searchText=${searchText}&page=${page}&limit=${limit}`,
+    );
+  }
+  getRandomArticle(limit: number): Observable<resType<any>> {
+    return this.http.get<resType<any>>(`/api/getRandomArticle?limit=${limit}`);
+  }
 }

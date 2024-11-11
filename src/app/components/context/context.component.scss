@@ -44,10 +44,15 @@
       & > .reward {
         outline: none;
         border: none;
-        --antd-wave-shadow-color: var(--antdBtnOrangeolor);
+
+        &::after {
+          --antd-wave-shadow-color: var(--antdBtnOrangeolor) !important;
+        }
+
         &:hover {
           cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
             pointer !important;
+          color: var(--white) !important;
         }
       }
     }

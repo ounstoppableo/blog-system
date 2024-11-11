@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 export class CatalogueComponent implements OnChanges {
   @Input()
   catalogue: any[] = [];
+  @Input()
+  smallSize = false;
   url = '';
   ngOnChanges(changes: any): void {
     if (changes.catalogue.currentValue) {
@@ -22,5 +24,6 @@ export class CatalogueComponent implements OnChanges {
       item.id = item.title.replace(/[\(\-\)\$0-9\.\s\&\@\;]/g, '');
     });
   }
+
   constructor(private route: ActivatedRoute) {}
 }

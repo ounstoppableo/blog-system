@@ -11,6 +11,7 @@ import {
   stagger,
 } from '@angular/animations';
 import { ActivatedRoute } from '@angular/router';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-comment-area',
@@ -52,7 +53,6 @@ export class CommentAreaComponent implements OnInit {
   //分页器数据
   page = 1;
   limit = 5;
-  total = 0;
   constructor(
     private addMsgService: BoardMsgService,
     private route: ActivatedRoute,
@@ -62,6 +62,51 @@ export class CommentAreaComponent implements OnInit {
       this.isMsgBoard = res[0].path === 'msgboard' ? true : false;
       this.getMsgItems(this.page, this.limit);
     });
+  }
+  getMsgByLocal(store: 'msgCacheForAll' | 'msgCacheForArticle') {
+    const msgCache = JSON.parse(localStorage.getItem(store) as any);
+    let count = 0;
+    msgCache?.forEach((item: msgItem) => {
+      if (!this.articleId || this.articleId === item.articleId)
+        if (item.fatherMsgId) {
+          const fatherMsg = this.msgItems.find(
+            (msgItem) => msgItem.msgId === item.fatherMsgId,
+          );
+          if (
+            fatherMsg?.children?.findIndex(
+              (msgItem) => msgItem.msgId === item.msgId,
+            ) === -1
+          ) {
+            fatherMsg.children.push(item);
+            fatherMsg.children.sort(
+              (a, b) => dayjs(b.subTime).unix() - dayjs(a.subTime).unix(),
+            );
+            fatherMsg.children.sort(
+              (a, b) => dayjs(b.toTop).unix() - dayjs(a.toTop).unix(),
+            );
+            count++;
+          }
+          if (!fatherMsg?.children) {
+            (fatherMsg as any).children = [item];
+          }
+        } else {
+          if (
+            this.msgItems?.findIndex(
+              (msgItem) => msgItem.msgId === item.msgId,
+            ) === -1
+          ) {
+            this.msgItems.push(item);
+            this.msgItems.sort(
+              (a, b) => dayjs(b.subTime).unix() - dayjs(a.subTime).unix(),
+            );
+            this.msgItems.sort(
+              (a, b) => dayjs(b.toTop).unix() - dayjs(a.toTop).unix(),
+            );
+            count++;
+          }
+        }
+    });
+    this.msgCount += count;
   }
   getMsgItems(page: number, limit: number) {
     this.show = false;
@@ -73,7 +118,7 @@ export class CommentAreaComponent implements OnInit {
           if (res.code === 200) {
             this.msgItems = res.data.msgData as msgItem[];
             this.msgCount = res.data.msgCount;
-            this.total = res.data.pages * limit;
+            this.getMsgByLocal('msgCacheForAll');
             this.loading = false;
             this.show = true;
           }
@@ -85,7 +130,7 @@ export class CommentAreaComponent implements OnInit {
           if (res.code === 200) {
             this.msgItems = res.data.msgData as msgItem[];
             this.msgCount = res.data.msgCount;
-            this.total = res.data.pages * limit;
+            this.getMsgByLocal('msgCacheForArticle');
             this.loading = false;
             this.show = true;
           }

@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 export class FolderCateComponent implements OnInit {
   @Input()
   smallSize!: boolean;
+  @Input()
+  showMsgAndArticle = true;
   folders: articleInFolderCount[] = [];
   loading = true;
   constructor(

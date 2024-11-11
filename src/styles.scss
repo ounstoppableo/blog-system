@@ -1,12 +1,39 @@
 @import '../node_modules/ng-zorro-antd/ng-zorro-antd.min.css';
 @import '../node_modules/highlight.js/scss/atom-one-dark-reasonable.scss';
 
+@font-face {
+  font-family: 'Fredoka';
+  src:
+    url('/assets/font/FredokaOne-Regular.otf') format('opentype'),
+    url('/assets/font/FredokaOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bailutongtongshouxieti';
+  src: url('/assets/font/bailutongtongshouxieti.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'lipinhuiziyoulixiangti';
+  src: url('/assets/font/lipinhuiziyoulixiangti.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* You can add global styles to this file, and also import other style files */
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/umaro.ico),
     default;
+}
+
+::selection {
+  background-color: var(--styleColor) !important; /* 自定义背景色 */
 }
 
 * {
@@ -29,6 +56,7 @@ body {
   -webkit-tap-highlight-color: transparent;
   position: relative;
   background: var(--defaultBackgroundColor) !important;
+  font-family: 'lipinhuiziyoulixiangti' !important;
 }
 
 .snowfall-flakes {
@@ -217,6 +245,8 @@ input::-webkit-input-placeholder {
   --articleBkImgHeight: 380px;
   //风格颜色
   --styleColor: #928cee;
+  --styleLightColor: #c5c2eb;
+  --styleColorAlpha: rgba(146, 140, 238, 0.3);
   //登录字体颜色
   --loginFontColor: #00d3f7;
   //底部距离内容的距离
@@ -266,9 +296,8 @@ input::-webkit-input-placeholder {
     linear-gradient(1turn, rgba(50, 0, 0, 0.07) 3%, transparent 0);
 
   //最新消息颜色
-  --newMsgTitle: #999;
-  --newMsgWord: #aaaaaa;
-  --newMsgSeq: var(--c-gray);
+  --ramdonArticleAndNewMsg: #999;
+  --ramdonArticleAndNewMsgSeq: var(--c-gray);
 
   //按钮颜色
   --primary: var(--styleColor);
@@ -323,4 +352,33 @@ input::-webkit-input-placeholder {
   --03-gray: rgba(0, 0, 0, 0.3);
   --05-gray: rgba(0, 0, 0, 0.5);
   --c-gray: #ccc;
+
+  //订阅框
+  --color-first: #65587f;
+  --color-second: #f18867;
+  --color-third: #e85f99;
+  --color-forth: #50bda1;
+  --border-width: 0.625rem;
+  --border-radius-outer: 8px;
+  --border-radius-inner: calc(var(--border-radius-outer) / 2);
+  --font-plain: 'IBM Plex Sans', sans-serif;
+  // --font-special: ;
+}
+
+.customModal {
+  & .ant-modal-content {
+    background: transparent;
+  }
+  & .ant-modal-body {
+    padding: 0;
+  }
+}
+.customModal_catalogue {
+  & .ant-modal-content {
+    background: var(--cardColor);
+    border-radius: 20px;
+  }
+  & .ant-modal-body {
+    padding: 0;
+  }
 }
