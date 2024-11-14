@@ -80,5 +80,14 @@
   [nzPageIndex]="page"
   [nzTotal]="total"
   [nzPageSize]="limit"
+  [nzSimple]="true"
+  [nzItemRender]="paginationTemp"
   (nzPageIndexChange)="pageIndexChange($event)"
 ></nz-pagination>
+
+<ng-template #paginationTemp let-type>
+  <ng-container [ngSwitch]="type">
+    <span *ngSwitchCase="'prev'" class="iconfont icon-left1"></span>
+    <span *ngSwitchCase="'next'" class="iconfont icon-right1"></span>
+  </ng-container>
+</ng-template>

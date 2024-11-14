@@ -363,6 +363,8 @@ input::-webkit-input-placeholder {
   --border-radius-inner: calc(var(--border-radius-outer) / 2);
   --font-plain: 'IBM Plex Sans', sans-serif;
   // --font-special: ;
+
+  --disabledColor: #c6c6c6;
 }
 
 .customModal {

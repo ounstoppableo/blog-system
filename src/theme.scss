@@ -149,3 +149,36 @@ a {
 .ant-modal .ant-card {
   background-color: var(--cardColor) !important;
 }
+
+.ant-pagination-simple .ant-pagination-simple-pager input:hover {
+  border-color: var(--styleColor) !important;
+}
+
+.ant-pagination-simple .ant-pagination-simple-pager input:focus {
+  border-color: var(--styleColor) !important;
+  box-shadow: 0 0 0 2px var(--styleColorAlpha) !important;
+}
+
+.ant-pagination {
+  text-align: center;
+  color: var(--fontColor) !important;
+  & [type='prev'] {
+    & .iconfont {
+      font-size: 12px;
+    }
+    &:hover {
+      color: var(--styleColor) !important;
+    }
+  }
+  & [type='next'] {
+    & .iconfont {
+      font-size: 12px;
+    }
+    &:hover {
+      color: var(--styleColor) !important;
+    }
+  }
+  & .ant-pagination-disabled {
+    color: var(--disabledColor) !important;
+  }
+}

@@ -3,10 +3,12 @@
 .cardContainerLeft {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 30px;
   & > .meta {
     display: flex;
     align-items: center;
+    width: 100%;
     gap: 20px;
     color: var(--homeMetaColor);
     & > .line {
@@ -170,8 +172,8 @@
 }
 :host ::ng-deep .ant-pagination {
   margin-top: 30px !important;
-  text-align: center;
 }
+
 @keyframes toShow {
   from {
     opacity: 0;

@@ -248,6 +248,7 @@ export class AppComponent
         '--ramdonArticleAndNewMsg',
         '#aaa',
       );
+      document.documentElement.style.setProperty('--disabledColor', '#8d9095');
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
         'darkMode',
@@ -288,6 +289,7 @@ export class AppComponent
         '--ramdonArticleAndNewMsg',
         '#999',
       );
+      document.documentElement.style.setProperty('--disabledColor', '#c6c6c6');
       const removedThemeStyle = document.getElementById('darkMode');
       if (removedThemeStyle) {
         document.head.removeChild(removedThemeStyle);
