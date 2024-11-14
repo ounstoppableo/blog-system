@@ -87,7 +87,7 @@
 
 <ng-template #paginationTemp let-type>
   <ng-container [ngSwitch]="type">
-    <span *ngSwitchCase="'prev'" class="iconfont icon-left1"></span>
-    <span *ngSwitchCase="'next'" class="iconfont icon-right1"></span>
+    <div *ngSwitchCase="'prev'" class="paginationPrev"></div>
+    <div *ngSwitchCase="'next'" class="paginationNext"></div>
   </ng-container>
 </ng-template>
