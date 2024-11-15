@@ -167,7 +167,9 @@ a {
   justify-content: center;
   & ul {
     display: flex;
-    gap: 5px;
+    align-items: center;
+    gap: 8px;
+    height: fit-content;
   }
   & [type='prev'] {
     display: flex;
@@ -175,13 +177,11 @@ a {
     margin: 0;
     cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
       pointer !important;
-    &:hover {
-      color: var(--styleColor) !important;
-    }
     & .paginationPrev {
-      background: url(/assets/meow.gif) no-repeat;
+      background: url(/assets/nego_left.gif) no-repeat;
       background-size: contain;
-      width: 24px;
+      background-position-x: right;
+      width: 40px;
       height: 24px;
     }
   }
@@ -191,23 +191,28 @@ a {
     margin: 0;
     cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
       pointer !important;
-    &:hover {
-      color: var(--styleColor) !important;
-    }
 
     & .paginationNext {
-      background: url(/assets/meow.gif) no-repeat;
+      background: url(/assets/nego_right.gif) no-repeat;
       background-size: contain;
-      width: 24px;
+      background-position-x: left;
+      width: 40px;
       height: 24px;
     }
   }
   & .ant-pagination-disabled {
-    color: var(--disabledColor) !important;
+    & .paginationPrev {
+      background-image: url(/assets/nego.png);
+    }
+
+    & .paginationNext {
+      background-image: url(/assets/nego.png);
+    }
   }
 
   & .ant-pagination-simple-pager {
     position: relative;
+    margin: 0;
     & input {
       border-radius: 8px !important;
     }
