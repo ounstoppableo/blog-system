@@ -178,7 +178,7 @@ a {
     cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
       pointer !important;
     & .paginationPrev {
-      background: url(/assets/nego_left.gif) no-repeat;
+      background: url(https://www.unstoppable840.cn/assets/nego_left.gif) no-repeat;
       background-size: contain;
       background-position-x: right;
       width: 40px;
@@ -193,7 +193,7 @@ a {
       pointer !important;
 
     & .paginationNext {
-      background: url(/assets/nego_right.gif) no-repeat;
+      background: url(https://www.unstoppable840.cn/assets/nego_right.gif) no-repeat;
       background-size: contain;
       background-position-x: left;
       width: 40px;
@@ -202,11 +202,11 @@ a {
   }
   & .ant-pagination-disabled {
     & .paginationPrev {
-      background-image: url(/assets/nego.png);
+      background-image: url(https://www.unstoppable840.cn/assets/nego.png);
     }
 
     & .paginationNext {
-      background-image: url(/assets/nego.png);
+      background-image: url(https://www.unstoppable840.cn/assets/nego.png);
     }
   }
 
@@ -223,7 +223,7 @@ a {
       height: 50px;
       transform: translateY(-83%);
       left: 0;
-      background: url(/assets/luoxiaohei.gif) no-repeat;
+      background: url(https://www.unstoppable840.cn/assets/luoxiaohei.gif) no-repeat;
       background-size: contain;
     }
   }
