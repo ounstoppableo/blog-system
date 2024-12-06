@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json --open --host 0.0.0.0",
+    "start": "ng serve --open --host 0.0.0.0",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -33,8 +33,8 @@
     "@types/lodash": "^4.14.200",
     "@types/lodash-es": "^4.17.10",
     "@types/marked": "^6.0.0",
+    "@types/sha256": "^0.2.2",
     "@types/showdown": "^2.0.3",
-    "crypto-js": "^4.2.0",
     "dayjs": "^1.11.13",
     "github-markdown-css": "^5.4.0",
     "highlight.js": "^11.9.0",
@@ -47,6 +47,7 @@
     "ngx-skeleton-loader": "8.1.0",
     "pinyin-pro": "^3.17.0",
     "rxjs": "~7.8.1",
+    "sha256": "^0.2.0",
     "tslib": "^2.6.2",
     "unified": "^11.0.4",
     "zone.js": "~0.15.0"

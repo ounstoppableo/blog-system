@@ -1,4 +1,4 @@
-@import '../../../assets/mixin.scss';
+@use '../../../assets/mixin.scss' as mx;
 
 .cardContainerLeft {
   display: flex;
@@ -87,7 +87,7 @@
         font-size: 24px;
         color: var(--fontColor);
         width: fit-content;
-        @include borderAnime;
+        @include mx.borderAnime;
       }
 
       & > .folder {
@@ -96,7 +96,7 @@
         align-items: center;
         color: var(--cateColor);
         width: fit-content;
-        @include borderAnime;
+        @include mx.borderAnime;
       }
 
       & > .description {
@@ -117,7 +117,7 @@
           gap: 5px;
           align-items: center;
           color: var(--cateColor);
-          @include borderAnime;
+          @include mx.borderAnime;
         }
       }
     }

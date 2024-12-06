@@ -1,4 +1,4 @@
-@import '../../../assets/mixin.scss';
+@use '../../../assets/mixin.scss' as mx;
 
 .cardContainerRight {
   width: 300px;
@@ -64,7 +64,7 @@
                 cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
                   pointer;
                 position: relative;
-                @include borderAnime;
+                @include mx.borderAnime;
               }
 
               & > .date {
@@ -72,7 +72,7 @@
                 color: var(--cateColor);
                 cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
                   pointer;
-                @include borderAnime;
+                @include mx.borderAnime;
               }
             }
           }

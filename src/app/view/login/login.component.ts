@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '@/app/service/login';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import sha256 from 'crypto-js/sha256';
+import sha256 from 'sha256';
 import { Location } from '@angular/common';
 
 @Component({
@@ -49,8 +49,8 @@ export class LoginComponent {
       return this.message.warning('请正确填写用户名和密码!');
     this.ls
       .login(
-        sha256(this.loginInfo.value.username as string).toString(),
-        sha256(this.loginInfo.value.password as string).toString(),
+        sha256(this.loginInfo.value.username as string),
+        sha256(this.loginInfo.value.password as string),
       )
       .subscribe((res: any) => {
         if (res.code !== 200) return this.message.warning(res.msg);

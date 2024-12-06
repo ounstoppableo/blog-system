@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
   limit = 5;
   total = 0;
   articleInfoList = [];
-  timer: number | undefined = undefined;
+  timer: any = undefined;
   constructor(
     private router: Router,
     private articleService: ArticleService,

@@ -7,7 +7,7 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import * as $ from 'jquery';
+import $ from 'jquery';
 
 @Component({
     selector: 'app-circle-menu',
