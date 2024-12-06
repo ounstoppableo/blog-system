@@ -4,9 +4,10 @@ import { resType } from '@/types/response/response';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-cate-by-tag',
-  templateUrl: './cate-by-tag.component.html',
-  styleUrls: ['./cate-by-tag.component.scss'],
+    selector: 'app-cate-by-tag',
+    templateUrl: './cate-by-tag.component.html',
+    styleUrls: ['./cate-by-tag.component.scss'],
+    standalone: false
 })
 export class CateByTagComponent implements OnInit {
   @Input()

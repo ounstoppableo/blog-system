@@ -16,9 +16,10 @@ import addHighLight from '@/utils/addHighLight';
 import addMathJax from '@/utils/addMathJax';
 import { NzImageService } from 'ng-zorro-antd/image';
 @Component({
-  selector: 'app-context',
-  templateUrl: './context.component.html',
-  styleUrls: ['./context.component.scss'],
+    selector: 'app-context',
+    templateUrl: './context.component.html',
+    styleUrls: ['./context.component.scss'],
+    standalone: false
 })
 export class ContextComponent
   implements OnInit, AfterViewChecked, AfterContentInit, OnDestroy

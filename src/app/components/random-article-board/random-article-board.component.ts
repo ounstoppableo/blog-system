@@ -2,9 +2,10 @@ import { ArticleService } from '@/app/service/article.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-random-article-board',
-  templateUrl: './random-article-board.component.html',
-  styleUrls: ['./random-article-board.component.scss'],
+    selector: 'app-random-article-board',
+    templateUrl: './random-article-board.component.html',
+    styleUrls: ['./random-article-board.component.scss'],
+    standalone: false
 })
 export class RandomArticleBoardComponent implements OnInit {
   articleList: any[] = [];

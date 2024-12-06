@@ -6,9 +6,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: 'app-add-msg-form',
-  templateUrl: './add-msg-form.component.html',
-  styleUrls: ['./add-msg-form.component.scss'],
+    selector: 'app-add-msg-form',
+    templateUrl: './add-msg-form.component.html',
+    styleUrls: ['./add-msg-form.component.scss'],
+    standalone: false
 })
 export class AddMsgFormComponent implements OnInit {
   @Input()

@@ -6,9 +6,10 @@ import { ActivatedRoute } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 
 @Component({
-  selector: 'app-single-tag-cate',
-  templateUrl: './single-tag-cate.component.html',
-  styleUrls: ['./single-tag-cate.component.scss'],
+    selector: 'app-single-tag-cate',
+    templateUrl: './single-tag-cate.component.html',
+    styleUrls: ['./single-tag-cate.component.scss'],
+    standalone: false
 })
 export class SingleTagCateComponent implements OnInit {
   @Input()

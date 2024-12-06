@@ -6,9 +6,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
-  selector: 'app-userinfo',
-  templateUrl: './userinfo.component.html',
-  styleUrls: ['./userinfo.component.scss'],
+    selector: 'app-userinfo',
+    templateUrl: './userinfo.component.html',
+    styleUrls: ['./userinfo.component.scss'],
+    standalone: false
 })
 export class UserinfoComponent implements OnInit {
   articleInfoList: articleInfo[] = []; //文章列表

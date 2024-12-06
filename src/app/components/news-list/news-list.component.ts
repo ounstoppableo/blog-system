@@ -9,9 +9,10 @@ import {
 import dayjs from 'dayjs';
 
 @Component({
-  selector: 'app-news-list',
-  templateUrl: './news-list.component.html',
-  styleUrls: ['./news-list.component.scss'],
+    selector: 'app-news-list',
+    templateUrl: './news-list.component.html',
+    styleUrls: ['./news-list.component.scss'],
+    standalone: false
 })
 export class NewsListComponent implements OnInit, AfterViewInit {
   constructor(private newsService: NewsService) {}

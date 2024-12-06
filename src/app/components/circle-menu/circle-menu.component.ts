@@ -10,9 +10,10 @@ import {
 import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-circle-menu',
-  templateUrl: './circle-menu.component.html',
-  styleUrls: ['./circle-menu.component.scss'],
+    selector: 'app-circle-menu',
+    templateUrl: './circle-menu.component.html',
+    styleUrls: ['./circle-menu.component.scss'],
+    standalone: false
 })
 export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   showMenu = false;

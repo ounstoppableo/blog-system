@@ -2,9 +2,10 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-catalogue',
-  templateUrl: './catalogue.component.html',
-  styleUrls: ['./catalogue.component.scss'],
+    selector: 'app-catalogue',
+    templateUrl: './catalogue.component.html',
+    styleUrls: ['./catalogue.component.scss'],
+    standalone: false
 })
 export class CatalogueComponent implements OnChanges {
   @Input()

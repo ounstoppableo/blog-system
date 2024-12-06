@@ -11,9 +11,10 @@ import {
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-msg-borad-page',
-  templateUrl: './msg-borad-page.component.html',
-  styleUrls: ['./msg-borad-page.component.scss'],
+    selector: 'app-msg-borad-page',
+    templateUrl: './msg-borad-page.component.html',
+    styleUrls: ['./msg-borad-page.component.scss'],
+    standalone: false
 })
 export class MsgBoradPageComponent implements OnInit, AfterViewInit, OnDestroy {
   isLogin = false;

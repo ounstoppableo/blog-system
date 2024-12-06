@@ -14,28 +14,22 @@ import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
 
 @Component({
-  selector: 'app-comment-area',
-  templateUrl: './comment-area.component.html',
-  styleUrls: ['./comment-area.component.scss'],
-  animations: [
-    trigger('toShow', [
-      transition('* => *', [
-        query(
-          ':enter',
-          [
-            style({ opacity: 0, transform: 'translateY(-50%)' }),
-            stagger(100, [
-              animate(
-                '0.5s',
-                style({ opacity: 1, transform: 'translateY(0)' }),
-              ),
+    selector: 'app-comment-area',
+    templateUrl: './comment-area.component.html',
+    styleUrls: ['./comment-area.component.scss'],
+    animations: [
+        trigger('toShow', [
+            transition('* => *', [
+                query(':enter', [
+                    style({ opacity: 0, transform: 'translateY(-50%)' }),
+                    stagger(100, [
+                        animate('0.5s', style({ opacity: 1, transform: 'translateY(0)' })),
+                    ]),
+                ], { optional: true }),
             ]),
-          ],
-          { optional: true },
-        ),
-      ]),
-    ]),
-  ],
+        ]),
+    ],
+    standalone: false
 })
 export class CommentAreaComponent implements OnInit {
   @Input()

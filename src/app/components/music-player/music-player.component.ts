@@ -10,9 +10,10 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-music-player',
-  templateUrl: './music-player.component.html',
-  styleUrls: ['./music-player.component.scss'],
+    selector: 'app-music-player',
+    templateUrl: './music-player.component.html',
+    styleUrls: ['./music-player.component.scss'],
+    standalone: false
 })
 export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   play = false;

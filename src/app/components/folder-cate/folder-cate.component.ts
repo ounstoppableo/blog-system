@@ -5,9 +5,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-folder-cate',
-  templateUrl: './folder-cate.component.html',
-  styleUrls: ['./folder-cate.component.scss'],
+    selector: 'app-folder-cate',
+    templateUrl: './folder-cate.component.html',
+    styleUrls: ['./folder-cate.component.scss'],
+    standalone: false
 })
 export class FolderCateComponent implements OnInit {
   @Input()

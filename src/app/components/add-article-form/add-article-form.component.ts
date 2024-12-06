@@ -8,9 +8,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
-  selector: 'app-add-article-form',
-  templateUrl: './add-article-form.component.html',
-  styleUrls: ['./add-article-form.component.scss'],
+    selector: 'app-add-article-form',
+    templateUrl: './add-article-form.component.html',
+    styleUrls: ['./add-article-form.component.scss'],
+    standalone: false
 })
 export class AddArticleFormComponent implements OnInit {
   //文档分类

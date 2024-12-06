@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-cate-by-tag-skeleton',
-  templateUrl: './cate-by-tag-skeleton.component.html',
-  styleUrls: ['./cate-by-tag-skeleton.component.scss'],
+    selector: 'app-cate-by-tag-skeleton',
+    templateUrl: './cate-by-tag-skeleton.component.html',
+    styleUrls: ['./cate-by-tag-skeleton.component.scss'],
+    standalone: false
 })
 export class CateByTagSkeletonComponent implements OnInit {
   @Input()

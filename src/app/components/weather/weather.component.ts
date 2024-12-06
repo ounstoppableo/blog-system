@@ -8,9 +8,10 @@ import {
 import { WeatherService } from '@/app/service/weather.service';
 
 @Component({
-  selector: 'app-weather',
-  templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.scss'],
+    selector: 'app-weather',
+    templateUrl: './weather.component.html',
+    styleUrls: ['./weather.component.scss'],
+    standalone: false
 })
 export class WeatherComponent implements AfterViewInit, OnChanges {
   @Input()

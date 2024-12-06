@@ -2,9 +2,10 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tag',
-  templateUrl: './tag.component.html',
-  styleUrls: ['./tag.component.scss'],
+    selector: 'app-tag',
+    templateUrl: './tag.component.html',
+    styleUrls: ['./tag.component.scss'],
+    standalone: false
 })
 export class TagComponent implements OnChanges {
   @Input()

@@ -6,9 +6,10 @@ import { HomeService } from '@/app/service/home.service';
 import { resType } from '@/types/response/response';
 
 @Component({
-  selector: 'app-container',
-  templateUrl: './container.component.html',
-  styleUrls: ['./container.component.scss'],
+    selector: 'app-container',
+    templateUrl: './container.component.html',
+    styleUrls: ['./container.component.scss'],
+    standalone: false
 })
 export class ContainerComponent implements OnInit {
   articleInfoList: articleInfo[] = [];

@@ -20,28 +20,22 @@ import { resType } from '@/types/response/response';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: 'app-comment-item',
-  templateUrl: './comment-item.component.html',
-  styleUrls: ['./comment-item.component.scss'],
-  animations: [
-    trigger('toShow', [
-      transition('*=>*', [
-        query(
-          ':enter',
-          [
-            style({ opacity: 0, transform: 'translateY(-50%)' }),
-            stagger(100, [
-              animate(
-                '0.5s',
-                style({ opacity: 1, transform: 'translateY(0)' }),
-              ),
+    selector: 'app-comment-item',
+    templateUrl: './comment-item.component.html',
+    styleUrls: ['./comment-item.component.scss'],
+    animations: [
+        trigger('toShow', [
+            transition('*=>*', [
+                query(':enter', [
+                    style({ opacity: 0, transform: 'translateY(-50%)' }),
+                    stagger(100, [
+                        animate('0.5s', style({ opacity: 1, transform: 'translateY(0)' })),
+                    ]),
+                ], { optional: true }),
             ]),
-          ],
-          { optional: true },
-        ),
-      ]),
-    ]),
-  ],
+        ]),
+    ],
+    standalone: false
 })
 export class CommentItemComponent implements OnChanges {
   @Input()

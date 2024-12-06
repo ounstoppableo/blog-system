@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-article-content-skeleton',
-  templateUrl: './article-content-skeleton.component.html',
-  styleUrls: ['./article-content-skeleton.component.scss'],
+    selector: 'app-article-content-skeleton',
+    templateUrl: './article-content-skeleton.component.html',
+    styleUrls: ['./article-content-skeleton.component.scss'],
+    standalone: false
 })
 export class ArticleContentSkeletonComponent implements OnInit {
   @Input()

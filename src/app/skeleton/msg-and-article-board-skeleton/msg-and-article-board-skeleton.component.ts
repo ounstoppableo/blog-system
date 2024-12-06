@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-msg-and-article-board-skeleton',
-  templateUrl: './msg-and-article-board-skeleton.component.html',
-  styleUrls: ['./msg-and-article-board-skeleton.component.scss'],
+    selector: 'app-msg-and-article-board-skeleton',
+    templateUrl: './msg-and-article-board-skeleton.component.html',
+    styleUrls: ['./msg-and-article-board-skeleton.component.scss'],
+    standalone: false
 })
 export class MsgAndArticleBoardSkeletonComponent {
   @Input()

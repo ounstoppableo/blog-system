@@ -14,9 +14,10 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-article',
-  templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss'],
+    selector: 'app-article',
+    templateUrl: './article.component.html',
+    styleUrls: ['./article.component.scss'],
+    standalone: false
 })
 export class ArticleComponent implements AfterViewInit, OnInit, OnDestroy,AfterViewChecked {
   isLogin = false;

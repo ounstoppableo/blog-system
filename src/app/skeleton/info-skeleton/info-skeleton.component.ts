@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-info-skeleton',
-  templateUrl: './info-skeleton.component.html',
-  styleUrls: ['./info-skeleton.component.scss'],
+    selector: 'app-info-skeleton',
+    templateUrl: './info-skeleton.component.html',
+    styleUrls: ['./info-skeleton.component.scss'],
+    standalone: false
 })
 export class InfoSkeletonComponent {
   @Input()

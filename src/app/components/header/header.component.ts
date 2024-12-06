@@ -18,9 +18,10 @@ import { MusicUploadFormComponent } from '../music-upload-form/music-upload-form
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    standalone: false
 })
 export class HeaderComponent
   implements OnDestroy, AfterViewInit, OnInit, OnChanges

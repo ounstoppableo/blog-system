@@ -5,9 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 
 @Component({
-  selector: 'app-single-folder-cate',
-  templateUrl: './single-folder-cate.component.html',
-  styleUrls: ['./single-folder-cate.component.scss'],
+    selector: 'app-single-folder-cate',
+    templateUrl: './single-folder-cate.component.html',
+    styleUrls: ['./single-folder-cate.component.scss'],
+    standalone: false
 })
 export class SingleFolderCateComponent implements OnInit {
   @Input()

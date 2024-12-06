@@ -14,28 +14,22 @@ import {
 } from '@angular/animations';
 
 @Component({
-  selector: 'app-cate-by-date',
-  templateUrl: './cate-by-date.component.html',
-  styleUrls: ['./cate-by-date.component.scss'],
-  animations: [
-    trigger('toShow', [
-      transition('* => *', [
-        query(
-          ':enter',
-          [
-            style({ opacity: 0, transform: 'translateY(-50%)' }),
-            stagger(100, [
-              animate(
-                '0.5s',
-                style({ opacity: 1, transform: 'translateY(0)' }),
-              ),
+    selector: 'app-cate-by-date',
+    templateUrl: './cate-by-date.component.html',
+    styleUrls: ['./cate-by-date.component.scss'],
+    animations: [
+        trigger('toShow', [
+            transition('* => *', [
+                query(':enter', [
+                    style({ opacity: 0, transform: 'translateY(-50%)' }),
+                    stagger(100, [
+                        animate('0.5s', style({ opacity: 1, transform: 'translateY(0)' })),
+                    ]),
+                ], { optional: true }),
             ]),
-          ],
-          { optional: true },
-        ),
-      ]),
-    ]),
-  ],
+        ]),
+    ],
+    standalone: false
 })
 export class CateByDateComponent implements OnInit {
   @Input()

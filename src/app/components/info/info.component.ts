@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
 import dayjs from 'dayjs';
 
 @Component({
-  selector: 'app-info',
-  templateUrl: './info.component.html',
-  styleUrls: ['./info.component.scss'],
+    selector: 'app-info',
+    templateUrl: './info.component.html',
+    styleUrls: ['./info.component.scss'],
+    standalone: false
 })
 export class InfoComponent implements OnInit {
   @Input()

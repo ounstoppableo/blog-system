@@ -5,9 +5,10 @@ import { AddArticleFormComponent } from '../add-article-form/add-article-form.co
 import { OverviewComponent } from '../overview/overview.component';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
+    selector: 'app-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.scss'],
+    standalone: false
 })
 export class SearchComponent implements OnInit {
   @Input()

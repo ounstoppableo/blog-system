@@ -18,9 +18,10 @@ import { AddArticleFormComponent } from '../add-article-form/add-article-form.co
 import { NzMessageService } from 'ng-zorro-antd/message';
 import dayjs from 'dayjs';
 @Component({
-  selector: 'app-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss'],
+    selector: 'app-overview',
+    templateUrl: './overview.component.html',
+    styleUrls: ['./overview.component.scss'],
+    standalone: false
 })
 export class OverviewComponent
   implements OnInit, AfterViewChecked, OnChanges, OnDestroy

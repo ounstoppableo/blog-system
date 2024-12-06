@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-comment-area-skeleton',
-  templateUrl: './comment-area-skeleton.component.html',
-  styleUrls: ['./comment-area-skeleton.component.scss'],
+    selector: 'app-comment-area-skeleton',
+    templateUrl: './comment-area-skeleton.component.html',
+    styleUrls: ['./comment-area-skeleton.component.scss'],
+    standalone: false
 })
 export class CommentAreaSkeletonComponent {
   @Input()

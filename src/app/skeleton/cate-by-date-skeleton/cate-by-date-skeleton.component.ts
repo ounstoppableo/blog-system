@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-cate-by-date-skeleton',
-  templateUrl: './cate-by-date-skeleton.component.html',
-  styleUrls: ['./cate-by-date-skeleton.component.scss'],
+    selector: 'app-cate-by-date-skeleton',
+    templateUrl: './cate-by-date-skeleton.component.html',
+    styleUrls: ['./cate-by-date-skeleton.component.scss'],
+    standalone: false
 })
 export class CateByDateSkeletonComponent {
   @Input()

@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-overview-skeleton',
-  templateUrl: './overview-skeleton.component.html',
-  styleUrls: ['./overview-skeleton.component.scss'],
+    selector: 'app-overview-skeleton',
+    templateUrl: './overview-skeleton.component.html',
+    styleUrls: ['./overview-skeleton.component.scss'],
+    standalone: false
 })
 export class OverviewSkeletonComponent {
   @Input()
