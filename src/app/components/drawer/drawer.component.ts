@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
-    selector: 'app-drawer',
-    templateUrl: './drawer.component.html',
-    styleUrls: ['./drawer.component.scss'],
-    standalone: false
+  selector: 'app-drawer',
+  templateUrl: './drawer.component.html',
+  styleUrls: ['./drawer.component.scss'],
+  standalone: false
 })
 export class DrawerComponent {
+  @Input()
+  smallSize!: boolean;
   drawerVisible = false;
   goHome() {
     this.router.navigate(['home']);

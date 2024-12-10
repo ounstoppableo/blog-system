@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use 'sass:string';
+@use 'sass:list';
 $spin-speed: 0.7s;
 $color-collection: ('#2980b9', '#f495bf', '#13a10e', '#f03a17', '#6edfef');
 $degFactor: 71.5;
@@ -64,7 +67,7 @@ $degFactor: 71.5;
 
   &.open {
     transform: scale(1);
-    // animation: bouncein linear 0.1s forwards 1;
+    animation: bouncein linear 0.1s forwards 1;
   }
 }
 
@@ -187,21 +190,21 @@ $degFactor: 71.5;
   border-radius: 100%;
 }
 
-@for $i from 0 to length($color-collection) {
+@for $i from 0 to list.length($color-collection) {
   .menu li:nth-child(#{$i + 1}) {
     transform: rotate(#{$i * $degFactor}deg);
 
     a {
       transform: rotate(-#{$i * $degFactor}deg);
-      background: unquote(nth($color-collection, $i + 1));
+      background: string.unquote(list.nth($color-collection, $i + 1));
     }
     circle {
-      stroke: unquote(nth($color-collection, $i + 1));
+      stroke: string.unquote(list.nth($color-collection, $i + 1));
     }
   }
 
   .bg-#{$i} {
-    background: unquote(nth($color-collection, $i + 1));
+    background: string.unquote(list.nth($color-collection, $i + 1));
   }
 }
 
@@ -243,7 +246,7 @@ $degFactor: 71.5;
     transform: rotate(0deg);
   }
   100% {
-    background: lighten(#34495e, 15%);
+    background: color.adjust(#34495e, $lightness: 15%);
     transform: rotate(-90deg);
   }
 }

@@ -4,9 +4,10 @@
   [nzVisible]="drawerVisible"
   nzPlacement="right"
   (nzOnClose)="close()"
+  *ngIf="smallSize"
 >
   <ng-container *nzDrawerContent>
-    <app-userinfo [isSmall]="true"></app-userinfo>
+    <app-userinfo [smallSize]="smallSize"></app-userinfo>
     <ul class="tablist">
       <li (click)="goHome()">
         <span class="iconfont icon-homefill"></span>

@@ -1,7 +1,7 @@
-<div [class]="isSmall ? 'small' : 'userInfo'">
+<div [class]="smallSize ? 'small' : 'userInfo'">
   <img src="/assets/avatar.jpeg" class="author" alt="" noLazyLoad="true" />
-  <div class="name" *ngIf="!isSmall">Unstoppable840</div>
-  <div class="motto" *ngIf="!isSmall">乐于探索前端新技术，前端开发者</div>
+  <div class="name" *ngIf="!smallSize">Unstoppable840</div>
+  <div class="motto" *ngIf="!smallSize">乐于探索前端新技术，前端开发者</div>
   <div class="assets">
     <div class="item archives" (click)="toDateCate()">
       <span>文章</span>
@@ -16,7 +16,7 @@
       <span class="num">{{ tagsNum }}</span>
     </div>
   </div>
-  <div class="outlink links-of-author" *ngIf="!isSmall">
+  <div class="outlink links-of-author" *ngIf="!smallSize">
     <span
       class="iconfont icon-email-fill mail"
       title="邮箱"

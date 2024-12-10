@@ -38,6 +38,11 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js"
             ],
+            "optimization": {
+              "scripts": true,
+              "styles": true,
+              "fonts": false
+            },
             "browser": "src/main.ts"
           },
           "configurations": {

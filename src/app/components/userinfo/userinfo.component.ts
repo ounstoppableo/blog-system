@@ -16,7 +16,7 @@ export class UserinfoComponent implements OnInit {
   folderNum = 0; //分类数
   tagsNum = 0; //tag数
   @Input()
-  isSmall!: boolean;
+  smallSize!: boolean;
   constructor(
     private homeService: HomeService,
     private router: Router,
