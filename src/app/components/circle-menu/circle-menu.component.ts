@@ -25,7 +25,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
       | 'Autumn') || judgeSeason();
   @Input() flag = new Proxy(
     {
-      value: JSON.parse(localStorage.getItem('seasonFloat') || 'true'),
+      value: JSON.parse(localStorage.getItem('seasonFloat') || 'false'),
       that: this,
     },
     {
