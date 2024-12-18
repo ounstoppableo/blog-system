@@ -3,7 +3,6 @@ import { LoginService } from '@/app/service/login';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import {
-  AfterViewChecked,
   Component,
   EventEmitter,
   Input,
