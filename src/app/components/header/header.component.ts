@@ -16,12 +16,13 @@ import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { MusicUploadFormComponent } from '../music-upload-form/music-upload-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { BookUploadFormComponentComponent } from '../book-upload-form-component/book-upload-form-component.component';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    standalone: false
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  standalone: false,
 })
 export class HeaderComponent
   implements OnDestroy, AfterViewInit, OnInit, OnChanges
@@ -166,6 +167,16 @@ export class HeaderComponent
       },
       nzOnCancel: () => {
         msRef.componentInstance?.close();
+      },
+    });
+  }
+  addBook() {
+    const msRef = this.ms.create({
+      nzTitle: '上传音乐',
+      nzContent: BookUploadFormComponentComponent,
+      nzOnOk: async () => {
+        const state = msRef.componentInstance?.submitForm();
+        if (state === 'incorrectParam') return false;
       },
     });
   }

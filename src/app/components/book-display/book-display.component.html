@@ -1,0 +1,58 @@
+<div class="card">
+  <p>
+    <span class="iconfont icon-book" [style]="{ fontSize: '30px' }"></span>
+    <span>推荐书籍</span>
+  </p>
+
+  <div class="bookContainer">
+    <app-none *ngIf="books.length === 0"></app-none>
+    <a [href]="book.bookUrl" *ngFor="let book of books" target="_blank">
+      <div id="book" class="view-rotate">
+        <div class="delete">
+          <button
+            (click)="$event.stopPropagation()"
+            nz-button
+            nzType="default"
+            nzGhost
+            nzShape="circle"
+            nzDanger
+            nz-popconfirm
+            nzPopconfirmTitle="您确定要删除该书吗？"
+            (nzOnConfirm)="deleteBook($event, book.bookUrl)"
+          >
+            <span class="iconfont icon-delete"></span>
+          </button>
+        </div>
+        <div class="main">
+          <div class="book-font">
+            <div
+              class="book-cover"
+              [ngStyle]="{
+                background:
+                  '#29303a url(' + book.bookFrontPicUrl + ') 0 0 no-repeat',
+              }"
+            ></div>
+            <div class="book-cover-back" style="background: #29303a"></div>
+          </div>
+          <div
+            class="book-back"
+            [ngStyle]="{
+              background:
+                '#29303a url(' + book.bookBackPicUrl + ') 0 0 no-repeat',
+            }"
+          ></div>
+          <div
+            class="book-bone"
+            [ngStyle]="{
+              background:
+                '#29303a url(' + book.bookSidePicUrl + ') 0 0 no-repeat',
+            }"
+          ></div>
+          <div class="book-top"></div>
+          <div class="book-right"></div>
+          <div class="book-bottom"></div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<form nz-form [formGroup]="validateForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="bookUrl">
+      书籍链接
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="错误的书籍链接！">
+      <input nz-input formControlName="bookUrl" placeholder="请填写书籍链接" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>书皮封面</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-upload
+        class="pic-uploader"
+        nzAction="/api/uploadImg"
+        nzName="img"
+        nzListType="picture-card"
+        [nzShowUploadList]="false"
+        [nzBeforeUpload]="beforeUploadPic"
+        (nzChange)="handleBookFrontPicUrlChange($event)"
+        [nzAccept]="'image/*'"
+      >
+        <ng-container *ngIf="!bookFrontPicUrl">
+          <span class="iconfont icon-plus"></span>
+          <div class="ant-upload-text">Upload</div>
+        </ng-container>
+        <img
+          *ngIf="bookFrontPicUrl"
+          [src]="bookFrontPicUrl"
+          style="width: 100%"
+          alt=""
+        />
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>书皮背面</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-upload
+        class="pic-uploader"
+        nzAction="/api/uploadImg"
+        nzName="img"
+        nzListType="picture-card"
+        [nzShowUploadList]="false"
+        [nzBeforeUpload]="beforeUploadPic"
+        (nzChange)="handleBookBackPicUrlChange($event)"
+        [nzAccept]="'image/*'"
+      >
+        <ng-container *ngIf="!bookBackPicUrl">
+          <span class="iconfont icon-plus"></span>
+          <div class="ant-upload-text">Upload</div>
+        </ng-container>
+        <img
+          *ngIf="bookBackPicUrl"
+          [src]="bookBackPicUrl"
+          style="width: 100%"
+          alt=""
+        />
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>书皮侧面</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-upload
+        class="pic-uploader"
+        nzAction="/api/uploadImg"
+        nzName="img"
+        nzListType="picture-card"
+        [nzShowUploadList]="false"
+        [nzBeforeUpload]="beforeUploadPic"
+        (nzChange)="handleBookSidePicUrlChange($event)"
+        [nzAccept]="'image/*'"
+      >
+        <ng-container *ngIf="!bookSidePicUrl">
+          <span class="iconfont icon-plus"></span>
+          <div class="ant-upload-text">Upload</div>
+        </ng-container>
+        <img
+          *ngIf="bookSidePicUrl"
+          [src]="bookSidePicUrl"
+          style="width: 100%"
+          alt=""
+        />
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+</form>

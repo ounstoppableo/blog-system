@@ -1,7 +1,8 @@
 <div class="card" [class]="smallSize ? 'smallSize' : ''">
   <app-msg-board [isLogin]="isLogin" [smallSize]="smallSize"></app-msg-board>
 </div>
+<app-book-display></app-book-display>
 <app-random-article-and-new-msg
   *ngIf="!smallSize"
-  [limit]="15"
+  [limit]="10"
 ></app-random-article-and-new-msg>
