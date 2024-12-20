@@ -17,6 +17,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { MusicUploadFormComponent } from '../music-upload-form/music-upload-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { BookUploadFormComponentComponent } from '../book-upload-form-component/book-upload-form-component.component';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-header',
@@ -35,9 +37,9 @@ export class HeaderComponent
   @ViewChild('container')
   container!: ElementRef;
   @Input()
-  scrollTarget!: number;
+  scrollTarget: number = 0;
   @Input()
-  showFolderIcon!: boolean; //是否显示folder图标
+  smallSize!: Observable<boolean>; //是否显示folder图标
   @Output()
   upload = new EventEmitter();
   @Output()
@@ -50,7 +52,10 @@ export class HeaderComponent
     private ls: LoginService,
     private ms: NzModalService,
     private message: NzMessageService,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: resType<any>) => {
@@ -62,8 +67,14 @@ export class HeaderComponent
     }
   }
   ngOnChanges(changes: any): void {
+    if (changes['defaultShow']) {
+      if (this.defaultShow) {
+        this.container.nativeElement.classList.add('active');
+        this.container.nativeElement.classList.remove('hidden');
+      }
+    }
     if (changes['scrollTarget']) {
-      this.fixedBtnShowControl();
+      this.onScroll();
     }
   }
   goHome() {
@@ -76,12 +87,8 @@ export class HeaderComponent
     this.router.navigate(['/login']);
   }
   ngAfterViewInit(): void {
-    this.fixedBtnShowControl();
+    this.onScroll();
     window.addEventListener('scroll', this.onScroll);
-    if (this.defaultShow) {
-      this.container.nativeElement.classList.add('active');
-      this.container.nativeElement.classList.remove('hidden');
-    }
   }
   //去搜索页面
   goSearch() {

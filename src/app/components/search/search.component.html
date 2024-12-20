@@ -1,4 +1,4 @@
-<div class="container" [class]="smallSize ? 'smallSize' : ''">
+<div class="container" [class]="(smallSize | async) ? 'smallSize' : ''">
   <div class="card">
     <nz-input-group [nzSuffix]="suffixIconSearch">
       <input
@@ -17,18 +17,15 @@
     <app-folder-cate
       *ngIf="articleInfoList.length === 0"
       [showMsgAndArticle]="false"
-      [smallSize]="smallSize"
     ></app-folder-cate>
     <app-cate-by-tag
       *ngIf="articleInfoList.length === 0"
       [showMsgAndArticle]="false"
-      [smallSize]="smallSize"
     ></app-cate-by-tag>
     <app-overview
       *ngIf="articleInfoList.length !== 0"
       [articleInfoList]="articleInfoList"
       [updateArticleModal]="updateArticleModal"
-      [smallSize]="smallSize"
       [page]="page"
       [limit]="limit"
       [total]="total"
@@ -38,6 +35,6 @@
 </div>
 <app-book-display [isLogin]="isLogin"></app-book-display>
 <app-random-article-and-new-msg
-  *ngIf="!smallSize"
+  *ngIf="!(smallSize | async)"
   [limit]="10"
 ></app-random-article-and-new-msg>

@@ -4,7 +4,6 @@
   [nzVisible]="drawerVisible"
   nzPlacement="right"
   (nzOnClose)="close()"
-  *ngIf="smallSize && drawerVisible"
 >
   <ng-container *nzDrawerContent>
     <app-userinfo [smallSize]="true"></app-userinfo>

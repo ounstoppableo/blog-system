@@ -3,7 +3,9 @@ import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import dayjs from 'dayjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-info',
@@ -13,9 +15,7 @@ import dayjs from 'dayjs';
 })
 export class InfoComponent implements OnInit {
   @Input()
-  showInfo!: boolean;
-  @Input()
-  smallSize = false;
+  smallSize!: boolean;
   @Input()
   isMsgBoard = false;
   @Input()

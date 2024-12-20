@@ -1,3 +1,10 @@
+<app-header
+  [defaultShow]="defaultShow"
+  [scrollTarget]="headerChangeHeight"
+  (drawerOpen)="drawerOpen()"
+  (upload)="showUploadModal()"
+  (loginCheck)="loginCheck()"
+></app-header>
 <router-outlet></router-outlet>
 <div id="operate">
   <button class="btn" *ngIf="isArticle && smallSize" (click)="openCatalogue()">
@@ -34,12 +41,11 @@
           [nzContainer]="'#write'"
           (nzClick)="handleCatalogueClick($event)"
         >
-          <app-catalogue
-            [catalogue]="catalogue"
-            [smallSize]="smallSize"
-          ></app-catalogue>
+          <app-catalogue [catalogue]="catalogue"></app-catalogue>
         </nz-anchor>
       </div>
     </div>
   </div>
 </ng-template>
+<app-drawer #drawer *ngIf="smallSize"></app-drawer>
+<app-add-article-form #addArticleForm></app-add-article-form>

@@ -1,8 +1,4 @@
-<div
-  class="cardContainerRight"
-  *ngIf="showInfo"
-  [class]="smallSize ? 'smallSize' : ''"
->
+<div class="cardContainerRight" [class]="smallSize ? 'smallSize' : ''">
   <div class="card">
     <app-userinfo [smallSize]="false"></app-userinfo>
   </div>
@@ -55,7 +51,7 @@
     </div>
   </div>
   <div class="card" style="height: 450px">
-    <app-weather [smallSize]="smallSize"></app-weather>
+    <app-weather></app-weather>
   </div>
 </div>
 <div class="catelogue" *ngIf="isArticle && !smallSize">

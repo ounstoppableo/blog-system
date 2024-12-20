@@ -13,12 +13,12 @@
     <div id="thunderstorm">
       <div id="lightning"></div>
     </div>
-    <div class="sun" [ngClass]="{ smallSize: smallSize }"></div>
-    <div class="moon" [ngClass]="{ smallSize: smallSize }"></div>
+    <div class="sun" [ngClass]="{ smallSize: (smallSize | async) }"></div>
+    <div class="moon" [ngClass]="{ smallSize: (smallSize | async) }"></div>
     <div id="cloud"></div>
     <canvas id="rain"></canvas>
     <div id="snow"></div>
-    <div class="hours-container" [ngClass]="{ smallSize: smallSize }">
+    <div class="hours-container" [ngClass]="{ smallSize: (smallSize | async) }">
       <div class="hours"></div>
     </div>
   </div>

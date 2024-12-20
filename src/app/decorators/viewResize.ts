@@ -1,3 +1,5 @@
+import { setSmallSize } from '../store/smallSizeStore/smallSize.actions';
+
 export default function ViewResize() {
   return function (
     target: any,
@@ -36,9 +38,9 @@ function onResize(self: any) {
 //页面参数控制
 function pageControl(self: any) {
   if (innerWidth < 1024) {
-    self.smallSize = true;
+    self.store.dispatch(setSmallSize({ flag: true }));
   } else {
-    self.smallSize = false;
+    self.store.dispatch(setSmallSize({ flag: false }));
   }
   document.documentElement.style.setProperty(
     '--bodyHeight',

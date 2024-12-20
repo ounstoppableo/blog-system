@@ -6,16 +6,17 @@ import {
   ViewChild,
 } from '@angular/core';
 import { WeatherService } from '@/app/service/weather.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
-    selector: 'app-weather',
-    templateUrl: './weather.component.html',
-    styleUrls: ['./weather.component.scss'],
-    standalone: false
+  selector: 'app-weather',
+  templateUrl: './weather.component.html',
+  styleUrls: ['./weather.component.scss'],
+  standalone: false,
 })
 export class WeatherComponent implements AfterViewInit, OnChanges {
-  @Input()
-  smallSize = false;
+  smallSize: Observable<boolean>;
   currentHourIndex = 0;
   scrollTop = 0;
   hoursData: any[] = [];
@@ -24,7 +25,12 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
   @ViewChild('card')
   card!: any;
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private weatherService: WeatherService,
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
 
   setRandomLightningDuration() {
     const lightning = document.getElementById('thunderstorm');

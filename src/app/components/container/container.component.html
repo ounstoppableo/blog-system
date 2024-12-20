@@ -1,8 +1,7 @@
-<div class="cardContainer" [class]="smallSize ? 'smallSize' : ''">
+<div class="cardContainer" [class]="(smallSize | async) ? 'smallSize' : ''">
   <app-overview
     *ngIf="isHome"
     [isHome]="isHome"
-    [smallSize]="smallSize"
     [updateArticleModal]="updateArticleModal"
     [articleInfoList]="articleInfoList"
     [page]="page"
@@ -13,54 +12,38 @@
   <app-cate-by-date
     *ngIf="dateCate"
     [isLogin]="isLogin"
-    [smallSize]="smallSize"
     (scrollToAnchor)="this.scrollToAnchor.emit()"
   ></app-cate-by-date>
   <app-context
     *ngIf="isArticle"
     [isLogin]="isLogin"
-    [smallSize]="smallSize"
     (getCatalogue)="_getCatalogue($event)"
     (getWordsCountAndReadTime)="this.getWordsCountAndReadTime.emit($event)"
   ></app-context>
-  <app-folder-cate
-    *ngIf="folderCate"
-    [isLogin]="isLogin"
-    [smallSize]="smallSize"
-  ></app-folder-cate>
-  <app-cate-by-tag
-    *ngIf="tagCate"
-    [isLogin]="isLogin"
-    [smallSize]="smallSize"
-  ></app-cate-by-tag>
+  <app-folder-cate *ngIf="folderCate" [isLogin]="isLogin"></app-folder-cate>
+  <app-cate-by-tag *ngIf="tagCate" [isLogin]="isLogin"></app-cate-by-tag>
   <app-single-tag-cate
     *ngIf="tagPage"
     [isLogin]="isLogin"
-    [smallSize]="smallSize"
     [updateArticleModal]="updateArticleModal"
   ></app-single-tag-cate>
   <app-single-folder-cate
     *ngIf="folderPage"
-    [smallSize]="smallSize"
     [isLogin]="isLogin"
     [updateArticleModal]="updateArticleModal"
   ></app-single-folder-cate>
   <app-for-msg-board-page
     *ngIf="msgboard"
     [isLogin]="isLogin"
-    [smallSize]="smallSize"
   ></app-for-msg-board-page>
   <app-search
     *ngIf="search"
-    [smallSize]="smallSize"
     [isLogin]="isLogin"
     [updateArticleModal]="updateArticleModal"
   ></app-search>
   <app-info
     [isLogin]="isLogin"
     [isMsgBoard]="isMsgBoard"
-    [showInfo]="showInfo"
-    [smallSize]="smallSize"
     [catalogue]="catalogue"
     [isArticle]="isArticle"
   ></app-info>

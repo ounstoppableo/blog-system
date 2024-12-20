@@ -1,8 +1,8 @@
-<div class="card" [class]="smallSize ? 'smallSize' : ''">
-  <app-msg-board [isLogin]="isLogin" [smallSize]="smallSize"></app-msg-board>
+<div class="card" [class]="(smallSize | async) ? 'smallSize' : ''">
+  <app-msg-board [isLogin]="isLogin"></app-msg-board>
 </div>
 <app-book-display [isLogin]="isLogin"></app-book-display>
 <app-random-article-and-new-msg
-  *ngIf="!smallSize"
+  *ngIf="!(smallSize | async)"
   [limit]="10"
 ></app-random-article-and-new-msg>

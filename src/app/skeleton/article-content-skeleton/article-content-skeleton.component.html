@@ -1,11 +1,11 @@
-<div class="card" [class]="smallSize ? 'smallSize' : ''">
+<div class="card" [class]="(smallSize | async) ? 'smallSize' : ''">
   <div class="item" *ngFor="let item of generateNumbersArray(4)">
     <div class="title">
       <ngx-skeleton-loader
         count="1"
         appearance="line"
         [theme]="{
-          width: smallSize ? '20vw' : '5vw',
+          width: (smallSize | async) ? '20vw' : '5vw',
         }"
       />
     </div>
@@ -14,9 +14,10 @@
         count="1"
         appearance="line"
         [theme]="{
-          width: smallSize
-            ? widths[item2 + item * 10] + 'vw'
-            : 'calc(' + widths[item2 + item * 10] + 'vw' + ' - 350px - 90px)',
+          width:
+            (smallSize | async)
+              ? widths[item2 + item * 10] + 'vw'
+              : 'calc(' + widths[item2 + item * 10] + 'vw' + ' - 350px - 90px)',
         }"
         *ngFor="let item2 of generateNumbersArray(10)"
       />

@@ -1,6 +1,8 @@
 import { BookService } from '@/app/service/book.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-book-display',
@@ -13,10 +15,14 @@ export class BookDisplayComponent implements OnInit {
   books: any[] = [];
   @Input()
   isLogin = false;
+  smallSize: Observable<boolean>;
   constructor(
     private bookService: BookService,
     private message: NzMessageService,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
   ngOnInit(): void {
     this.getBooks();
   }

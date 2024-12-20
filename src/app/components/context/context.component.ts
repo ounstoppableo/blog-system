@@ -15,11 +15,13 @@ import { resType } from '@/types/response/response';
 import addHighLight from '@/utils/addHighLight';
 import addMathJax from '@/utils/addMathJax';
 import { NzImageService } from 'ng-zorro-antd/image';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 @Component({
-    selector: 'app-context',
-    templateUrl: './context.component.html',
-    styleUrls: ['./context.component.scss'],
-    standalone: false
+  selector: 'app-context',
+  templateUrl: './context.component.html',
+  styleUrls: ['./context.component.scss'],
+  standalone: false,
 })
 export class ContextComponent
   implements OnInit, AfterViewChecked, AfterContentInit, OnDestroy
@@ -31,8 +33,7 @@ export class ContextComponent
   articleTitleTree: any[] = []; //文章标题树，用于构建目录
   @Input()
   isLogin = false;
-  @Input()
-  smallSize!: boolean;
+  smallSize: Observable<boolean>;
   @Output()
   getCatalogue = new EventEmitter();
   @Output()
@@ -42,7 +43,10 @@ export class ContextComponent
     private route: ActivatedRoute,
     private router: Router,
     private nzImageService: NzImageService,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
   loading = true;
   //前后文章的信息
   preInfo = {} as { pre: string; preTitle: string; prebackImgUrl: string };

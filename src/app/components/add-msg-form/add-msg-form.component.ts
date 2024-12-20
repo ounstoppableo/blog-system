@@ -3,17 +3,18 @@ import { resType } from '@/types/response/response';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app-add-msg-form',
-    templateUrl: './add-msg-form.component.html',
-    styleUrls: ['./add-msg-form.component.scss'],
-    standalone: false
+  selector: 'app-add-msg-form',
+  templateUrl: './add-msg-form.component.html',
+  styleUrls: ['./add-msg-form.component.scss'],
+  standalone: false,
 })
 export class AddMsgFormComponent implements OnInit {
-  @Input()
-  smallSize!: boolean;
+  smallSize!: Observable<boolean>;
   @Input()
   articleId = '';
   @Input()
@@ -122,5 +123,8 @@ export class AddMsgFormComponent implements OnInit {
     private message: NzMessageService,
     private boardMsgService: BoardMsgService,
     private route: ActivatedRoute,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
 }

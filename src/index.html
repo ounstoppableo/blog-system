@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="." />
     <link rel="stylesheet" href="/assets/font/iconfont.css" />
     <link rel="stylesheet" href="/assets/mathJax.css" />
-    <link rel="stylesheet" href="/assets/font/lipinhuiziyoulixiangti.ttf" />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
       type="text/javascript"
@@ -825,5 +824,22 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/gh/ounstoppableo/mouseEffect@1.0.3/fireworks/firework.js"
     ></script>
+    <script>
+      async function loadTTFAndWait(fontName, fontUrl) {
+        const fontFace = new FontFace(fontName, `url(${fontUrl})`);
+        try {
+          await fontFace.load();
+          document.fonts.add(fontFace);
+        } catch (error) {
+          console.error(`Failed to load font "${fontName}":`, error);
+        }
+      }
+      loadTTFAndWait(
+        'lipinhuiziyoulixiangti',
+        '/assets/font/lipinhuiziyoulixiangti.ttf',
+      ).then(() => {
+        document.body.style.fontFamily = 'lipinhuiziyoulixiangti';
+      });
+    </script>
   </body>
 </html>

@@ -11,6 +11,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -34,24 +36,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('root')
   root!: ElementRef;
   isLogin = false;
-
-  //抽屉相关
-  @ViewChild('drawer')
-  drawer!: any;
-
-  //页面大小变化的控制
-  @ViewResize()
-  smallSize = false; //处于小尺寸窗口的判断
-
-  //上传文章相关
-  @ViewChild('addArticleForm')
-  addArticleForm!: any;
+  smallSize!: Observable<boolean>;
 
   constructor(
     private router: Router,
     private homeService: HomeService,
-  ) {}
-  @ViewResize()
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
   ngOnInit(): void {
     this.homeService
       .getFolderCategory()
@@ -63,7 +56,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       innerHeight + 'px',
     );
   }
-  @ViewResize()
   ngAfterViewInit(): void {
     //打字机效果控制
     const timer = setInterval(() => {
@@ -108,25 +100,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   goHome() {
     this.router.navigate(['home']);
   }
-  //打开上传文章模态框
-  showUploadModal() {
-    this.addArticleForm.showUploadModal();
-  }
-
-  //抽屉相关方法
-  open() {
-    this.drawer.open();
-  }
   //去单文件夹页
   goSingleFolder(folderId: number) {
     this.router.navigate(['folderPage', folderId]);
   }
-  @ViewResize()
   ngOnDestroy() {
     window.onresize = null;
-  }
-  loginCheck() {
-    this.isLogin = true;
   }
 }
 //字符串相同字段对比，返回最终相同下标

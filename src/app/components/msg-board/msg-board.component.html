@@ -1,13 +1,11 @@
-<div class="container" [class]="smallSize ? 'smallSize' : ''">
+<div class="container" [class]="(smallSize | async) ? 'smallSize' : ''">
   <app-add-msg-form
     [articleId]="articleId"
     (reloadMsg)="reloadMsg()"
-    [smallSize]="smallSize"
   ></app-add-msg-form>
   <app-comment-area
     [isLogin]="isLogin"
     [articleId]="articleId"
-    [smallSize]="smallSize"
     #commentArea
   ></app-comment-area>
 </div>

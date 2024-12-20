@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [class]="(smallSize | async) ? 'smallSize' : ''">
   <p>
     <span class="iconfont icon-book" [style]="{ fontSize: '30px' }"></span>
     <span>推荐书籍</span>

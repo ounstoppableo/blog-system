@@ -12,6 +12,8 @@ import {
   query,
   stagger,
 } from '@angular/animations';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-cate-by-date',
@@ -39,14 +41,16 @@ import {
   standalone: false,
 })
 export class CateByDateComponent implements OnInit {
-  @Input()
-  smallSize = false;
+  smallSize: Observable<boolean>;
   dateCategory: dateCaterory[] = [];
   loading = true;
   constructor(
     private catecogyService: CategoryService,
     private router: Router,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
   @Input()
   isLogin = false;
   @Output()

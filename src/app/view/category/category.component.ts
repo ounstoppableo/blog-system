@@ -10,6 +10,8 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-category',
@@ -17,32 +19,23 @@ import { ViewportScroller } from '@angular/common';
   styleUrls: ['./category.component.scss'],
   standalone: false,
 })
-export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
-  smallSize = false;
+export class CategoryComponent implements OnInit {
   isLogin = false;
   headerChangeHeight = 0;
-  @ViewChild('addArticleForm')
-  addArticleForm!: AddArticleFormComponent;
-  @ViewChild('drawer')
-  drawer!: DrawerComponent;
   dateCate = false;
   folderPage = false;
   tagCate = false;
   tagPage = false;
   category = false;
   search = false;
+  smallSize: Observable<boolean>;
   constructor(
     private route: ActivatedRoute,
     private viewportScroller: ViewportScroller,
-  ) {}
-  open() {
-    this.drawer.open();
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
   }
-  showUploadModal() {
-    this.addArticleForm.showUploadModal();
-  }
-
-  @ViewResize()
   ngOnInit(): void {
     this.route.url.subscribe((pathRes: any) => {
       type path =
@@ -55,10 +48,6 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
       this[pathRes[0].path as path] = true;
     });
   }
-  @ViewResize()
-  ngAfterViewInit(): void {}
-  @ViewResize()
-  ngOnDestroy(): void {}
 
   scrollToAnchor() {
     this.route.fragment.subscribe((fragment: any) => {
@@ -66,8 +55,5 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
         this.viewportScroller.scrollToAnchor(fragment);
       }
     });
-  }
-  loginCheck() {
-    this.isLogin = true;
   }
 }

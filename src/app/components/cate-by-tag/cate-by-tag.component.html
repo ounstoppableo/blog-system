@@ -1,4 +1,8 @@
-<div class="card" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
+<div
+  class="card"
+  [class]="(smallSize | async) ? 'smallSize' : ''"
+  *ngIf="!loading"
+>
   <div class="none" *ngIf="tags.length === 0">
     <app-none></app-none>
   </div>
@@ -11,15 +15,12 @@
     <div class="tags"><app-tag [tagList]="tags" [gap]="20"></app-tag></div>
   </div>
 </div>
-<app-cate-by-tag-skeleton
-  *ngIf="loading"
-  [smallSize]="smallSize"
-></app-cate-by-tag-skeleton>
+<app-cate-by-tag-skeleton *ngIf="loading"></app-cate-by-tag-skeleton>
 <app-book-display
   *ngIf="showMsgAndArticle"
   [isLogin]="isLogin"
 ></app-book-display>
 <app-random-article-and-new-msg
-  *ngIf="showMsgAndArticle && !smallSize"
+  *ngIf="showMsgAndArticle && !(smallSize | async)"
   [limit]="10"
 ></app-random-article-and-new-msg>

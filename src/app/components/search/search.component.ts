@@ -3,18 +3,20 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { OverviewComponent } from '../overview/overview.component';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
-    selector: 'app-search',
-    templateUrl: './search.component.html',
-    styleUrls: ['./search.component.scss'],
-    standalone: false
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.scss'],
+  standalone: false,
 })
 export class SearchComponent implements OnInit {
   @Input()
   isLogin = false;
   @Input()
-  smallSize!: boolean;
+  smallSize!: Observable<boolean>;
   @Input()
   updateArticleModal!: AddArticleFormComponent;
   @ViewChild(OverviewComponent) overviewComponent:
@@ -30,7 +32,10 @@ export class SearchComponent implements OnInit {
   constructor(
     private router: Router,
     private articleService: ArticleService,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
   ngOnInit(): void {}
   goHome() {
     this.router.navigate(['home']);

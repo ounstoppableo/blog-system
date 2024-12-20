@@ -1,7 +1,9 @@
 <!-- eslint-disable prettier/prettier -->
 <div class="container" [@toShow]="showComponent ? 'show' : 'unshow'">
   <div class="unAudit" *ngIf="msgItem.audit === 0"></div>
-  <div class="avatar"><img noLazyLoad="true" [src]="'/api' + msgItem.avatar" alt="" /></div>
+  <div class="avatar">
+    <img noLazyLoad="true" [src]="'/api' + msgItem.avatar" alt="" />
+  </div>
   <div class="content">
     <div class="header">
       <div class="info">
@@ -15,29 +17,81 @@
           <div class="admin" *ngIf="msgItem.isAdmin">博主</div>
           <div class="toTop" *ngIf="msgItem.toTop !== noToTop">置顶留言</div>
         </div>
-        <div class="date"><span class="iconfont icon-calendar"></span>&nbsp;{{ msgItem.subTime | date:'YYYY-MM-dd' }}</div>
+        <div class="date">
+          <span class="iconfont icon-calendar"></span>
+          &nbsp;{{ msgItem.subTime | date: 'YYYY-MM-dd' }}
+        </div>
       </div>
       <div class="operate">
-        <button #upvokeButton nz-button nzShape="circle" (click)="upvoke(msgItem)" *ngIf="msgItem.audit === 1">
+        <button
+          #upvokeButton
+          nz-button
+          nzShape="circle"
+          (click)="upvoke(msgItem)"
+          *ngIf="msgItem.audit === 1"
+        >
           <span class="count" *ngIf="msgItem.upvoke > 0">
             {{ msgItem.upvoke > 99 ? '99+' : msgItem.upvoke }}
           </span>
-          <span class="iconfont" [class]="{
+          <span
+            class="iconfont"
+            [class]="{
               'icon-like-fill': msgItem.upvokeChecked,
-              'icon-like': !msgItem.upvokeChecked
-            }" [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
+              'icon-like': !msgItem.upvokeChecked,
+            }"
+            [style]="{ fontSize: '20px', lineHeight: '20px' }"
+          ></span>
         </button>
-        <button nz-button nzShape="circle" (click)="toShowForm()" *ngIf="msgItem.audit === 1">
-          <span class="iconfont icon-message" [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
+        <button
+          nz-button
+          nzShape="circle"
+          (click)="toShowForm()"
+          *ngIf="msgItem.audit === 1"
+        >
+          <span
+            class="iconfont icon-message"
+            [style]="{ fontSize: '20px', lineHeight: '20px' }"
+          ></span>
         </button>
-        <button nz-button nzShape="circle" (click)="topMsg(msgItem.msgId,msgItem.articleId)" *ngIf="msgItem.audit === 1 && isLogin">
-          <span class="iconfont" [class]="msgItem.toTop === noToTop ? 'icon-zhiding' : 'icon-quxiaozhiding' " [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
+        <button
+          nz-button
+          nzShape="circle"
+          (click)="topMsg(msgItem.msgId, msgItem.articleId)"
+          *ngIf="msgItem.audit === 1 && isLogin"
+        >
+          <span
+            class="iconfont"
+            [class]="
+              msgItem.toTop === noToTop ? 'icon-zhiding' : 'icon-quxiaozhiding'
+            "
+            [style]="{ fontSize: '20px', lineHeight: '20px' }"
+          ></span>
         </button>
-        <button nz-button nzShape="circle" (click)="auditMsg(msgItem.msgId,msgItem.articleId)" *ngIf="msgItem.audit === 0 && isLogin">
-          <span class="iconfont icon-AUDIT" [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
+        <button
+          nz-button
+          nzShape="circle"
+          (click)="auditMsg(msgItem.msgId, msgItem.articleId)"
+          *ngIf="msgItem.audit === 0 && isLogin"
+        >
+          <span
+            class="iconfont icon-AUDIT"
+            [style]="{ fontSize: '20px', lineHeight: '20px' }"
+          ></span>
         </button>
-        <button nz-button nzShape="circle" nz-popconfirm nzPopconfirmTitle="您确定要删除该评论吗?" (nzOnConfirm)="deleteMsg(msgItem.msgId,msgItem.articleId,msgItem.isLocal)" *ngIf="isLogin || msgItem.isLocal">
-          <span class="iconfont icon-delete" [style]="{ fontSize: '20px',lineHeight:'20px' }"></span>
+        <button
+          nz-button
+          nzShape="circle"
+          nz-popconfirm
+          nzPopconfirmTitle="您确定要删除该评论吗?"
+          (nzOnConfirm)="
+            deleteMsg(msgItem.msgId, msgItem.articleId, msgItem.isLocal)
+          "
+          *ngIf="isLogin || msgItem.isLocal"
+        >
+          <span
+            class="iconfont icon-delete"
+            [style]="{ fontSize: '20px', lineHeight: '20px' }"
+          ></span>
         </button>
       </div>
     </div>
@@ -55,44 +109,65 @@
     </div>
     <div class="footer">
       <div class="device">
-        <span class="iconfont" [ngClass]="{
+        <span
+          class="iconfont"
+          [ngClass]="{
             'icon-windows': msgItem.device.toLowerCase().includes('window'),
             'icon-android': msgItem.device.toLowerCase().includes('android'),
             'icon-apple': msgItem.device.toLowerCase().includes('iphone'),
             'icon-question-circle':
               !msgItem.device.toLowerCase().includes('window') &&
               !msgItem.device.toLowerCase().includes('android') &&
-              !msgItem.device.toLowerCase().includes('iphone')
-          }"></span>
+              !msgItem.device.toLowerCase().includes('iphone'),
+          }"
+        ></span>
         <span>{{ msgItem.device }}</span>
       </div>
       <div class="browser">
-        <span class="iconfont" [ngClass]="{
+        <span
+          class="iconfont"
+          [ngClass]="{
             'icon-chrome': msgItem.browser.toLowerCase().includes('chrome'),
             'icon-safari': msgItem.browser.toLowerCase().includes('safari'),
             'icon-edge': msgItem.browser.toLowerCase().includes('edg'),
             'icon-question-circle':
               !msgItem.browser.toLowerCase().includes('edg') &&
               !msgItem.browser.toLowerCase().includes('chrome') &&
-              !msgItem.browser.toLowerCase().includes('safari')
-          }"></span>
+              !msgItem.browser.toLowerCase().includes('safari'),
+          }"
+        ></span>
         <span>{{ msgItem.browser }}</span>
       </div>
     </div>
-    <app-add-msg-form *ngIf="showForm" [articleId]="msgItem.articleId || ''" [fatherMsgId]="msgItem.msgId"
-      (reloadMsg)="toReloadData()" [smallSize]="smallSize"></app-add-msg-form>
+    <app-add-msg-form
+      *ngIf="showForm"
+      [articleId]="msgItem.articleId || ''"
+      [fatherMsgId]="msgItem.msgId"
+      (reloadMsg)="toReloadData()"
+    ></app-add-msg-form>
     <div class="chirdenMsg" *ngIf="showChirdren" [@toShow]="children!.length">
-      <app-comment-item *ngFor="let item of children" [msgItem]="item" (reloadData)="toReloadData()" [isLogin]="isLogin"
-        [smallSize]="smallSize"></app-comment-item>
+      <app-comment-item
+        *ngFor="let item of children"
+        [msgItem]="item"
+        (reloadData)="toReloadData()"
+        [isLogin]="isLogin"
+      ></app-comment-item>
     </div>
-    <div class="showChirdren" *ngIf="children.length !== 0" (click)="toShowChildren()">
+    <div
+      class="showChirdren"
+      *ngIf="children.length !== 0"
+      (click)="toShowChildren()"
+    >
       {{ this.showChirdren ? '合并' : '展开' }}&nbsp;{{
-      children.length
+        children.length
       }}&nbsp;条评论
-      <span class="iconfont" [ngClass]="{
+      <span
+        class="iconfont"
+        [ngClass]="{
           'icon-up1': this.showChirdren,
-          'icon-down': !this.showChirdren
-        }"></span>
+          'icon-down': !this.showChirdren,
+        }"
+      ></span>
     </div>
   </div>
 </div>

@@ -17,6 +17,8 @@ import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import dayjs from 'dayjs';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
@@ -31,8 +33,7 @@ export class OverviewComponent
   toTopOverview = false;
   @Input()
   articleInfoList: articleInfo[] = [];
-  @Input()
-  smallSize!: boolean;
+  smallSize!: Observable<boolean>;
   @Input()
   isHome = false;
   //模态框组件
@@ -97,7 +98,10 @@ export class OverviewComponent
     private router: Router,
     private loginService: LoginService,
     private message: NzMessageService,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
 
   ngOnInit(): void {
     if (localStorage.getItem('token')) {

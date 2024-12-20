@@ -1,4 +1,4 @@
-<div class="card" [class]="smallSize ? 'smallSize' : ''">
+<div class="card" [class]="(smallSize | async) ? 'smallSize' : ''">
   <div class="has">
     <div class="dateSpace">
       <ngx-skeleton-loader

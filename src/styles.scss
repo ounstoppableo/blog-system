@@ -10,20 +10,6 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'bailutongtongshouxieti';
-  src: url('/assets/font/bailutongtongshouxieti.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'lipinhuiziyoulixiangti';
-  src: url('/assets/font/lipinhuiziyoulixiangti.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 /* You can add global styles to this file, and also import other style files */
 html {
   -webkit-font-smoothing: antialiased;
@@ -56,7 +42,6 @@ body {
   -webkit-tap-highlight-color: transparent;
   position: relative;
   background: var(--defaultBackgroundColor) !important;
-  font-family: 'lipinhuiziyoulixiangti' !important;
 }
 
 .snowfall-flakes {

@@ -16,6 +16,9 @@ import { CircleMenuComponent } from './components/circle-menu/circle-menu.compon
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import checkDarkMode from '@/utils/checkDarkMode';
+import ViewResize from './decorators/viewResize';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,29 +29,59 @@ export class AppComponent
   implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy
 {
   title = 'my-blog';
+  headerChangeHeight = 0;
   darkMode = checkDarkMode();
   isArticle = false;
   firstLoad = true;
   imgLazyLoadMap = new Map();
   observer: any;
-  smallSize = false;
+  isLogin = false;
+  smallSize!: Observable<boolean>;
   catalogue: any[] = [];
+  defaultShow = false;
   private _modelInstance: any;
   private _darkModeLock = false;
   @ViewChild('operate')
   operate!: ElementRef;
   @ViewChild('catalogueTemp')
   catalogueTemp!: TemplateRef<any>;
+  @ViewChild('drawer')
+  drawer: any;
+  //上传文章相关
+  @ViewChild('addArticleForm')
+  addArticleForm!: any;
   constructor(
     private router: Router,
     private r: ComponentFactoryResolver,
     private injector: Injector,
     private modal: NzModalService,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
+  @ViewResize()
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd)
+      if (event instanceof NavigationEnd) {
         this.isArticle = event.url.includes('article');
+        this.defaultShow = !(
+          this.isArticle ||
+          event.url === '/home' ||
+          event.url === '/'
+        );
+        if (event.url === '/home' || event.url === '/') {
+          //获取头部样式变化的高度
+          this.headerChangeHeight =
+            innerHeight -
+            Number.parseFloat(
+              getComputedStyle(document.documentElement).getPropertyValue(
+                '--headerHeigth',
+              ),
+            );
+        } else if (!this.isArticle) {
+          this.headerChangeHeight = 0;
+        }
+      }
     });
     if (this.firstLoad) {
       this.loadCss(
@@ -60,18 +93,22 @@ export class AppComponent
       });
     }
   }
+  loginCheck() {
+    this.isLogin = true;
+  }
+  drawerOpen() {
+    this.drawer.open();
+  }
+  //显示上传文章模态框
+  showUploadModal() {
+    this.addArticleForm.showUploadModal();
+  }
   //四季控制板工厂创建
   @ViewChild('vc', { read: ViewContainerRef }) vc!: ViewContainerRef;
   seasonFactory = this.r.resolveComponentFactory(CircleMenuComponent);
   componentRef = this.seasonFactory.create(this.injector);
-  pageControl = () => {
-    if (window.innerWidth < 1024) {
-      this.smallSize = true;
-    } else {
-      this.smallSize = false;
-    }
-  };
 
+  @ViewResize()
   ngAfterViewInit(): void {
     //看板娘加载
     loadScript(
@@ -153,9 +190,6 @@ export class AppComponent
       subtree: true,
     });
     window.addEventListener('scroll', this.imgLazyLoad);
-
-    window.addEventListener('resize', this.pageControl);
-    this.pageControl();
   }
   private _showWaifu() {
     if (innerWidth > 1024) {
@@ -364,11 +398,25 @@ export class AppComponent
     }, 300);
   }
 
-  ngAfterViewChecked(): void {}
+  ngAfterViewChecked(): void {
+    if (this.isArticle) {
+      const articleBackGroundImg = document.getElementById(
+        'articleBackGroundImg',
+      );
+      if (!articleBackGroundImg) return;
+      this.headerChangeHeight =
+        Number.parseFloat(articleBackGroundImg.offsetHeight as any) -
+        Number.parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue(
+            '--headerHeigth',
+          ),
+        );
+    }
+  }
+  @ViewResize()
   ngOnDestroy(): void {
     this.observer?.disconnect();
     window.removeEventListener('resize', this._showWaifu);
     window.removeEventListener('scroll', this.imgLazyLoad);
-    window.removeEventListener('resize', this.pageControl);
   }
 }

@@ -1,38 +1,46 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-drawer',
   templateUrl: './drawer.component.html',
   styleUrls: ['./drawer.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class DrawerComponent {
-  @Input()
-  smallSize!: boolean;
   drawerVisible = false;
-  goHome() {
-    this.router.navigate(['home']);
-  }
+  smallSize!: Observable<boolean>;
+
   open() {
     this.drawerVisible = true;
   }
   close() {
     this.drawerVisible = false;
   }
+  goHome() {
+    this.router.navigate(['home']);
+    this.close();
+  }
   goSearch() {
     this.router.navigate(['search']);
+    this.close();
   }
   goMsgBoard() {
     this.router.navigate(['msgboard']);
+    this.close();
   }
   goDateCate() {
     this.router.navigate(['dateCate']);
+    this.close();
   }
   goFolderCate() {
     this.router.navigate(['category']);
+    this.close();
   }
   goTagCate() {
     this.router.navigate(['tagCate']);
+    this.close();
   }
   //展开菜单
   show(listEle: any, iconEle: any) {
@@ -44,6 +52,7 @@ export class DrawerComponent {
       : iconEle.classList.add('active');
   }
   goChatPlatform() {
+    this.close();
     const a = document.createElement('a');
     a.href = 'https://www.unstoppable840.cn:8080';
     a.click();
@@ -51,5 +60,8 @@ export class DrawerComponent {
   constructor(
     private router: Router,
     private routes: ActivatedRoute,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
 }

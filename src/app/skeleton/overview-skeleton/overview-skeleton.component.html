@@ -1,6 +1,6 @@
 <div class="cardContainerLeft">
   <div
-    [class]="smallSize ? 'smallSize' : ''"
+    [class]="(smallSize | async) ? 'smallSize' : ''"
     class="card"
     *ngFor="let item of generateNumbersArray(4)"
   >
@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div class="img" [class]="smallSize ? 'smallSize' : ''">
+    <div class="img" [class]="(smallSize | async) ? 'smallSize' : ''">
       <ngx-skeleton-loader
         count="1"
         appearance="line"

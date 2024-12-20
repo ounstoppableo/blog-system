@@ -65,6 +65,8 @@ import { MsgAndArticleBoardSkeletonComponent } from './skeleton/msg-and-article-
 import { WeatherComponent } from './components/weather/weather.component';
 import { BookDisplayComponent } from './components/book-display/book-display.component';
 import { BookUploadFormComponentComponent } from './components/book-upload-form-component/book-upload-form-component.component';
+import { StoreModule } from '@ngrx/store';
+import { smallSizeReducer } from './store/smallSizeStore/smallSize.reducer';
 
 const ngZorroConfig: NzConfig = {
   message: {
@@ -145,6 +147,7 @@ const ngZorroConfig: NzConfig = {
         background: '#d1d5db',
       },
     }),
+    StoreModule.forRoot({ smallSize: smallSizeReducer }),
   ],
   providers: [
     httpInterceptorProviders,

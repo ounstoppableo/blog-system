@@ -1,4 +1,4 @@
-<div class="container" [class]="smallSize ? 'smallSize' : ''">
+<div class="container" [class]="(smallSize | async) ? 'smallSize' : ''">
   <h1>
     <ngx-skeleton-loader
       count="1"
@@ -20,5 +20,5 @@
       }"
     />
   </h1>
-  <app-overview-skeleton [smallSize]="smallSize"></app-overview-skeleton>
+  <app-overview-skeleton></app-overview-skeleton>
 </div>

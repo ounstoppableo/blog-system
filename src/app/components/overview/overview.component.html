@@ -10,7 +10,6 @@
   <app-overview
     *ngIf="isHome && !toTopOverview"
     [isHome]="isHome"
-    [smallSize]="smallSize"
     [updateArticleModal]="updateArticleModal"
     [toTopOverview]="true"
   ></app-overview>
@@ -22,7 +21,7 @@
   <div
     class="card"
     *ngFor="let item of articleInfoList"
-    [class]="smallSize ? 'smallSize' : ''"
+    [class]="(smallSize | async) ? 'smallSize' : ''"
   >
     <div class="info" (click)="toArticle(item.articleId)">
       <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
@@ -42,7 +41,7 @@
         <app-tag [tagList]="item.tags"></app-tag>
       </div>
     </div>
-    <div class="img" [class]="smallSize ? 'smallSize' : ''">
+    <div class="img" [class]="(smallSize | async) ? 'smallSize' : ''">
       <img nz-image [nzSrc]="item.backImgUrl" alt="" />
     </div>
     <div class="operate" *ngIf="isLogin">
@@ -71,7 +70,6 @@
   </div>
   <app-overview-skeleton
     *ngIf="articleInfoList.length === 0 && !toTopOverview"
-    [smallSize]="smallSize"
   ></app-overview-skeleton>
 </div>
 <nz-pagination

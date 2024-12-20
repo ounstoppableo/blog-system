@@ -1,6 +1,6 @@
 <div class="container" #container>
   <div class="left" (click)="goHome()">Unstoppable840的小站</div>
-  <ul *ngIf="!showFolderIcon" class="right">
+  <ul *ngIf="!(smallSize | async)" class="right">
     <li (click)="goHome()">
       <span class="iconfont icon-homefill goHome"></span>
       <span>首页</span>
@@ -103,7 +103,7 @@
       </ul>
     </li>
   </ul>
-  <div *ngIf="showFolderIcon" class="folder" (click)="folderShow()">
+  <div *ngIf="smallSize | async" class="folder" (click)="folderShow()">
     <span class="iconfont icon-menu_open"></span>
   </div>
 </div>

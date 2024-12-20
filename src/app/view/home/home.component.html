@@ -1,14 +1,9 @@
-<div class="root" #root [class]="smallSize ? 'smallSize' : ''">
-  <app-header
-    [showFolderIcon]="smallSize"
-    [scrollTarget]="headerChangeHeight"
-    (drawerOpen)="open()"
-    (loginCheck)="loginCheck()"
-    (upload)="showUploadModal()"
-  ></app-header>
-  <div class="body" [class]="smallSize ? 'smallSize' : ''">
+<div class="root" #root [class]="(smallSize | async) ? 'smallSize' : ''">
+  <div class="body" [class]="(smallSize | async) ? 'smallSize' : ''">
     <div>
-      <h1 [class]="smallSize ? 'smallSize' : ''">Unstoppable840的小站</h1>
+      <h1 [class]="(smallSize | async) ? 'smallSize' : ''">
+        Unstoppable840的小站
+      </h1>
       <p class="wordAnime">
         <span #wordSpan></span>
       </p>
@@ -16,11 +11,11 @@
     <ul
       *ngIf="folderCategory"
       class="itembox"
-      [class]="smallSize ? 'smallSize' : 'normal'"
+      [class]="(smallSize | async) ? 'smallSize' : 'normal'"
     >
       <li
         *ngFor="let item of folderCategory"
-        [class]="smallSize ? 'smallSize' : ''"
+        [class]="(smallSize | async) ? 'smallSize' : ''"
         (click)="goSingleFolder(item.folderId)"
       >
         <span>{{ item.folderName }}</span>
@@ -29,9 +24,9 @@
     <ul
       *ngIf="!folderCategory"
       class="itembox"
-      [class]="smallSize ? 'smallSize' : 'normal'"
+      [class]="(smallSize | async) ? 'smallSize' : 'normal'"
     >
-      <div [class]="smallSize ? 'smallSize' : ''">
+      <div [class]="(smallSize | async) ? 'smallSize' : ''">
         <ngx-skeleton-loader
           count="1"
           appearance="line"
@@ -41,7 +36,7 @@
           }"
         />
       </div>
-      <div [class]="smallSize ? 'smallSize' : ''">
+      <div [class]="(smallSize | async) ? 'smallSize' : ''">
         <ngx-skeleton-loader
           count="1"
           appearance="line"
@@ -51,7 +46,7 @@
           }"
         />
       </div>
-      <div [class]="smallSize ? 'smallSize' : ''">
+      <div [class]="(smallSize | async) ? 'smallSize' : ''">
         <ngx-skeleton-loader
           count="1"
           appearance="line"
@@ -61,7 +56,7 @@
           }"
         />
       </div>
-      <div [class]="smallSize ? 'smallSize' : ''">
+      <div [class]="(smallSize | async) ? 'smallSize' : ''">
         <ngx-skeleton-loader
           count="1"
           appearance="line"
@@ -82,12 +77,9 @@
   <app-container
     [isHome]="true"
     [updateArticleModal]="addArticleForm"
-    [showInfo]="!smallSize"
-    [smallSize]="smallSize"
     [isLogin]="isLogin"
     [scrollTarget]="headerChangeHeight"
   ></app-container>
 </div>
 <app-footer></app-footer>
 <app-add-article-form #addArticleForm></app-add-article-form>
-<app-drawer #drawer [smallSize]="smallSize"></app-drawer>

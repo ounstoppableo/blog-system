@@ -18,24 +18,33 @@ import {
 import { BoardMsgService } from '@/app/service/board-msg.service';
 import { resType } from '@/types/response/response';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
-    selector: 'app-comment-item',
-    templateUrl: './comment-item.component.html',
-    styleUrls: ['./comment-item.component.scss'],
-    animations: [
-        trigger('toShow', [
-            transition('*=>*', [
-                query(':enter', [
-                    style({ opacity: 0, transform: 'translateY(-50%)' }),
-                    stagger(100, [
-                        animate('0.5s', style({ opacity: 1, transform: 'translateY(0)' })),
-                    ]),
-                ], { optional: true }),
+  selector: 'app-comment-item',
+  templateUrl: './comment-item.component.html',
+  styleUrls: ['./comment-item.component.scss'],
+  animations: [
+    trigger('toShow', [
+      transition('*=>*', [
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(-50%)' }),
+            stagger(100, [
+              animate(
+                '0.5s',
+                style({ opacity: 1, transform: 'translateY(0)' }),
+              ),
             ]),
-        ]),
-    ],
-    standalone: false
+          ],
+          { optional: true },
+        ),
+      ]),
+    ]),
+  ],
+  standalone: false,
 })
 export class CommentItemComponent implements OnChanges {
   @Input()
@@ -48,8 +57,8 @@ export class CommentItemComponent implements OnChanges {
   showChirdren = false;
   showComponent = false;
   children: msgItem[] = [];
-  @Input()
-  smallSize = false;
+
+  smallSize: Observable<boolean>;
 
   timer: any = null;
 
@@ -58,7 +67,10 @@ export class CommentItemComponent implements OnChanges {
   constructor(
     private boardMsgSerivce: BoardMsgService,
     private message: NzMessageService,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
 
   ngOnChanges(changes: any): void {
     if (changes?.msgItem?.currentValue) {

@@ -12,24 +12,33 @@ import {
 } from '@angular/animations';
 import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
-    selector: 'app-comment-area',
-    templateUrl: './comment-area.component.html',
-    styleUrls: ['./comment-area.component.scss'],
-    animations: [
-        trigger('toShow', [
-            transition('* => *', [
-                query(':enter', [
-                    style({ opacity: 0, transform: 'translateY(-50%)' }),
-                    stagger(100, [
-                        animate('0.5s', style({ opacity: 1, transform: 'translateY(0)' })),
-                    ]),
-                ], { optional: true }),
+  selector: 'app-comment-area',
+  templateUrl: './comment-area.component.html',
+  styleUrls: ['./comment-area.component.scss'],
+  animations: [
+    trigger('toShow', [
+      transition('* => *', [
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(-50%)' }),
+            stagger(100, [
+              animate(
+                '0.5s',
+                style({ opacity: 1, transform: 'translateY(0)' }),
+              ),
             ]),
-        ]),
-    ],
-    standalone: false
+          ],
+          { optional: true },
+        ),
+      ]),
+    ]),
+  ],
+  standalone: false,
 })
 export class CommentAreaComponent implements OnInit {
   @Input()
@@ -39,8 +48,8 @@ export class CommentAreaComponent implements OnInit {
   show = false;
   loading = false;
   msgItems: msgItem[] = [];
-  @Input()
-  smallSize = false;
+
+  smallSize: Observable<boolean>;
   //判断是不是留言板页面
   isMsgBoard = false;
   msgCount = 0;
@@ -50,7 +59,10 @@ export class CommentAreaComponent implements OnInit {
   constructor(
     private addMsgService: BoardMsgService,
     private route: ActivatedRoute,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
   ngOnInit(): void {
     this.route.url.subscribe((res) => {
       this.isMsgBoard = res[0].path === 'msgboard' ? true : false;

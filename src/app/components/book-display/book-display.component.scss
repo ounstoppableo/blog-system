@@ -10,6 +10,9 @@
   padding: 30px;
   display: flex;
   flex-direction: column;
+  &.smallSize {
+    width: 100vw;
+  }
 }
 
 p {
