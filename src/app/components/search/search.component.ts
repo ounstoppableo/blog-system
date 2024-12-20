@@ -12,6 +12,8 @@ import { OverviewComponent } from '../overview/overview.component';
 })
 export class SearchComponent implements OnInit {
   @Input()
+  isLogin = false;
+  @Input()
   smallSize!: boolean;
   @Input()
   updateArticleModal!: AddArticleFormComponent;

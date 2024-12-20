@@ -14,6 +14,8 @@ export class SingleFolderCateComponent implements OnInit {
   @Input()
   smallSize!: boolean;
   @Input()
+  isLogin = false;
+  @Input()
   updateArticleModal!: AddArticleFormComponent;
   singleFolderMapArticleInfos: singleFolderMapArticleInfos =
     {} as singleFolderMapArticleInfos;

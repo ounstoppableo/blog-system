@@ -36,7 +36,7 @@
     ></app-overview>
   </div>
 </div>
-<app-book-display></app-book-display>
+<app-book-display [isLogin]="isLogin"></app-book-display>
 <app-random-article-and-new-msg
   *ngIf="!smallSize"
   [limit]="10"

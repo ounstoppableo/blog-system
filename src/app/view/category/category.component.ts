@@ -12,13 +12,14 @@ import { ActivatedRoute } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 
 @Component({
-    selector: 'app-category',
-    templateUrl: './category.component.html',
-    styleUrls: ['./category.component.scss'],
-    standalone: false
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.scss'],
+  standalone: false,
 })
 export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
   smallSize = false;
+  isLogin = false;
   headerChangeHeight = 0;
   @ViewChild('addArticleForm')
   addArticleForm!: AddArticleFormComponent;
@@ -65,5 +66,8 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
         this.viewportScroller.scrollToAnchor(fragment);
       }
     });
+  }
+  loginCheck() {
+    this.isLogin = true;
   }
 }

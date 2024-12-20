@@ -3,11 +3,13 @@
   [showFolderIcon]="smallSize"
   [scrollTarget]="headerChangeHeight"
   (drawerOpen)="open()"
+  (loginCheck)="loginCheck()"
   (upload)="showUploadModal()"
 ></app-header>
 <div class="body">
   <app-container
     [search]="search"
+    [isLogin]="isLogin"
     [folderCate]="category"
     [dateCate]="dateCate"
     [tagCate]="tagCate"

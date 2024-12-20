@@ -8,7 +8,7 @@
     <app-none *ngIf="books.length === 0"></app-none>
     <a [href]="book.bookUrl" *ngFor="let book of books" target="_blank">
       <div id="book" class="view-rotate">
-        <div class="delete">
+        <div class="delete" *ngIf="isLogin">
           <button
             (click)="$event.stopPropagation()"
             nz-button

@@ -13,6 +13,8 @@ import { AddArticleFormComponent } from '../add-article-form/add-article-form.co
 })
 export class SingleTagCateComponent implements OnInit {
   @Input()
+  isLogin = false;
+  @Input()
   smallSize!: boolean;
   @Input()
   updateArticleModal!: AddArticleFormComponent;

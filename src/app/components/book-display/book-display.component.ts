@@ -1,5 +1,5 @@
 import { BookService } from '@/app/service/book.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
@@ -11,6 +11,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class BookDisplayComponent implements OnInit {
   limit = 4;
   books: any[] = [];
+  @Input()
+  isLogin = false;
   constructor(
     private bookService: BookService,
     private message: NzMessageService,

@@ -3,6 +3,7 @@
     [showFolderIcon]="smallSize"
     [scrollTarget]="headerChangeHeight"
     (drawerOpen)="open()"
+    (loginCheck)="loginCheck()"
     (upload)="showUploadModal()"
   ></app-header>
   <div class="body" [class]="smallSize ? 'smallSize' : ''">
@@ -83,6 +84,7 @@
     [updateArticleModal]="addArticleForm"
     [showInfo]="!smallSize"
     [smallSize]="smallSize"
+    [isLogin]="isLogin"
     [scrollTarget]="headerChangeHeight"
   ></app-container>
 </div>

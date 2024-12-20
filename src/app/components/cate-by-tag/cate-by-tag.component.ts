@@ -13,6 +13,8 @@ export class CateByTagComponent implements OnInit {
   @Input()
   smallSize!: boolean;
   @Input()
+  isLogin = false;
+  @Input()
   showMsgAndArticle = true;
   tags: tag[] = [];
   loading = true;

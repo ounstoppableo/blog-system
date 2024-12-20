@@ -14,22 +14,29 @@ import {
 } from '@angular/animations';
 
 @Component({
-    selector: 'app-cate-by-date',
-    templateUrl: './cate-by-date.component.html',
-    styleUrls: ['./cate-by-date.component.scss'],
-    animations: [
-        trigger('toShow', [
-            transition('* => *', [
-                query(':enter', [
-                    style({ opacity: 0, transform: 'translateY(-50%)' }),
-                    stagger(100, [
-                        animate('0.5s', style({ opacity: 1, transform: 'translateY(0)' })),
-                    ]),
-                ], { optional: true }),
+  selector: 'app-cate-by-date',
+  templateUrl: './cate-by-date.component.html',
+  styleUrls: ['./cate-by-date.component.scss'],
+  animations: [
+    trigger('toShow', [
+      transition('* => *', [
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(-50%)' }),
+            stagger(100, [
+              animate(
+                '0.5s',
+                style({ opacity: 1, transform: 'translateY(0)' }),
+              ),
             ]),
-        ]),
-    ],
-    standalone: false
+          ],
+          { optional: true },
+        ),
+      ]),
+    ]),
+  ],
+  standalone: false,
 })
 export class CateByDateComponent implements OnInit {
   @Input()
@@ -40,6 +47,8 @@ export class CateByDateComponent implements OnInit {
     private catecogyService: CategoryService,
     private router: Router,
   ) {}
+  @Input()
+  isLogin = false;
   @Output()
   scrollToAnchor = new EventEmitter();
   ngOnInit(): void {

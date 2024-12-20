@@ -6,10 +6,10 @@ import { Router } from '@angular/router';
 import dayjs from 'dayjs';
 
 @Component({
-    selector: 'app-info',
-    templateUrl: './info.component.html',
-    styleUrls: ['./info.component.scss'],
-    standalone: false
+  selector: 'app-info',
+  templateUrl: './info.component.html',
+  styleUrls: ['./info.component.scss'],
+  standalone: false,
 })
 export class InfoComponent implements OnInit {
   @Input()
@@ -22,6 +22,8 @@ export class InfoComponent implements OnInit {
   catalogue: any[] = [];
   @Input()
   isArticle = false;
+  @Input()
+  isLogin = false;
   articleInfoList: articleInfo[] = []; //文章列表
   loading = true;
 

@@ -13,10 +13,10 @@ import {
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    standalone: false
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  standalone: false,
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   //控制打字机效果的数据
@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   wordSpan!: ElementRef;
   @ViewChild('root')
   root!: ElementRef;
+  isLogin = false;
 
   //抽屉相关
   @ViewChild('drawer')
@@ -123,6 +124,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewResize()
   ngOnDestroy() {
     window.onresize = null;
+  }
+  loginCheck() {
+    this.isLogin = true;
   }
 }
 //字符串相同字段对比，返回最终相同下标
