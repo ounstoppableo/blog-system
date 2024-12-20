@@ -15,17 +15,18 @@ import { ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { CircleMenuComponent } from './components/circle-menu/circle-menu.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
+import checkDarkMode from '@/utils/checkDarkMode';
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  standalone: false,
 })
 export class AppComponent
   implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy
 {
   title = 'my-blog';
-  darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
+  darkMode = checkDarkMode();
   isArticle = false;
   firstLoad = true;
   imgLazyLoadMap = new Map();
@@ -63,7 +64,6 @@ export class AppComponent
   @ViewChild('vc', { read: ViewContainerRef }) vc!: ViewContainerRef;
   seasonFactory = this.r.resolveComponentFactory(CircleMenuComponent);
   componentRef = this.seasonFactory.create(this.injector);
-
   pageControl = () => {
     if (window.innerWidth < 1024) {
       this.smallSize = true;

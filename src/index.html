@@ -770,7 +770,17 @@
     </div>
     <script src="/assets/bongoCatDark.js"></script>
     <script>
-      const isDark = JSON.parse(localStorage.getItem('darkMode') || 'false');
+      const checkDarkMode = () => {
+        const local = localStorage.getItem('darkMode');
+        return JSON.parse(
+          local
+            ? local
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'true'
+              : 'false',
+        );
+      };
+      const isDark = checkDarkMode();
       const link = document.createElement('link');
       link.href = isDark
         ? '/assets/bongoCatDark.css'
