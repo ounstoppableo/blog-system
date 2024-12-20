@@ -8,10 +8,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
-    selector: 'app-add-article-form',
-    templateUrl: './add-article-form.component.html',
-    styleUrls: ['./add-article-form.component.scss'],
-    standalone: false
+  selector: 'app-add-article-form',
+  templateUrl: './add-article-form.component.html',
+  styleUrls: ['./add-article-form.component.scss'],
+  standalone: false,
 })
 export class AddArticleFormComponent implements OnInit {
   //文档分类
@@ -35,7 +35,7 @@ export class AddArticleFormComponent implements OnInit {
       Validators.maxLength(100),
     ]),
     backImgUrl: new FormControl('', [Validators.required]),
-    articleUrl: new FormControl('', [Validators.required]),
+    articleUrl: new FormControl(''),
     listOfTagOptions: new FormControl([], [Validators.required]),
   });
   get articleId() {
@@ -77,6 +77,9 @@ export class AddArticleFormComponent implements OnInit {
         if (item !== 'articleUrl')
           this[item as itemType]?.setValue(articleInfo[item as itemType]);
       });
+    }
+    if (!articleInfo) {
+      this.articleUrl?.setValidators([Validators.required]);
     }
     this.uploadFlag = true;
     this.homeService.getTags().subscribe((res: resType<tag[]>) => {
@@ -165,7 +168,8 @@ export class AddArticleFormComponent implements OnInit {
         }
       });
       if (this.backImgUrl?.invalid) this.message.error('请上传图片');
-      if (this.articleUrl?.invalid) this.message.error('请上传文章');
+      if (!this.articleId?.value && this.articleUrl?.invalid)
+        this.message.error('请上传文章');
     }
   }
   constructor(
