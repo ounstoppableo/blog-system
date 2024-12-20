@@ -16,9 +16,11 @@ import { Store } from '@ngrx/store';
 export class ContainerComponent implements OnInit {
   articleInfoList: articleInfo[] = [];
   catalogue: any[] = [];
+  smallSize: Observable<boolean>;
+  @Input()
+  showInfo: boolean = true;
   @Input()
   isLogin = false;
-  smallSize: Observable<boolean>;
   @Input()
   updateArticleModal!: AddArticleFormComponent;
   @Input()

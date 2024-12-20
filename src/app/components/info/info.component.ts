@@ -15,6 +15,8 @@ import { Observable } from 'rxjs';
 })
 export class InfoComponent implements OnInit {
   @Input()
+  showInfo: boolean = true;
+  @Input()
   smallSize!: boolean;
   @Input()
   isMsgBoard = false;

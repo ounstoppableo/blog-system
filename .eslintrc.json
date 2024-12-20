@@ -71,7 +71,8 @@
         ],
         "@angular-eslint/template/mouse-events-have-key-events": "off",
         "@angular-eslint/template/interactive-supports-focus": "off",
-        "@angular-eslint/template/click-events-have-key-events": "off"
+        "@angular-eslint/template/click-events-have-key-events": "off",
+        "@angular-eslint/template/no-negated-async": "off"
       }
     },
     {
@@ -83,7 +84,8 @@
       ],
       "rules": {
         "@ngrx/no-typed-global-store": "off",
-        "@ngrx/prefer-selector-in-select": "off"
+        "@ngrx/prefer-selector-in-select": "off",
+        "@ngrx/on-function-explicit-return-type": "off"
       }
     }
   ]

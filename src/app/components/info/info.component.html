@@ -1,4 +1,8 @@
-<div class="cardContainerRight" [class]="smallSize ? 'smallSize' : ''">
+<div
+  class="cardContainerRight"
+  [class]="smallSize ? 'smallSize' : ''"
+  *ngIf="showInfo"
+>
   <div class="card">
     <app-userinfo [smallSize]="false"></app-userinfo>
   </div>
