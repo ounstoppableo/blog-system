@@ -9,11 +9,12 @@ import { MsgBoradPageComponent } from './view/msg-borad-page/msg-borad-page.comp
 import { NotFoundPageComponent } from './view/not-found-page/not-found-page.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent, data: { keepAlive: true } },
+  { path: 'home', component: HomeComponent, data: { keepAlive: true } },
   {
     path: 'article/:articleId',
     component: ArticleComponent,
+    data: { keepAlive: true },
   },
   { path: 'login', component: LoginComponent },
   { path: 'dateCate', component: CategoryComponent },
@@ -27,10 +28,11 @@ const routes: Routes = [
     path: 'folderPage/:folderId',
     component: CategoryComponent,
   },
-  { path: 'search', component: CategoryComponent },
+  { path: 'search', component: CategoryComponent, data: { keepAlive: true } },
   {
     path: 'msgboard',
     component: MsgBoradPageComponent,
+    data: { keepAlive: true },
   },
   {
     path: '**',

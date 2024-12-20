@@ -24,7 +24,10 @@
   *ngIf="loading"
   [smallSize]="smallSize"
 ></app-folder-cate-skeleton>
-<app-book-display *ngIf="showMsgAndArticle" [isLogin]="isLogin"></app-book-display>
+<app-book-display
+  *ngIf="showMsgAndArticle"
+  [isLogin]="isLogin"
+></app-book-display>
 <app-random-article-and-new-msg
   *ngIf="showMsgAndArticle && !smallSize"
   [limit]="10"
