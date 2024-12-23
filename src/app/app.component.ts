@@ -50,6 +50,7 @@ export class AppComponent
   //上传文章相关
   @ViewChild('addArticleForm')
   addArticleForm!: any;
+  showHeader = true;
   constructor(
     private router: Router,
     private r: ComponentFactoryResolver,
@@ -65,6 +66,11 @@ export class AppComponent
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isArticle = event.url.includes('article');
+        if (event.url === '/login') {
+          this.showHeader = false;
+        } else {
+          this.showHeader = true;
+        }
         this.defaultShow = !(
           this.isArticle ||
           event.url === '/home' ||

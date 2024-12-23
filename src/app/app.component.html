@@ -1,4 +1,5 @@
 <app-header
+  *ngIf="showHeader"
   [defaultShow]="defaultShow"
   [scrollTarget]="headerChangeHeight"
   (drawerOpen)="drawerOpen()"
