@@ -2,14 +2,14 @@ import { HomeService } from '@/app/service/home.service';
 import { folderItem, tag } from '@/types/home/home';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
-    selector: 'app-userinfo',
-    templateUrl: './userinfo.component.html',
-    styleUrls: ['./userinfo.component.scss'],
-    standalone: false
+  selector: 'app-userinfo',
+  templateUrl: './userinfo.component.html',
+  styleUrls: ['./userinfo.component.scss'],
+  standalone: false,
 })
 export class UserinfoComponent implements OnInit {
   articleInfoList: articleInfo[] = []; //文章列表
@@ -17,6 +17,8 @@ export class UserinfoComponent implements OnInit {
   tagsNum = 0; //tag数
   @Input()
   smallSize!: boolean;
+  @Output()
+  closeDrawer = new EventEmitter();
   constructor(
     private homeService: HomeService,
     private router: Router,
@@ -39,12 +41,15 @@ export class UserinfoComponent implements OnInit {
   }
   toDateCate() {
     this.router.navigate(['/dateCate']);
+    this.closeDrawer.emit();
   }
   tofolderCate() {
     this.router.navigate(['/category']);
+    this.closeDrawer.emit();
   }
   toTagsCate() {
     this.router.navigate(['/tagCate']);
+    this.closeDrawer.emit();
   }
   //复制邮箱
   copyMail() {
