@@ -32,6 +32,7 @@ export class AppComponent
   headerChangeHeight = 0;
   darkMode = checkDarkMode();
   isArticle = false;
+  is404Page = false;
   firstLoad = true;
   imgLazyLoadMap = new Map();
   observer: any;
@@ -66,6 +67,11 @@ export class AppComponent
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isArticle = event.url.includes('article');
+        if (event.url === '/404' || event.urlAfterRedirects === '/404') {
+          this.is404Page = true;
+        } else {
+          this.is404Page = false;
+        }
         if (event.url === '/login') {
           this.showHeader = false;
         } else {
@@ -73,6 +79,7 @@ export class AppComponent
         }
         this.defaultShow = !(
           this.isArticle ||
+          this.is404Page ||
           event.url === '/home' ||
           event.url === '/'
         );
@@ -85,6 +92,8 @@ export class AppComponent
                 '--headerHeigth',
               ),
             );
+        } else if (this.is404Page) {
+          this.headerChangeHeight = innerHeight;
         } else if (!this.isArticle) {
           this.headerChangeHeight = 0;
         }
@@ -136,7 +145,7 @@ export class AppComponent
     loadScript(
       'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v3.0.2/snowfall.jquery.js',
       () => {
-        this.vc.insert(this.componentRef.hostView);
+        this.vc?.insert(this.componentRef.hostView);
       },
     );
     this.implementDarkMode();

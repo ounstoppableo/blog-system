@@ -35,8 +35,12 @@ const routes: Routes = [
     data: { keepAlive: true },
   },
   {
-    path: '**',
+    path: '404',
     component: NotFoundPageComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '404',
   },
 ];
 

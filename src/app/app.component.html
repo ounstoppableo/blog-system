@@ -6,7 +6,7 @@
   (upload)="showUploadModal()"
 ></app-header>
 <router-outlet></router-outlet>
-<div id="operate">
+<div id="operate" *ngIf="!is404Page">
   <button
     class="btn"
     *ngIf="isArticle && (smallSize | async)"
@@ -29,8 +29,8 @@
     <span class="iconfont icon-dingyue"></span>
   </button>
 </div>
-<ng-container #vc></ng-container>
-<app-music-player></app-music-player>
+<ng-container #vc *ngIf="!is404Page"></ng-container>
+<app-music-player *ngIf="!is404Page"></app-music-player>
 <ng-template #catalogueTemp>
   <div class="catalogue">
     <p>
@@ -51,5 +51,5 @@
     </div>
   </div>
 </ng-template>
-<app-drawer #drawer *ngIf="smallSize"></app-drawer>
-<app-add-article-form #addArticleForm></app-add-article-form>
+<app-drawer #drawer *ngIf="smallSize && !is404Page"></app-drawer>
+<app-add-article-form #addArticleForm *ngIf="!is404Page"></app-add-article-form>

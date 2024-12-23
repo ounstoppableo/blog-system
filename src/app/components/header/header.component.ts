@@ -67,6 +67,7 @@ export class HeaderComponent
   }
   ngOnChanges(changes: any): void {
     if (changes['defaultShow']) {
+      console.log(this.defaultShow)
       if (this.defaultShow) {
         this.container.nativeElement.classList.add('active');
         this.container.nativeElement.classList.remove('hidden');
