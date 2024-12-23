@@ -5,6 +5,8 @@ import {
 } from '@angular/router';
 export class CustomReuseStrategy implements RouteReuseStrategy {
   static cacheRouters = new Map<string, DetachedRouteHandle>();
+  static LRUStack: any[] = [];
+  static keepAliveCount = 8;
 
   /*
    ** 清除cachedroute:
@@ -20,12 +22,32 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
     CustomReuseStrategy.cacheRouters.delete(key);
   }
 
-  public clearCacheOnNewUrl(url: string) {
-    CustomReuseStrategy.cacheRouters.forEach((val: any, key: any) => {
-      if (url.indexOf(key) === -1) {
-        this.clearCachedRoute(key);
+  public useLRUStorePage(url: string, page: DetachedRouteHandle) {
+    if (
+      CustomReuseStrategy.LRUStack.length < CustomReuseStrategy.keepAliveCount
+    ) {
+      if (CustomReuseStrategy.cacheRouters.has(url)) {
+        moveElement(
+          CustomReuseStrategy.LRUStack,
+          CustomReuseStrategy.LRUStack.findIndex((item) => item === url),
+          CustomReuseStrategy.LRUStack.length - 1,
+        );
+      } else {
+        CustomReuseStrategy.LRUStack.unshift(url);
       }
-    });
+    } else {
+      if (CustomReuseStrategy.cacheRouters.has(url)) {
+        moveElement(
+          CustomReuseStrategy.LRUStack,
+          CustomReuseStrategy.LRUStack.findIndex((item) => item === url),
+          CustomReuseStrategy.LRUStack.length - 1,
+        );
+      } else {
+        this.clearCachedRoute(CustomReuseStrategy.LRUStack.shift());
+        CustomReuseStrategy.LRUStack.unshift(url);
+      }
+    }
+    CustomReuseStrategy.cacheRouters.set(url, page);
   }
 
   // 进入路由触发，是否同一路由时复用路由
@@ -56,7 +78,7 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
   // 当路由离开时会触发，存储路由
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
     const url = this.getFullRouteURL(route);
-    CustomReuseStrategy.cacheRouters.set(url, handle);
+    this.useLRUStorePage(url, handle);
   }
   //  是否允许还原路由
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
@@ -78,4 +100,21 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
   private getRouteUrlPath(route: ActivatedRouteSnapshot) {
     return route.url.map((urlSegment) => urlSegment.path);
   }
+}
+
+function moveElement(array: any[], fromIndex: number, toIndex: number) {
+  // 边界处理：确保索引在合法范围内
+  if (
+    fromIndex < 0 ||
+    fromIndex >= array.length ||
+    toIndex < 0 ||
+    toIndex >= array.length
+  ) {
+    throw new Error('Index out of bounds');
+  }
+
+  // 移动元素
+  const element = array.splice(fromIndex, 1)[0]; // 从原位置移除元素
+  array.splice(toIndex, 0, element); // 插入到新位置
+  return array;
 }
