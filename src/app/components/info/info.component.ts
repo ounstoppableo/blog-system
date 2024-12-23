@@ -14,10 +14,9 @@ import { Observable } from 'rxjs';
   standalone: false,
 })
 export class InfoComponent implements OnInit {
+  smallSize!: Observable<boolean>;
   @Input()
   showInfo: boolean = true;
-  @Input()
-  smallSize!: boolean;
   @Input()
   isMsgBoard = false;
   @Input()
@@ -32,9 +31,10 @@ export class InfoComponent implements OnInit {
   constructor(
     private homeService: HomeService,
     private router: Router,
-    private store: Store<{ isLogin: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.isLogin = store.select('isLogin');
+    this.smallSize = store.select('smallSize');
   }
   ngOnInit(): void {
     this.homeService

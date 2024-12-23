@@ -1,6 +1,6 @@
 <div
   class="cardContainerRight"
-  [class]="smallSize ? 'smallSize' : ''"
+  [class]="(smallSize | async) ? 'smallSize' : ''"
   *ngIf="showInfo"
 >
   <div class="card">
@@ -58,7 +58,7 @@
     <app-weather></app-weather>
   </div>
 </div>
-<div class="catelogue" *ngIf="isArticle && !smallSize">
+<div class="catelogue" *ngIf="isArticle && !(smallSize | async)">
   <div class="catalogue">
     <p>
       <span class="iconfont icon-mulu" [style]="{ fontSize: '30px' }"></span>

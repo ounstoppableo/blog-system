@@ -214,13 +214,18 @@ p {
 .book-back:after {
   /*  */
   content: '';
-  width: 3px;
+  width: 2px;
   position: absolute;
   top: 0;
-  left: 10px;
   bottom: 0;
   background: rgba(0, 0, 0, 0.06);
   box-shadow: 1px 0 3px rgba(255, 255, 255, 0.1);
+}
+.book-cover::after {
+  left: 4px;
+}
+.book-back::after {
+  right: 4px;
 }
 .book-page,
 .book-top,

@@ -1,5 +1,10 @@
 import { BookService } from '@/app/service/book.service';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Observable } from 'rxjs';
@@ -10,7 +15,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./book-display.component.scss'],
   standalone: false,
 })
-export class BookDisplayComponent implements OnInit {
+export class BookDisplayComponent implements AfterViewInit, OnDestroy {
   limit = 4;
   booksRaw: any[] = [];
   books: any[] = [];
@@ -36,18 +41,21 @@ export class BookDisplayComponent implements OnInit {
     );
     this.books = this.booksRaw.slice(0, count);
   };
-  ngOnInit(): void {
-    this.getBooks();
-  }
   ngAfterViewInit(): void {
-    window.addEventListener('load', this.resizeCb);
-    window.addEventListener('resize', this.resizeCb);
+    this.getBooks().then(() => {
+      this.resizeCb();
+      window.addEventListener('load', this.resizeCb);
+      window.addEventListener('resize', this.resizeCb);
+    });
   }
   getBooks() {
-    this.bookService.getBooks(this.limit).subscribe((res) => {
-      if (res.code === 200) {
-        this.booksRaw = res.data;
-      }
+    return new Promise((resolve) => {
+      this.bookService.getBooks(this.limit).subscribe((res) => {
+        if (res.code === 200) {
+          this.booksRaw = res.data;
+        }
+        resolve(1);
+      });
     });
   }
   deleteBook(e: any, bookUrl: string) {
