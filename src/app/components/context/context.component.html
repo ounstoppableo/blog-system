@@ -94,9 +94,6 @@
       </div>
     </div>
   </div>
-  <app-msg-board
-    *ngIf="article"
-    [articleId]="articleId"
-  ></app-msg-board>
+  <app-msg-board *ngIf="article" [articleId]="articleId"></app-msg-board>
 </div>
 <app-article-content-skeleton *ngIf="loading"></app-article-content-skeleton>

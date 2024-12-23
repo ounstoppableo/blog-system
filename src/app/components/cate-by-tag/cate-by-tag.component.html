@@ -16,9 +16,7 @@
   </div>
 </div>
 <app-cate-by-tag-skeleton *ngIf="loading"></app-cate-by-tag-skeleton>
-<app-book-display
-  *ngIf="showMsgAndArticle"
-></app-book-display>
+<app-book-display *ngIf="showMsgAndArticle"></app-book-display>
 <app-random-article-and-new-msg
   *ngIf="showMsgAndArticle && !(smallSize | async)"
   [limit]="10"

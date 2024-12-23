@@ -4,19 +4,26 @@ import { LoginService } from '@/app/service/login';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import sha256 from 'sha256';
 import { Location } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { setIsLogin } from '@/app/store/isLoginStore/isLoginStore.action';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    standalone: false
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  standalone: false,
 })
 export class LoginComponent {
+  isLogin: Observable<boolean>;
   constructor(
     private ls: LoginService,
     private message: NzMessageService,
     private location: Location,
-  ) {}
+    private store: Store<{ isLogin: boolean }>,
+  ) {
+    this.isLogin = store.select('isLogin');
+  }
   loginInfo = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
@@ -55,6 +62,7 @@ export class LoginComponent {
       .subscribe((res: any) => {
         if (res.code !== 200) return this.message.warning(res.msg);
         localStorage.setItem('token', res.token);
+        this.store.dispatch(setIsLogin({ flag: true }));
         return this.location.back();
       });
   }

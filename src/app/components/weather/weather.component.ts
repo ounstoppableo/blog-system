@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnDestroy } from '@angular/core';
 import { WeatherService } from '@/app/service/weather.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./weather.component.scss'],
   standalone: false,
 })
-export class WeatherComponent implements AfterViewInit {
+export class WeatherComponent implements AfterViewInit, OnDestroy {
   smallSize: Observable<boolean>;
   currentHourIndex = 0;
   scrollTop = 0;
