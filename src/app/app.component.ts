@@ -35,7 +35,7 @@ export class AppComponent
   firstLoad = true;
   imgLazyLoadMap = new Map();
   observer: any;
-  isLogin = false;
+  isLogin: Observable<boolean>;
   smallSize!: Observable<boolean>;
   catalogue: any[] = [];
   defaultShow = false;
@@ -55,9 +55,10 @@ export class AppComponent
     private r: ComponentFactoryResolver,
     private injector: Injector,
     private modal: NzModalService,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
   @ViewResize()
   ngOnInit(): void {
@@ -92,9 +93,6 @@ export class AppComponent
         this.firstLoad = false;
       });
     }
-  }
-  loginCheck() {
-    this.isLogin = true;
   }
   drawerOpen() {
     this.drawer.open();

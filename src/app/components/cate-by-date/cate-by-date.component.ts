@@ -47,12 +47,12 @@ export class CateByDateComponent implements OnInit {
   constructor(
     private catecogyService: CategoryService,
     private router: Router,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Output()
   scrollToAnchor = new EventEmitter();
   ngOnInit(): void {

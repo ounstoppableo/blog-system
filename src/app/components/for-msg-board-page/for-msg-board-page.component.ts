@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
 })
 export class ForMsgBoardPageComponent {
   smallSize!: Observable<boolean>;
-  @Input()
-  isLogin = false;
-  constructor(private store: Store<{ smallSize: boolean }>) {
+  isLogin: Observable<boolean>;
+  constructor(private store: Store<{ smallSize: boolean; isLogin: boolean }>) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
 }

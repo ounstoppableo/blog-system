@@ -65,13 +65,13 @@
         </li>
       </ul>
     </li>
-    <li (click)="login()" *ngIf="!isLogin">
+    <li (click)="login()" *ngIf="!(isLogin | async)">
       <span class="iconfont icon-login"></span>
       管理员登陆
     </li>
     <li
       #list2
-      *ngIf="isLogin"
+      *ngIf="isLogin | async"
       (mouseover)="liOnMouseOver(list2)"
       (mouseleave)="liOnMouseLeave(list2)"
     >

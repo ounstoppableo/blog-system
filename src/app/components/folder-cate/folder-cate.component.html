@@ -25,10 +25,7 @@
   </div>
 </div>
 <app-folder-cate-skeleton *ngIf="loading"></app-folder-cate-skeleton>
-<app-book-display
-  *ngIf="showMsgAndArticle"
-  [isLogin]="isLogin"
-></app-book-display>
+<app-book-display *ngIf="showMsgAndArticle"></app-book-display>
 <app-random-article-and-new-msg
   *ngIf="showMsgAndArticle && !(smallSize | async)"
   [limit]="10"

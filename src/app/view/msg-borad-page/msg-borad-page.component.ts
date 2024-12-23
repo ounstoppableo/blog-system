@@ -18,14 +18,15 @@ import { Observable } from 'rxjs';
   standalone: false,
 })
 export class MsgBoradPageComponent {
-  isLogin = false;
+  isLogin: Observable<boolean>;
   headerChangeHeight = 0;
   smallSize: Observable<boolean>;
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
 }

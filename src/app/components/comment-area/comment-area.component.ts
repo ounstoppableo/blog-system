@@ -41,8 +41,7 @@ import { Store } from '@ngrx/store';
   standalone: false,
 })
 export class CommentAreaComponent implements OnInit {
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   articleId = '';
   show = false;
@@ -59,9 +58,10 @@ export class CommentAreaComponent implements OnInit {
   constructor(
     private addMsgService: BoardMsgService,
     private route: ActivatedRoute,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
   ngOnInit(): void {
     this.route.url.subscribe((res) => {

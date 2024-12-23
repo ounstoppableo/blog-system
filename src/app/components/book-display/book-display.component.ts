@@ -13,15 +13,15 @@ import { Observable } from 'rxjs';
 export class BookDisplayComponent implements OnInit {
   limit = 4;
   books: any[] = [];
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   smallSize: Observable<boolean>;
   constructor(
     private bookService: BookService,
     private message: NzMessageService,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
   ngOnInit(): void {
     this.getBooks();

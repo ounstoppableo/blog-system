@@ -24,8 +24,7 @@ export class InfoComponent implements OnInit {
   catalogue: any[] = [];
   @Input()
   isArticle = false;
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   articleInfoList: articleInfo[] = []; //文章列表
   loading = true;
 
@@ -33,7 +32,10 @@ export class InfoComponent implements OnInit {
   constructor(
     private homeService: HomeService,
     private router: Router,
-  ) {}
+    private store: Store<{ isLogin: boolean }>,
+  ) {
+    this.isLogin = store.select('isLogin');
+  }
   ngOnInit(): void {
     this.homeService
       .getArticleInfo()

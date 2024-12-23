@@ -28,7 +28,7 @@ import { Store } from '@ngrx/store';
 export class OverviewComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy
 {
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   toTopOverview = false;
   @Input()
@@ -96,20 +96,14 @@ export class OverviewComponent
   constructor(
     private homeService: HomeService,
     private router: Router,
-    private loginService: LoginService,
     private message: NzMessageService,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('token')) {
-      this.loginService.getUserInfo().subscribe((res) => {
-        if (res.code === 200) this.isLogin = true;
-        else this.isLogin = false;
-      });
-    }
     if (this.isHome && this.toTopOverview) {
       this.homeService.getTopArticleInfo().subscribe((res) => {
         if (res.code === 200) this.articleInfoList = res.data;

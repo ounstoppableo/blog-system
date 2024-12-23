@@ -10,8 +10,7 @@ import { Store } from '@ngrx/store';
   standalone: false,
 })
 export class MsgBoardComponent {
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   articleId = '';
   @ViewChild('commentArea')
@@ -23,7 +22,8 @@ export class MsgBoardComponent {
     this.commentArea.reload();
   }
 
-  constructor(private store: Store<{ smallSize: boolean }>) {
+  constructor(private store: Store<{ smallSize: boolean; isLogin: boolean }>) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
 }

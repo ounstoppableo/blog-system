@@ -14,8 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class FolderCateComponent implements OnInit {
   smallSize!: Observable<boolean>;
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   showMsgAndArticle = true;
   folders: articleInFolderCount[] = [];
@@ -23,9 +22,10 @@ export class FolderCateComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private router: Router,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
   ngOnInit(): void {
     this.categoryService

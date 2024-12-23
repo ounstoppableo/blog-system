@@ -44,7 +44,7 @@
     <div class="img" [class]="(smallSize | async) ? 'smallSize' : ''">
       <img nz-image [nzSrc]="item.backImgUrl" alt="" />
     </div>
-    <div class="operate" *ngIf="isLogin">
+    <div class="operate" *ngIf="isLogin | async">
       <button nz-button nzShape="circle" (click)="toTopArticle(item)">
         <span
           class="iconfont"

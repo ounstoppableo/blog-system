@@ -13,8 +13,7 @@ import { Store } from '@ngrx/store';
   standalone: false,
 })
 export class SearchComponent implements OnInit {
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   smallSize!: Observable<boolean>;
   @Input()
@@ -32,9 +31,10 @@ export class SearchComponent implements OnInit {
   constructor(
     private router: Router,
     private articleService: ArticleService,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
   ngOnInit(): void {}
   goHome() {

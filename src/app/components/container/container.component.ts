@@ -19,8 +19,7 @@ export class ContainerComponent implements OnInit {
   smallSize: Observable<boolean>;
   @Input()
   showInfo: boolean = true;
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   updateArticleModal!: AddArticleFormComponent;
   @Input()
@@ -58,9 +57,10 @@ export class ContainerComponent implements OnInit {
   constructor(
     private routes: ActivatedRoute,
     private homeService: HomeService,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
   ngOnInit() {
     if (this.isHome) {

@@ -19,6 +19,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { BookUploadFormComponentComponent } from '../book-upload-form-component/book-upload-form-component.component';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { setIsLogin } from '@/app/store/isLoginStore/isLoginStore.action';
 
 @Component({
   selector: 'app-header',
@@ -31,7 +32,7 @@ export class HeaderComponent
 {
   originScrollY = 0;
   scrollDerection = 'down';
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   defaultShow = false;
   @ViewChild('container')
@@ -44,24 +45,22 @@ export class HeaderComponent
   upload = new EventEmitter();
   @Output()
   drawerOpen = new EventEmitter();
-  @Output()
-  loginCheck = new EventEmitter();
 
   constructor(
     private router: Router,
     private ls: LoginService,
     private ms: NzModalService,
     private message: NzMessageService,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: resType<any>) => {
         if (res.code === 200) {
-          this.isLogin = true;
-          this.loginCheck.emit();
+          this.store.dispatch(setIsLogin({ flag: true }));
         }
       });
     }
@@ -112,6 +111,7 @@ export class HeaderComponent
   }
   //监控滚动事件
   onScroll = () => {
+    if (!this.container) return;
     this.originScrollY < window.scrollY
       ? (this.scrollDerection = 'down')
       : (this.scrollDerection = 'up');

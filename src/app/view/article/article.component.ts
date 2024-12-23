@@ -22,7 +22,7 @@ import { Observable } from 'rxjs';
   standalone: false,
 })
 export class ArticleComponent implements OnInit, AfterViewChecked {
-  isLogin = false;
+  isLogin: Observable<boolean>;
   articleId!: string;
   articleInfo: articleInfo = {} as articleInfo;
   headerChangeHeight = 0;
@@ -64,9 +64,10 @@ export class ArticleComponent implements OnInit, AfterViewChecked {
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
   toBelongFile(folderId: string) {
     this.router.navigate(['folderPage', folderId]);

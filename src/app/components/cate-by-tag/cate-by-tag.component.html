@@ -18,7 +18,6 @@
 <app-cate-by-tag-skeleton *ngIf="loading"></app-cate-by-tag-skeleton>
 <app-book-display
   *ngIf="showMsgAndArticle"
-  [isLogin]="isLogin"
 ></app-book-display>
 <app-random-article-and-new-msg
   *ngIf="showMsgAndArticle && !(smallSize | async)"

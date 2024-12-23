@@ -31,8 +31,7 @@ export class ContextComponent
   showPayCode = false;
   location = window.location;
   articleTitleTree: any[] = []; //文章标题树，用于构建目录
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   smallSize: Observable<boolean>;
   @Output()
   getCatalogue = new EventEmitter();
@@ -43,9 +42,10 @@ export class ContextComponent
     private route: ActivatedRoute,
     private router: Router,
     private nzImageService: NzImageService,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
   loading = true;
   //前后文章的信息

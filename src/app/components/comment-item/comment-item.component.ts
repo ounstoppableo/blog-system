@@ -47,8 +47,7 @@ import { Store } from '@ngrx/store';
   standalone: false,
 })
 export class CommentItemComponent implements OnChanges {
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   msgItem: msgItem = {} as msgItem;
   @Output()
@@ -67,9 +66,10 @@ export class CommentItemComponent implements OnChanges {
   constructor(
     private boardMsgSerivce: BoardMsgService,
     private message: NzMessageService,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
 
   ngOnChanges(changes: any): void {

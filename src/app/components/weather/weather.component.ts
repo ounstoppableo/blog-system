@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { WeatherService } from '@/app/service/weather.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -15,12 +9,14 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./weather.component.scss'],
   standalone: false,
 })
-export class WeatherComponent implements AfterViewInit, OnChanges {
+export class WeatherComponent implements AfterViewInit {
   smallSize: Observable<boolean>;
   currentHourIndex = 0;
   scrollTop = 0;
   hoursData: any[] = [];
   location: any = {};
+  smallSizeSubscribe: any;
+  intervalTimer: any[] = [];
 
   @ViewChild('card')
   card!: any;
@@ -43,6 +39,8 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
 
   // Adjust initial positions of the particles
   adjustInitialPositions() {
+    if (!document.getElementById('cloud') || !document.getElementById('snow'))
+      return;
     (window as any).particlesJS('cloud', {
       particles: {
         number: { value: 5, density: { enable: true, value_area: 100 } },
@@ -179,14 +177,11 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: any): void {
-    if (changes['smallSize']) {
-      this.getGeoAndInitWeather();
-    }
-  }
-
   ngAfterViewInit(): void {
     window.addEventListener('load', this.getGeoAndInitWeather);
+    this.smallSizeSubscribe = this.store.subscribe((state) => {
+      this.getGeoAndInitWeather();
+    });
   }
 
   getGeoAndInitWeather = () => {
@@ -220,6 +215,7 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
 
   init() {
     $(document).ready(() => {
+      if ($('.cardForWeather').length === 0) return;
       $('.cardForWeather .hours').empty();
       $('.cardForWeather .location').empty();
       this.hoursData.forEach((data) => {
@@ -420,13 +416,13 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
     this.setRandomLightningDuration();
 
     // Change the duration periodically
-    setInterval(this.setRandomLightningDuration, 5000); // Change every 5 seconds
+    this.intervalTimer.push(setInterval(this.setRandomLightningDuration, 5000)); // Change every 5 seconds
     // Wait until particles are initialized and then adjust positions
     setTimeout(this.adjustInitialPositions, 1000);
 
     const canvas: any = $('.cardForWeather #rain')[0];
 
-    if (canvas.getContext) {
+    if (canvas && canvas.getContext) {
       const ctx = canvas.getContext('2d');
       const w = canvas.width;
       const h = canvas.height;
@@ -475,7 +471,16 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
         }
       }
 
-      setInterval(draw, 3);
+      this.intervalTimer.push(setInterval(draw, 3));
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.smallSizeSubscribe) {
+      this.smallSizeSubscribe.unsubscribe();
+    }
+    this.intervalTimer.forEach((timer) => {
+      clearInterval(timer);
+    });
   }
 }

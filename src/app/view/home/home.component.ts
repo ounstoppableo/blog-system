@@ -35,15 +35,16 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   wordSpan!: ElementRef;
   @ViewChild('root')
   root!: ElementRef;
-  isLogin = false;
+  isLogin: Observable<boolean>;
   smallSize!: Observable<boolean>;
 
   constructor(
     private router: Router,
     private homeService: HomeService,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
   ngOnInit(): void {
     this.homeService

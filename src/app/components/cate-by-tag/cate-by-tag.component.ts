@@ -13,17 +13,17 @@ import { Observable } from 'rxjs';
 })
 export class CateByTagComponent implements OnInit {
   smallSize: Observable<boolean>;
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   showMsgAndArticle = true;
   tags: tag[] = [];
   loading = true;
   constructor(
     private categoryService: CategoryService,
-    private store: Store<{ smallSize: boolean }>,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
     this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
   ngOnInit(): void {
     this.categoryService

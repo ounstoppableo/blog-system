@@ -57,7 +57,7 @@
           nz-button
           nzShape="circle"
           (click)="topMsg(msgItem.msgId, msgItem.articleId)"
-          *ngIf="msgItem.audit === 1 && isLogin"
+          *ngIf="msgItem.audit === 1 && (isLogin | async)"
         >
           <span
             class="iconfont"
@@ -71,7 +71,7 @@
           nz-button
           nzShape="circle"
           (click)="auditMsg(msgItem.msgId, msgItem.articleId)"
-          *ngIf="msgItem.audit === 0 && isLogin"
+          *ngIf="msgItem.audit === 0 && (isLogin | async)"
         >
           <span
             class="iconfont icon-AUDIT"
@@ -86,7 +86,7 @@
           (nzOnConfirm)="
             deleteMsg(msgItem.msgId, msgItem.articleId, msgItem.isLocal)
           "
-          *ngIf="isLogin || msgItem.isLocal"
+          *ngIf="(isLogin | async) || msgItem.isLocal"
         >
           <span
             class="iconfont icon-delete"
@@ -150,7 +150,6 @@
         *ngFor="let item of children"
         [msgItem]="item"
         (reloadData)="toReloadData()"
-        [isLogin]="isLogin"
       ></app-comment-item>
     </div>
     <div
