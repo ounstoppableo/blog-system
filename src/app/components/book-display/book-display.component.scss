@@ -1,4 +1,7 @@
 .card {
+  --bookWidth: 100px;
+  --bookHeight: 150px;
+  --bookSideWidth: 20px;
   position: relative;
   background-color: var(--cardColor);
   width: calc(80vw - 350px);
@@ -29,9 +32,6 @@ p {
 }
 
 #book {
-  --bookWidth: 100px;
-  --bookHeight: 150px;
-  --bookSideWidth: 20px;
   width: var(--bookWidth);
   position: relative;
   -webkit-transition-duration: 0.5s;
@@ -171,6 +171,11 @@ p {
   bottom: 0;
   color: white;
   background-size: cover !important;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
   -webkit-transform: rotate3d(0, 1, 0, -180deg)
     translate3d(0, 0, calc(var(--bookSideWidth) / 2));
   -moz-transform: rotate3d(0, 1, 0, -180deg)

@@ -1,5 +1,5 @@
 import { BookService } from '@/app/service/book.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Observable } from 'rxjs';
@@ -12,9 +12,12 @@ import { Observable } from 'rxjs';
 })
 export class BookDisplayComponent implements OnInit {
   limit = 4;
+  booksRaw: any[] = [];
   books: any[] = [];
   isLogin: Observable<boolean>;
   smallSize: Observable<boolean>;
+  @ViewChild('card')
+  card!: any;
   constructor(
     private bookService: BookService,
     private message: NzMessageService,
@@ -23,13 +26,27 @@ export class BookDisplayComponent implements OnInit {
     this.smallSize = store.select('smallSize');
     this.isLogin = store.select('isLogin');
   }
+  resizeCb = () => {
+    const bookWidth = Number.parseFloat(
+      getComputedStyle(this.card.nativeElement).getPropertyValue('--bookWidth'),
+    );
+    const count = Math.floor(
+      Number.parseFloat(getComputedStyle(this.card.nativeElement).width) /
+        (bookWidth + 80),
+    );
+    this.books = this.booksRaw.slice(0, count);
+  };
   ngOnInit(): void {
     this.getBooks();
+  }
+  ngAfterViewInit(): void {
+    window.addEventListener('load', this.resizeCb);
+    window.addEventListener('resize', this.resizeCb);
   }
   getBooks() {
     this.bookService.getBooks(this.limit).subscribe((res) => {
       if (res.code === 200) {
-        this.books = res.data;
+        this.booksRaw = res.data;
       }
     });
   }
@@ -42,5 +59,8 @@ export class BookDisplayComponent implements OnInit {
         this.message.error('删除失败！');
       }
     });
+  }
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.resizeCb);
   }
 }

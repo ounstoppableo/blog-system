@@ -1,4 +1,4 @@
-<div class="card" [class]="(smallSize | async) ? 'smallSize' : ''">
+<div class="card" [class]="(smallSize | async) ? 'smallSize' : ''" #card>
   <p>
     <span class="iconfont icon-book" [style]="{ fontSize: '30px' }"></span>
     <span>推荐书籍</span>
@@ -32,15 +32,30 @@
                   '#29303a url(' + book.bookFrontPicUrl + ') 0 0 no-repeat',
               }"
             ></div>
-            <div class="book-cover-back" style="background: #29303a"></div>
+            <div
+              class="book-cover-back"
+              [ngStyle]="{
+                background:
+                  '#29303a url(' + book.bookFrontPicUrl + ') 0 0 no-repeat',
+              }"
+            ></div>
           </div>
-          <div
-            class="book-back"
-            [ngStyle]="{
-              background:
-                '#29303a url(' + book.bookBackPicUrl + ') 0 0 no-repeat',
-            }"
-          ></div>
+          <div class="book-back">
+            <div
+              class="book-cover"
+              [ngStyle]="{
+                background:
+                  '#29303a url(' + book.bookBackPicUrl + ') 0 0 no-repeat',
+              }"
+            ></div>
+            <div
+              class="book-cover-back"
+              [ngStyle]="{
+                background:
+                  '#29303a url(' + book.bookBackPicUrl + ') 0 0 no-repeat',
+              }"
+            ></div>
+          </div>
           <div
             class="book-bone"
             [ngStyle]="{

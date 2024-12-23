@@ -67,7 +67,7 @@ import { BookDisplayComponent } from './components/book-display/book-display.com
 import { BookUploadFormComponentComponent } from './components/book-upload-form-component/book-upload-form-component.component';
 import { StoreModule } from '@ngrx/store';
 import { smallSizeReducer } from './store/smallSizeStore/smallSize.reducer';
-import { isLoginReducer } from './store/isLoginStore/isloginStore.reducer';
+import { isLoginReducer } from './store/isLoginStore/isLoginStore.reducer';
 
 const ngZorroConfig: NzConfig = {
   message: {
