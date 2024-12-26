@@ -18,6 +18,8 @@ export class ContainerComponent implements OnInit {
   catalogue: any[] = [];
   smallSize: Observable<boolean>;
   @Input()
+  dontShowGpuRenderComponent: boolean = false;
+  @Input()
   showInfo: boolean = true;
   isLogin: Observable<boolean>;
   @Input()

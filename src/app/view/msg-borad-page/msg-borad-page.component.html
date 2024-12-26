@@ -3,10 +3,14 @@
     [isMsgBoard]="true"
     [msgboard]="true"
     [showInfo]="!(smallSize | async)"
+    [dontShowGpuRenderComponent]="isLeave"
     [updateArticleModal]="addArticleForm"
     [scrollTarget]="headerChangeHeight"
   ></app-container>
 </div>
-<app-info [showInfo]="!!(smallSize | async)"></app-info>
+<app-info
+  [showInfo]="!!(smallSize | async)"
+  [dontShowGpuRenderComponent]="isLeave"
+></app-info>
 <app-add-article-form #addArticleForm></app-add-article-form>
 <app-footer></app-footer>

@@ -88,6 +88,7 @@
     <app-container
       [isArticle]="true"
       [showInfo]="!(smallSize | async)"
+      [dontShowGpuRenderComponent]="isLeave"
       [scrollTarget]="headerChangeHeight"
       (getWordsCountAndReadTime)="getWordsCountAndReadTime($event)"
     ></app-container>

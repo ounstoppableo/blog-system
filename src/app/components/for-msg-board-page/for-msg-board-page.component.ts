@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 export class ForMsgBoardPageComponent {
   smallSize!: Observable<boolean>;
   isLogin: Observable<boolean>;
+  @Input()
+  dontShowGpuRenderComponent = false;
   constructor(private store: Store<{ smallSize: boolean; isLogin: boolean }>) {
     this.smallSize = store.select('smallSize');
     this.isLogin = store.select('isLogin');

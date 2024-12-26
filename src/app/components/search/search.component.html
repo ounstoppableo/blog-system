@@ -33,7 +33,7 @@
     ></app-overview>
   </div>
 </div>
-<app-book-display></app-book-display>
+<app-book-display *ngIf="!dontShowGpuRenderComponent"></app-book-display>
 <app-random-article-and-new-msg
   *ngIf="!(smallSize | async)"
   [limit]="10"

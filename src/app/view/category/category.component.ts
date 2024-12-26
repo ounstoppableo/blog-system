@@ -21,6 +21,7 @@ import { Observable } from 'rxjs';
 })
 export class CategoryComponent implements OnInit {
   isLogin: Observable<boolean>;
+  isLeave = false;
   headerChangeHeight = 0;
   dateCate = false;
   folderPage = false;
@@ -29,6 +30,7 @@ export class CategoryComponent implements OnInit {
   category = false;
   search = false;
   smallSize: Observable<boolean>;
+  setIsLeaveTimeout: any;
   constructor(
     private route: ActivatedRoute,
     private viewportScroller: ViewportScroller,
@@ -48,7 +50,17 @@ export class CategoryComponent implements OnInit {
         | 'search';
       this[pathRes[0].path as path] = true;
     });
+    this.toSetIsLeaveToFalse();
   }
+
+  toSetIsLeaveToFalse = () => {
+    this.route.url.subscribe((res: any) => {
+      if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
+      setTimeout(() => {
+        this.isLeave = false;
+      }, 1000);
+    });
+  };
 
   scrollToAnchor() {
     this.route.fragment.subscribe((fragment: any) => {

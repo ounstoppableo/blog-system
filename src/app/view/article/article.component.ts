@@ -1,19 +1,18 @@
+import { watchComponentDeactivate } from '@/app/customReuseStrategy/guard/watchComponentRouteState';
 import ViewResize from '@/app/decorators/viewResize';
 import { ArticleService } from '@/app/service/article.service';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import {
-  AfterViewInit,
   Component,
   ElementRef,
-  OnDestroy,
   OnInit,
   ViewChild,
   AfterViewChecked,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 
 @Component({
   selector: 'app-article',
@@ -21,7 +20,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./article.component.scss'],
   standalone: false,
 })
-export class ArticleComponent implements OnInit, AfterViewChecked {
+export class ArticleComponent
+  implements OnInit, AfterViewChecked, watchComponentDeactivate
+{
+  isLeave: boolean = false;
   isLogin: Observable<boolean>;
   articleId!: string;
   articleInfo: articleInfo = {} as articleInfo;
@@ -29,11 +31,13 @@ export class ArticleComponent implements OnInit, AfterViewChecked {
   @ViewChild('backImg')
   backImg!: ElementRef;
   smallSize!: Observable<boolean>;
+  setIsLeaveTimeout: any;
 
   ngOnInit() {
     this.route.params.subscribe(
       (res: any) => (this.articleId = res['articleId']),
     );
+    this.toSetIsLeaveToFalse();
     this.articleService
       .getArticleInfo(this.articleId)
       .subscribe((res: resType<articleInfo>) => {
@@ -44,6 +48,15 @@ export class ArticleComponent implements OnInit, AfterViewChecked {
           } as articleInfo;
       });
   }
+
+  toSetIsLeaveToFalse = () => {
+    this.route.url.subscribe((res: any) => {
+      if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
+      setTimeout(() => {
+        this.isLeave = false;
+      }, 1000);
+    });
+  };
 
   ngAfterViewChecked(): void {
     this.headerChangeHeight =

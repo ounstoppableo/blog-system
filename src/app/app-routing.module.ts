@@ -7,14 +7,26 @@ import { CustomReuseStrategy } from './customReuseStrategy/customReuseStratege';
 import { CategoryComponent } from './view/category/category.component';
 import { MsgBoradPageComponent } from './view/msg-borad-page/msg-borad-page.component';
 import { NotFoundPageComponent } from './view/not-found-page/not-found-page.component';
+import { WatchDeactivateGuard } from './customReuseStrategy/guard/watchComponentRouteState';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, data: { keepAlive: true } },
-  { path: 'home', component: HomeComponent, data: { keepAlive: true } },
+  {
+    path: '',
+    component: HomeComponent,
+    data: { keepAlive: true },
+    canDeactivate: [WatchDeactivateGuard],
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    data: { keepAlive: true },
+    canDeactivate: [WatchDeactivateGuard],
+  },
   {
     path: 'article/:articleId',
     component: ArticleComponent,
     data: { keepAlive: true },
+    canDeactivate: [WatchDeactivateGuard],
   },
   { path: 'login', component: LoginComponent },
   { path: 'dateCate', component: CategoryComponent },
@@ -28,11 +40,17 @@ const routes: Routes = [
     path: 'folderPage/:folderId',
     component: CategoryComponent,
   },
-  { path: 'search', component: CategoryComponent, data: { keepAlive: true } },
+  {
+    path: 'search',
+    component: CategoryComponent,
+    data: { keepAlive: true },
+    canDeactivate: [WatchDeactivateGuard],
+  },
   {
     path: 'msgboard',
     component: MsgBoradPageComponent,
     data: { keepAlive: true },
+    canDeactivate: [WatchDeactivateGuard],
   },
   {
     path: '404',

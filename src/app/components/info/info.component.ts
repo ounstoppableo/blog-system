@@ -16,6 +16,8 @@ import { Observable } from 'rxjs';
 export class InfoComponent implements OnInit {
   smallSize!: Observable<boolean>;
   @Input()
+  dontShowGpuRenderComponent: boolean = false;
+  @Input()
   showInfo: boolean = true;
   @Input()
   isMsgBoard = false;

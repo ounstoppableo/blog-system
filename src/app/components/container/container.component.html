@@ -28,13 +28,18 @@
     *ngIf="folderPage"
     [updateArticleModal]="updateArticleModal"
   ></app-single-folder-cate>
-  <app-for-msg-board-page *ngIf="msgboard"></app-for-msg-board-page>
+  <app-for-msg-board-page
+    *ngIf="msgboard"
+    [dontShowGpuRenderComponent]="dontShowGpuRenderComponent"
+  ></app-for-msg-board-page>
   <app-search
     *ngIf="search"
+    [dontShowGpuRenderComponent]="dontShowGpuRenderComponent"
     [updateArticleModal]="updateArticleModal"
   ></app-search>
   <app-info
     [showInfo]="showInfo"
+    [dontShowGpuRenderComponent]="dontShowGpuRenderComponent"
     [isMsgBoard]="isMsgBoard"
     [catalogue]="catalogue"
     [isArticle]="isArticle"

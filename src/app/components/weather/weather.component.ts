@@ -17,6 +17,8 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
   location: any = {};
   smallSizeSubscribe: any;
   intervalTimer: any[] = [];
+  handleScrollEvent: any;
+  hoursContainer: any;
 
   @ViewChild('card')
   card!: any;
@@ -243,9 +245,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
       const sun = $('.cardForWeather .sun');
       const moon = $('.cardForWeather .moon');
       const hoursContainer = $('.cardForWeather .hours-container');
-      const hoursContainerNative = this.card.nativeElement.querySelector(
-        '.cardForWeather .hours-container',
-      );
+      this.hoursContainer = hoursContainer[0];
       const hours = $('.cardForWeather .hour');
       const rain = $('.cardForWeather #rain');
       const cloud = $('.cardForWeather #cloud');
@@ -301,9 +301,9 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
       }
 
       // Function to handle scroll and wheel events
-      const handleScrollEvent = () => {
+      this.handleScrollEvent = () => {
         const currentScrollTop: number = hoursContainer.scrollTop() as number;
-        const scrollHeight = hoursContainerNative.scrollHeight;
+        const scrollHeight = this.hoursContainer.scrollHeight;
         this.currentHourIndex = Math.ceil(
           (currentScrollTop / scrollHeight) * hours.length,
         );
@@ -398,7 +398,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
       }
 
       // Event listeners
-      hoursContainer.on('scroll', handleScrollEvent);
+      this.hoursContainer.addEventListener('scroll', this.handleScrollEvent);
       hours.on('click', function () {
         const hour = parseInt($(this).data('hour'));
         that.currentHourIndex = hours.index(this);
@@ -479,6 +479,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
     if (this.smallSizeSubscribe) {
       this.smallSizeSubscribe.unsubscribe();
     }
+    this.hoursContainer?.removeEventListener('scroll', this.handleScrollEvent);
     this.intervalTimer.forEach((timer) => {
       clearInterval(timer);
     });

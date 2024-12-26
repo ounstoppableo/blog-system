@@ -1,3 +1,4 @@
+import { watchComponentDeactivate } from '@/app/customReuseStrategy/guard/watchComponentRouteState';
 import ViewResize from '@/app/decorators/viewResize';
 import { HomeService } from '@/app/service/home.service';
 import { folderItem } from '@/types/home/home';
@@ -10,7 +11,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -20,7 +21,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./home.component.scss'],
   standalone: false,
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HomeComponent
+  implements OnInit, AfterViewInit, OnDestroy, watchComponentDeactivate
+{
+  isLeave = false;
   //控制打字机效果的数据
   word = '';
   words = [
@@ -37,8 +41,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   root!: ElementRef;
   isLogin: Observable<boolean>;
   smallSize!: Observable<boolean>;
+  setIsLeaveTimeout: any;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private homeService: HomeService,
     private store: Store<{ smallSize: boolean; isLogin: boolean }>,
@@ -56,7 +62,18 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       '--bodyHeightForInvariant',
       innerHeight + 'px',
     );
+    this.toSetIsLeaveToFalse();
   }
+
+  toSetIsLeaveToFalse = () => {
+    this.route.url.subscribe((res: any) => {
+      if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
+      setTimeout(() => {
+        this.isLeave = false;
+      }, 1000);
+    });
+  };
+
   ngAfterViewInit(): void {
     //打字机效果控制
     const timer = setInterval(() => {

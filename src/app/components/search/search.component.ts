@@ -15,6 +15,8 @@ import { Store } from '@ngrx/store';
 export class SearchComponent implements OnInit {
   isLogin: Observable<boolean>;
   @Input()
+  dontShowGpuRenderComponent: boolean = false;
+  @Input()
   smallSize!: Observable<boolean>;
   @Input()
   updateArticleModal!: AddArticleFormComponent;
