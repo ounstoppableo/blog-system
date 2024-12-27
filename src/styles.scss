@@ -260,11 +260,6 @@ input::-webkit-input-placeholder {
   //页面定位按钮字体颜色
   --fixedBtnFontColor: white;
 
-  //音乐播放器背景颜色
-  --musicPlayerBgColor: rgba(238, 243, 247, 0.7);
-  //音乐进度条的长度
-  --progressWidth: 0;
-
   //copyright字体颜色
   --copyrightBg: #f7f7f7;
   --copyrightColor: #666666;
@@ -321,6 +316,8 @@ input::-webkit-input-placeholder {
   --musicTotalTime: #b0baca;
   --musicProgressBg: #d0d8e6;
   --musicIcon: #ea3e3c;
+  --musicPlayerBgColor: rgba(238, 243, 247, 0.7);
+  --progressWidth: 0;
 
   //tag
   --tagWord: #4b5563;
@@ -337,6 +334,7 @@ input::-webkit-input-placeholder {
   --03-gray: rgba(0, 0, 0, 0.3);
   --05-gray: rgba(0, 0, 0, 0.5);
   --c-gray: #ccc;
+  --e-gray: #eee;
 
   //订阅框
   --color-first: #65587f;

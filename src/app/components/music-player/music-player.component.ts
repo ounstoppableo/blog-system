@@ -10,10 +10,10 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'app-music-player',
-    templateUrl: './music-player.component.html',
-    styleUrls: ['./music-player.component.scss'],
-    standalone: false
+  selector: 'app-music-player',
+  templateUrl: './music-player.component.html',
+  styleUrls: ['./music-player.component.scss'],
+  standalone: false,
 })
 export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   play = false;
@@ -21,7 +21,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isPress = false;
 
-  musicList = [];
+  musicList: any[] = [];
   currentMusic = {
     musicUrl: '',
     lyric: '',
@@ -45,6 +45,9 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('audio')
   audio!: ElementRef;
 
+  @ViewChild('musicListRef')
+  musicListRef!: ElementRef;
+
   @ViewChild('voiceFrequency')
   voiceFrequency!: ElementRef;
   ctx: any;
@@ -60,6 +63,8 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   album!: any;
   @ViewChild('scrollContainer')
   scrollContainer!: any;
+  @ViewChild('root')
+  root!: any;
 
   currentLyricIndex = 0;
 
@@ -85,7 +90,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (innerWidth < 500)
-      this.container.nativeElement.style.transform = 'scale(0.7)';
+      this.root.nativeElement.style.transform = 'scale(0.7)';
     this.getMixLightColor(
       this.getBgLightColor.nativeElement,
       this.wantChangeColorEle.nativeElement,
@@ -106,7 +111,18 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.audio.nativeElement.addEventListener('play', this.audioPlayCallback);
     this.audio.nativeElement.addEventListener('pause', this.audioPauseCallback);
     this.draw();
+    window.addEventListener('click', this.closeForClickOtherPlace);
   }
+
+  closeForClickOtherPlace = (e: any) => {
+    if (
+      !e.target.closest('#musicContainer') &&
+      !e.target.closest('#musicOpener') &&
+      !e.target.closest('#musicList')
+    ) {
+      this.close();
+    }
+  };
 
   //下一首歌的回调
   nextCallback = () => {
@@ -354,14 +370,16 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.wantChangeColorEle.nativeElement.style.borderRadius = '10%';
       this.album.nativeElement.style.zIndex = '0';
       this.wantChangeColorEle.nativeElement.style.zIndex = '1';
-      this.voiceFrequency.nativeElement.style.display = 'none';
+      this.album.nativeElement.style.opacity = '0';
+      this.wantChangeColorEle.nativeElement.style.opacity = '1';
     } else {
       this.wantChangeColorEle.nativeElement.style.transform = 'rotateY(180deg)';
       this.album.nativeElement.style.transform = 'rotateY(0deg)';
       this.wantChangeColorEle.nativeElement.style.borderRadius = '100%';
       this.album.nativeElement.style.zIndex = '1';
       this.wantChangeColorEle.nativeElement.style.zIndex = '0';
-      this.voiceFrequency.nativeElement.style.display = '';
+      this.album.nativeElement.style.opacity = '1';
+      this.wantChangeColorEle.nativeElement.style.opacity = '0';
     }
   }
 
@@ -396,9 +414,12 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isPress = false;
   };
 
-  nextSong() {
-    if (this.index === this.total - 1) this.index = 0;
-    else this.index++;
+  handleClickMusic = (index: number) => {
+    this.index = index;
+    this.playMusic();
+  };
+
+  playMusic() {
     this.currentMusic = this.musicList[this.index];
     requestAnimationFrame(() => {
       if (this.play) this.audio.nativeElement.play();
@@ -409,18 +430,16 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.wantChangeColorEle.nativeElement,
     );
   }
+
+  nextSong() {
+    if (this.index === this.total - 1) this.index = 0;
+    else this.index++;
+    this.playMusic();
+  }
   prevSong() {
     if (this.index === 0) this.index = this.total - 1;
     else this.index--;
-    this.currentMusic = this.musicList[this.index];
-    requestAnimationFrame(() => {
-      if (this.play) this.audio.nativeElement.play();
-    });
-    this.lyricSegment();
-    this.getMixLightColor(
-      this.getBgLightColor.nativeElement,
-      this.wantChangeColorEle.nativeElement,
-    );
+    this.playMusic();
   }
   randomSong() {
     let i = Math.floor(Math.random() * this.musicList.length);
@@ -428,24 +447,16 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       i = Math.floor(Math.random() * this.musicList.length);
     }
     this.index = i;
-    this.currentMusic = this.musicList[this.index];
-    requestAnimationFrame(() => {
-      if (this.play) this.audio.nativeElement.play();
-    });
-    this.lyricSegment();
-    this.getMixLightColor(
-      this.getBgLightColor.nativeElement,
-      this.wantChangeColorEle.nativeElement,
-    );
+    this.playMusic();
   }
   close() {
     if (!this.timer1) {
-      this.container.nativeElement.classList.add('closePlayer');
+      this.root.nativeElement.classList.add('closePlayer');
       this.timer1 = setTimeout(() => {
         this.playerOpener.nativeElement.classList.remove('toLeave');
         this.playerOpener.nativeElement.classList.add('toShow');
-        this.container.nativeElement.classList.remove('closePlayer');
-        this.container.nativeElement.style.display = 'none';
+        this.root.nativeElement.classList.remove('closePlayer');
+        this.root.nativeElement.style.display = 'none';
         clearTimeout(this.timer1);
         this.timer1 = null;
       }, 1000);
@@ -453,12 +464,12 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   open() {
     if (!this.timer2) {
-      this.container.nativeElement.style.display = '';
-      this.container.nativeElement.classList.add('openPlayer');
+      this.root.nativeElement.style.display = '';
+      this.root.nativeElement.classList.add('openPlayer');
       this.playerOpener.nativeElement.classList.remove('toShow');
       this.playerOpener.nativeElement.classList.add('toLeave');
       this.timer2 = setTimeout(() => {
-        this.container.nativeElement.classList.remove('openPlayer');
+        this.root.nativeElement.classList.remove('openPlayer');
         clearTimeout(this.timer2);
         this.timer2 = null;
       }, 1000);
@@ -473,6 +484,24 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     )[Math.floor(Math.random() * 5)];
   }
 
+  showMusicList(type: 'musicPlayer' | 'musicList') {
+    if (type === 'musicPlayer') {
+      this.container.nativeElement.style.opacity = '1';
+      this.container.nativeElement.style.zIndex = '1';
+      this.musicListRef.nativeElement.style.opacity = '0';
+      this.musicListRef.nativeElement.style.zIndex = '0';
+      this.container.nativeElement.style.transition = ' all linear 0.3s 0.15s';
+      this.musicListRef.nativeElement.style.transition = ' all linear 0.3s 0s';
+    } else {
+      this.container.nativeElement.style.opacity = '0';
+      this.container.nativeElement.style.zIndex = '0';
+      this.musicListRef.nativeElement.style.opacity = '1';
+      this.musicListRef.nativeElement.style.zIndex = '1';
+      this.container.nativeElement.style.transition = ' all linear 0.3s 0s';
+      this.musicListRef.nativeElement.style.transition = ' all linear 0.3s 0.15s';
+    }
+  }
+
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
@@ -485,5 +514,6 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       'ended',
       this.audioEndedCallback,
     );
+    window.removeEventListener('click', this.closeForClickOtherPlace);
   }
 }

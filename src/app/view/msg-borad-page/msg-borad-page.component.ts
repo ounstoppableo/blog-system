@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./msg-borad-page.component.scss'],
   standalone: false,
 })
-export class MsgBoradPageComponent implements watchComponentDeactivate {
+export class MsgBoradPageComponent implements watchComponentDeactivate, OnInit {
   isLeave = false;
   isLogin: Observable<boolean>;
   headerChangeHeight = 0;

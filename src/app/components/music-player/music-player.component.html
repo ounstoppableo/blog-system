@@ -1,87 +1,140 @@
-<div class="container" [style]="{ display: 'none' }" #container>
-  <div class="albumAndLyric">
-    <div #album class="album">
-      <div
-        class="musicPic"
-        [ngStyle]="{
-          backgroundImage: 'url(' + currentMusic.picUrl + ')',
-        }"
-      ></div>
-      <div class="dot"></div>
-      <canvas #voiceFrequency id="voiceFrequency"></canvas>
-    </div>
-    <div #wantChangeColorEle class="lyric">
-      <div *ngIf="!currentLyric" class="noLyric">纯音乐，请欣赏</div>
-      <div #scrollContainer *ngIf="currentLyric">
+<div class="root" #root [style]="{ display: 'none' }">
+  <div class="container" #container id="musicContainer">
+    <div class="albumAndLyric">
+      <div #album class="album">
         <div
-          *ngFor="let item of currentLyric; let i = index"
-          [id]="
-            audio.currentTime >= item[0] &&
-            (i === currentLyric.length - 1 ||
-              audio.currentTime < currentLyric[i + 1][0])
-              ? 'active'
-              : ''
-          "
-          [ngClass]="{
-            active:
+          class="musicPic"
+          [ngStyle]="{
+            backgroundImage: 'url(' + currentMusic.picUrl + ')',
+          }"
+        ></div>
+        <div class="dot"></div>
+        <canvas #voiceFrequency id="voiceFrequency"></canvas>
+      </div>
+      <div #wantChangeColorEle class="lyric">
+        <div *ngIf="!currentLyric" class="noLyric">纯音乐，请欣赏</div>
+        <div #scrollContainer *ngIf="currentLyric">
+          <div
+            *ngFor="let item of currentLyric; let i = index"
+            [id]="
               audio.currentTime >= item[0] &&
               (i === currentLyric.length - 1 ||
-                audio.currentTime < currentLyric[i + 1][0]),
-          }"
-          [attr.data-index]="item[0]"
-          (click)="lyricTransform(item[0])"
-        >
-          {{ item[1] }}
+                audio.currentTime < currentLyric[i + 1][0])
+                ? 'active'
+                : ''
+            "
+            [ngClass]="{
+              active:
+                audio.currentTime >= item[0] &&
+                (i === currentLyric.length - 1 ||
+                  audio.currentTime < currentLyric[i + 1][0]),
+            }"
+            [attr.data-index]="item[0]"
+            (click)="lyricTransform(item[0])"
+          >
+            {{ item[1] }}
+          </div>
         </div>
+        <canvas #getBgLightColor></canvas>
       </div>
-      <canvas #getBgLightColor></canvas>
+    </div>
+    <div class="controler">
+      <span
+        class="fontSize iconfont icon-mulu"
+        (click)="showMusicList('musicList')"
+      ></span>
+      <span
+        class="fontSize iconfont"
+        (click)="toggleIyric()"
+        [ngClass]="{ 'icon-geciweidianji': !isIyric, 'icon-album1': isIyric }"
+      ></span>
+      <span
+        class="fontSize iconfont icon-shangyiqu"
+        (click)="prevSong()"
+      ></span>
+      <span
+        class="fontSize iconfont icon-xiayiqu"
+        (click)="nextCallback()"
+      ></span>
+      <span
+        class="fontSize iconfont"
+        (click)="togglePlayerModel()"
+        [ngClass]="{
+          'icon-danquxunhuan': playerModel === 'danqu',
+          'icon-shunxubofang': playerModel === 'shunxu',
+          'icon-suijibofang': playerModel === 'suiji',
+        }"
+      ></span>
+      <span
+        class="player iconfont"
+        [ngClass]="{ 'icon-24gf-play': !play, 'icon-tingzhi': play }"
+        (click)="playAudio()"
+      ></span>
+    </div>
+    <div class="musicInfo">
+      <div class="musicName" [title]="currentMusic.musicName">{{ currentMusic.musicName }}</div>
+      <div class="musicAuthor" [title]="currentMusic.musicAuthor">{{ currentMusic.musicAuthor }}</div>
+    </div>
+    <div class="player">
+      <div class="totalTime">{{ secondsToTime(audio.duration) }}</div>
+      <div
+        class="progress"
+        (mousedown)="onMousedown()"
+        (click)="setProgress($event)"
+        (mousemove)="setProgress($event)"
+      ></div>
+      <div class="currentTime">{{ secondsToTime(audio.currentTime) }}</div>
     </div>
   </div>
-  <div class="controler">
-    <span class="fontSize iconfont icon-close" (click)="close()"></span>
-    <span
-      class="fontSize iconfont"
-      (click)="toggleIyric()"
-      [ngClass]="{ 'icon-geciweidianji': !isIyric, 'icon-album1': isIyric }"
-    ></span>
-    <span class="fontSize iconfont icon-shangyiqu" (click)="prevSong()"></span>
-    <span
-      class="fontSize iconfont icon-xiayiqu"
-      (click)="nextCallback()"
-    ></span>
-    <span
-      class="fontSize iconfont"
-      (click)="togglePlayerModel()"
-      [ngClass]="{
-        'icon-danquxunhuan': playerModel === 'danqu',
-        'icon-shunxubofang': playerModel === 'shunxu',
-        'icon-suijibofang': playerModel === 'suiji',
-      }"
-    ></span>
-    <span
-      class="player iconfont"
-      [ngClass]="{ 'icon-24gf-play': !play, 'icon-tingzhi': play }"
-      (click)="playAudio()"
-    ></span>
-  </div>
-  <div class="musicInfo">
-    <div class="musicName">{{ currentMusic.musicName }}</div>
-    <div class="musicAuthor">{{ currentMusic.musicAuthor }}</div>
-  </div>
-  <div class="player">
-    <div class="totalTime">{{ secondsToTime(audio.duration) }}</div>
-    <div
-      class="progress"
-      (mousedown)="onMousedown()"
-      (click)="setProgress($event)"
-      (mousemove)="setProgress($event)"
-    ></div>
-    <div class="currentTime">{{ secondsToTime(audio.currentTime) }}</div>
+  <div class="musicList" id="musicList" #musicListRef>
+    <div class="header">
+      <div class="left">
+        <span
+          class="fontSize iconfont icon-mulu"
+          style="font-size: 20px"
+        ></span>
+        <span>Favorite Musics</span>
+      </div>
+      <div class="right">
+        <span
+          class="fontSize iconfont icon-homefill"
+          style="
+            font-size: 20px;
+            cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+              pointer;
+          "
+          (click)="showMusicList('musicPlayer')"
+        ></span>
+      </div>
+    </div>
+    <div class="listContainer">
+      <div
+        class="musicItem"
+        [class]="{ actived: item.musicUrl === currentMusic.musicUrl }"
+        *ngFor="let item of musicList; let i = index"
+        (click)="handleClickMusic(i)"
+      >
+        <div class="musicPic">
+          <img [src]="item.picUrl" alt="" />
+        </div>
+        <div class="musicInfo">
+          <div class="musicName" [title]="item.musicName">
+            {{ item.musicName }}
+          </div>
+          <div class="musicAuthor" [title]="item.musicAuthor">
+            {{ item.musicAuthor }}
+          </div>
+        </div>
+        <div style="flex: 1"></div>
+        <div class="musicTime">{{ secondsToTime(item.musicTime) }}</div>
+      </div>
+    </div>
   </div>
 </div>
 
 <div
   class="playerOpener toShow"
+  id="musicOpener"
   #playerOpener
   *ngIf="musicList.length !== 0"
   (click)="open()"
