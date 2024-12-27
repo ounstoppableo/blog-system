@@ -417,13 +417,11 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   handleClickMusic = (index: number) => {
     this.index = index;
     this.playMusic();
+    this.audio.nativeElement.play();
   };
 
   playMusic() {
     this.currentMusic = this.musicList[this.index];
-    requestAnimationFrame(() => {
-      if (this.play) this.audio.nativeElement.play();
-    });
     this.lyricSegment();
     this.getMixLightColor(
       this.getBgLightColor.nativeElement,
@@ -435,11 +433,17 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.index === this.total - 1) this.index = 0;
     else this.index++;
     this.playMusic();
+    requestAnimationFrame(() => {
+      if (this.play) this.audio.nativeElement.play();
+    });
   }
   prevSong() {
     if (this.index === 0) this.index = this.total - 1;
     else this.index--;
     this.playMusic();
+    requestAnimationFrame(() => {
+      if (this.play) this.audio.nativeElement.play();
+    });
   }
   randomSong() {
     let i = Math.floor(Math.random() * this.musicList.length);
@@ -448,6 +452,9 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.index = i;
     this.playMusic();
+    requestAnimationFrame(() => {
+      if (this.play) this.audio.nativeElement.play();
+    });
   }
   close() {
     if (!this.timer1) {
@@ -498,7 +505,8 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.musicListRef.nativeElement.style.opacity = '1';
       this.musicListRef.nativeElement.style.zIndex = '1';
       this.container.nativeElement.style.transition = ' all linear 0.3s 0s';
-      this.musicListRef.nativeElement.style.transition = ' all linear 0.3s 0.15s';
+      this.musicListRef.nativeElement.style.transition =
+        ' all linear 0.3s 0.15s';
     }
   }
 

@@ -72,8 +72,12 @@
       ></span>
     </div>
     <div class="musicInfo">
-      <div class="musicName" [title]="currentMusic.musicName">{{ currentMusic.musicName }}</div>
-      <div class="musicAuthor" [title]="currentMusic.musicAuthor">{{ currentMusic.musicAuthor }}</div>
+      <div class="musicName" [title]="currentMusic.musicName">
+        {{ currentMusic.musicName }}
+      </div>
+      <div class="musicAuthor" [title]="currentMusic.musicAuthor">
+        {{ currentMusic.musicAuthor }}
+      </div>
     </div>
     <div class="player">
       <div class="totalTime">{{ secondsToTime(audio.duration) }}</div>
