@@ -68,7 +68,7 @@
       <span
         class="player iconfont"
         [ngClass]="{ 'icon-24gf-play': !play, 'icon-tingzhi': play }"
-        (click)="playAudio()"
+        (click)="playAudio(this.play ? false : true)"
       ></span>
     </div>
     <div class="musicInfo">

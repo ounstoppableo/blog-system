@@ -341,9 +341,9 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.nextSong();
   };
 
-  playAudio() {
-    this.play = !this.play;
-    if (this.play) {
+  playAudio(flag: boolean) {
+    this.play = flag;
+    if (flag) {
       this.musicIconTimer =
         !this.musicIconTimer &&
         setInterval(() => {
@@ -418,8 +418,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.index = index;
     this.selectMusic();
     requestAnimationFrame(() => {
-      this.play = true;
-      this.audio.nativeElement.play();
+      this.playAudio(true);
     });
   };
 
