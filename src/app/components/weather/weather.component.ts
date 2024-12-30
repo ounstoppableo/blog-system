@@ -1,29 +1,35 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnDestroy } from '@angular/core';
 import { WeatherService } from '@/app/service/weather.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.scss'],
+  standalone: false,
 })
-export class WeatherComponent implements AfterViewInit, OnChanges {
-  @Input()
-  smallSize = false;
+export class WeatherComponent implements AfterViewInit, OnDestroy {
+  smallSize: Observable<boolean>;
   currentHourIndex = 0;
   scrollTop = 0;
   hoursData: any[] = [];
   location: any = {};
+  smallSizeSubscribe: any;
+  intervalTimer: any[] = [];
+  handleScrollEvent: any;
+  hoursContainer: any;
 
-  @ViewChild('card')
-  card!: any;
+  @ViewChild('cardForWeather')
+  cardForWeather!: any;
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private weatherService: WeatherService,
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
 
   setRandomLightningDuration() {
     const lightning = document.getElementById('thunderstorm');
@@ -36,6 +42,8 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
 
   // Adjust initial positions of the particles
   adjustInitialPositions() {
+    if (!document.getElementById('cloud') || !document.getElementById('snow'))
+      return;
     (window as any).particlesJS('cloud', {
       particles: {
         number: { value: 5, density: { enable: true, value_area: 100 } },
@@ -172,14 +180,11 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: any): void {
-    if (changes['smallSize']) {
-      this.getGeoAndInitWeather();
-    }
-  }
-
   ngAfterViewInit(): void {
     window.addEventListener('load', this.getGeoAndInitWeather);
+    this.smallSizeSubscribe = this.store.subscribe((state) => {
+      this.getGeoAndInitWeather();
+    });
   }
 
   getGeoAndInitWeather = () => {
@@ -213,6 +218,7 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
 
   init() {
     $(document).ready(() => {
+      if ($('.cardForWeather').length === 0) return;
       $('.cardForWeather .hours').empty();
       $('.cardForWeather .location').empty();
       this.hoursData.forEach((data) => {
@@ -240,9 +246,7 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
       const sun = $('.cardForWeather .sun');
       const moon = $('.cardForWeather .moon');
       const hoursContainer = $('.cardForWeather .hours-container');
-      const hoursContainerNative = this.card.nativeElement.querySelector(
-        '.cardForWeather .hours-container',
-      );
+      this.hoursContainer = hoursContainer[0];
       const hours = $('.cardForWeather .hour');
       const rain = $('.cardForWeather #rain');
       const cloud = $('.cardForWeather #cloud');
@@ -254,7 +258,7 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
       const that = this;
       const hourWidth = 80;
 
-      function toggleSunMoon(hour: any) {
+      async function toggleSunMoon(hour: any) {
         if (hour >= 6 && hour <= 21) {
           const rotation = -90 + (hour - 7) * (180 / 15);
           sun.css('transform', 'rotate(' + rotation + 'deg)');
@@ -272,7 +276,8 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
             'filter',
             'brightness(200%) drop-shadow(0 0 10px rgba(255, 255, 255, 1))',
           );
-          cloud.css('mix-blend-mode', that.smallSize ? 'soft-light' : 'normal');
+          const smallSize = await firstValueFrom(that.smallSize);
+          cloud.css('mix-blend-mode', smallSize ? 'soft-light' : 'normal');
           rain.css('mix-blend-mode', 'normal');
         } else {
           moon.css('opacity', '1');
@@ -298,9 +303,9 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
       }
 
       // Function to handle scroll and wheel events
-      const handleScrollEvent = () => {
+      this.handleScrollEvent = () => {
         const currentScrollTop: number = hoursContainer.scrollTop() as number;
-        const scrollHeight = hoursContainerNative.scrollHeight;
+        const scrollHeight = this.hoursContainer.scrollHeight;
         this.currentHourIndex = Math.ceil(
           (currentScrollTop / scrollHeight) * hours.length,
         );
@@ -383,7 +388,7 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
         for (let i = 1; i <= nbDrop; i++) {
           const dropLeft = randRange(0, 1600);
           const dropTop = randRange(-1000, 1400);
-
+          rain.empty();
           rain.append('<div class="drop" id="drop' + i + '"></div>');
           $('.cardForWeather #drop' + i).css({ left: dropLeft, top: dropTop });
         }
@@ -395,7 +400,7 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
       }
 
       // Event listeners
-      hoursContainer.on('scroll', handleScrollEvent);
+      this.hoursContainer.addEventListener('scroll', this.handleScrollEvent);
       hours.on('click', function () {
         const hour = parseInt($(this).data('hour'));
         that.currentHourIndex = hours.index(this);
@@ -403,7 +408,6 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
         highlightHour(that.currentHourIndex);
         updateWeatherAndTemperature($(this));
       });
-
       // Make it rain
       createRain();
       init();
@@ -412,14 +416,15 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
     // Set an initial random duration
     this.setRandomLightningDuration();
 
+    this.intervalTimer.forEach((item) => clearInterval(item));
     // Change the duration periodically
-    setInterval(this.setRandomLightningDuration, 5000); // Change every 5 seconds
+    this.intervalTimer.push(setInterval(this.setRandomLightningDuration, 5000)); // Change every 5 seconds
     // Wait until particles are initialized and then adjust positions
     setTimeout(this.adjustInitialPositions, 1000);
 
     const canvas: any = $('.cardForWeather #rain')[0];
 
-    if (canvas.getContext) {
+    if (canvas && canvas.getContext) {
       const ctx = canvas.getContext('2d');
       const w = canvas.width;
       const h = canvas.height;
@@ -468,7 +473,21 @@ export class WeatherComponent implements AfterViewInit, OnChanges {
         }
       }
 
-      setInterval(draw, 3);
+      this.intervalTimer.push(setInterval(draw, 3));
     }
+  }
+  clearJquery() {
+    $('.cardForWeather').off();
+  }
+
+  ngOnDestroy(): void {
+    this.clearJquery();
+    if (this.smallSizeSubscribe) {
+      this.smallSizeSubscribe.unsubscribe();
+    }
+    this.hoursContainer?.removeEventListener('scroll', this.handleScrollEvent);
+    this.intervalTimer.forEach((timer) => {
+      clearInterval(timer);
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { AddArticleFormComponent } from '@/app/components/add-article-form/add-article-form.component';
-import { DrawerComponent } from '@/app/components/drawer/drawer.component';
+import { watchComponentDeactivate } from '@/app/customReuseStrategy/guard/watchComponentRouteState';
 import ViewResize from '@/app/decorators/viewResize';
 import {
   AfterViewInit,
@@ -8,37 +8,47 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-msg-borad-page',
   templateUrl: './msg-borad-page.component.html',
   styleUrls: ['./msg-borad-page.component.scss'],
+  standalone: false,
 })
-export class MsgBoradPageComponent implements OnInit, AfterViewInit, OnDestroy {
-  isLogin = false;
-  smallSize = false;
+export class MsgBoradPageComponent implements watchComponentDeactivate, OnInit {
+  isLeave = false;
+  isLogin: Observable<boolean>;
   headerChangeHeight = 0;
-  @ViewChild('addArticleForm')
-  addArticleForm!: AddArticleFormComponent;
-  @ViewChild('drawer')
-  drawer!: DrawerComponent;
+  smallSize: Observable<boolean>;
+  setIsLeaveTimeout: any;
 
-  constructor(private route: ActivatedRoute) {}
-  open() {
-    this.drawer.open();
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
-  showUploadModal() {
-    this.addArticleForm.showUploadModal();
-  }
-  loginCheck() {
-    this.isLogin = true;
+  ngOnInit(): void {
+    this.toSetIsLeaveToFalse();
   }
 
-  @ViewResize()
-  ngOnInit(): void {}
-  @ViewResize()
-  ngAfterViewInit(): void {}
-  @ViewResize()
-  ngOnDestroy(): void {}
+  toSetIsLeaveToFalse = () => {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        if (this.isLeave && this.setIsLeaveTimeout)
+          clearTimeout(this.setIsLeaveTimeout);
+      }
+    });
+    this.route.url.subscribe((res: any) => {
+      if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
+      this.setIsLeaveTimeout = setTimeout(() => {
+        this.isLeave = false;
+      }, 1000);
+    });
+  };
 }

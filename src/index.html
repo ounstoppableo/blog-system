@@ -5,7 +5,7 @@
     <title>Unstoppable840的小站</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <link rel="stylesheet" href="." />
     <link rel="stylesheet" href="/assets/font/iconfont.css" />
     <link rel="stylesheet" href="/assets/mathJax.css" />
@@ -769,7 +769,17 @@
     </div>
     <script src="/assets/bongoCatDark.js"></script>
     <script>
-      const isDark = JSON.parse(localStorage.getItem('darkMode') || 'false');
+      const checkDarkMode = () => {
+        const local = localStorage.getItem('darkMode');
+        return JSON.parse(
+          local
+            ? local
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'true'
+              : 'false',
+        );
+      };
+      const isDark = checkDarkMode();
       const link = document.createElement('link');
       link.href = isDark
         ? '/assets/bongoCatDark.css'
@@ -794,18 +804,18 @@
         pointer-events: none;
       "
     ></canvas>
-    <script
+    <!-- <script
       src="https://cdn.jsdelivr.net/gh/ounstoppableo/mouseEffect@v1.0.3/mouseFollow.js"
       type="text/javascript"
-    ></script>
-    <script
+    ></script> -->
+    <!-- <script
       type="text/javascript"
       color="0,174,255"
       opacity="0.7"
       zIndex="-2"
       count="200"
       src="https://cdn.jsdelivr.net/gh/ounstoppableo/mouseEffect@1.0.3/mouseLine.js"
-    ></script>
+    ></script> -->
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/gh/ounstoppableo/mouseEffect@1.0.3/fireworks/anime.min.js"
@@ -814,5 +824,22 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/gh/ounstoppableo/mouseEffect@1.0.3/fireworks/firework.js"
     ></script>
+    <script>
+      async function loadTTFAndWait(fontName, fontUrl) {
+        const fontFace = new FontFace(fontName, `url(${fontUrl})`);
+        try {
+          await fontFace.load();
+          document.fonts.add(fontFace);
+        } catch (error) {
+          console.error(`Failed to load font "${fontName}":`, error);
+        }
+      }
+      loadTTFAndWait(
+        'lipinhuiziyoulixiangti',
+        '/assets/font/lipinhuiziyoulixiangti.ttf',
+      ).then(() => {
+        document.body.style.fontFamily = 'lipinhuiziyoulixiangti';
+      });
+    </script>
   </body>
 </html>

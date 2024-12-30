@@ -4,15 +4,20 @@ import { resType } from '@/types/response/response';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-single-tag-cate',
   templateUrl: './single-tag-cate.component.html',
   styleUrls: ['./single-tag-cate.component.scss'],
+  standalone: false,
 })
 export class SingleTagCateComponent implements OnInit {
   @Input()
-  smallSize!: boolean;
+  isLogin = false;
+  @Input()
+  smallSize!: Observable<boolean>;
   @Input()
   updateArticleModal!: AddArticleFormComponent;
   singleTagMapArticleInfos: singleTagMapArticleInfos =
@@ -26,7 +31,10 @@ export class SingleTagCateComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
   ngOnInit(): void {
     this.route.params.subscribe((param) => {
       this.singleTagMapArticleInfos.tagName = param['tagName'];

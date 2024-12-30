@@ -1,6 +1,6 @@
 <div class="writeSpace">
   <form nz-form [nzLayout]="'inline'" [formGroup]="msgBoardData" class="form">
-    <div row [class]="smallSize ? 'smallSize' : ''">
+    <div row [class]="(smallSize | async) ? 'smallSize' : ''">
       <nz-form-item>
         <nz-form-control
           [nzValidateStatus]="

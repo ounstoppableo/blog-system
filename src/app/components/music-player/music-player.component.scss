@@ -1,174 +1,108 @@
-.container {
+.root {
   position: fixed;
   width: 280px;
   height: 450px;
   background-color: var(--musicPlayerBgColor);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   inset: 0;
   margin: auto;
   box-shadow: 0px 15px 35px -5px rgba(50, 88, 130, 0.32);
   z-index: 9999;
-
-  & > .albumAndLyric {
+  transition: all linear 1s;
+  .container {
     position: absolute;
-    perspective: 500px;
+    z-index: 1;
     width: 100%;
     height: 100%;
-
-    & > .lyric {
+    & > .albumAndLyric {
       position: absolute;
-      transition: all 1s linear;
-      transform: rotateY(180deg);
-      width: 250px;
-      height: 250px;
-      top: 30px;
-      left: -80px;
-      z-index: 0;
-      border-radius: 100%;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      perspective: 500px;
+      width: 100%;
+      height: 100%;
 
-      & > .noLyric {
-        position: absolute;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 18px;
-        color: var(--white);
-      }
-
-      & > div {
-        position: absolute;
-        height: 100%;
-        padding: 30px;
-        z-index: 9999;
-
-        &::-webkit-scrollbar {
-          width: 0;
-          /* 隐藏滚动条宽度 */
-        }
-        scrollbar-width: none;
-
-        height: 100%;
-        width: 100%;
-        text-align: center;
-        overflow-y: scroll;
-
-        & > div {
-          font-size: 14px;
-          line-height: 16px;
-          padding: 10px 0;
-          transition: all 0.5s ease;
-          transform-origin: center;
-          cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
-            pointer;
-
-          &.active {
-            color: var(--white);
-            transform: scale(1.2);
-          }
-        }
-      }
-
-      //反转时隐藏背面
-      backface-visibility: hidden;
-      transform-style: preserve-3d;
-
-      & > canvas {
-        position: absolute;
-        display: none;
-        inset: 0;
-        margin: auto;
-      }
-
-      &::before {
-        content: '';
-        background: inherit;
-        width: 100%;
-        height: 100%;
+      & > .lyric {
         position: absolute;
         transition: all 1s linear;
-        box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-        top: 20px;
-        transform: scale(0.9);
-        filter: blur(10px);
-        z-index: -1;
-        opacity: 0.9;
-        border-radius: inherit;
-      }
-
-      &::after {
-        content: '';
-        background: inherit;
-        width: 100%;
-        height: 100%;
-        box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-        z-index: 2;
-        position: absolute;
-        border-radius: inherit;
-      }
-    }
-
-    & > .album {
-      position: absolute;
-      transition: all 1s linear;
-      width: 250px;
-      height: 250px;
-      top: 30px;
-      left: -80px;
-      border-radius: 9999px;
-      z-index: 1;
-
-      //反转时隐藏背面
-      backface-visibility: hidden;
-      transform-style: preserve-3d;
-
-      & > .dot {
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        background-color: var(--musicPlayerBgColor);
-        border: 5px solid var(--white);
-        border-radius: 9999px;
-        inset: 0;
-        margin: auto;
-        z-index: 100;
-      }
-
-      & > #voiceFrequency {
-        position: absolute;
-        z-index: 9999;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: 9999px;
-      }
-
-      & > .musicPic {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: 9999px;
+        transform: rotateY(180deg);
+        width: 250px;
+        height: 250px;
+        top: 30px;
+        left: -80px;
+        z-index: 0;
+        border-radius: 100%;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+
+        & > .noLyric {
+          position: absolute;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 18px;
+          color: var(--white);
+        }
+
+        & > div {
+          position: absolute;
+          height: 100%;
+          padding: 30px;
+          z-index: 9999;
+
+          &::-webkit-scrollbar {
+            width: 0;
+            /* 隐藏滚动条宽度 */
+          }
+          scrollbar-width: none;
+
+          height: 100%;
+          width: 100%;
+          text-align: center;
+          overflow-y: scroll;
+
+          & > div {
+            font-size: 14px;
+            line-height: 16px;
+            padding: 10px 0;
+            transition: all 0.5s ease;
+            transform-origin: center;
+            cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
+              pointer;
+
+            &.active {
+              color: var(--white);
+              transform: scale(1.2);
+            }
+          }
+        }
+
+        //反转时隐藏背面
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+
+        & > canvas {
+          position: absolute;
+          display: none;
+          inset: 0;
+          margin: auto;
+        }
 
         &::before {
           content: '';
           background: inherit;
           width: 100%;
           height: 100%;
-          z-index: -10;
           position: absolute;
-          transition: all 0.3s ease;
+          transition: all 1s linear;
           box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
           top: 20px;
           transform: scale(0.9);
           filter: blur(10px);
+          z-index: -1;
           opacity: 0.9;
-          border-radius: 9999px;
+          border-radius: inherit;
         }
 
         &::after {
@@ -177,136 +111,312 @@
           width: 100%;
           height: 100%;
           box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
-          display: block;
           z-index: 2;
           position: absolute;
+          border-radius: inherit;
+        }
+      }
+
+      & > .album {
+        position: absolute;
+        transition: all 1s linear;
+        width: 250px;
+        height: 250px;
+        top: 30px;
+        left: -80px;
+        border-radius: 9999px;
+        z-index: 1;
+
+        //反转时隐藏背面
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+
+        & > .dot {
+          position: absolute;
+          width: 30px;
+          height: 30px;
+          background-color: var(--musicPlayerBgColor);
+          border: 5px solid var(--white);
           border-radius: 9999px;
+          inset: 0;
+          margin: auto;
+          z-index: 100;
+        }
+
+        & > #voiceFrequency {
+          position: absolute;
+          z-index: 9999;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          border-radius: 9999px;
+        }
+
+        & > .musicPic {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 9999px;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+
+          &::before {
+            content: '';
+            background: inherit;
+            width: 100%;
+            height: 100%;
+            z-index: -10;
+            position: absolute;
+            transition: all 0.3s ease;
+            box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+            top: 20px;
+            transform: scale(0.9);
+            filter: blur(10px);
+            opacity: 0.9;
+            border-radius: 9999px;
+          }
+
+          &::after {
+            content: '';
+            background: inherit;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+            display: block;
+            z-index: 2;
+            position: absolute;
+            border-radius: 9999px;
+          }
         }
       }
     }
-  }
 
-  & > .controler {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    align-items: center;
-    right: 20px;
-    top: 40px;
-    width: fit-content;
-    color: var(--musicWord);
-    z-index: 9999;
+    & > .controler {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      align-items: center;
+      right: 20px;
+      top: 40px;
+      width: fit-content;
+      color: var(--musicWord);
+      z-index: 9999;
 
-    & > .fontSize {
-      position: relative;
-      font-size: 26px;
-      font-weight: 1000;
-      line-height: 22px;
-      z-index: 10;
-      cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
-        pointer;
-
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: scale(0) translate(-50%, -50%);
-        transform-origin: top left;
-        z-index: -1;
-        transition: all 0.3s ease;
-        border-radius: 9999px;
-        width: 50px;
-        height: 50px;
-        box-shadow: 0px 5px 10px 0px rgba(76, 70, 124, 0.2);
-        background-color: var(--cardColor);
-      }
-
-      &:hover {
-        color: var(--musicBtnHover);
+      & > .fontSize {
+        position: relative;
+        font-size: 26px;
+        font-weight: 1000;
+        line-height: 22px;
+        z-index: 10;
+        cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
+          pointer;
 
         &::after {
-          transform: scale(1) translate(-50%, -50%);
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: scale(0) translate(-50%, -50%);
+          transform-origin: top left;
+          z-index: -1;
+          transition: all 0.3s ease;
+          border-radius: 9999px;
+          width: 50px;
+          height: 50px;
+          box-shadow: 0px 5px 10px 0px rgba(76, 70, 124, 0.2);
+          background-color: var(--cardColor);
         }
+
+        &:hover {
+          color: var(--musicBtnHover);
+
+          &::after {
+            transform: scale(1) translate(-50%, -50%);
+          }
+        }
+      }
+
+      & > .player {
+        border-radius: 9999px;
+        border: 8px solid var(--cardColor);
+        padding: 12px;
+        font-size: 30px;
+        line-height: 30px;
+        color: var(--cardColor);
+        cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
+          pointer;
+        filter: drop-shadow(0 11px 6px rgba(172, 184, 204, 0.45));
+      }
+    }
+
+    & > .musicInfo {
+      position: absolute;
+      bottom: 75px;
+      width: 100%;
+      padding-left: 20px;
+      padding-right: 20px;
+      font-size: 20px;
+
+      & > .musicName {
+        color: var(--musicName);
+        font-weight: 600;
+        max-width: 140px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      & > .musicAuthor {
+        color: var(--musicAuthor);
+        font-weight: 300;
+        max-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
     & > .player {
-      border-radius: 9999px;
-      border: 8px solid var(--cardColor);
-      padding: 12px;
-      font-size: 30px;
-      line-height: 30px;
-      color: var(--cardColor);
-      cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
-        pointer;
-      filter: drop-shadow(0 11px 6px rgba(172, 184, 204, 0.45));
-    }
-  }
-
-  & > .musicInfo {
-    position: absolute;
-    bottom: 75px;
-    width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: 20px;
-
-    & > .musicName {
-      color: var(--musicName);
-      font-weight: 600;
-    }
-
-    & > .musicAuthor {
-      color: var(--musicAuthor);
-      font-weight: 300;
-    }
-  }
-
-  & > .player {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    bottom: 20px;
-    width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-
-    & > .totalTime {
-      align-self: flex-end;
-      user-select: none;
-      color: var(--musicTotalTime);
-      font-weight: 700;
-      font-size: 20px;
-    }
-
-    & > .progress {
-      position: relative;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      bottom: 20px;
       width: 100%;
-      height: 6px;
-      background-color: var(--musicProgressBg);
-      user-select: none;
-      border-radius: 6px;
-      cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
-        pointer;
+      padding-left: 20px;
+      padding-right: 20px;
 
-      &::before {
-        content: '';
-        position: absolute;
-        width: var(--progressWidth);
-        height: inherit;
-        background-color: var(--cateColor);
+      & > .totalTime {
+        align-self: flex-end;
+        user-select: none;
+        color: var(--musicTotalTime);
+        font-weight: 700;
+        font-size: 20px;
+      }
+
+      & > .progress {
+        position: relative;
+        width: 100%;
+        height: 6px;
+        background-color: var(--musicProgressBg);
+        user-select: none;
         border-radius: 6px;
+        cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
+          pointer;
+
+        &::before {
+          content: '';
+          position: absolute;
+          width: var(--progressWidth);
+          height: inherit;
+          background-color: var(--cateColor);
+          border-radius: 6px;
+        }
+      }
+
+      & > .currentTime {
+        user-select: none;
+        color: var(--musicName);
+        font-weight: 700;
+        font-size: 16px;
       }
     }
+  }
+  .musicList {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    opacity: 0;
+    overflow: hidden;
 
-    & > .currentTime {
-      user-select: none;
+    & .header {
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      font-size: 20px;
+      line-height: 20px;
+      font-weight: 600;
       color: var(--musicName);
-      font-weight: 700;
-      font-size: 16px;
+      & .left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+    & .listContainer {
+      overflow-y: auto;
+      overflow-x: hidden;
+      &::-webkit-scrollbar {
+        width: 0;
+        /* 隐藏滚动条宽度 */
+      }
+      & .musicItem {
+        height: 80px;
+        padding: 10px 20px;
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        box-shadow: 0px 1px 0px 0 var(--01-gray);
+        transition: all 1s ease;
+        cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
+          pointer;
+
+        &.actived {
+          background-color: var(--015-gray) !important;
+        }
+        &:hover {
+          background-color: var(--01-gray);
+        }
+        & .musicPic {
+          height: 60px;
+          width: 60px;
+          overflow: hidden;
+          border-radius: 20px;
+          & > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        & .musicInfo {
+          & > .musicName {
+            color: var(--musicName);
+            font-weight: 600;
+            max-width: 110px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          & > .musicAuthor {
+            color: var(--musicAuthor);
+            font-weight: 300;
+            max-width: 110px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        & > .musicTime {
+          justify-self: flex-end;
+          user-select: none;
+          color: var(--musicName);
+          font-weight: 700;
+          font-size: 16px;
+        }
+        &:last-child {
+          box-shadow: none;
+        }
+      }
     }
   }
 }
@@ -401,7 +511,7 @@
   transition: all 1.5s ease;
   transform: translateX(-100%);
   z-index: 9999;
-  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
     pointer;
 
   &:hover {

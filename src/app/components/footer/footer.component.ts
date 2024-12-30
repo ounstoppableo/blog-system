@@ -8,6 +8,7 @@ dayjs.extend(duration);
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
+  standalone: false
 })
 export class FooterComponent implements OnInit, OnDestroy {
   constructor(
@@ -20,12 +21,12 @@ export class FooterComponent implements OnInit, OnDestroy {
   serverStartTime: any;
   interval: any;
   ngOnInit(): void {
-    this.siteInfoService.getVT().subscribe((res) => {
+    this.siteInfoService.getVT().subscribe((res: any) => {
       if (res.code === 200) {
         this.VT = res.VT;
       }
     });
-    this.siteInfoService.getBaseInfo().subscribe((res) => {
+    this.siteInfoService.getBaseInfo().subscribe((res: any) => {
       if (res.code === 200) {
         this.baseInfo = res.result;
         this.serverStartTime = res.result?.serverStartTime;

@@ -18,6 +18,8 @@ import {
 import { BoardMsgService } from '@/app/service/board-msg.service';
 import { resType } from '@/types/response/response';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-comment-item',
@@ -42,10 +44,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
       ]),
     ]),
   ],
+  standalone: false,
 })
 export class CommentItemComponent implements OnChanges {
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   msgItem: msgItem = {} as msgItem;
   @Output()
@@ -54,8 +56,8 @@ export class CommentItemComponent implements OnChanges {
   showChirdren = false;
   showComponent = false;
   children: msgItem[] = [];
-  @Input()
-  smallSize = false;
+
+  smallSize: Observable<boolean>;
 
   timer: any = null;
 
@@ -64,7 +66,11 @@ export class CommentItemComponent implements OnChanges {
   constructor(
     private boardMsgSerivce: BoardMsgService,
     private message: NzMessageService,
-  ) {}
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
+  }
 
   ngOnChanges(changes: any): void {
     if (changes?.msgItem?.currentValue) {

@@ -1,10 +1,10 @@
 <div
   class="cardContainerRight"
+  [class]="(smallSize | async) ? 'smallSize' : ''"
   *ngIf="showInfo"
-  [class]="smallSize ? 'smallSize' : ''"
 >
   <div class="card">
-    <app-userinfo [isSmall]="false"></app-userinfo>
+    <app-userinfo [smallSize]="false"></app-userinfo>
   </div>
   <div class="card">
     <div class="news">
@@ -54,11 +54,11 @@
       </div>
     </div>
   </div>
-  <div class="card" style="height: 450px">
-    <app-weather [smallSize]="smallSize"></app-weather>
+  <div class="card" style="height: 450px" *ngIf="!dontShowGpuRenderComponent">
+    <app-weather></app-weather>
   </div>
 </div>
-<div class="catelogue" *ngIf="isArticle && !smallSize">
+<div class="catelogue" *ngIf="isArticle && !(smallSize | async)">
   <div class="catalogue">
     <p>
       <span class="iconfont icon-mulu" [style]="{ fontSize: '30px' }"></span>

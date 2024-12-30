@@ -15,38 +15,89 @@ import { ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { CircleMenuComponent } from './components/circle-menu/circle-menu.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
+import checkDarkMode from '@/utils/checkDarkMode';
+import ViewResize from './decorators/viewResize';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: false,
 })
 export class AppComponent
   implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy
 {
   title = 'my-blog';
-  darkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
+  headerChangeHeight = 0;
+  darkMode = checkDarkMode();
   isArticle = false;
+  is404Page = false;
   firstLoad = true;
   imgLazyLoadMap = new Map();
   observer: any;
-  smallSize = false;
+  isLogin: Observable<boolean>;
+  smallSize!: Observable<boolean>;
   catalogue: any[] = [];
+  defaultShow = false;
   private _modelInstance: any;
   private _darkModeLock = false;
   @ViewChild('operate')
   operate!: ElementRef;
   @ViewChild('catalogueTemp')
   catalogueTemp!: TemplateRef<any>;
+  @ViewChild('drawer')
+  drawer: any;
+  //上传文章相关
+  @ViewChild('addArticleForm')
+  addArticleForm!: any;
+  showHeader = true;
   constructor(
     private router: Router,
     private r: ComponentFactoryResolver,
     private injector: Injector,
     private modal: NzModalService,
-  ) {}
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
+  }
+  @ViewResize()
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd)
+      if (event instanceof NavigationEnd) {
         this.isArticle = event.url.includes('article');
+        if (event.url === '/404' || event.urlAfterRedirects === '/404') {
+          this.is404Page = true;
+        } else {
+          this.is404Page = false;
+        }
+        if (event.url === '/login') {
+          this.showHeader = false;
+        } else {
+          this.showHeader = true;
+        }
+        this.defaultShow = !(
+          this.isArticle ||
+          this.is404Page ||
+          event.url === '/home' ||
+          event.url === '/'
+        );
+        if (event.url === '/home' || event.url === '/') {
+          //获取头部样式变化的高度
+          this.headerChangeHeight =
+            innerHeight -
+            Number.parseFloat(
+              getComputedStyle(document.documentElement).getPropertyValue(
+                '--headerHeigth',
+              ),
+            );
+        } else if (this.is404Page) {
+          this.headerChangeHeight = innerHeight;
+        } else if (!this.isArticle) {
+          this.headerChangeHeight = 0;
+        }
+      }
     });
     if (this.firstLoad) {
       this.loadCss(
@@ -58,23 +109,23 @@ export class AppComponent
       });
     }
   }
+  drawerOpen() {
+    this.drawer.open();
+  }
+  //显示上传文章模态框
+  showUploadModal() {
+    this.addArticleForm.showUploadModal();
+  }
   //四季控制板工厂创建
   @ViewChild('vc', { read: ViewContainerRef }) vc!: ViewContainerRef;
   seasonFactory = this.r.resolveComponentFactory(CircleMenuComponent);
   componentRef = this.seasonFactory.create(this.injector);
 
-  pageControl = () => {
-    if (window.innerWidth < 1024) {
-      this.smallSize = true;
-    } else {
-      this.smallSize = false;
-    }
-  };
-
+  @ViewResize()
   ngAfterViewInit(): void {
     //看板娘加载
     loadScript(
-      'https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@v1.1.1/autoload.js',
+      'https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@vlatest/autoload.js',
       () => {
         const observer = new MutationObserver((mutationsList, observer) => {
           if (
@@ -94,7 +145,7 @@ export class AppComponent
     loadScript(
       'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v3.0.2/snowfall.jquery.js',
       () => {
-        this.vc.insert(this.componentRef.hostView);
+        this.vc?.insert(this.componentRef.hostView);
       },
     );
     this.implementDarkMode();
@@ -152,9 +203,6 @@ export class AppComponent
       subtree: true,
     });
     window.addEventListener('scroll', this.imgLazyLoad);
-
-    window.addEventListener('resize', this.pageControl);
-    this.pageControl();
   }
   private _showWaifu() {
     if (innerWidth > 1024) {
@@ -248,6 +296,7 @@ export class AppComponent
         '--ramdonArticleAndNewMsg',
         '#aaa',
       );
+      document.documentElement.style.setProperty('--disabledColor', '#8d9095');
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
         'darkMode',
@@ -288,6 +337,7 @@ export class AppComponent
         '--ramdonArticleAndNewMsg',
         '#999',
       );
+      document.documentElement.style.setProperty('--disabledColor', '#c6c6c6');
       const removedThemeStyle = document.getElementById('darkMode');
       if (removedThemeStyle) {
         document.head.removeChild(removedThemeStyle);
@@ -361,11 +411,25 @@ export class AppComponent
     }, 300);
   }
 
-  ngAfterViewChecked(): void {}
+  ngAfterViewChecked(): void {
+    if (this.isArticle) {
+      const articleBackGroundImg = document.getElementById(
+        'articleBackGroundImg',
+      );
+      if (!articleBackGroundImg) return;
+      this.headerChangeHeight =
+        Number.parseFloat(articleBackGroundImg.offsetHeight as any) -
+        Number.parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue(
+            '--headerHeigth',
+          ),
+        );
+    }
+  }
+  @ViewResize()
   ngOnDestroy(): void {
     this.observer?.disconnect();
     window.removeEventListener('resize', this._showWaifu);
     window.removeEventListener('scroll', this.imgLazyLoad);
-    window.removeEventListener('resize', this.pageControl);
   }
 }

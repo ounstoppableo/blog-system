@@ -3,7 +3,6 @@ import { LoginService } from '@/app/service/login';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
 import {
-  AfterViewChecked,
   Component,
   EventEmitter,
   Input,
@@ -11,27 +10,30 @@ import {
   Output,
   ViewChild,
   OnDestroy,
+  AfterViewInit,
   OnChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import dayjs from 'dayjs';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
+  standalone: false,
 })
 export class OverviewComponent
-  implements OnInit, AfterViewChecked, OnChanges, OnDestroy
+  implements OnInit, AfterViewInit, OnChanges, OnDestroy
 {
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   toTopOverview = false;
   @Input()
   articleInfoList: articleInfo[] = [];
-  @Input()
-  smallSize!: boolean;
+  smallSize!: Observable<boolean>;
   @Input()
   isHome = false;
   //模态框组件
@@ -52,33 +54,62 @@ export class OverviewComponent
   isInit = false;
   noToTop = '1970-01-01 08:00:01';
   private _timer: any = null;
-  private _cardShowWhileScroll: any;
-  private _loadedEventCb: any;
+  private _cardShowWhileScroll = () => {
+    if (this._timer) {
+      return;
+    }
+    const _callback = () => {
+      const cardArr =
+        this.cardContainerLeft.nativeElement.querySelectorAll('.card');
+      cardArr.forEach((item: any) => {
+        if (
+          item.getBoundingClientRect().y >
+            -item.offsetHeight - item.offsetHeight / 2 &&
+          item.getBoundingClientRect().y < innerHeight + item.offsetHeight / 2
+        ) {
+          item.style.transform = 'scale(1)';
+          item.style.transition = `all 1s ease,box-shadow 0.5s ease`;
+          if (item.querySelector('img')) {
+            item.querySelector('img').style.filter = 'blur(0)';
+          }
+        } else if (item.getBoundingClientRect().y < -item.offsetHeight) {
+          item.style.transform = 'scale(.8)';
+          item.style.transition = `all 1s ease,box-shadow 0.5s ease`;
+          if (item.querySelector('img'))
+            item.querySelector('img').style.filter = 'blur(10px)';
+        } else if (item.getBoundingClientRect().y > innerHeight) {
+          item.style.transform = 'scale(.8)';
+          item.style.transition = `all 1s ease,box-shadow 0.5s ease`;
+          if (item.querySelector('img'))
+            item.querySelector('img').style.filter = 'blur(10px)';
+        }
+      });
+      clearTimeout(this._timer);
+      this._timer = null;
+    };
+    this._timer = setTimeout(_callback, 100);
+  };
+  private _loadedEventCb = () => {
+    this._cardShowWhileScroll();
+  };
 
   constructor(
     private homeService: HomeService,
     private router: Router,
-    private loginService: LoginService,
     private message: NzMessageService,
-  ) {}
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
+  }
 
   ngOnInit(): void {
-    if (localStorage.getItem('token')) {
-      this.loginService.getUserInfo().subscribe((res) => {
-        if (res.code === 200) this.isLogin = true;
-        else this.isLogin = false;
-      });
-    }
     if (this.isHome && this.toTopOverview) {
       this.homeService.getTopArticleInfo().subscribe((res) => {
         if (res.code === 200) this.articleInfoList = res.data;
       });
     }
   }
-  toArticle(articleId: string) {
-    this.router.navigate(['article', articleId]);
-  }
-
   ngOnChanges(changes: any) {
     if (
       changes['articleInfoList'] &&
@@ -87,63 +118,17 @@ export class OverviewComponent
       requestAnimationFrame(() => {
         this._cardShowWhileScroll();
         window.removeEventListener('load', this._loadedEventCb);
-        this._loadedEventCb = () => {
-          this._cardShowWhileScroll();
-        };
         window.addEventListener('load', this._loadedEventCb);
       });
     }
   }
-
-  ngAfterViewChecked(): void {
-    //设置懒加载效果
-    if (!this.isInit && this.articleInfoList.length !== 0) {
-      window.removeEventListener('scroll', this._cardShowWhileScroll);
-      this._cardShowWhileScroll = () => {
-        if (this._timer) {
-          return;
-        }
-        const _callback = () => {
-          const cardArr =
-            this.cardContainerLeft.nativeElement.querySelectorAll('.card');
-          cardArr.forEach((item: any) => {
-            if (
-              item.getBoundingClientRect().y >
-                -item.offsetHeight - item.offsetHeight / 2 &&
-              item.getBoundingClientRect().y <
-                innerHeight + item.offsetHeight / 2
-            ) {
-              item.style.transform = 'scale(1)';
-              item.style.transition = `all 1s ease,box-shadow 0.5s ease`;
-              if (item.querySelector('img')) {
-                item.querySelector('img').style.filter = 'blur(0)';
-              }
-            } else if (item.getBoundingClientRect().y < -item.offsetHeight) {
-              item.style.transform = 'scale(.8)';
-              item.style.transition = `all 1s ease,box-shadow 0.5s ease`;
-              if (item.querySelector('img'))
-                item.querySelector('img').style.filter = 'blur(10px)';
-            } else if (item.getBoundingClientRect().y > innerHeight) {
-              item.style.transform = 'scale(.8)';
-              item.style.transition = `all 1s ease,box-shadow 0.5s ease`;
-              if (item.querySelector('img'))
-                item.querySelector('img').style.filter = 'blur(10px)';
-            }
-          });
-          clearTimeout(this._timer);
-          this._timer = null;
-        };
-        this._timer = setTimeout(_callback, 100);
-      };
-      const cardArr =
-        this.cardContainerLeft.nativeElement.querySelectorAll('.card');
-      if (cardArr[cardArr.length - 1].querySelector('img')) {
-        window.addEventListener('scroll', this._cardShowWhileScroll);
-        this._cardShowWhileScroll();
-        this.isInit = true;
-      }
-    }
+  ngAfterViewInit(): void {
+    window.addEventListener('scroll', this._cardShowWhileScroll);
   }
+  toArticle(articleId: string) {
+    this.router.navigate(['article', articleId]);
+  }
+
   //更新文章
   editArticle(item: articleInfo) {
     const listOfTagOptions = item.tags.map((tag) => tag.tagName);

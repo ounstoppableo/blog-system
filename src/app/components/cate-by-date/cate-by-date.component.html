@@ -1,4 +1,8 @@
-<div class="card" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
+<div
+  class="card"
+  [class]="(smallSize | async) ? 'smallSize' : ''"
+  *ngIf="!loading"
+>
   <div class="none" *ngIf="dateCategory.length === 0">
     <app-none></app-none>
   </div>
@@ -21,7 +25,4 @@
     </div>
   </div>
 </div>
-<app-cate-by-date-skeleton
-  *ngIf="loading"
-  [smallSize]="smallSize"
-></app-cate-by-date-skeleton>
+<app-cate-by-date-skeleton *ngIf="loading"></app-cate-by-date-skeleton>

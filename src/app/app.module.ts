@@ -14,7 +14,10 @@ import { ContainerComponent } from './components/container/container.component';
 import { ContextComponent } from './components/context/context.component';
 import { LoginComponent } from './view/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { httpInterceptorProviders } from './interceptor/interceptorProvider';
 import { UserinfoComponent } from './components/userinfo/userinfo.component';
 import { TagComponent } from './components/tag/tag.component';
@@ -60,6 +63,12 @@ import { RandomArticleBoardComponent } from './components/random-article-board/r
 import { RandomArticleAndNewMsgComponent } from './components/random-article-and-new-msg/random-article-and-new-msg.component';
 import { MsgAndArticleBoardSkeletonComponent } from './skeleton/msg-and-article-board-skeleton/msg-and-article-board-skeleton.component';
 import { WeatherComponent } from './components/weather/weather.component';
+import { BookDisplayComponent } from './components/book-display/book-display.component';
+import { BookUploadFormComponentComponent } from './components/book-upload-form-component/book-upload-form-component.component';
+import { StoreModule } from '@ngrx/store';
+import { smallSizeReducer } from './store/smallSizeStore/smallSize.reducer';
+import { isLoginReducer } from './store/isLoginStore/isLoginStore.reducer';
+
 const ngZorroConfig: NzConfig = {
   message: {
     nzMaxStack: 1,
@@ -120,13 +129,15 @@ const ngZorroConfig: NzConfig = {
     RandomArticleAndNewMsgComponent,
     MsgAndArticleBoardSkeletonComponent,
     WeatherComponent,
+    BookDisplayComponent,
+    BookUploadFormComponentComponent,
   ],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     NzDesignModule,
     BrowserAnimationsModule,
     NgxSkeletonLoaderModule.forRoot({
@@ -137,8 +148,15 @@ const ngZorroConfig: NzConfig = {
         background: '#d1d5db',
       },
     }),
+    StoreModule.forRoot({
+      smallSize: smallSizeReducer,
+      isLogin: isLoginReducer,
+    }),
   ],
-  providers: [httpInterceptorProviders, provideNzConfig(ngZorroConfig)],
-  bootstrap: [AppComponent],
+  providers: [
+    httpInterceptorProviders,
+    provideNzConfig(ngZorroConfig),
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
 })
 export class AppModule {}

@@ -7,12 +7,13 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import * as $ from 'jquery';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-circle-menu',
   templateUrl: './circle-menu.component.html',
   styleUrls: ['./circle-menu.component.scss'],
+  standalone: false
 })
 export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   showMenu = false;
@@ -24,7 +25,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
       | 'Autumn') || judgeSeason();
   @Input() flag = new Proxy(
     {
-      value: JSON.parse(localStorage.getItem('seasonFloat') || 'true'),
+      value: JSON.parse(localStorage.getItem('seasonFloat') || 'false'),
       that: this,
     },
     {

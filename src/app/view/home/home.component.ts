@@ -1,3 +1,4 @@
+import { watchComponentDeactivate } from '@/app/customReuseStrategy/guard/watchComponentRouteState';
 import ViewResize from '@/app/decorators/viewResize';
 import { HomeService } from '@/app/service/home.service';
 import { folderItem } from '@/types/home/home';
@@ -10,14 +11,20 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  standalone: false,
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HomeComponent
+  implements OnInit, AfterViewInit, OnDestroy, watchComponentDeactivate
+{
+  isLeave = false;
   //控制打字机效果的数据
   word = '';
   words = [
@@ -32,24 +39,19 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   wordSpan!: ElementRef;
   @ViewChild('root')
   root!: ElementRef;
-
-  //抽屉相关
-  @ViewChild('drawer')
-  drawer!: any;
-
-  //页面大小变化的控制
-  @ViewResize()
-  smallSize = false; //处于小尺寸窗口的判断
-
-  //上传文章相关
-  @ViewChild('addArticleForm')
-  addArticleForm!: any;
+  isLogin: Observable<boolean>;
+  smallSize!: Observable<boolean>;
+  setIsLeaveTimeout: any;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private homeService: HomeService,
-  ) {}
-  @ViewResize()
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
+  }
   ngOnInit(): void {
     this.homeService
       .getFolderCategory()
@@ -60,8 +62,24 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       '--bodyHeightForInvariant',
       innerHeight + 'px',
     );
+    this.toSetIsLeaveToFalse();
   }
-  @ViewResize()
+
+  toSetIsLeaveToFalse = () => {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        if (this.isLeave && this.setIsLeaveTimeout)
+          clearTimeout(this.setIsLeaveTimeout);
+      }
+    });
+    this.route.url.subscribe((res: any) => {
+      if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
+      this.setIsLeaveTimeout = setTimeout(() => {
+        this.isLeave = false;
+      }, 1000);
+    });
+  };
+
   ngAfterViewInit(): void {
     //打字机效果控制
     const timer = setInterval(() => {
@@ -106,20 +124,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   goHome() {
     this.router.navigate(['home']);
   }
-  //打开上传文章模态框
-  showUploadModal() {
-    this.addArticleForm.showUploadModal();
-  }
-
-  //抽屉相关方法
-  open() {
-    this.drawer.open();
-  }
   //去单文件夹页
   goSingleFolder(folderId: number) {
     this.router.navigate(['folderPage', folderId]);
   }
-  @ViewResize()
   ngOnDestroy() {
     window.onresize = null;
   }

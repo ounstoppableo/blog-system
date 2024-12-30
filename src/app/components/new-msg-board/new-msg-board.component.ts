@@ -3,9 +3,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-new-msg-board',
-  templateUrl: './new-msg-board.component.html',
-  styleUrls: ['./new-msg-board.component.scss'],
+    selector: 'app-new-msg-board',
+    templateUrl: './new-msg-board.component.html',
+    styleUrls: ['./new-msg-board.component.scss'],
+    standalone: false
 })
 export class NewMsgBoardComponent implements OnInit {
   msgList: any[] = [];

@@ -14,7 +14,7 @@ platformBrowserDynamic()
         bongoCat_dark!.remove();
         bongoCat_light!.remove();
         document.getElementById('bongoCatCss')?.remove();
-      }, 500);
+      }, 1000);
       return;
     }
     window.addEventListener('load', () => {

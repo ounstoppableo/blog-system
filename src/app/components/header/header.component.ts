@@ -16,52 +16,64 @@ import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { MusicUploadFormComponent } from '../music-upload-form/music-upload-form.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { BookUploadFormComponentComponent } from '../book-upload-form-component/book-upload-form-component.component';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { setIsLogin } from '@/app/store/isLoginStore/isLoginStore.action';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  standalone: false,
 })
 export class HeaderComponent
   implements OnDestroy, AfterViewInit, OnInit, OnChanges
 {
   originScrollY = 0;
   scrollDerection = 'down';
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   defaultShow = false;
   @ViewChild('container')
   container!: ElementRef;
   @Input()
-  scrollTarget!: number;
+  scrollTarget: number = 0;
   @Input()
-  showFolderIcon!: boolean; //是否显示folder图标
+  smallSize!: Observable<boolean>; //是否显示folder图标
   @Output()
   upload = new EventEmitter();
   @Output()
   drawerOpen = new EventEmitter();
-  @Output()
-  loginCheck = new EventEmitter();
 
   constructor(
     private router: Router,
     private ls: LoginService,
     private ms: NzModalService,
     private message: NzMessageService,
-  ) {}
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
+  }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.ls.getUserInfo().subscribe((res: resType<any>) => {
         if (res.code === 200) {
-          this.isLogin = true;
-          this.loginCheck.emit();
+          this.store.dispatch(setIsLogin({ flag: true }));
         }
       });
     }
   }
   ngOnChanges(changes: any): void {
+    if (changes['defaultShow']) {
+      if (this.defaultShow) {
+        this.container.nativeElement.classList.add('active');
+        this.container.nativeElement.classList.remove('hidden');
+      }
+    }
     if (changes['scrollTarget']) {
-      this.fixedBtnShowControl();
+      this.onScroll();
     }
   }
   goHome() {
@@ -74,12 +86,8 @@ export class HeaderComponent
     this.router.navigate(['/login']);
   }
   ngAfterViewInit(): void {
-    this.fixedBtnShowControl();
+    this.onScroll();
     window.addEventListener('scroll', this.onScroll);
-    if (this.defaultShow) {
-      this.container.nativeElement.classList.add('active');
-      this.container.nativeElement.classList.remove('hidden');
-    }
   }
   //去搜索页面
   goSearch() {
@@ -103,6 +111,7 @@ export class HeaderComponent
   }
   //监控滚动事件
   onScroll = () => {
+    if (!this.container) return;
     this.originScrollY < window.scrollY
       ? (this.scrollDerection = 'down')
       : (this.scrollDerection = 'up');
@@ -165,6 +174,16 @@ export class HeaderComponent
       },
       nzOnCancel: () => {
         msRef.componentInstance?.close();
+      },
+    });
+  }
+  addBook() {
+    const msRef = this.ms.create({
+      nzTitle: '上传音乐',
+      nzContent: BookUploadFormComponentComponent,
+      nzOnOk: async () => {
+        const state = msRef.componentInstance?.submitForm();
+        if (state === 'incorrectParam') return false;
       },
     });
   }

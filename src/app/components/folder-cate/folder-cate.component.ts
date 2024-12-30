@@ -3,15 +3,18 @@ import { articleInFolderCount } from '@/types/category/category';
 import { resType } from '@/types/response/response';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-folder-cate',
   templateUrl: './folder-cate.component.html',
   styleUrls: ['./folder-cate.component.scss'],
+  standalone: false,
 })
 export class FolderCateComponent implements OnInit {
-  @Input()
-  smallSize!: boolean;
+  smallSize!: Observable<boolean>;
+  isLogin: Observable<boolean>;
   @Input()
   showMsgAndArticle = true;
   folders: articleInFolderCount[] = [];
@@ -19,7 +22,11 @@ export class FolderCateComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private router: Router,
-  ) {}
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
+  }
   ngOnInit(): void {
     this.categoryService
       .getArticleInFolderCount()

@@ -1,4 +1,4 @@
-<div class="card" [class]="smallSize ? 'smallSize' : ''">
+<div class="card" [class]="(smallSize | async) ? 'smallSize' : ''">
   <div class="has">
     <div class="title">
       <span class="iconfont icon-tags" [style]="{ fontSize: '25px' }"></span>

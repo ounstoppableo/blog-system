@@ -96,7 +96,12 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSpan]="5" nzRequired>文章</nz-form-label>
+        <nz-form-label
+          [nzSpan]="5"
+          [nzRequired]="articleId?.value ? false : true"
+        >
+          文章
+        </nz-form-label>
         <nz-form-control [nzSpan]="12">
           <nz-upload
             nzAction="/api/uploadFile"
@@ -106,7 +111,7 @@
             (nzChange)="handleUploadFileChange($event)"
             [nzRemove]="removeFile"
           >
-            <button nz-button [disabled]="articleUrl!.valid || uploadLoading">
+            <button nz-button [disabled]="articleUrl!.value || uploadLoading">
               <span class="iconfont icon-upload"></span>
               上传文件
             </button>

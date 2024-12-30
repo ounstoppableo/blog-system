@@ -6,7 +6,7 @@
   (nzOnClose)="close()"
 >
   <ng-container *nzDrawerContent>
-    <app-userinfo [isSmall]="true"></app-userinfo>
+    <app-userinfo [smallSize]="true" (closeDrawer)="close()"></app-userinfo>
     <ul class="tablist">
       <li (click)="goHome()">
         <span class="iconfont icon-homefill"></span>

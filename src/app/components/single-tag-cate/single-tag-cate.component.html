@@ -1,4 +1,8 @@
-<div class="container" [class]="smallSize ? 'smallSize' : ''" *ngIf="!loading">
+<div
+  class="container"
+  [class]="(smallSize | async) ? 'smallSize' : ''"
+  *ngIf="!loading"
+>
   <h1>#{{ singleTagMapArticleInfos.tagName }}</h1>
   <div
     class="none"
@@ -16,14 +20,10 @@
     "
     [articleInfoList]="singleTagMapArticleInfos.articleInfos"
     [updateArticleModal]="updateArticleModal"
-    [smallSize]="smallSize"
     [page]="page"
     [limit]="limit"
     [total]="total"
     (nextPage)="nextPage($event)"
   ></app-overview>
 </div>
-<app-single-cate-skeleton
-  *ngIf="loading"
-  [smallSize]="smallSize"
-></app-single-cate-skeleton>
+<app-single-cate-skeleton *ngIf="loading"></app-single-cate-skeleton>

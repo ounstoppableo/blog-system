@@ -3,15 +3,19 @@ import { singleFolderMapArticleInfos } from '@/types/category/category';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-single-folder-cate',
   templateUrl: './single-folder-cate.component.html',
   styleUrls: ['./single-folder-cate.component.scss'],
+  standalone: false,
 })
 export class SingleFolderCateComponent implements OnInit {
+  smallSize!: Observable<boolean>;
   @Input()
-  smallSize!: boolean;
+  isLogin = false;
   @Input()
   updateArticleModal!: AddArticleFormComponent;
   singleFolderMapArticleInfos: singleFolderMapArticleInfos =
@@ -25,7 +29,10 @@ export class SingleFolderCateComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-  ) {}
+    private store: Store<{ smallSize: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+  }
   ngOnInit(): void {
     this.getArticleInfos(this.page, this.limit);
   }

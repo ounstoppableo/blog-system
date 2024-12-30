@@ -10,7 +10,6 @@
   <app-overview
     *ngIf="isHome && !toTopOverview"
     [isHome]="isHome"
-    [smallSize]="smallSize"
     [updateArticleModal]="updateArticleModal"
     [toTopOverview]="true"
   ></app-overview>
@@ -22,7 +21,7 @@
   <div
     class="card"
     *ngFor="let item of articleInfoList"
-    [class]="smallSize ? 'smallSize' : ''"
+    [class]="(smallSize | async) ? 'smallSize' : ''"
   >
     <div class="info" (click)="toArticle(item.articleId)">
       <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
@@ -42,10 +41,10 @@
         <app-tag [tagList]="item.tags"></app-tag>
       </div>
     </div>
-    <div class="img" [class]="smallSize ? 'smallSize' : ''">
+    <div class="img" [class]="(smallSize | async) ? 'smallSize' : ''">
       <img nz-image [nzSrc]="item.backImgUrl" alt="" />
     </div>
-    <div class="operate" *ngIf="isLogin">
+    <div class="operate" *ngIf="isLogin | async">
       <button nz-button nzShape="circle" (click)="toTopArticle(item)">
         <span
           class="iconfont"
@@ -71,7 +70,6 @@
   </div>
   <app-overview-skeleton
     *ngIf="articleInfoList.length === 0 && !toTopOverview"
-    [smallSize]="smallSize"
   ></app-overview-skeleton>
 </div>
 <nz-pagination
@@ -80,5 +78,14 @@
   [nzPageIndex]="page"
   [nzTotal]="total"
   [nzPageSize]="limit"
+  [nzSimple]="true"
+  [nzItemRender]="paginationTemp"
   (nzPageIndexChange)="pageIndexChange($event)"
 ></nz-pagination>
+
+<ng-template #paginationTemp let-type>
+  <ng-container [ngSwitch]="type">
+    <div *ngSwitchCase="'prev'" class="paginationPrev"></div>
+    <div *ngSwitchCase="'next'" class="paginationNext"></div>
+  </ng-container>
+</ng-template>

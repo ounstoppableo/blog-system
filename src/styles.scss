@@ -1,5 +1,5 @@
-@import '../node_modules/ng-zorro-antd/ng-zorro-antd.min.css';
-@import '../node_modules/highlight.js/scss/atom-one-dark-reasonable.scss';
+@use '../node_modules/ng-zorro-antd/ng-zorro-antd.min.css';
+@use '../node_modules/highlight.js/scss/atom-one-dark-reasonable.scss';
 
 @font-face {
   font-family: 'Fredoka';
@@ -10,25 +10,11 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'bailutongtongshouxieti';
-  src: url('/assets/font/bailutongtongshouxieti.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'lipinhuiziyoulixiangti';
-  src: url('/assets/font/lipinhuiziyoulixiangti.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 /* You can add global styles to this file, and also import other style files */
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/umaro.ico),
+  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/umaro.ico),
     default;
 }
 
@@ -44,7 +30,7 @@ html {
 
 a {
   &:hover {
-    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
       pointer !important;
   }
 }
@@ -56,7 +42,6 @@ body {
   -webkit-tap-highlight-color: transparent;
   position: relative;
   background: var(--defaultBackgroundColor) !important;
-  font-family: 'lipinhuiziyoulixiangti' !important;
 }
 
 .snowfall-flakes {
@@ -105,7 +90,7 @@ button {
   outline: null;
 }
 button {
-  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
     pointer !important;
 }
 
@@ -221,7 +206,7 @@ input::-webkit-input-placeholder {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 5px var(--02-gray);
   background: var(--styleColor);
-  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
     pointer !important;
 }
 
@@ -229,7 +214,7 @@ input::-webkit-input-placeholder {
   -webkit-box-shadow: inset 0 0 5px var(--02-gray);
   border-radius: 10px;
   background: #ededed;
-  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+  cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
     pointer !important;
 }
 
@@ -274,11 +259,6 @@ input::-webkit-input-placeholder {
   --fixedBtnBkColor: #6366f1;
   //页面定位按钮字体颜色
   --fixedBtnFontColor: white;
-
-  //音乐播放器背景颜色
-  --musicPlayerBgColor: rgba(238, 243, 247, 0.7);
-  //音乐进度条的长度
-  --progressWidth: 0;
 
   //copyright字体颜色
   --copyrightBg: #f7f7f7;
@@ -336,6 +316,8 @@ input::-webkit-input-placeholder {
   --musicTotalTime: #b0baca;
   --musicProgressBg: #d0d8e6;
   --musicIcon: #ea3e3c;
+  --musicPlayerBgColor: rgba(238, 243, 247, 0.7);
+  --progressWidth: 0;
 
   //tag
   --tagWord: #4b5563;
@@ -352,6 +334,7 @@ input::-webkit-input-placeholder {
   --03-gray: rgba(0, 0, 0, 0.3);
   --05-gray: rgba(0, 0, 0, 0.5);
   --c-gray: #ccc;
+  --e-gray: #eee;
 
   //订阅框
   --color-first: #65587f;
@@ -363,6 +346,8 @@ input::-webkit-input-placeholder {
   --border-radius-inner: calc(var(--border-radius-outer) / 2);
   --font-plain: 'IBM Plex Sans', sans-serif;
   // --font-special: ;
+
+  --disabledColor: #c6c6c6;
 }
 
 .customModal {

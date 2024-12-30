@@ -4,21 +4,24 @@ import { AddArticleFormComponent } from '../add-article-form/add-article-form.co
 import { articleInfo } from '@/types/overview/overview';
 import { HomeService } from '@/app/service/home.service';
 import { resType } from '@/types/response/response';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss'],
+  standalone: false,
 })
 export class ContainerComponent implements OnInit {
   articleInfoList: articleInfo[] = [];
   catalogue: any[] = [];
+  smallSize: Observable<boolean>;
   @Input()
-  isLogin = false;
+  dontShowGpuRenderComponent: boolean = false;
   @Input()
-  showInfo!: boolean;
-  @Input()
-  smallSize!: boolean;
+  showInfo: boolean = true;
+  isLogin: Observable<boolean>;
   @Input()
   updateArticleModal!: AddArticleFormComponent;
   @Input()
@@ -56,7 +59,11 @@ export class ContainerComponent implements OnInit {
   constructor(
     private routes: ActivatedRoute,
     private homeService: HomeService,
-  ) {}
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
+  }
   ngOnInit() {
     if (this.isHome) {
       this.limit = 5;

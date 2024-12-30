@@ -12,6 +12,8 @@ import {
 } from '@angular/animations';
 import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-comment-area',
@@ -36,17 +38,17 @@ import dayjs from 'dayjs';
       ]),
     ]),
   ],
+  standalone: false,
 })
 export class CommentAreaComponent implements OnInit {
-  @Input()
-  isLogin = false;
+  isLogin: Observable<boolean>;
   @Input()
   articleId = '';
   show = false;
   loading = false;
   msgItems: msgItem[] = [];
-  @Input()
-  smallSize = false;
+
+  smallSize: Observable<boolean>;
   //判断是不是留言板页面
   isMsgBoard = false;
   msgCount = 0;
@@ -56,7 +58,11 @@ export class CommentAreaComponent implements OnInit {
   constructor(
     private addMsgService: BoardMsgService,
     private route: ActivatedRoute,
-  ) {}
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
+  }
   ngOnInit(): void {
     this.route.url.subscribe((res) => {
       this.isMsgBoard = res[0].path === 'msgboard' ? true : false;

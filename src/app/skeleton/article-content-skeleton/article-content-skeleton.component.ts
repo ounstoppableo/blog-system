@@ -1,13 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-article-content-skeleton',
   templateUrl: './article-content-skeleton.component.html',
   styleUrls: ['./article-content-skeleton.component.scss'],
+  standalone: false,
 })
 export class ArticleContentSkeletonComponent implements OnInit {
-  @Input()
-  smallSize!: boolean;
+  smallSize!: Observable<boolean>;
   widths: number[] = [];
   generateNumbersArray(count: number): number[] {
     // 生成一个包含指定数量数字的数组
@@ -22,5 +24,8 @@ export class ArticleContentSkeletonComponent implements OnInit {
     for (let i = 0; i < 40; i++) {
       this.widths.push(this.randomNumber());
     }
+  }
+  constructor(private store: Store<{ smallSize: boolean }>) {
+    this.smallSize = store.select('smallSize');
   }
 }

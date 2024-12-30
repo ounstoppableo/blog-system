@@ -1,12 +1,14 @@
-@import '../../../assets/mixin.scss';
+@use '../../../assets/mixin.scss' as mx;
 
 .cardContainerLeft {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 30px;
   & > .meta {
     display: flex;
     align-items: center;
+    width: 100%;
     gap: 20px;
     color: var(--homeMetaColor);
     & > .line {
@@ -30,7 +32,7 @@
     display: flex;
     overflow: hidden;
     color: var(--fontColor);
-    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+    cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
       pointer;
     font-size: 15px;
     box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
@@ -85,7 +87,7 @@
         font-size: 24px;
         color: var(--fontColor);
         width: fit-content;
-        @include borderAnime;
+        @include mx.borderAnime;
       }
 
       & > .folder {
@@ -94,7 +96,7 @@
         align-items: center;
         color: var(--cateColor);
         width: fit-content;
-        @include borderAnime;
+        @include mx.borderAnime;
       }
 
       & > .description {
@@ -115,7 +117,7 @@
           gap: 5px;
           align-items: center;
           color: var(--cateColor);
-          @include borderAnime;
+          @include mx.borderAnime;
         }
       }
     }
@@ -170,8 +172,8 @@
 }
 :host ::ng-deep .ant-pagination {
   margin-top: 30px !important;
-  text-align: center;
 }
+
 @keyframes toShow {
   from {
     opacity: 0;

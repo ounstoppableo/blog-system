@@ -8,39 +8,38 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
+  standalone: false,
 })
-export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
-  smallSize = false;
+export class CategoryComponent implements OnInit {
+  isLogin: Observable<boolean>;
+  isLeave = false;
   headerChangeHeight = 0;
-  @ViewChild('addArticleForm')
-  addArticleForm!: AddArticleFormComponent;
-  @ViewChild('drawer')
-  drawer!: DrawerComponent;
   dateCate = false;
   folderPage = false;
   tagCate = false;
   tagPage = false;
   category = false;
   search = false;
+  smallSize: Observable<boolean>;
+  setIsLeaveTimeout: any;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private viewportScroller: ViewportScroller,
-  ) {}
-  open() {
-    this.drawer.open();
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
   }
-  showUploadModal() {
-    this.addArticleForm.showUploadModal();
-  }
-
-  @ViewResize()
   ngOnInit(): void {
     this.route.url.subscribe((pathRes: any) => {
       type path =
@@ -52,11 +51,23 @@ export class CategoryComponent implements OnInit, AfterViewInit, OnDestroy {
         | 'search';
       this[pathRes[0].path as path] = true;
     });
+    this.toSetIsLeaveToFalse();
   }
-  @ViewResize()
-  ngAfterViewInit(): void {}
-  @ViewResize()
-  ngOnDestroy(): void {}
+
+  toSetIsLeaveToFalse = () => {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        if (this.isLeave && this.setIsLeaveTimeout)
+          clearTimeout(this.setIsLeaveTimeout);
+      }
+    });
+    this.route.url.subscribe((res: any) => {
+      if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
+      this.setIsLeaveTimeout = setTimeout(() => {
+        this.isLeave = false;
+      }, 1000);
+    });
+  };
 
   scrollToAnchor() {
     this.route.fragment.subscribe((fragment: any) => {

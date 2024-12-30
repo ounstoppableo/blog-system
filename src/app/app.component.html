@@ -1,6 +1,17 @@
+<app-header
+  *ngIf="showHeader"
+  [defaultShow]="defaultShow"
+  [scrollTarget]="headerChangeHeight"
+  (drawerOpen)="drawerOpen()"
+  (upload)="showUploadModal()"
+></app-header>
 <router-outlet></router-outlet>
-<div id="operate">
-  <button class="btn" *ngIf="isArticle && smallSize" (click)="openCatalogue()">
+<div id="operate" *ngIf="!is404Page">
+  <button
+    class="btn"
+    *ngIf="isArticle && (smallSize | async)"
+    (click)="openCatalogue()"
+  >
     <span class="iconfont icon-mulu"></span>
   </button>
   <button class="btn" (click)="changeDarkMode()">
@@ -18,8 +29,8 @@
     <span class="iconfont icon-dingyue"></span>
   </button>
 </div>
-<ng-container #vc></ng-container>
-<app-music-player></app-music-player>
+<ng-container #vc *ngIf="!is404Page"></ng-container>
+<app-music-player *ngIf="!is404Page"></app-music-player>
 <ng-template #catalogueTemp>
   <div class="catalogue">
     <p>
@@ -34,12 +45,11 @@
           [nzContainer]="'#write'"
           (nzClick)="handleCatalogueClick($event)"
         >
-          <app-catalogue
-            [catalogue]="catalogue"
-            [smallSize]="smallSize"
-          ></app-catalogue>
+          <app-catalogue [catalogue]="catalogue"></app-catalogue>
         </nz-anchor>
       </div>
     </div>
   </div>
 </ng-template>
+<app-drawer #drawer *ngIf="(smallSize | async) && !is404Page"></app-drawer>
+<app-add-article-form #addArticleForm *ngIf="!is404Page"></app-add-article-form>

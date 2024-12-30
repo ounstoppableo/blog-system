@@ -1,6 +1,6 @@
 <div class="container" #container>
   <div class="left" (click)="goHome()">Unstoppable840的小站</div>
-  <ul *ngIf="!showFolderIcon" class="right">
+  <ul *ngIf="!(smallSize | async)" class="right">
     <li (click)="goHome()">
       <span class="iconfont icon-homefill goHome"></span>
       <span>首页</span>
@@ -65,13 +65,13 @@
         </li>
       </ul>
     </li>
-    <li (click)="login()" *ngIf="!isLogin">
+    <li (click)="login()" *ngIf="!(isLogin | async)">
       <span class="iconfont icon-login"></span>
       管理员登陆
     </li>
     <li
       #list2
-      *ngIf="isLogin"
+      *ngIf="isLogin | async"
       (mouseover)="liOnMouseOver(list2)"
       (mouseleave)="liOnMouseLeave(list2)"
     >
@@ -93,10 +93,17 @@
           ></span>
           <span>上传音乐</span>
         </li>
+        <li (click)="addBook()">
+          <span
+            class="iconfont icon-book"
+            [style]="{ fontSize: '20px' }"
+          ></span>
+          <span>添加书籍</span>
+        </li>
       </ul>
     </li>
   </ul>
-  <div *ngIf="showFolderIcon" class="folder" (click)="folderShow()">
+  <div *ngIf="smallSize | async" class="folder" (click)="folderShow()">
     <span class="iconfont icon-menu_open"></span>
   </div>
 </div>

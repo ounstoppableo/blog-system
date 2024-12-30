@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
@@ -24,7 +18,7 @@ export class MyHttpInterceptor implements HttpInterceptor {
     });
     return next.handle(copyReq).pipe(
       tap(
-        (event) => {
+        (event:any) => {
           if (event instanceof HttpResponse) {
             if (event.body.code === 401) {
               this.message.error('token失效');
@@ -38,8 +32,8 @@ export class MyHttpInterceptor implements HttpInterceptor {
             }
           }
         },
-        (error) => {
-          console.log(error);
+        (error:any) => {
+          console.error(error);
         },
       ),
     );

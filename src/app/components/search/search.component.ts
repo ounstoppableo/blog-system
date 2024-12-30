@@ -3,15 +3,21 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { OverviewComponent } from '../overview/overview.component';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
+  standalone: false,
 })
 export class SearchComponent implements OnInit {
+  isLogin: Observable<boolean>;
   @Input()
-  smallSize!: boolean;
+  dontShowGpuRenderComponent: boolean = false;
+  @Input()
+  smallSize!: Observable<boolean>;
   @Input()
   updateArticleModal!: AddArticleFormComponent;
   @ViewChild(OverviewComponent) overviewComponent:
@@ -23,11 +29,15 @@ export class SearchComponent implements OnInit {
   limit = 5;
   total = 0;
   articleInfoList = [];
-  timer: number | undefined = undefined;
+  timer: any = undefined;
   constructor(
     private router: Router,
     private articleService: ArticleService,
-  ) {}
+    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+  ) {
+    this.smallSize = store.select('smallSize');
+    this.isLogin = store.select('isLogin');
+  }
   ngOnInit(): void {}
   goHome() {
     this.router.navigate(['home']);

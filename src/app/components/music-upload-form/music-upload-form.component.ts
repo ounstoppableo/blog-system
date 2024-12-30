@@ -11,9 +11,10 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-music-upload-form',
-  templateUrl: './music-upload-form.component.html',
-  styleUrls: ['./music-upload-form.component.scss'],
+    selector: 'app-music-upload-form',
+    templateUrl: './music-upload-form.component.html',
+    styleUrls: ['./music-upload-form.component.scss'],
+    standalone: false
 })
 export class MusicUploadFormComponent {
   picUrl = '';

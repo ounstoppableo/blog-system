@@ -1,0 +1,313 @@
+.card {
+  --bookWidth: 100px;
+  --bookHeight: 150px;
+  --bookSideWidth: 20px;
+  position: relative;
+  background-color: var(--cardColor);
+  width: calc(80vw - 350px);
+  border-radius: 20px;
+  overflow: hidden;
+  color: var(--fontColor);
+  box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+  margin-top: 30px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  &.smallSize {
+    width: 100vw;
+  }
+}
+
+p {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.bookContainer {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+
+#book {
+  width: var(--bookWidth);
+  position: relative;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-perspective: 2000px;
+  -moz-perspective: 2000px;
+  -ms-perspective: 2000px;
+  -o-perspective: 2000px;
+  perspective: 2000px;
+}
+.delete {
+  position: absolute;
+  width: calc(var(--bookWidth) + 20px);
+  height: calc(var(--bookHeight) + 20px);
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--03-gray);
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.5s ease;
+  &:hover {
+    opacity: 1;
+  }
+}
+.main {
+  width: var(--bookWidth);
+  height: var(--bookHeight);
+  color: #92684f;
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+.book-font {
+  width: var(--bookWidth);
+  height: var(--bookHeight);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  font-size: 15px;
+  text-align: center;
+  text-shadow: 0 2px 0 rgba(30, 35, 45, 1);
+  box-shadow: inset 3px 0 10px rgba(0, 0, 0, 0.1); /* 给书本添加光照阴影 */
+  z-index: 10;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+
+  -webkit-transform-origin: 0% 50%;
+  -moz-transform-origin: 0% 50%;
+  -ms-transform-origin: 0% 50%;
+  -o-transform-origin: 0% 50%;
+  transform-origin: 0% 50%;
+
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+
+  -webkit-transform: translate3d(
+    0,
+    0,
+    calc(var(--bookSideWidth) / 2)
+  ); /* 对应关系-1 */
+  -moz-transform: translate3d(0, 0, calc(var(--bookSideWidth) / 2));
+  -ms-transform: translate3d(0, 0, calc(var(--bookSideWidth) / 2));
+  -o-transform: translate3d(0, 0, calc(var(--bookSideWidth) / 2));
+  transform: translate3d(0, 0, calc(var(--bookSideWidth) / 2));
+}
+.book-cover {
+  width: var(--bookWidth);
+  height: var(--bookHeight);
+  background-size: cover !important;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.book-cover-back {
+  width: var(--bookWidth);
+  height: var(--bookHeight);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  -webkit-transform: rotate3d(0, 1, 0, -180deg);
+  -moz-transform: rotate3d(0, 1, 0, -180deg);
+  -ms-transform: rotate3d(0, 1, 0, -180deg);
+  -o-transform: rotate3d(0, 1, 0, -180deg);
+  transform: rotate3d(0, 1, 0, -180deg);
+}
+/* = Book Back
+-------------------------------------------------------------- */
+.book-back {
+  width: var(--bookWidth);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  color: white;
+  background-size: cover !important;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: rotate3d(0, 1, 0, -180deg)
+    translate3d(0, 0, calc(var(--bookSideWidth) / 2));
+  -moz-transform: rotate3d(0, 1, 0, -180deg)
+    translate3d(0, 0, calc(var(--bookSideWidth) / 2));
+  -ms-transform: rotate3d(0, 1, 0, -180deg)
+    translate3d(0, 0, calc(var(--bookSideWidth) / 2));
+  -o-transform: rotate3d(0, 1, 0, -180deg)
+    translate3d(0, 0, calc(var(--bookSideWidth) / 2));
+  transform: rotate3d(0, 1, 0, -180deg)
+    translate3d(0, 0, calc(var(--bookSideWidth) / 2));
+  z-index: 8;
+}
+
+/* = Book Bone
+-------------------------------------------------------------- */
+.book-bone {
+  width: var(--bookSideWidth);
+  box-shadow:
+    1px 0 0 #29303a,
+    -1px 0 0 #29303a; /* 旋转的时候 拼接处隐隐约约会有个缝隙 所以加上个阴影来填补它 */
+  position: absolute;
+  background-size: cover !important;
+  top: 0;
+  bottom: 0;
+  left: -10px;
+  -webkit-transform: rotate3d(0, 1, 0, -90deg);
+  -moz-transform: rotate3d(0, 1, 0, -90deg);
+  -ms-transform: rotate3d(0, 1, 0, -90deg);
+  -o-transform: rotate3d(0, 1, 0, -90deg);
+  transform: rotate3d(0, 1, 0, -90deg);
+}
+
+/* = Order
+-------------------------------------------------------------- */
+.book-cover:after,
+.book-back:after {
+  /*  */
+  content: '';
+  width: 2px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.06);
+  box-shadow: 1px 0 3px rgba(255, 255, 255, 0.1);
+}
+.book-cover::after {
+  left: 4px;
+}
+.book-back::after {
+  right: 4px;
+}
+.book-page,
+.book-top,
+.book-right,
+.book-bottom {
+  background: #eeefe9;
+}
+.book-right {
+  width: calc(var(--bookSideWidth) - 2px);
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  right: -6px;
+  box-shadow:
+    0 1px 0 #eeefe9,
+    0 -1px 0 #eeefe9;
+  -webkit-transform: rotate3d(0, 1, 0, 90deg);
+  -moz-transform: rotate3d(0, 1, 0, 90deg);
+  -ms-transform: rotate3d(0, 1, 0, 90deg);
+  -o-transform: rotate3d(0, 1, 0, 90deg);
+  transform: rotate3d(0, 1, 0, 90deg);
+}
+.book-top {
+  height: calc(var(--bookSideWidth) - 2px);
+  position: absolute;
+  top: -5px;
+  left: 2px;
+  right: 4px;
+  -webkit-transform: rotate3d(1, 0, 0, 90deg);
+  -moz-transform: rotate3d(1, 0, 0, 90deg);
+  -ms-transform: rotate3d(1, 0, 0, 90deg);
+  -o-transform: rotate3d(1, 0, 0, 90deg);
+  transform: rotate3d(1, 0, 0, 90deg);
+}
+.book-bottom {
+  height: calc(var(--bookSideWidth) - 2px);
+  position: absolute;
+  bottom: -5px;
+  left: 2px;
+  right: 4px;
+  -webkit-transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 0);
+  -moz-transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 0);
+  -ms-transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 0);
+  -o-transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 0);
+  transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 0);
+}
+.book-right,
+.book-top,
+.book-bottom {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* = Flip
+-------------------------------------------------------------- */
+/* View Right */
+.view-rotate .main {
+  -webkit-transition-duration: 5s;
+  -moz-transition-duration: 5s;
+  -ms-transition-duration: 5s;
+  -o-transition-duration: 5s;
+  transition-duration: 5s;
+
+  -webkit-transform: rotate3d(0, 1, 0, -20deg);
+  -moz-transform: rotate3d(0, 1, 0, -20deg);
+  -ms-transform: rotate3d(0, 1, 0, -20deg);
+  -o-transform: rotate3d(0, 1, 0, -20deg);
+  transform: rotate3d(0, 1, 0, -20deg);
+}
+.view-rotate:hover .main {
+  -webkit-transition-duration: 8s;
+  -moz-transition-duration: 8s;
+  -ms-transition-duration: 8s;
+  -o-transition-duration: 8s;
+  transition-duration: 8s;
+
+  -webkit-transform: rotate3d(0, 1, 0, -360deg);
+  -moz-transform: rotate3d(0, 1, 0, -360deg);
+  -ms-transform: rotate3d(0, 1, 0, -360deg);
+  -o-transform: rotate3d(0, 1, 0, -360deg);
+  transform: rotate3d(0, 1, 0, 360deg);
+}

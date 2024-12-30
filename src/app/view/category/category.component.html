@@ -1,10 +1,3 @@
-<app-header
-  [defaultShow]="true"
-  [showFolderIcon]="smallSize"
-  [scrollTarget]="headerChangeHeight"
-  (drawerOpen)="open()"
-  (upload)="showUploadModal()"
-></app-header>
 <div class="body">
   <app-container
     [search]="search"
@@ -12,15 +5,17 @@
     [dateCate]="dateCate"
     [tagCate]="tagCate"
     [tagPage]="tagPage"
+    [showInfo]="!(smallSize | async)"
     [folderPage]="folderPage"
-    [showInfo]="!smallSize"
-    [smallSize]="smallSize"
     [updateArticleModal]="addArticleForm"
+    [dontShowGpuRenderComponent]="isLeave"
     [scrollTarget]="headerChangeHeight"
     (scrollToAnchor)="scrollToAnchor()"
   ></app-container>
 </div>
-<app-info [showInfo]="smallSize" [smallSize]="true"></app-info>
+<app-info
+  [showInfo]="!!(smallSize | async)"
+  [dontShowGpuRenderComponent]="isLeave"
+></app-info>
 <app-add-article-form #addArticleForm></app-add-article-form>
-<app-drawer #drawer></app-drawer>
 <app-footer></app-footer>

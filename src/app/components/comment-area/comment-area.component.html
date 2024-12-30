@@ -14,10 +14,8 @@
   >
     <app-comment-item
       *ngFor="let item of msgItems"
-      [isLogin]="isLogin"
       [msgItem]="item"
       (reloadData)="reload()"
-      [smallSize]="smallSize"
     ></app-comment-item>
   </div>
   <nz-pagination
@@ -26,6 +24,15 @@
     [nzPageSize]="limit"
     [nzTotal]="msgCount"
     class="pagination"
+    [nzSimple]="true"
+    [nzItemRender]="paginationTemp"
     (nzPageIndexChange)="pageIndexChange($event)"
   ></nz-pagination>
 </div>
+
+<ng-template #paginationTemp let-type>
+  <ng-container [ngSwitch]="type">
+    <div *ngSwitchCase="'prev'" class="paginationPrev"></div>
+    <div *ngSwitchCase="'next'" class="paginationNext"></div>
+  </ng-container>
+</ng-template>
