@@ -416,11 +416,14 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   handleClickMusic = (index: number) => {
     this.index = index;
-    this.playMusic();
-    this.audio.nativeElement.play();
+    this.selectMusic();
+    requestAnimationFrame(() => {
+      this.play = true;
+      this.audio.nativeElement.play();
+    });
   };
 
-  playMusic() {
+  selectMusic() {
     this.currentMusic = this.musicList[this.index];
     this.lyricSegment();
     this.getMixLightColor(
@@ -432,7 +435,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   nextSong() {
     if (this.index === this.total - 1) this.index = 0;
     else this.index++;
-    this.playMusic();
+    this.selectMusic();
     requestAnimationFrame(() => {
       if (this.play) this.audio.nativeElement.play();
     });
@@ -440,7 +443,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   prevSong() {
     if (this.index === 0) this.index = this.total - 1;
     else this.index--;
-    this.playMusic();
+    this.selectMusic();
     requestAnimationFrame(() => {
       if (this.play) this.audio.nativeElement.play();
     });
@@ -451,7 +454,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       i = Math.floor(Math.random() * this.musicList.length);
     }
     this.index = i;
-    this.playMusic();
+    this.selectMusic();
     requestAnimationFrame(() => {
       if (this.play) this.audio.nativeElement.play();
     });

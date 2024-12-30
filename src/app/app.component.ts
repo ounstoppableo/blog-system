@@ -125,7 +125,7 @@ export class AppComponent
   ngAfterViewInit(): void {
     //看板娘加载
     loadScript(
-      'https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@v1.1.1/autoload.js',
+      'https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@vlatest/autoload.js',
       () => {
         const observer = new MutationObserver((mutationsList, observer) => {
           if (

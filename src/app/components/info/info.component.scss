@@ -61,7 +61,7 @@
                 overflow: hidden;
                 word-break: break-all;
                 white-space: nowrap;
-                cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+                cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
                   pointer;
                 position: relative;
                 @include mx.borderAnime;
@@ -70,7 +70,7 @@
               & > .date {
                 width: fit-content;
                 color: var(--cateColor);
-                cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@v1.1.1/assets/cola.ico),
+                cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
                   pointer;
                 @include mx.borderAnime;
               }
