@@ -10,7 +10,12 @@ import {
   ViewChild,
   AfterViewChecked,
 } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, retry } from 'rxjs';
 
@@ -50,9 +55,15 @@ export class ArticleComponent
   }
 
   toSetIsLeaveToFalse = () => {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        if (this.isLeave && this.setIsLeaveTimeout)
+          clearTimeout(this.setIsLeaveTimeout);
+      }
+    });
     this.route.url.subscribe((res: any) => {
       if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
-      setTimeout(() => {
+      this.setIsLeaveTimeout = setTimeout(() => {
         this.isLeave = false;
       }, 1000);
     });

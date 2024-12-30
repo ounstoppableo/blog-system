@@ -8,7 +8,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -33,6 +33,7 @@ export class CategoryComponent implements OnInit {
   setIsLeaveTimeout: any;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private viewportScroller: ViewportScroller,
     private store: Store<{ smallSize: boolean; isLogin: boolean }>,
   ) {
@@ -54,9 +55,15 @@ export class CategoryComponent implements OnInit {
   }
 
   toSetIsLeaveToFalse = () => {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        if (this.isLeave && this.setIsLeaveTimeout)
+          clearTimeout(this.setIsLeaveTimeout);
+      }
+    });
     this.route.url.subscribe((res: any) => {
       if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
-      setTimeout(() => {
+      this.setIsLeaveTimeout = setTimeout(() => {
         this.isLeave = false;
       }, 1000);
     });

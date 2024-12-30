@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ViewChild, OnDestroy } from '@angular/core';
 import { WeatherService } from '@/app/service/weather.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-weather',
@@ -20,8 +21,8 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
   handleScrollEvent: any;
   hoursContainer: any;
 
-  @ViewChild('card')
-  card!: any;
+  @ViewChild('cardForWeather')
+  cardForWeather!: any;
 
   constructor(
     private weatherService: WeatherService,
@@ -257,7 +258,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
       const that = this;
       const hourWidth = 80;
 
-      function toggleSunMoon(hour: any) {
+      async function toggleSunMoon(hour: any) {
         if (hour >= 6 && hour <= 21) {
           const rotation = -90 + (hour - 7) * (180 / 15);
           sun.css('transform', 'rotate(' + rotation + 'deg)');
@@ -275,7 +276,8 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
             'filter',
             'brightness(200%) drop-shadow(0 0 10px rgba(255, 255, 255, 1))',
           );
-          cloud.css('mix-blend-mode', that.smallSize ? 'soft-light' : 'normal');
+          const smallSize = await firstValueFrom(that.smallSize);
+          cloud.css('mix-blend-mode', smallSize ? 'soft-light' : 'normal');
           rain.css('mix-blend-mode', 'normal');
         } else {
           moon.css('opacity', '1');
@@ -386,7 +388,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
         for (let i = 1; i <= nbDrop; i++) {
           const dropLeft = randRange(0, 1600);
           const dropTop = randRange(-1000, 1400);
-
+          rain.empty();
           rain.append('<div class="drop" id="drop' + i + '"></div>');
           $('.cardForWeather #drop' + i).css({ left: dropLeft, top: dropTop });
         }
@@ -406,7 +408,6 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
         highlightHour(that.currentHourIndex);
         updateWeatherAndTemperature($(this));
       });
-
       // Make it rain
       createRain();
       init();
@@ -415,6 +416,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
     // Set an initial random duration
     this.setRandomLightningDuration();
 
+    this.intervalTimer.forEach((item) => clearInterval(item));
     // Change the duration periodically
     this.intervalTimer.push(setInterval(this.setRandomLightningDuration, 5000)); // Change every 5 seconds
     // Wait until particles are initialized and then adjust positions
@@ -474,8 +476,12 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
       this.intervalTimer.push(setInterval(draw, 3));
     }
   }
+  clearJquery() {
+    $('.cardForWeather').off();
+  }
 
   ngOnDestroy(): void {
+    this.clearJquery();
     if (this.smallSizeSubscribe) {
       this.smallSizeSubscribe.unsubscribe();
     }
