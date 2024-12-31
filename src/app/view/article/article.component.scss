@@ -4,7 +4,7 @@
     height: fit-content;
     position: relative;
     padding: calc(var(--headerHeigth) + 15px) 30px 30px 30px;
-
+    user-select: text;
     .mask {
       position: absolute;
       inset: 0;
