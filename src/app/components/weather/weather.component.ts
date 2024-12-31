@@ -20,6 +20,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
   intervalTimer: any[] = [];
   handleScrollEvent: any;
   hoursContainer: any;
+  timeroutTimer: any[] = [];
 
   @ViewChild('cardForWeather')
   cardForWeather!: any;
@@ -42,141 +43,143 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
 
   // Adjust initial positions of the particles
   adjustInitialPositions() {
-    if (!document.getElementById('cloud') || !document.getElementById('snow'))
-      return;
-    (window as any).particlesJS('cloud', {
-      particles: {
-        number: { value: 5, density: { enable: true, value_area: 100 } },
-        color: { value: '#ffffff' },
-        shape: {
-          type: 'image',
-          stroke: { width: 2, color: '#00ffff' },
-          polygon: { nb_sides: 5 },
-          image: {
-            src: '/assets/weather/fluffyvloud.png',
-            width: 100,
-            height: 100,
+    const cloudDom = document.getElementById('cloud');
+    const snowDom = document.getElementById('snow');
+    if (!cloudDom || !snowDom) return;
+    (window as any).pJSDom.forEach((pJS: any) => {
+      pJS.pJS.particles.move.enable = false;
+    });
+    (window as any).pJSDom = [];
+    requestAnimationFrame(() => {
+      (window as any).particlesJS('cloud', {
+        particles: {
+          number: { value: 5, density: { enable: true, value_area: 100 } },
+          color: { value: '#ffffff' },
+          shape: {
+            type: 'image',
+            stroke: { width: 2, color: '#00ffff' },
+            polygon: { nb_sides: 5 },
+            image: {
+              src: '/assets/weather/fluffyvloud.png',
+              width: 100,
+              height: 100,
+            },
           },
-        },
-        opacity: {
-          value: 1,
-          random: true,
-          anim: {
-            enable: true,
-            speed: 10,
-            opacity_min: 0.0081,
-            sync: false,
+          opacity: {
+            value: 1,
+            random: true,
+            anim: {
+              enable: true,
+              speed: 10,
+              opacity_min: 0.0081,
+              sync: false,
+            },
           },
-        },
-        size: {
-          value: 800,
-          random: false,
-          anim: { enable: true, speed: 10, size_min: 2, sync: false },
-        },
-        line_linked: {
-          enable: false,
-          distance: 0,
-          color: '#ffffff',
-          opacity: 0.4,
-          width: 1,
-        },
-        move: {
-          enable: true,
-          speed: 6,
-          direction: 'left',
-          random: true,
-          straight: true,
-          out_mode: 'out',
-          bounce: false,
-          attract: { enable: false, rotateX: 60, rotateY: 120 },
-        },
-      },
-      interactivity: {
-        detect_on: 'canvas',
-        events: {
-          onhover: { enable: false, mode: 'bubble' },
-          onclick: { enable: false, mode: 'push' },
-          resize: true,
-        },
-        modes: {
-          grab: { distance: 0, line_linked: { opacity: 1 } },
-          bubble: {
+          size: {
+            value: 800,
+            random: false,
+            anim: { enable: true, speed: 10, size_min: 2, sync: false },
+          },
+          line_linked: {
+            enable: false,
             distance: 0,
-            size: 2,
-            duration: 2,
-            opacity: 8,
-            speed: 3,
+            color: '#ffffff',
+            opacity: 0.4,
+            width: 1,
           },
-          repulse: { distance: 200, duration: 0.4 },
-          push: { particles_nb: 4 },
-          remove: { particles_nb: 2 },
-        },
-      },
-      retina_detect: true,
-    });
-    (window as any).particlesJS('snow', {
-      particles: {
-        number: {
-          value: 2000,
-          density: {
+          move: {
             enable: true,
-            value_area: 800,
+            speed: 6,
+            direction: 'left',
+            random: true,
+            straight: true,
+            out_mode: 'out',
+            bounce: false,
+            attract: { enable: false, rotateX: 60, rotateY: 120 },
           },
         },
-        color: {
-          value: '#fff',
-        },
-        shape: {
-          type: 'circle',
-          stroke: {
-            width: 0,
-            color: '#000000',
+        interactivity: {
+          detect_on: 'canvas',
+          events: {
+            onhover: { enable: false, mode: 'bubble' },
+            onclick: { enable: false, mode: 'push' },
+            resize: true,
           },
-          polygon: {
-            nb_sides: 5,
+          modes: {
+            grab: { distance: 0, line_linked: { opacity: 1 } },
+            bubble: {
+              distance: 0,
+              size: 2,
+              duration: 2,
+              opacity: 8,
+              speed: 3,
+            },
+            repulse: { distance: 200, duration: 0.4 },
+            push: { particles_nb: 4 },
+            remove: { particles_nb: 2 },
           },
         },
-        opacity: {
-          value: 1,
-          random: false,
-          anim: {
+        retina_detect: true,
+      });
+      (window as any).particlesJS('snow', {
+        particles: {
+          number: {
+            value: 2000,
+            density: {
+              enable: true,
+              value_area: 800,
+            },
+          },
+          color: {
+            value: '#fff',
+          },
+          shape: {
+            type: 'circle',
+            stroke: {
+              width: 0,
+              color: '#000000',
+            },
+            polygon: {
+              nb_sides: 5,
+            },
+          },
+          opacity: {
+            value: 1,
+            random: false,
+            anim: {
+              enable: false,
+              speed: 1,
+              opacity_min: 0.1,
+              sync: false,
+            },
+          },
+          size: {
+            value: 2,
+            random: true,
+            anim: {
+              enable: false,
+            },
+          },
+          line_linked: {
             enable: false,
-            speed: 1,
-            opacity_min: 0.1,
-            sync: false,
+          },
+          move: {
+            enable: true,
+            speed: 3,
+            direction: 'bottom',
+            random: false,
+            straight: false,
+            out_mode: 'out',
+            bounce: false,
+            attract: {
+              enable: false,
+              rotateX: 600,
+              rotateY: 1200,
+            },
           },
         },
-        size: {
-          value: 2,
-          random: true,
-          anim: {
-            enable: false,
-          },
-        },
-        line_linked: {
-          enable: false,
-        },
-        move: {
-          enable: true,
-          speed: 3,
-          direction: 'bottom',
-          random: false,
-          straight: false,
-          out_mode: 'out',
-          bounce: false,
-          attract: {
-            enable: false,
-            rotateX: 600,
-            rotateY: 1200,
-          },
-        },
-      },
-      retina_detect: true,
-    });
-    const particlesArray = (window as any).pJSDom[0].pJS.particles.array;
-    particlesArray.forEach((p: any) => {
-      p.x = Math.random() * window.innerWidth;
-      p.y = Math.random() * window.innerHeight;
+        retina_detect: true,
+      });
     });
   }
 
@@ -199,6 +202,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
               this.hoursData = res.data.weatherData;
               this.location = res.data.location[0];
               this.init();
+              this.adjustInitialPositions();
             }
           });
       },
@@ -210,6 +214,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
               this.hoursData = res.data.weatherData;
               this.location = res.data.location[0];
               this.init();
+              this.adjustInitialPositions();
             }
           });
       },
@@ -269,9 +274,11 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
           $('.cardForWeather .hour').css('filter', 'invert(0%)');
           $('.cardForWeather .cardInfo').css('filter', 'invert(0%)');
           moon.css('transition', 'all 0s');
-          setTimeout(function () {
-            sun.css('transition', 'all 1s');
-          }, 10);
+          that.timeroutTimer.push(
+            setTimeout(function () {
+              sun.css('transition', 'all 1s');
+            }, 10),
+          );
           cloud.css(
             'filter',
             'brightness(200%) drop-shadow(0 0 10px rgba(255, 255, 255, 1))',
@@ -290,9 +297,11 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
           $('.cardForWeather .hour').css('filter', 'invert(100%)');
           $('.cardForWeather .cardInfo').css('filter', 'invert(100%)');
           sun.css('transition', 'all 0s');
-          setTimeout(function () {
-            moon.css('transition', 'all 1s');
-          }, 10);
+          that.timeroutTimer.push(
+            setTimeout(function () {
+              moon.css('transition', 'all 1s');
+            }, 10),
+          );
           cloud.css(
             'filter',
             'brightness(0%) drop-shadow(0 0 10px rgba(255, 255, 255, 1))',
@@ -382,23 +391,6 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
         updateWeatherAndTemperature(hours.eq(this.currentHourIndex));
       };
 
-      // Function to generate drops
-      function createRain() {
-        const nbDrop = 800;
-        for (let i = 1; i <= nbDrop; i++) {
-          const dropLeft = randRange(0, 1600);
-          const dropTop = randRange(-1000, 1400);
-          rain.empty();
-          rain.append('<div class="drop" id="drop' + i + '"></div>');
-          $('.cardForWeather #drop' + i).css({ left: dropLeft, top: dropTop });
-        }
-      }
-
-      // Function to generate a random number range
-      function randRange(minNum: any, maxNum: any) {
-        return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
-      }
-
       // Event listeners
       this.hoursContainer.addEventListener('scroll', this.handleScrollEvent);
       hours.on('click', function () {
@@ -408,8 +400,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
         highlightHour(that.currentHourIndex);
         updateWeatherAndTemperature($(this));
       });
-      // Make it rain
-      createRain();
+
       init();
       hoursContainer.scrollLeft(hourWidth * this.currentHourIndex);
     });
@@ -419,8 +410,6 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
     this.intervalTimer.forEach((item) => clearInterval(item));
     // Change the duration periodically
     this.intervalTimer.push(setInterval(this.setRandomLightningDuration, 5000)); // Change every 5 seconds
-    // Wait until particles are initialized and then adjust positions
-    setTimeout(this.adjustInitialPositions, 1000);
 
     const canvas: any = $('.cardForWeather #rain')[0];
 
@@ -488,6 +477,9 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
     this.hoursContainer?.removeEventListener('scroll', this.handleScrollEvent);
     this.intervalTimer.forEach((timer) => {
       clearInterval(timer);
+    });
+    this.timeroutTimer.forEach((timer) => {
+      clearTimeout(timer);
     });
   }
 }

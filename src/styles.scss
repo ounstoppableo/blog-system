@@ -16,6 +16,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/umaro.ico),
     default;
+  user-select: none;
 }
 
 ::selection {

@@ -119,7 +119,7 @@
         (click)="handleClickMusic(i)"
       >
         <div class="musicPic">
-          <img [src]="item.picUrl" alt="" />
+          <img [src]="item.picUrl" alt="" noLazyLoad="true" />
         </div>
         <div class="musicInfo">
           <div class="musicName" [title]="item.musicName">
