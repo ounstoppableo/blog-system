@@ -51,5 +51,5 @@
     </div>
   </div>
 </ng-template>
-<app-drawer #drawer *ngIf="(smallSize | async) && !is404Page"></app-drawer>
+<app-drawer #drawer *ngIf="smallSize | async"></app-drawer>
 <app-add-article-form #addArticleForm *ngIf="!is404Page"></app-add-article-form>
