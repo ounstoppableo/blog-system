@@ -1,5 +1,11 @@
 import { FriendService } from '@/app/service/friend.service';
-import { Component, ViewChild, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import dayjs from 'dayjs';
@@ -82,8 +88,22 @@ export class FriendComponent implements OnInit, AfterViewInit, OnDestroy {
   envelopeExcludeClickCb = (e: any) => {
     if (!e.target.closest('.envelope')) {
       this.expandenvelope(null, false);
+      this.clearValidationErrors(this.friendInfoForm);
     }
   };
+  clearValidationErrors(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+      if (control instanceof FormControl) {
+        control.setErrors(null);
+        control.markAsPristine();
+        control.markAsUntouched();
+        control.updateValueAndValidity();
+      } else if (control instanceof FormGroup) {
+        this.clearValidationErrors(control);
+      }
+    });
+  }
   expandenvelope(e: any, flag: boolean) {
     if (flag) {
       const containHeight = this.contain.nativeElement.offsetHeight;
