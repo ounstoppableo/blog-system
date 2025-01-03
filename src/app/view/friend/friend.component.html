@@ -320,14 +320,10 @@
           </div>
           <a #link [href]="item.website" target="_blank"></a>
         </div>
-        <div
-          *ngIf="hadLoaded"
-          style="text-align: center; width: 100%"
-          [ngStyle]="{ 'padding-top': (smallSize | async) ? '20px' : '30px' }"
-        >
-          没有更多了~~
-        </div>
       </div>
+    </div>
+    <div *ngIf="hadLoaded" style="text-align: center; width: 100%">
+      没有更多了~~
     </div>
   </div>
 </div>
