@@ -8,6 +8,7 @@ import { CategoryComponent } from './view/category/category.component';
 import { MsgBoradPageComponent } from './view/msg-borad-page/msg-borad-page.component';
 import { NotFoundPageComponent } from './view/not-found-page/not-found-page.component';
 import { WatchDeactivateGuard } from './customReuseStrategy/guard/watchComponentRouteState';
+import { FriendComponent } from './view/friend/friend.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
     component: MsgBoradPageComponent,
     data: { keepAlive: true },
     canDeactivate: [WatchDeactivateGuard],
+  },
+  {
+    path: 'friend',
+    component: FriendComponent,
   },
   {
     path: '404',

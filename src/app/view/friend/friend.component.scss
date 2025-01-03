@@ -1,0 +1,212 @@
+.body {
+  position: relative;
+  padding-top: calc(var(--headerHeigth) + 10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60vw;
+  margin: 0 auto;
+  gap: 20px;
+  &.smallSize {
+    width: 100vw;
+  }
+  z-index: 0;
+}
+.top {
+  width: 100%;
+  &.smallSize {
+    width: 96%;
+  }
+  background-image: url(/assets/background.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  color: white;
+  padding: 20px;
+}
+.card {
+  padding: 45px;
+  background-color: var(--cardColor);
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+  color: var(--fontColor);
+  align-items: center;
+  box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+  &.smallSize {
+    padding: 20px;
+  }
+  & .method,
+  & .info,
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  & .intro {
+    display: flex;
+    align-items: center;
+    line-height: 18px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  & .content {
+    border-color: var(--markdownBlockquoteBorder);
+    background-color: var(--markdownBlockquoteBg);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: var(--markdownBlockquoteWord);
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-left: 0.25em solid;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    user-select: text;
+    & > :last-child {
+      margin-bottom: 0;
+    }
+    & > :first-child {
+      margin-top: 0;
+    }
+    & .contentItem {
+      display: flex;
+      gap: 5px;
+      & .desc {
+        word-break: keep-all;
+      }
+      & .value {
+        word-break: break-all;
+      }
+    }
+  }
+  & .container {
+    & .list {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      & .listItem {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: calc(25% - 15px);
+        animation: scale 0.5s ease forwards;
+        &.smallSize {
+          width: calc(50% - 15px);
+        }
+        height: 25vh;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 1px 1px 3px 0 var(--03-gray);
+        gap: 8px;
+        padding-bottom: 10px;
+        cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
+          pointer;
+        &:hover {
+          & > .img {
+            & > img {
+              transform: scale(1.2);
+            }
+          }
+        }
+        & > .img {
+          width: 100%;
+          height: 60%;
+          overflow: hidden;
+
+          & > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 1s ease;
+          }
+        }
+        & > .itemInfo,
+        & > .date {
+          padding: 0 10px;
+          font-size: 12px;
+          justify-items: flex-end;
+          line-height: 12px;
+        }
+        & > .itemInfo {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+
+          & > .name {
+            font-size: 18px;
+            line-height: 18px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 1000;
+          }
+          & > .brief {
+            line-height: 12px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: bold;
+            word-break: break-all;
+          }
+        }
+        & > .unAudit {
+          position: absolute;
+          inset: 20px;
+          top: 40px;
+          left: 40px;
+          transform: rotate(-30deg);
+          background: url(/assets/unAudit.png) no-repeat;
+          background-size: contain;
+        }
+        &:hover {
+          & > .mask {
+            opacity: 1;
+          }
+        }
+        & > .mask {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          inset: 0;
+          background-color: var(--03-gray);
+          z-index: 2;
+          opacity: 0;
+          transition: all 1s ease;
+        }
+        & > a {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+        }
+      }
+    }
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

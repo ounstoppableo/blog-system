@@ -162,7 +162,9 @@ export class HeaderComponent
     a.href = 'https://www.unstoppable840.cn:8080';
     a.click();
   }
-
+  goFriend() {
+    this.router.navigate(['friend']);
+  }
   //添加音乐
   addMusic() {
     const msRef = this.ms.create({

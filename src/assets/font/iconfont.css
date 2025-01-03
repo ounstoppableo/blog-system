@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4278340 */
-  src: url('iconfont.woff2?t=1734592852354') format('woff2'),
-       url('iconfont.woff?t=1734592852354') format('woff'),
-       url('iconfont.ttf?t=1734592852354') format('truetype');
+  src: url('iconfont.woff2?t=1735807551401') format('woff2'),
+       url('iconfont.woff?t=1735807551401') format('woff'),
+       url('iconfont.ttf?t=1735807551401') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-gerenjianjie:before {
+  content: "\e608";
+}
+
+.icon-friend:before {
+  content: "\e62b";
 }
 
 .icon-book:before {
