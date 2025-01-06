@@ -6,7 +6,7 @@
   flex-direction: column;
   overflow: hidden;
   color: var(--fontColor);
-  box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+  box-shadow: var(--cardBoxShadow);
   padding: 45px;
   gap: 30px;
   line-height: 0;

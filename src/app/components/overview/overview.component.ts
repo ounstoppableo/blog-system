@@ -68,18 +68,18 @@ export class OverviewComponent
           item.getBoundingClientRect().y < innerHeight + item.offsetHeight / 2
         ) {
           item.style.transform = 'scale(1)';
-          item.style.transition = `all 1s ease,box-shadow 0.5s ease`;
+          item.style.transition = `all 1s ease,box-shadow 0.3s ease-in-out`;
           if (item.querySelector('img')) {
             item.querySelector('img').style.filter = 'blur(0)';
           }
         } else if (item.getBoundingClientRect().y < -item.offsetHeight) {
           item.style.transform = 'scale(.8)';
-          item.style.transition = `all 1s ease,box-shadow 0.5s ease`;
+          item.style.transition = `all 1s ease,box-shadow 0.3s ease-in-out`;
           if (item.querySelector('img'))
             item.querySelector('img').style.filter = 'blur(10px)';
         } else if (item.getBoundingClientRect().y > innerHeight) {
           item.style.transform = 'scale(.8)';
-          item.style.transition = `all 1s ease,box-shadow 0.5s ease`;
+          item.style.transition = `all 1s ease,box-shadow 0.3s ease-in-out`;
           if (item.querySelector('img'))
             item.querySelector('img').style.filter = 'blur(10px)';
         }

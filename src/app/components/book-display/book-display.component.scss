@@ -8,7 +8,7 @@
   border-radius: 20px;
   overflow: hidden;
   color: var(--fontColor);
-  box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+  box-shadow: var(--cardBoxShadow);
   margin-top: 30px;
   padding: 30px;
   display: flex;

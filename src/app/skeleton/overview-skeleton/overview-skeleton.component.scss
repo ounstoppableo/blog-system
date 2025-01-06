@@ -12,9 +12,9 @@
     overflow: hidden;
     color: var(--fontColor);
     font-size: 15px;
-    box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+    box-shadow: var(--cardBoxShadow);
     &:hover {
-      box-shadow: 0 0 15px var(--03-gray);
+      box-shadow: var(--cardBoxHoverShadow);
     }
     transition: all 1s ease;
     &:nth-child(2n + 1) {

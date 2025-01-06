@@ -17,7 +17,7 @@
   &.smallSize {
     width: 96%;
   }
-  background-image: url(/assets/background.jpeg);
+  background-image: url(/assets/banner.gif);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -39,7 +39,7 @@
   overflow: hidden;
   color: var(--fontColor);
   align-items: center;
-  box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+  box-shadow: var(--cardBoxShadow);
   &.smallSize {
     padding: 20px;
   }

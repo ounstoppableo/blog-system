@@ -110,28 +110,28 @@ export function seasonSelect(type: 'Spring' | 'Summer' | 'Autumn' | 'Winter') {
   } else if (type === 'Winter') {
     ($(document) as any).snowfall('');
     ($(document) as any).snowfall({
-      icon: '❄',
+      image: 'assets/ParticleSmoke.png',
       flakeCount: 10,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
-      icon: '❄',
+      image: 'assets/ParticleSmoke.png',
       flakeCount: 10,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
-      icon: '❄',
+      image: 'assets/ParticleSmoke2.png',
       flakeCount: 10,
       minSpeed: 1,
       minSize: 8,
       maxSize: 25,
     });
     ($(document) as any).snowfall({
-      icon: '❄',
+      image: 'assets/ParticleSmoke2.png',
       flakeCount: 10,
       minSpeed: 1,
       minSize: 8,

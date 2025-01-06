@@ -11,9 +11,15 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import TxtType from '@/utils/typewriter';
 
 @Component({
   selector: 'app-home',
@@ -27,16 +33,9 @@ export class HomeComponent
   isLeave = false;
   //控制打字机效果的数据
   word = '';
-  words = [
-    'Hi~，我是一枚程序员',
-    'Hi~，我喜欢探索新事物',
-    '欢迎来到我的博客🎉',
-  ];
   folderCategory: any;
   index = 0;
   headerChangeHeight!: number;
-  @ViewChild('wordSpan')
-  wordSpan!: ElementRef;
   @ViewChild('root')
   root!: ElementRef;
   isLogin: Observable<boolean>;
@@ -82,27 +81,13 @@ export class HomeComponent
 
   ngAfterViewInit(): void {
     //打字机效果控制
-    const timer = setInterval(() => {
-      if (this.index > this.word.length - 1) {
-        if (this.words.length === 0) {
-          clearInterval(timer);
-        } else {
-          const temp = this.word;
-          this.word = this.words.shift() as string;
-          const index = compareStr(temp, this.word);
-          this.index = index > 0 ? index : 0;
-          this.wordSpan.nativeElement.innerText = this.word.slice(
-            0,
-            this.index,
-          );
-        }
-      }
-      if (this.word[this.index]) {
-        this.wordSpan.nativeElement.innerText =
-          this.wordSpan.nativeElement.innerText + this.word[this.index];
-        this.index++;
-      }
-    }, 300);
+    const element: any = document.getElementById('wordSpan');
+    const toRotate = element.getAttribute('data-type');
+    const period = element.getAttribute('data-period');
+    if (toRotate) {
+      new (TxtType as any)(element, JSON.parse(toRotate), period);
+    }
+
     //获取头部样式变化的高度
     this.headerChangeHeight =
       innerHeight -

@@ -7,7 +7,7 @@
   overflow: hidden;
   color: var(--fontColor);
   align-items: center;
-  box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+  box-shadow: var(--cardBoxShadow);
 
   &.smallSize {
     width: 100vw;
