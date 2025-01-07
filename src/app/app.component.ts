@@ -142,12 +142,9 @@ export class AppComponent
       },
     );
     //四季飘落效果加载
-    loadScript(
-      'assets/snowfall.jquery.js',
-      () => {
-        this.vc?.insert(this.componentRef.hostView);
-      },
-    );
+    loadScript('assets/snowfall.jquery.js', () => {
+      this.vc?.insert(this.componentRef.hostView);
+    });
     this.implementDarkMode();
     //图片懒加载
     this.observer = new MutationObserver((mutations) => {
@@ -296,6 +293,10 @@ export class AppComponent
         '--ramdonArticleAndNewMsg',
         '#aaa',
       );
+      document.documentElement.style.setProperty(
+        '--greyLight-1',
+        '#30303d',
+      );
       document.documentElement.style.setProperty('--disabledColor', '#8d9095');
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
@@ -336,6 +337,10 @@ export class AppComponent
       document.documentElement.style.setProperty(
         '--ramdonArticleAndNewMsg',
         '#999',
+      );
+      document.documentElement.style.setProperty(
+        '--greyLight-1',
+        '#dedeee',
       );
       document.documentElement.style.setProperty('--disabledColor', '#c6c6c6');
       const removedThemeStyle = document.getElementById('darkMode');

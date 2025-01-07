@@ -44,10 +44,14 @@
       <li (click)="show(list2, icon2)">
         <div>
           <span class="iconfont icon-yule"></span>
-          <span>拓展功能</span>
+          <span>百宝箱</span>
           <span #icon2 type="icondown" class="iconfont icon-down"></span>
         </div>
         <ul class="list" #list2>
+          <li (click)="goFriend()">
+            <span class="iconfont icon-friend"></span>
+            <span>友人帐</span>
+          </li>
           <li (click)="goChatPlatform()">
             <span class="iconfont icon-scene"></span>
             <span>聊天室</span>
