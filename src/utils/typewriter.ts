@@ -9,8 +9,8 @@ function TxtType(this: any, el: any, toRotate: any, period: any) {
 }
 
 TxtType.prototype.tick = function () {
-  var i = this.loopNum % this.toRotate.length;
-  var fullTxt = this.toRotate[i];
+  const i = this.loopNum % this.toRotate.length;
+  const fullTxt = this.toRotate[i];
 
   if (this.isDeleting) {
     this.txt = fullTxt.substring(0, this.txt.length - 1);
@@ -20,8 +20,8 @@ TxtType.prototype.tick = function () {
 
   this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
 
-  var that = this;
-  var delta = 200 - Math.random() * 100;
+  const that = this;
+  let delta = 200 - Math.random() * 100;
 
   if (this.isDeleting) {
     delta /= 2;

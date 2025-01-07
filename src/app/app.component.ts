@@ -143,7 +143,7 @@ export class AppComponent
     );
     //四季飘落效果加载
     loadScript(
-      'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v3.0.2/snowfall.jquery.js',
+      'assets/snowfall.jquery.js',
       () => {
         this.vc?.insert(this.componentRef.hostView);
       },

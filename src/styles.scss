@@ -45,10 +45,6 @@ body {
   background: var(--defaultBackgroundColor) !important;
 }
 
-.snowfall-flakes {
-  animation: sakura 1s linear 0s infinite;
-}
-
 @keyframes sakura {
   0% {
     transform: rotate3d(0, 0, 0, 0deg);
