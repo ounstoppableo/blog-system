@@ -98,6 +98,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
       this.observer.observe(document.getElementById('approot'), {
         childList: true,
         subtree: true,
+        attributes: true,
       });
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationStart) {
