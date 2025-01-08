@@ -81,9 +81,14 @@ export class AppComponent
           this.isArticle ||
           this.is404Page ||
           event.url === '/home' ||
-          event.url === '/'
+          event.url === '/' ||
+          event.url === '/msgboard'
         );
-        if (event.url === '/home' || event.url === '/') {
+        if (
+          event.url === '/home' ||
+          event.url === '/' ||
+          event.url === '/msgboard'
+        ) {
           //获取头部样式变化的高度
           this.headerChangeHeight =
             innerHeight -
@@ -293,10 +298,7 @@ export class AppComponent
         '--ramdonArticleAndNewMsg',
         '#aaa',
       );
-      document.documentElement.style.setProperty(
-        '--greyLight-1',
-        '#30303d',
-      );
+      document.documentElement.style.setProperty('--greyLight-1', '#30303d');
       document.documentElement.style.setProperty('--disabledColor', '#8d9095');
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
@@ -338,10 +340,7 @@ export class AppComponent
         '--ramdonArticleAndNewMsg',
         '#999',
       );
-      document.documentElement.style.setProperty(
-        '--greyLight-1',
-        '#dedeee',
-      );
+      document.documentElement.style.setProperty('--greyLight-1', '#dedeee');
       document.documentElement.style.setProperty('--disabledColor', '#c6c6c6');
       const removedThemeStyle = document.getElementById('darkMode');
       if (removedThemeStyle) {

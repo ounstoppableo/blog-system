@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "12194441",
+      "name": "crown",
+      "font_class": "crown",
+      "unicode": "ec3c",
+      "unicode_decimal": 60476
+    },
+    {
       "icon_id": "6682542",
       "name": "个人简介",
       "font_class": "gerenjianjie",

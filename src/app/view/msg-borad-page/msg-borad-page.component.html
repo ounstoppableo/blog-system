@@ -1,3 +1,49 @@
+<div class="bulletScreen">
+  <div class="inputBox">
+    <div class="title">树洞</div>
+    <div class="inputArea">
+      <input
+        nz-input
+        placeholder="留下点什么吧~~"
+        [(ngModel)]="treeHoleMsg"
+        [ngStyle]="{
+          'border-radius': '9999px',
+          background: 'transparent',
+          'border-color': 'white',
+          'caret-color': 'white',
+        }"
+        (keyup.enter)="sendMsgToTreeHole()"
+        maxlength="20"
+        [ngClass]="{ customInput: true }"
+      />
+    </div>
+  </div>
+  <div class="bulletArea">
+    <div
+      class="bullet"
+      #bullets
+      *ngFor="let item of treeHoleMsgs"
+      [ngStyle]="{
+        border: '1px solid',
+        'border-color': item.isAdmin
+          ? 'var(--yellowTagBorder)'
+          : checkIsMyTreeHoleMsg(item.msgId)
+            ? 'var(--styleColor)'
+            : 'transparent',
+      }"
+    >
+      <div class="admin" *ngIf="item.isAdmin">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-crown"></use>
+        </svg>
+      </div>
+      <div class="avatar">
+        <img [src]="'/api' + item.avatar" alt="" noLazyLoad="true" />
+      </div>
+      <div class="msg">{{ item.msg }}</div>
+    </div>
+  </div>
+</div>
 <div class="body">
   <app-container
     [isMsgBoard]="true"

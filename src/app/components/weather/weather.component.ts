@@ -481,5 +481,6 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
     this.timeroutTimer.forEach((timer) => {
       clearTimeout(timer);
     });
+    window.removeEventListener('load', this.getGeoAndInitWeather);
   }
 }
