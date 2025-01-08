@@ -65,6 +65,8 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   scrollContainer!: any;
   @ViewChild('root')
   root!: any;
+  @ViewChild('mask')
+  mask!: any;
 
   currentLyricIndex = 0;
 
@@ -466,6 +468,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
         this.playerOpener.nativeElement.classList.add('toShow');
         this.root.nativeElement.classList.remove('closePlayer');
         this.root.nativeElement.style.display = 'none';
+        this.mask.nativeElement.style.display = 'none';
         clearTimeout(this.timer1);
         this.timer1 = null;
       }, 1000);
@@ -474,6 +477,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   open() {
     if (!this.timer2) {
       this.root.nativeElement.style.display = '';
+      this.mask.nativeElement.style.display = '';
       this.root.nativeElement.classList.add('openPlayer');
       this.playerOpener.nativeElement.classList.remove('toShow');
       this.playerOpener.nativeElement.classList.add('toLeave');
