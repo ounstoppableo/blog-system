@@ -77,26 +77,31 @@
         height: 25px;
         width: 25px;
         border-radius: 9999px;
+        position: relative;
         & > img {
           border-radius: inherit;
           width: inherit;
           height: inherit;
           object-fit: cover;
         }
-      }
-      & .admin {
-        position: absolute;
-        top: 5;
-        left: 10px;
-        transform: translateY(-100%);
-        & > .icon {
-          width: 16px;
-          height: 16px;
-          vertical-align: -0.15em;
-          fill: currentColor;
-          overflow: hidden;
+        & .admin {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translate(-50%, -100%);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          & > .icon {
+            width: 16px;
+            height: 16px;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+          }
         }
       }
+
       & .msg {
         font-size: 16px;
         line-height: 16px;

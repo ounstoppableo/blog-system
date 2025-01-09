@@ -33,12 +33,12 @@
             : 'transparent',
       }"
     >
-      <div class="admin" *ngIf="item.isAdmin">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-crown"></use>
-        </svg>
-      </div>
       <div class="avatar">
+        <div class="admin" *ngIf="item.isAdmin">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-crown"></use>
+          </svg>
+        </div>
         <img [src]="'/api' + item.avatar" alt="" noLazyLoad="true" />
       </div>
       <div class="msg">{{ item.msg }}</div>
