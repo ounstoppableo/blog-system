@@ -28,7 +28,7 @@ import TxtType from '@/utils/typewriter';
   standalone: false,
 })
 export class HomeComponent
-  implements OnInit, AfterViewInit, OnDestroy, watchComponentDeactivate
+  implements OnInit, AfterViewInit, watchComponentDeactivate
 {
   isLeave = false;
   //控制打字机效果的数据
@@ -112,9 +112,6 @@ export class HomeComponent
   //去单文件夹页
   goSingleFolder(folderId: number) {
     this.router.navigate(['folderPage', folderId]);
-  }
-  ngOnDestroy() {
-    window.onresize = null;
   }
 }
 //字符串相同字段对比，返回最终相同下标

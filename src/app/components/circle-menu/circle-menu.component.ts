@@ -40,6 +40,43 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
     }
   });
   appHeight = 0;
+  rippleClickCb = () => {
+    document.getElementById('menu-btn')!.classList.toggle('clicked');
+    this.menu.nativeElement.classList.toggle('open');
+    this.showMenu = !this.showMenu;
+    if (this.showMenu) {
+      this.menu.nativeElement
+        .querySelectorAll('a')
+        .forEach((item: any, index: number) => {
+          const _cb = (e: any) => {
+            e.preventDefault();
+            (
+              this.menu.nativeElement.querySelectorAll(
+                '.menuitem-wrapper',
+              ) as any
+            )[index].classList.add('spin');
+            const timer = setTimeout(() => {
+              (
+                this.menu.nativeElement.querySelectorAll(
+                  '.menuitem-wrapper',
+                ) as any
+              )[index].classList.remove('spin');
+              document.getElementById('menu-btn')!.classList.remove('clicked');
+              this.menu.nativeElement.classList.remove('open');
+              requestAnimationFrame(() => {
+                this.showMenu = false;
+              });
+              clearTimeout(timer);
+            }, 800);
+          };
+          item.removeEventListener('click', this.menuItemClickCbArr[index]);
+          this.menuItemClickCbArr[index] = _cb;
+          item.addEventListener('click', _cb);
+        });
+    }
+  };
+
+  menuItemClickCbArr: any[] = [];
 
   constructor(private router: Router) {}
 
@@ -59,38 +96,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
     //面板样式控制
     document
       .querySelector('[has-ripple="true"]')
-      ?.addEventListener('click', () => {
-        document.getElementById('menu-btn')!.classList.toggle('clicked');
-        this.menu.nativeElement.classList.toggle('open');
-        this.showMenu = !this.showMenu;
-        this.menu.nativeElement
-          .querySelectorAll('a')
-          .forEach((item: any, index: number) => {
-            item.addEventListener('click', (e: any) => {
-              e.preventDefault();
-              (
-                this.menu.nativeElement.querySelectorAll(
-                  '.menuitem-wrapper',
-                ) as any
-              )[index].classList.add('spin');
-              const timer = setTimeout(() => {
-                (
-                  this.menu.nativeElement.querySelectorAll(
-                    '.menuitem-wrapper',
-                  ) as any
-                )[index].classList.remove('spin');
-                document
-                  .getElementById('menu-btn')!
-                  .classList.remove('clicked');
-                this.menu.nativeElement.classList.remove('open');
-                requestAnimationFrame(() => {
-                  this.showMenu = false;
-                });
-                clearTimeout(timer);
-              }, 800);
-            });
-          });
-      });
+      ?.addEventListener('click', this.rippleClickCb);
 
     if (this.flag) {
       this.seasonResizeCallback();
@@ -160,5 +166,8 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.observer.disconnect();
     window.removeEventListener('resize', this.seasonResizeCallback);
+    document
+      .querySelector('[has-ripple="true"]')
+      ?.removeEventListener('click', this.rippleClickCb);
   }
 }

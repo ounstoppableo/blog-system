@@ -4,7 +4,11 @@ import {
   Input,
   OnChanges,
   ViewChild,
-  ViewChildren, OnInit, AfterViewInit, AfterViewChecked, OnDestroy,
+  ViewChildren,
+  OnInit,
+  AfterViewInit,
+  AfterViewChecked,
+  OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -34,7 +38,9 @@ const tagCloudConfigInit = {
   styleUrls: ['./tag.component.scss'],
   standalone: false,
 })
-export class TagComponent implements OnChanges, OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
+export class TagComponent
+  implements OnChanges, OnInit, AfterViewInit, AfterViewChecked, OnDestroy
+{
   @Input()
   showTagsCloud = false;
   @Input()
@@ -83,6 +89,7 @@ export class TagComponent implements OnChanges, OnInit, AfterViewInit, AfterView
       this.init = true;
     }
   }
+
   setTagSpaceInfo = () => {
     this.tagSpaceLeft = this.tagSpace.nativeElement.offsetWidth / 2;
     this.tagSpaceTop = this.tagSpace.nativeElement.offsetHeight / 2;
@@ -91,12 +98,14 @@ export class TagComponent implements OnChanges, OnInit, AfterViewInit, AfterView
     this.tagCloudConfig = Object.assign(this.tagCloudConfig, param);
   };
   resetTagCloud = () => {
-    this.tagCloudConfig = Object.assign(
-      this.tagCloudConfig,
-      cloneDeep(tagCloudConfigInit),
-    );
-    this.setTagSpaceInfo();
-    this.onReady();
+    if (this.showTagsCloud && this.tagList.length > 0) {
+      this.tagCloudConfig = Object.assign(
+        this.tagCloudConfig,
+        cloneDeep(tagCloudConfigInit),
+      );
+      this.setTagSpaceInfo();
+      this.onReady();
+    }
   };
   toSingleTag(tagName: string) {
     this.router.navigate(['tagPage', tagName]);

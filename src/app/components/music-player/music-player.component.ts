@@ -529,5 +529,13 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.audioEndedCallback,
     );
     window.removeEventListener('click', this.closeForClickOtherPlace);
+    this.audio.nativeElement.removeEventListener(
+      'play',
+      this.audioPlayCallback,
+    );
+    this.audio.nativeElement.removeEventListener(
+      'pause',
+      this.audioPauseCallback,
+    );
   }
 }
