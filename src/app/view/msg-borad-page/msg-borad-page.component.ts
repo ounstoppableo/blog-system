@@ -33,7 +33,9 @@ type bulletState = {
   styleUrls: ['./msg-borad-page.component.scss'],
   standalone: false,
 })
-export class MsgBoradPageComponent implements watchComponentDeactivate, OnInit, AfterViewInit, OnDestroy {
+export class MsgBoradPageComponent
+  implements watchComponentDeactivate, OnInit, AfterViewInit, OnDestroy
+{
   isLeave = false;
   isLogin: Observable<boolean>;
   headerChangeHeight = 0;
@@ -95,6 +97,7 @@ export class MsgBoradPageComponent implements watchComponentDeactivate, OnInit, 
   resetBulletY = () => {
     this.bullets.forEach((bullet, index) => {
       if (!bullet) return;
+      if (!this.bulletsState[index]) return;
       const headerHeight = Number.parseFloat(
         getComputedStyle(document.documentElement).getPropertyValue(
           '--headerHeigth',
