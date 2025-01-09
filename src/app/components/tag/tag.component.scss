@@ -1,8 +1,18 @@
 .tagSpace {
   display: flex;
   flex-wrap: wrap;
+  &.showTagsCloud {
+    position: relative;
+    height: 300px;
+  }
 
   & > .tag {
+    &.showTagsCloud {
+      position: absolute;
+    }
+
+    top: 0;
+    left: 0;
     color: var(--tagWord);
     padding: 2px 5px;
     border-radius: 4px;
