@@ -71,7 +71,7 @@ export class TagComponent
   ngOnInit(): void {
     this.smallSizeSubscribe = this.store.subscribe((state) => {
       if (state.smallSize) {
-        this.setTagCloudConfig({ radius: 120, tspeed: 10 });
+        this.setTagCloudConfig({ radius: 120, tspeed: 5 });
       } else {
         this.setTagCloudConfig({ radius: 150, tspeed: 5 });
       }
