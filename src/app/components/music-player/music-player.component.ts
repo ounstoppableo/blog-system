@@ -462,6 +462,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   close() {
     if (!this.timer1) {
+      if (!this.root) return;
       this.root.nativeElement.classList.add('closePlayer');
       this.timer1 = setTimeout(() => {
         this.playerOpener.nativeElement.classList.remove('toLeave');

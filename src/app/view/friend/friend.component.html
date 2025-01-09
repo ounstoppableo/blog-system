@@ -282,11 +282,7 @@
         友情链接
       </div>
       <div class="list">
-        <div
-          class="listItem"
-          [ngClass]="{ smallSize: (smallSize | async) }"
-          *ngFor="let item of friendList"
-        >
+        <div class="listItem" *ngFor="let item of friendList">
           <div class="img">
             <img [src]="item.cover" alt="" />
           </div>
@@ -294,7 +290,6 @@
             <div class="name">{{ item.name }}</div>
             <div class="brief">{{ item.brief }}</div>
           </div>
-          <div style="flex: 1"></div>
           <div class="date">
             <span class="iconfont icon-calendar"></span>
             {{ item.date | date: 'YYYY-MM-dd' }}
