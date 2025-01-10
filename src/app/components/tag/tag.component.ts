@@ -11,7 +11,7 @@ import {
   AfterViewChecked,
   OnDestroy,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { cloneDeep } from 'lodash-es';
 const tagCloudConfigInit = {
@@ -75,6 +75,13 @@ export class TagComponent
         this.setTagCloudConfig({ radius: 120, tspeed: 5 });
       } else {
         this.setTagCloudConfig({ radius: 150, tspeed: 5 });
+      }
+    });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd && event.url === '/search') {
+        requestAnimationFrame(() => {
+          this.resetTagCloud();
+        });
       }
     });
   }
