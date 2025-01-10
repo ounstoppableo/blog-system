@@ -13,28 +13,29 @@ const toggleLoadState = () => {
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .then(() => {
-    Array.from(document.querySelectorAll('link'))
-      .filter(
-        (link) =>
-          link.href.includes('styles') || link.href.includes('iconfont'),
-      )
-      .map((link, index) => {
-        return new Promise((resolve) => {
-          const testLink: any = document.createElement('link');
-          testLink.id = 'testLink' + index;
-          testLink.rel = 'stylesheet';
-          testLink.href = link.href;
-          document.head.append(testLink);
-          testLink.onload = function () {
-            resolve(1);
-            document.getElementById('testLink' + index)?.remove();
-          };
-        });
-      })
-      .forEach((promise) => {
-        promise.then(() => {
-          toggleLoadState();
-        });
+    Promise.all(
+      Array.from(document.querySelectorAll('link'))
+        .filter(
+          (link) =>
+            link.href.includes('styles') || link.href.includes('iconfont'),
+        )
+        .map((link, index) => {
+          return new Promise((resolve) => {
+            const testLink: any = document.createElement('link');
+            testLink.id = 'testLink' + index;
+            testLink.rel = 'stylesheet';
+            testLink.href = link.href;
+            document.head.append(testLink);
+            testLink.onload = function () {
+              resolve(index);
+            };
+          });
+        }),
+    ).then((res) => {
+      toggleLoadState();
+      res.forEach((_, index) => {
+        document.getElementById('testLink' + index)?.remove();
       });
+    });
   })
   .catch((err) => console.error(err));
