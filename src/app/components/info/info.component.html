@@ -26,7 +26,7 @@
                 <span class="theme" [title]="item.title">
                   {{ item.title }}
                 </span>
-                <span class="date" (click)="toDateCate(item.subTime)">
+                <span class="date" (click)="toDateCate($event, item.subTime)">
                   {{ item.subTime | date: 'YYYY-MM-dd' }}
                 </span>
               </div>

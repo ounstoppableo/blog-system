@@ -56,7 +56,8 @@ export class InfoComponent implements OnInit {
     this.router.navigate(['article', articleId]);
   }
   //去日期分类页
-  toDateCate(date: string) {
+  toDateCate(e: any, date: string) {
+    e.stopPropagation();
     const dateId = dayjs(date).format('YYYY-MM');
     this.router.navigate(['dateCate'], { fragment: dateId });
   }

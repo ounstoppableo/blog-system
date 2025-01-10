@@ -9,7 +9,7 @@
     [class]="{ showTagsCloud: showTagsCloud }"
     *ngFor="let tag of tagList"
     [ngStyle]="{ 'background-color': tag.tagColor }"
-    (click)="toSingleTag(tag.tagName)"
+    (click)="toSingleTag($event, tag.tagName)"
     #tags
   >
     <span

@@ -154,12 +154,14 @@ export class OverviewComponent
     this.articleInfoList = [];
   }
   //去日期分类页
-  toDateCate(date: string) {
+  toDateCate(e: any, date: string) {
+    e.stopPropagation();
     const dateId = dayjs(date).format('YYYY-MM');
     this.router.navigate(['dateCate'], { fragment: dateId });
   }
   //去文件分类页
-  toFolderCate(folderId: string) {
+  toFolderCate(e: any, folderId: string) {
+    e.stopPropagation();
     this.router.navigate(['folderPage', folderId]);
   }
   toTopArticle(info: articleInfo) {

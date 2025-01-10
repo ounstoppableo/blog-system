@@ -113,7 +113,8 @@ export class TagComponent
       this.onReady();
     }
   };
-  toSingleTag(tagName: string) {
+  toSingleTag(e: any, tagName: string) {
+    e.stopPropagation();
     this.router.navigate(['tagPage', tagName]);
   }
   constructor(
