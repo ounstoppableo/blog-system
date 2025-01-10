@@ -24,7 +24,9 @@
     [class]="(smallSize | async) ? 'smallSize' : ''"
   >
     <div class="info" (click)="toArticle(item.articleId)">
-      <h1 (click)="toArticle(item.articleId)">{{ item.title }}</h1>
+      <h1 (click)="toArticle(item.articleId)" [title]="item.title">
+        {{ item.title }}
+      </h1>
       <p class="folder" (click)="toFolderCate($event, item.folderId)">
         <span class="iconfont icon-folder"></span>
         <span>{{ item.folderName }}</span>
