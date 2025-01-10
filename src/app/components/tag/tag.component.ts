@@ -1,3 +1,4 @@
+import asyncCheckAppLoad from '@/utils/checkAppLoad';
 import checkAppLoad from '@/utils/checkAppLoad';
 import {
   Component,
@@ -78,9 +79,7 @@ export class TagComponent
     });
   }
   ngAfterViewInit(): void {
-    checkAppLoad()
-      ? this.setTagSpaceInfo()
-      : window.addEventListener('load', this.setTagSpaceInfo);
+    asyncCheckAppLoad(this.setTagSpaceInfo);
     window.addEventListener('resize', this.resetTagCloud);
   }
   ngAfterViewChecked(): void {
@@ -300,7 +299,6 @@ export class TagComponent
   };
   ngOnDestroy(): void {
     this.clearEventListener();
-    window.removeEventListener('load', this.setTagSpaceInfo);
     window.removeEventListener('resize', this.setTagSpaceInfo);
     if (this.smallSizeSubscribe) {
       this.smallSizeSubscribe.unsubscribe();

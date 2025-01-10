@@ -1,4 +1,5 @@
 import { BookService } from '@/app/service/book.service';
+import asyncCheckAppLoad from '@/utils/checkAppLoad';
 import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -38,8 +39,7 @@ export class BookDisplayComponent implements AfterViewInit, OnDestroy {
   };
   ngAfterViewInit(): void {
     this.getBooks().then(() => {
-      this.resizeCb();
-      window.addEventListener('load', this.resizeCb);
+      asyncCheckAppLoad(this.resizeCb);
       window.addEventListener('resize', this.resizeCb);
     });
   }
@@ -64,7 +64,6 @@ export class BookDisplayComponent implements AfterViewInit, OnDestroy {
     });
   }
   ngOnDestroy(): void {
-    window.removeEventListener('load', this.resizeCb);
     window.removeEventListener('resize', this.resizeCb);
   }
 }

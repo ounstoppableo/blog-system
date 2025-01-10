@@ -2,6 +2,7 @@ import { AddArticleFormComponent } from '@/app/components/add-article-form/add-a
 import { watchComponentDeactivate } from '@/app/customReuseStrategy/guard/watchComponentRouteState';
 import ViewResize from '@/app/decorators/viewResize';
 import { TreeHoleService } from '@/app/service/treeHole.service';
+import asyncCheckAppLoad from '@/utils/checkAppLoad';
 import checkAppLoad from '@/utils/checkAppLoad';
 import {
   AfterViewInit,
@@ -82,15 +83,9 @@ export class MsgBoradPageComponent
           this.interval = setInterval(this.bulletAnimationUnit, 16);
       }
     });
-    checkAppLoad()
-      ? (this.interval = setInterval(this.bulletAnimationUnit, 16))
-      : window.addEventListener(
-          'load',
-          () => {
-            this.interval = setInterval(this.bulletAnimationUnit, 16);
-          },
-          { once: true },
-        );
+    asyncCheckAppLoad(
+      () => (this.interval = setInterval(this.bulletAnimationUnit, 16)),
+    );
     window.addEventListener('resize', this.resetBulletY);
   };
 

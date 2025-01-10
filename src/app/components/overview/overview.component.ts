@@ -19,6 +19,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import dayjs from 'dayjs';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import asyncCheckAppLoad from '@/utils/checkAppLoad';
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
@@ -117,8 +118,7 @@ export class OverviewComponent
     ) {
       requestAnimationFrame(() => {
         this._cardShowWhileScroll();
-        window.removeEventListener('load', this._loadedEventCb);
-        window.addEventListener('load', this._loadedEventCb);
+        asyncCheckAppLoad(this._loadedEventCb);
       });
     }
   }

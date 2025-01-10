@@ -3,6 +3,7 @@ import { WeatherService } from '@/app/service/weather.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { firstValueFrom } from 'rxjs';
+import asyncCheckAppLoad from '@/utils/checkAppLoad';
 
 @Component({
   selector: 'app-weather',
@@ -184,7 +185,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    window.addEventListener('load', this.getGeoAndInitWeather);
+    asyncCheckAppLoad(this.getGeoAndInitWeather);
     this.smallSizeSubscribe = this.store.subscribe((state) => {
       this.getGeoAndInitWeather();
     });
@@ -481,6 +482,5 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
     this.timeroutTimer.forEach((timer) => {
       clearTimeout(timer);
     });
-    window.removeEventListener('load', this.getGeoAndInitWeather);
   }
 }

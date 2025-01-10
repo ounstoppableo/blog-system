@@ -3,4 +3,13 @@ const checkAppLoad = () => {
     ? false
     : true;
 };
-export default checkAppLoad;
+const asyncCheckAppLoad = (cb: any) => {
+  if (checkAppLoad()) return cb();
+  const interval = setInterval(() => {
+    if (checkAppLoad()) {
+      cb();
+      clearInterval(interval);
+    }
+  }, 100);
+};
+export default asyncCheckAppLoad;

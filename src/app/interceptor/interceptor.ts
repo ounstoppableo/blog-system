@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
@@ -18,21 +24,21 @@ export class MyHttpInterceptor implements HttpInterceptor {
     });
     return next.handle(copyReq).pipe(
       tap(
-        (event:any) => {
+        (event: any) => {
           if (event instanceof HttpResponse) {
             if (event.body.code === 401) {
-              this.message.error('token失效');
+              this.message.warning('token失效');
               localStorage.removeItem('token');
+            }
+            if (event.body.code >= 400 && event.body.code < 500) {
+              return this.message.warning(event.body.msg);
             }
             if (event.body.code === 500) {
               this.message.error('服务器错误');
             }
-            if (event.body.code === 402) {
-              this.message.error(event.body.msg);
-            }
           }
         },
-        (error:any) => {
+        (error: any) => {
           console.error(error);
         },
       ),

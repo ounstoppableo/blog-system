@@ -1,3 +1,4 @@
+import asyncCheckAppLoad from '@/utils/checkAppLoad';
 import { closedFloat, judgeSeason, seasonSelect } from '@/utils/seasonFloat';
 import {
   AfterViewInit,
@@ -119,9 +120,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
     localStorage.setItem('seasonFloat', 'true');
     this.currentSeason = type;
     localStorage.setItem('seasonType', this.currentSeason);
-    document.getElementById('approot')?.style.display === 'none'
-      ? window.addEventListener('load', () => seasonSelect(this.currentSeason))
-      : seasonSelect(this.currentSeason);
+    asyncCheckAppLoad(() => seasonSelect(this.currentSeason));
   }
   handleChangeSeason(type: 'Spring' | 'Summer' | 'Winter' | 'Autumn') {
     const timer = setTimeout(() => {
