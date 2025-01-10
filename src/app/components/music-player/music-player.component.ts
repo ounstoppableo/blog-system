@@ -67,6 +67,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   root!: any;
   @ViewChild('mask')
   mask!: any;
+  subscriptionList: any[] = [];
 
   currentLyricIndex = 0;
 
@@ -75,19 +76,21 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private musicService: MusicService) {}
 
   ngOnInit(): void {
-    this.musicService.getMusicInfo().subscribe((res) => {
-      if (res.code === 200) {
-        this.musicList = res.result;
-        this.index = 0;
-        this.currentMusic = this.musicList[this.index];
-        this.total = this.musicList.length;
-        this.lyricSegment();
-        this.getMixLightColor(
-          this.getBgLightColor.nativeElement,
-          this.wantChangeColorEle.nativeElement,
-        );
-      }
-    });
+    this.subscriptionList.push(
+      this.musicService.getMusicInfo().subscribe((res) => {
+        if (res.code === 200) {
+          this.musicList = res.result;
+          this.index = 0;
+          this.currentMusic = this.musicList[this.index];
+          this.total = this.musicList.length;
+          this.lyricSegment();
+          this.getMixLightColor(
+            this.getBgLightColor.nativeElement,
+            this.wantChangeColorEle.nativeElement,
+          );
+        }
+      }),
+    );
   }
 
   ngAfterViewInit(): void {
@@ -538,5 +541,8 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       'pause',
       this.audioPauseCallback,
     );
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

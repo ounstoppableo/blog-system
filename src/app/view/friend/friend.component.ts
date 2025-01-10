@@ -77,6 +77,7 @@ export class FriendComponent implements OnInit, AfterViewInit, OnDestroy {
   get website() {
     return this.friendInfoForm.get('website');
   }
+  subscriptionList: any[] = [];
   constructor(
     private friendService: FriendService,
     private message: NzMessageService,
@@ -137,14 +138,16 @@ export class FriendComponent implements OnInit, AfterViewInit, OnDestroy {
             this.friendInfoForm.value[key].trim();
         }
       });
-      this.friendService
-        .addFriend(this.friendInfoForm.value)
-        .subscribe((res) => {
-          if (res.code === 200) {
-            this.message.success(res.msg as string);
-            this.friendInfoForm.reset();
-          }
-        });
+      this.subscriptionList.push(
+        this.friendService
+          .addFriend(this.friendInfoForm.value)
+          .subscribe((res) => {
+            if (res.code === 200) {
+              this.message.success(res.msg as string);
+              this.friendInfoForm.reset();
+            }
+          }),
+      );
     } else {
       Object.values(this.friendInfoForm.controls).forEach((control) => {
         if (control.invalid) {
@@ -164,17 +167,21 @@ export class FriendComponent implements OnInit, AfterViewInit, OnDestroy {
       return (this.hadLoaded = true);
     }
 
-    this.friendService.getFriendList(this.limit, this.page).subscribe((res) => {
-      if (res.code === 200) {
-        this.friendList = [...this.friendList, ...res.data];
-        this.total = (res as any).total;
-        this.timer = null;
-        if (this.shouldLoad) {
-          this.getFriendList();
-          this.shouldLoad = false;
-        }
-      }
-    });
+    this.subscriptionList.push(
+      this.friendService
+        .getFriendList(this.limit, this.page)
+        .subscribe((res) => {
+          if (res.code === 200) {
+            this.friendList = [...this.friendList, ...res.data];
+            this.total = (res as any).total;
+            this.timer = null;
+            if (this.shouldLoad) {
+              this.getFriendList();
+              this.shouldLoad = false;
+            }
+          }
+        }),
+    );
   }
   reloadFriendList() {
     this.limit = 0;
@@ -203,20 +210,24 @@ export class FriendComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   };
   auditFriend = (website: string) => {
-    this.friendService.auditFriend(website).subscribe((res) => {
-      if (res.code === 200) {
-        this.message.success(res.msg as string);
-        this.reloadFriendList();
-      }
-    });
+    this.subscriptionList.push(
+      this.friendService.auditFriend(website).subscribe((res) => {
+        if (res.code === 200) {
+          this.message.success(res.msg as string);
+          this.reloadFriendList();
+        }
+      }),
+    );
   };
   deleteFriend = (website: string) => {
-    this.friendService.deleteFriend(website).subscribe((res) => {
-      if (res.code === 200) {
-        this.message.success(res.msg as string);
-        this.reloadFriendList();
-      }
-    });
+    this.subscriptionList.push(
+      this.friendService.deleteFriend(website).subscribe((res) => {
+        if (res.code === 200) {
+          this.message.success(res.msg as string);
+          this.reloadFriendList();
+        }
+      }),
+    );
   };
   ngOnInit(): void {
     this.smallSizeSubscribe = this.store.subscribe((state) => {
@@ -243,6 +254,9 @@ export class FriendComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.smallSizeSubscribe) {
       this.smallSizeSubscribe.unsubscribe();
     }
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
     window.removeEventListener('click', this.envelopeExcludeClickCb);
     window.removeEventListener('scroll', this.scollCb);
     window.removeEventListener('resize', this.scollCb);

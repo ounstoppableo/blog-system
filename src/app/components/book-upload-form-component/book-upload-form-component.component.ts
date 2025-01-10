@@ -1,5 +1,5 @@
 import { BookService } from '@/app/service/book.service';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -16,11 +16,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./book-upload-form-component.component.scss'],
   standalone: false,
 })
-export class BookUploadFormComponentComponent {
+export class BookUploadFormComponentComponent implements OnDestroy {
   bookFrontPicUrl = '';
   bookBackPicUrl = '';
   bookSidePicUrl = '';
   bookUrl = '';
+  subscriptionList: any[] = [];
   validateForm: FormGroup<{
     bookUrl: FormControl<string>;
   }>;
@@ -84,12 +85,19 @@ export class BookUploadFormComponentComponent {
       bookSidePicUrl: this.bookSidePicUrl,
       bookUrl: this.validateForm.value.bookUrl,
     };
-    this.bookService.addBook(params).subscribe((res) => {
-      if (res.code === 200) {
-        this.message.success('上传成功！');
-      } else {
-        this.message.error('上传失败！');
-      }
+    this.subscriptionList.push(
+      this.bookService.addBook(params).subscribe((res) => {
+        if (res.code === 200) {
+          this.message.success('上传成功！');
+        } else {
+          this.message.error('上传失败！');
+        }
+      }),
+    );
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
     });
   }
 }

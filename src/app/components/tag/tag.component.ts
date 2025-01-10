@@ -59,6 +59,7 @@ export class TagComponent
   interval: any = null;
   init = false;
   smallSizeSubscribe: any = null;
+  subscriptionList: any[] = [];
   ngOnChanges(): void {
     if (this.tagList) {
       this.tagList.forEach((item) => {
@@ -77,13 +78,15 @@ export class TagComponent
         this.setTagCloudConfig({ radius: 150, tspeed: 5 });
       }
     });
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd && event.url === '/search') {
-        requestAnimationFrame(() => {
-          this.resetTagCloud();
-        });
-      }
-    });
+    this.subscriptionList.push(
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd && event.url === '/search') {
+          requestAnimationFrame(() => {
+            this.resetTagCloud();
+          });
+        }
+      }),
+    );
   }
   ngAfterViewInit(): void {
     asyncCheckAppLoad(this.setTagSpaceInfo);
@@ -311,6 +314,9 @@ export class TagComponent
     if (this.smallSizeSubscribe) {
       this.smallSizeSubscribe.unsubscribe();
     }
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
     clearInterval(this.interval);
   }
 }

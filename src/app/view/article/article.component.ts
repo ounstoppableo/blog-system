@@ -8,7 +8,7 @@ import {
   ElementRef,
   OnInit,
   ViewChild,
-  AfterViewChecked,
+  AfterViewChecked, OnDestroy,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -26,7 +26,7 @@ import { Observable, retry } from 'rxjs';
   standalone: false,
 })
 export class ArticleComponent
-  implements OnInit, AfterViewChecked, watchComponentDeactivate
+  implements OnInit, AfterViewChecked, watchComponentDeactivate, OnDestroy
 {
   isLeave: boolean = false;
   isLogin: Observable<boolean>;
@@ -37,36 +37,45 @@ export class ArticleComponent
   backImg!: ElementRef;
   smallSize!: Observable<boolean>;
   setIsLeaveTimeout: any;
+  subscriptionList: any[] = [];
 
   ngOnInit() {
-    this.route.params.subscribe(
-      (res: any) => (this.articleId = res['articleId']),
+    this.subscriptionList.push(
+      this.route.params.subscribe(
+        (res: any) => (this.articleId = res['articleId']),
+      ),
     );
     this.toSetIsLeaveToFalse();
-    this.articleService
-      .getArticleInfo(this.articleId)
-      .subscribe((res: resType<articleInfo>) => {
-        if (res.code === 200)
-          this.articleInfo = {
-            ...this.articleInfo,
-            ...res.data,
-          } as articleInfo;
-      });
+    this.subscriptionList.push(
+      this.articleService
+        .getArticleInfo(this.articleId)
+        .subscribe((res: resType<articleInfo>) => {
+          if (res.code === 200)
+            this.articleInfo = {
+              ...this.articleInfo,
+              ...res.data,
+            } as articleInfo;
+        }),
+    );
   }
 
   toSetIsLeaveToFalse = () => {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        if (this.isLeave && this.setIsLeaveTimeout)
-          clearTimeout(this.setIsLeaveTimeout);
-      }
-    });
-    this.route.url.subscribe((res: any) => {
-      if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
-      this.setIsLeaveTimeout = setTimeout(() => {
-        this.isLeave = false;
-      }, 1000);
-    });
+    this.subscriptionList.push(
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          if (this.isLeave && this.setIsLeaveTimeout)
+            clearTimeout(this.setIsLeaveTimeout);
+        }
+      }),
+    );
+    this.subscriptionList.push(
+      this.route.url.subscribe((res: any) => {
+        if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
+        this.setIsLeaveTimeout = setTimeout(() => {
+          this.isLeave = false;
+        }, 1000);
+      }),
+    );
   };
 
   ngAfterViewChecked(): void {
@@ -95,5 +104,10 @@ export class ArticleComponent
   }
   toBelongFile(folderId: string) {
     this.router.navigate(['folderPage', folderId]);
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

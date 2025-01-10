@@ -2,7 +2,7 @@ import { HomeService } from '@/app/service/home.service';
 import { folderItem, tag } from '@/types/home/home';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
@@ -11,7 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./userinfo.component.scss'],
   standalone: false,
 })
-export class UserinfoComponent implements OnInit {
+export class UserinfoComponent implements OnInit, OnDestroy {
   articleInfoList: articleInfo[] = []; //文章列表
   folderNum = 0; //分类数
   tagsNum = 0; //tag数
@@ -19,25 +19,33 @@ export class UserinfoComponent implements OnInit {
   smallSize!: boolean;
   @Output()
   closeDrawer = new EventEmitter();
+  subscriptionList: any[] = [];
   constructor(
     private homeService: HomeService,
     private router: Router,
     private message: NzMessageService,
   ) {}
   ngOnInit(): void {
-    this.homeService
-      .getArticleInfo()
-      .subscribe((res: resType<articleInfo[]>) => {
-        if (res.code === 200) this.articleInfoList = res.data as articleInfo[];
-      });
-    this.homeService
-      .getFolderCategory()
-      .subscribe((res: resType<folderItem[]>) => {
-        if (res.code === 200) this.folderNum = res.data!.length;
-      });
-    this.homeService.getTags().subscribe((res: resType<tag[]>) => {
-      if (res.code === 200) this.tagsNum = res.data!.length;
-    });
+    this.subscriptionList.push(
+      this.homeService
+        .getArticleInfo()
+        .subscribe((res: resType<articleInfo[]>) => {
+          if (res.code === 200)
+            this.articleInfoList = res.data as articleInfo[];
+        }),
+    );
+    this.subscriptionList.push(
+      this.homeService
+        .getFolderCategory()
+        .subscribe((res: resType<folderItem[]>) => {
+          if (res.code === 200) this.folderNum = res.data!.length;
+        }),
+    );
+    this.subscriptionList.push(
+      this.homeService.getTags().subscribe((res: resType<tag[]>) => {
+        if (res.code === 200) this.tagsNum = res.data!.length;
+      }),
+    );
   }
   toDateCate() {
     this.router.navigate(['/dateCate']);
@@ -81,5 +89,10 @@ export class UserinfoComponent implements OnInit {
     const toGitHub = document.getElementById('toGitHub');
     toGitHub?.click();
     toGitHub?.remove();
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

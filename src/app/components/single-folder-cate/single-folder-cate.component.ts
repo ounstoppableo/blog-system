@@ -1,6 +1,6 @@
 import { CategoryService } from '@/app/service/category.service';
 import { singleFolderMapArticleInfos } from '@/types/category/category';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./single-folder-cate.component.scss'],
   standalone: false,
 })
-export class SingleFolderCateComponent implements OnInit {
+export class SingleFolderCateComponent implements OnInit, OnDestroy {
   smallSize!: Observable<boolean>;
   @Input()
   isLogin = false;
@@ -25,6 +25,7 @@ export class SingleFolderCateComponent implements OnInit {
   page = 1;
   limit = 7;
   total = 0;
+  subscriptionList: any[] = [];
 
   constructor(
     private categoryService: CategoryService,
@@ -39,19 +40,21 @@ export class SingleFolderCateComponent implements OnInit {
   getArticleInfos(page: number, limit: number) {
     return new Promise((resolve) => {
       this.loading = true;
-      this.route.params.subscribe((param) => {
-        this.categoryService
-          .getSingleFolderMapArticleInfos(param['folderId'], page, limit)
-          .subscribe((res) => {
-            resolve(1);
-            this.loading = false;
-            if (res.code === 200) {
-              this.singleFolderMapArticleInfos =
-                res.data as singleFolderMapArticleInfos;
-              this.total = this.singleFolderMapArticleInfos.total;
-            }
-          });
-      });
+      this.subscriptionList.push(
+        this.route.params.subscribe((param) => {
+          this.categoryService
+            .getSingleFolderMapArticleInfos(param['folderId'], page, limit)
+            .subscribe((res) => {
+              resolve(1);
+              this.loading = false;
+              if (res.code === 200) {
+                this.singleFolderMapArticleInfos =
+                  res.data as singleFolderMapArticleInfos;
+                this.total = this.singleFolderMapArticleInfos.total;
+              }
+            });
+        }),
+      );
     });
   }
   nextPage(param: any) {
@@ -62,6 +65,11 @@ export class SingleFolderCateComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
       if (resolve) resolve(1);
+    });
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
     });
   }
 }

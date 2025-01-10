@@ -52,6 +52,7 @@ export class MsgBoradPageComponent
     localStorage.getItem('myTreeHoleMsgs') || '[]',
   );
   bulletsState: bulletState[] = [];
+  subscriptionList: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -76,13 +77,15 @@ export class MsgBoradPageComponent
   };
 
   setBulletInterval = () => {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        clearInterval(this.interval);
-        if (event.url === '/msgboard')
-          this.interval = setInterval(this.bulletAnimationUnit, 16);
-      }
-    });
+    this.subscriptionList.push(
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          clearInterval(this.interval);
+          if (event.url === '/msgboard')
+            this.interval = setInterval(this.bulletAnimationUnit, 16);
+        }
+      }),
+    );
     asyncCheckAppLoad(
       () => (this.interval = setInterval(this.bulletAnimationUnit, 16)),
     );
@@ -146,18 +149,22 @@ export class MsgBoradPageComponent
   }
 
   toSetIsLeaveToFalse = () => {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        if (this.isLeave && this.setIsLeaveTimeout)
-          clearTimeout(this.setIsLeaveTimeout);
-      }
-    });
-    this.route.url.subscribe((res: any) => {
-      if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
-      this.setIsLeaveTimeout = setTimeout(() => {
-        this.isLeave = false;
-      }, 1000);
-    });
+    this.subscriptionList.push(
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          if (this.isLeave && this.setIsLeaveTimeout)
+            clearTimeout(this.setIsLeaveTimeout);
+        }
+      }),
+    );
+    this.subscriptionList.push(
+      this.route.url.subscribe((res: any) => {
+        if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
+        this.setIsLeaveTimeout = setTimeout(() => {
+          this.isLeave = false;
+        }, 1000);
+      }),
+    );
   };
 
   sendMsgToTreeHole = () => {
@@ -165,14 +172,16 @@ export class MsgBoradPageComponent
     this.timer = setTimeout(() => {
       this.timer = null;
     }, 3000);
-    this.treeHoleService.sendMsg(this.treeHoleMsg).subscribe((res) => {
-      if (res.code === 200) {
-        this.treeHoleMsg = '';
-        this.message.success('Shoot~~');
-        this.getTreeHoleMsgs();
-        this.setTreeHoleMsgToLocal(res.data.msgId);
-      }
-    });
+    this.subscriptionList.push(
+      this.treeHoleService.sendMsg(this.treeHoleMsg).subscribe((res) => {
+        if (res.code === 200) {
+          this.treeHoleMsg = '';
+          this.message.success('Shoot~~');
+          this.getTreeHoleMsgs();
+          this.setTreeHoleMsgToLocal(res.data.msgId);
+        }
+      }),
+    );
   };
 
   setTreeHoleMsgToLocal = (msgId: number) => {
@@ -183,14 +192,19 @@ export class MsgBoradPageComponent
   };
 
   getTreeHoleMsgs = () => {
-    this.treeHoleService.getMsgs().subscribe((res) => {
-      if (res.code === 200) {
-        this.treeHoleMsgs = res.data;
-      }
-    });
+    this.subscriptionList.push(
+      this.treeHoleService.getMsgs().subscribe((res) => {
+        if (res.code === 200) {
+          this.treeHoleMsgs = res.data;
+        }
+      }),
+    );
   };
   ngOnDestroy(): void {
     clearInterval(this.interval);
     window.removeEventListener('resize', this.resetBulletY);
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

@@ -1,7 +1,7 @@
 import { HomeService } from '@/app/service/home.service';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import dayjs from 'dayjs';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./info.component.scss'],
   standalone: false,
 })
-export class InfoComponent implements OnInit {
+export class InfoComponent implements OnInit, OnDestroy {
   smallSize!: Observable<boolean>;
   @Input()
   dontShowGpuRenderComponent: boolean = false;
@@ -28,6 +28,7 @@ export class InfoComponent implements OnInit {
   isLogin: Observable<boolean>;
   articleInfoList: articleInfo[] = []; //文章列表
   loading = true;
+  subscriptionList: any[] = [];
 
   isHaveNews = true;
   constructor(
@@ -39,15 +40,17 @@ export class InfoComponent implements OnInit {
     this.smallSize = store.select('smallSize');
   }
   ngOnInit(): void {
-    this.homeService
-      .getArticleInfo()
-      .subscribe((res: resType<articleInfo[]>) => {
-        this.loading = false;
-        if (res.code === 200)
-          this.articleInfoList = res.data?.sort(
-            (a, b) => dayjs(b.subTime).unix() - dayjs(a.subTime).unix(),
-          ) as articleInfo[];
-      });
+    this.subscriptionList.push(
+      this.homeService
+        .getArticleInfo()
+        .subscribe((res: resType<articleInfo[]>) => {
+          this.loading = false;
+          if (res.code === 200)
+            this.articleInfoList = res.data?.sort(
+              (a, b) => dayjs(b.subTime).unix() - dayjs(a.subTime).unix(),
+            ) as articleInfo[];
+        }),
+    );
   }
   newsShowControl($event: boolean) {
     this.isHaveNews = $event;
@@ -60,5 +63,10 @@ export class InfoComponent implements OnInit {
     e.stopPropagation();
     const dateId = dayjs(date).format('YYYY-MM');
     this.router.navigate(['dateCate'], { fragment: dateId });
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

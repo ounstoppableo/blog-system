@@ -22,6 +22,7 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
   handleScrollEvent: any;
   hoursContainer: any;
   timeroutTimer: any[] = [];
+  subscriptionList: any[] = [];
 
   @ViewChild('cardForWeather')
   cardForWeather!: any;
@@ -196,28 +197,32 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
       (position) => {
         const longitude = position.coords.longitude.toFixed(2);
         const latitude = position.coords.latitude.toFixed(2);
-        this.weatherService
-          .getWeatherByLocation(`${longitude},${latitude}`)
-          .subscribe((res) => {
-            if (res.code === 200) {
-              this.hoursData = res.data.weatherData;
-              this.location = res.data.location[0];
-              this.init();
-              this.adjustInitialPositions();
-            }
-          });
+        this.subscriptionList.push(
+          this.weatherService
+            .getWeatherByLocation(`${longitude},${latitude}`)
+            .subscribe((res) => {
+              if (res.code === 200) {
+                this.hoursData = res.data.weatherData;
+                this.location = res.data.location[0];
+                this.init();
+                this.adjustInitialPositions();
+              }
+            }),
+        );
       },
       () => {
-        this.weatherService
-          .getWeatherByLocation('116.40,39.90')
-          .subscribe((res) => {
-            if (res.code === 200) {
-              this.hoursData = res.data.weatherData;
-              this.location = res.data.location[0];
-              this.init();
-              this.adjustInitialPositions();
-            }
-          });
+        this.subscriptionList.push(
+          this.weatherService
+            .getWeatherByLocation('116.40,39.90')
+            .subscribe((res) => {
+              if (res.code === 200) {
+                this.hoursData = res.data.weatherData;
+                this.location = res.data.location[0];
+                this.init();
+                this.adjustInitialPositions();
+              }
+            }),
+        );
       },
     );
   };
@@ -481,6 +486,9 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
     });
     this.timeroutTimer.forEach((timer) => {
       clearTimeout(timer);
+    });
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
     });
   }
 }

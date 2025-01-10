@@ -32,6 +32,7 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('menu_wrapper')
   menu_wrapper!: ElementRef;
+  subscriptionList: any[] = [];
 
   observer: any = new MutationObserver(() => {
     const appHeight = document.getElementById('approot')!.offsetHeight;
@@ -107,11 +108,13 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
         subtree: true,
         attributes: true,
       });
-      this.router.events.subscribe((event) => {
-        if (event instanceof NavigationStart) {
-          closedFloat();
-        }
-      });
+      this.subscriptionList.push(
+        this.router.events.subscribe((event) => {
+          if (event instanceof NavigationStart) {
+            closedFloat();
+          }
+        }),
+      );
     }
   }
 
@@ -168,5 +171,8 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
     document
       .querySelector('[has-ripple="true"]')
       ?.removeEventListener('click', this.rippleClickCb);
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

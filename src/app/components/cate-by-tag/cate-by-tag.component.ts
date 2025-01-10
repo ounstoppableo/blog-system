@@ -1,7 +1,7 @@
 import { CategoryService } from '@/app/service/category.service';
 import { tag } from '@/types/home/home';
 import { resType } from '@/types/response/response';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -11,12 +11,13 @@ import { Observable } from 'rxjs';
   styleUrls: ['./cate-by-tag.component.scss'],
   standalone: false,
 })
-export class CateByTagComponent implements OnInit {
+export class CateByTagComponent implements OnInit, OnDestroy {
   smallSize: Observable<boolean>;
   isLogin: Observable<boolean>;
   @Input()
   showMsgAndArticle = true;
   tags: tag[] = [];
+  subscriptionList: any[] = [];
   loading = true;
   constructor(
     private categoryService: CategoryService,
@@ -26,11 +27,18 @@ export class CateByTagComponent implements OnInit {
     this.isLogin = store.select('isLogin');
   }
   ngOnInit(): void {
-    this.categoryService
-      .getArticleInTagCount()
-      .subscribe((res: resType<any>) => {
-        this.loading = false;
-        if (res.code === 200) this.tags = res.data;
-      });
+    this.subscriptionList.push(
+      this.categoryService
+        .getArticleInTagCount()
+        .subscribe((res: resType<any>) => {
+          this.loading = false;
+          if (res.code === 200) this.tags = res.data;
+        }),
+    );
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

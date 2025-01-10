@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { articleInfo } from '@/types/overview/overview';
@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./container.component.scss'],
   standalone: false,
 })
-export class ContainerComponent implements OnInit {
+export class ContainerComponent implements OnInit, OnDestroy {
   articleInfoList: articleInfo[] = [];
   catalogue: any[] = [];
   smallSize: Observable<boolean>;
@@ -55,6 +55,7 @@ export class ContainerComponent implements OnInit {
   page = 1;
   limit = 10;
   total = 0;
+  subscriptionList: any[] = [];
 
   constructor(
     private routes: ActivatedRoute,
@@ -73,15 +74,17 @@ export class ContainerComponent implements OnInit {
 
   getArticleInfo(page: number, limit: number) {
     return new Promise((resolve) => {
-      this.homeService
-        .getArticleInfoByPage(page, limit)
-        .subscribe((res: resType<any>) => {
-          resolve(1);
-          if (res.code === 200) {
-            this.articleInfoList = res.data.articleInfoList as articleInfo[];
-            this.total = res.data.total;
-          }
-        });
+      this.subscriptionList.push(
+        this.homeService
+          .getArticleInfoByPage(page, limit)
+          .subscribe((res: resType<any>) => {
+            resolve(1);
+            if (res.code === 200) {
+              this.articleInfoList = res.data.articleInfoList as articleInfo[];
+              this.total = res.data.total;
+            }
+          }),
+      );
     });
   }
   nextPage(param: any) {
@@ -93,5 +96,10 @@ export class ContainerComponent implements OnInit {
   }
   _getCatalogue($event: any) {
     this.catalogue = $event;
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '@/app/service/login';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -24,8 +24,9 @@ kwIDAQAB
   styleUrls: ['./login.component.scss'],
   standalone: false,
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   isLogin: Observable<boolean>;
+  subscriptionList: any[] = [];
   constructor(
     private ls: LoginService,
     private message: NzMessageService,
@@ -68,11 +69,18 @@ export class LoginComponent {
     const code = await new jose.EncryptJWT(this.loginInfo.value)
       .setProtectedHeader({ alg: 'RSA-OAEP', enc: 'A256GCM' })
       .encrypt(publicKey);
-    this.ls.login(code).subscribe((res: any) => {
-      if (res.code !== 200) return this.message.warning(res.msg);
-      localStorage.setItem('token', res.token);
-      this.store.dispatch(setIsLogin({ flag: true }));
-      return this.location.back();
+    this.subscriptionList.push(
+      this.ls.login(code).subscribe((res: any) => {
+        if (res.code !== 200) return this.message.warning(res.msg);
+        localStorage.setItem('token', res.token);
+        this.store.dispatch(setIsLogin({ flag: true }));
+        return this.location.back();
+      }),
+    );
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
     });
   }
 }

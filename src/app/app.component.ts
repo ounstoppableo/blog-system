@@ -51,6 +51,7 @@ export class AppComponent
   //上传文章相关
   @ViewChild('addArticleForm')
   addArticleForm!: any;
+  subscriptionList: any[] = [];
   showHeader = true;
   constructor(
     private router: Router,
@@ -64,46 +65,48 @@ export class AppComponent
   }
   @ViewResize()
   ngOnInit(): void {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.isArticle = event.url.includes('article');
-        if (event.url === '/404' || event.urlAfterRedirects === '/404') {
-          this.is404Page = true;
-        } else {
-          this.is404Page = false;
+    this.subscriptionList.push(
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.isArticle = event.url.includes('article');
+          if (event.url === '/404' || event.urlAfterRedirects === '/404') {
+            this.is404Page = true;
+          } else {
+            this.is404Page = false;
+          }
+          if (event.url === '/login') {
+            this.showHeader = false;
+          } else {
+            this.showHeader = true;
+          }
+          this.defaultShow = !(
+            this.isArticle ||
+            this.is404Page ||
+            event.url === '/home' ||
+            event.url === '/' ||
+            event.url === '/msgboard'
+          );
+          if (
+            event.url === '/home' ||
+            event.url === '/' ||
+            event.url === '/msgboard'
+          ) {
+            //获取头部样式变化的高度
+            this.headerChangeHeight =
+              innerHeight -
+              Number.parseFloat(
+                getComputedStyle(document.documentElement).getPropertyValue(
+                  '--headerHeigth',
+                ),
+              );
+          } else if (this.is404Page) {
+            this.headerChangeHeight = innerHeight;
+          } else if (!this.isArticle) {
+            this.headerChangeHeight = 0;
+          }
         }
-        if (event.url === '/login') {
-          this.showHeader = false;
-        } else {
-          this.showHeader = true;
-        }
-        this.defaultShow = !(
-          this.isArticle ||
-          this.is404Page ||
-          event.url === '/home' ||
-          event.url === '/' ||
-          event.url === '/msgboard'
-        );
-        if (
-          event.url === '/home' ||
-          event.url === '/' ||
-          event.url === '/msgboard'
-        ) {
-          //获取头部样式变化的高度
-          this.headerChangeHeight =
-            innerHeight -
-            Number.parseFloat(
-              getComputedStyle(document.documentElement).getPropertyValue(
-                '--headerHeigth',
-              ),
-            );
-        } else if (this.is404Page) {
-          this.headerChangeHeight = innerHeight;
-        } else if (!this.isArticle) {
-          this.headerChangeHeight = 0;
-        }
-      }
-    });
+      }),
+    );
     if (this.firstLoad) {
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
@@ -435,5 +438,8 @@ export class AppComponent
     this.observer?.disconnect();
     window.removeEventListener('resize', this._showWaifu);
     window.removeEventListener('scroll', this.imgLazyLoad);
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

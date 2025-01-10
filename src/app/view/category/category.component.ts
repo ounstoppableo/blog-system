@@ -8,7 +8,12 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -19,7 +24,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./category.component.scss'],
   standalone: false,
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, OnDestroy {
   isLogin: Observable<boolean>;
   isLeave = false;
   headerChangeHeight = 0;
@@ -31,6 +36,7 @@ export class CategoryComponent implements OnInit {
   search = false;
   smallSize: Observable<boolean>;
   setIsLeaveTimeout: any;
+  subscriptionList: any[] = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -41,39 +47,52 @@ export class CategoryComponent implements OnInit {
     this.isLogin = store.select('isLogin');
   }
   ngOnInit(): void {
-    this.route.url.subscribe((pathRes: any) => {
-      type path =
-        | 'dateCate'
-        | 'folderPage'
-        | 'tagCate'
-        | 'tagPage'
-        | 'category'
-        | 'search';
-      this[pathRes[0].path as path] = true;
-    });
+    this.subscriptionList.push(
+      this.route.url.subscribe((pathRes: any) => {
+        type path =
+          | 'dateCate'
+          | 'folderPage'
+          | 'tagCate'
+          | 'tagPage'
+          | 'category'
+          | 'search';
+        this[pathRes[0].path as path] = true;
+      }),
+    );
     this.toSetIsLeaveToFalse();
   }
 
   toSetIsLeaveToFalse = () => {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        if (this.isLeave && this.setIsLeaveTimeout)
-          clearTimeout(this.setIsLeaveTimeout);
-      }
-    });
-    this.route.url.subscribe((res: any) => {
-      if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
-      this.setIsLeaveTimeout = setTimeout(() => {
-        this.isLeave = false;
-      }, 1000);
-    });
+    this.subscriptionList.push(
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          if (this.isLeave && this.setIsLeaveTimeout)
+            clearTimeout(this.setIsLeaveTimeout);
+        }
+      }),
+    );
+    this.subscriptionList.push(
+      this.route.url.subscribe((res: any) => {
+        if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
+        this.setIsLeaveTimeout = setTimeout(() => {
+          this.isLeave = false;
+        }, 1000);
+      }),
+    );
   };
 
   scrollToAnchor() {
-    this.route.fragment.subscribe((fragment: any) => {
-      if (fragment) {
-        this.viewportScroller.scrollToAnchor(fragment);
-      }
+    this.subscriptionList.push(
+      this.route.fragment.subscribe((fragment: any) => {
+        if (fragment) {
+          this.viewportScroller.scrollToAnchor(fragment);
+        }
+      }),
+    );
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
     });
   }
 }

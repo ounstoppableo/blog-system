@@ -8,7 +8,7 @@ dayjs.extend(duration);
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class FooterComponent implements OnInit, OnDestroy {
   constructor(
@@ -20,19 +20,24 @@ export class FooterComponent implements OnInit, OnDestroy {
   baseInfo: any;
   serverStartTime: any;
   interval: any;
+  subscriptionList: any[] = [];
   ngOnInit(): void {
-    this.siteInfoService.getVT().subscribe((res: any) => {
-      if (res.code === 200) {
-        this.VT = res.VT;
-      }
-    });
-    this.siteInfoService.getBaseInfo().subscribe((res: any) => {
-      if (res.code === 200) {
-        this.baseInfo = res.result;
-        this.serverStartTime = res.result?.serverStartTime;
-        this.interval = setInterval(this._runtimeUpdate, 1000);
-      }
-    });
+    this.subscriptionList.push(
+      this.siteInfoService.getVT().subscribe((res: any) => {
+        if (res.code === 200) {
+          this.VT = res.VT;
+        }
+      }),
+    );
+    this.subscriptionList.push(
+      this.siteInfoService.getBaseInfo().subscribe((res: any) => {
+        if (res.code === 200) {
+          this.baseInfo = res.result;
+          this.serverStartTime = res.result?.serverStartTime;
+          this.interval = setInterval(this._runtimeUpdate, 1000);
+        }
+      }),
+    );
   }
   private _runtimeUpdate = () => {
     this.baseInfo.runtime = this.generateRuntime(this.serverStartTime);
@@ -50,5 +55,8 @@ export class FooterComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     clearInterval(this.interval);
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

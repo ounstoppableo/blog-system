@@ -28,7 +28,7 @@ import TxtType from '@/utils/typewriter';
   standalone: false,
 })
 export class HomeComponent
-  implements OnInit, AfterViewInit, watchComponentDeactivate
+  implements OnInit, AfterViewInit, watchComponentDeactivate, OnDestroy
 {
   isLeave = false;
   //控制打字机效果的数据
@@ -41,6 +41,7 @@ export class HomeComponent
   isLogin: Observable<boolean>;
   smallSize!: Observable<boolean>;
   setIsLeaveTimeout: any;
+  subscriptionList: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -52,11 +53,13 @@ export class HomeComponent
     this.isLogin = store.select('isLogin');
   }
   ngOnInit(): void {
-    this.homeService
-      .getFolderCategory()
-      .subscribe((res: resType<folderItem[]>) => {
-        if (res.code === 200) this.folderCategory = res.data;
-      });
+    this.subscriptionList.push(
+      this.homeService
+        .getFolderCategory()
+        .subscribe((res: resType<folderItem[]>) => {
+          if (res.code === 200) this.folderCategory = res.data;
+        }),
+    );
     document.documentElement.style.setProperty(
       '--bodyHeightForInvariant',
       innerHeight + 'px',
@@ -65,18 +68,22 @@ export class HomeComponent
   }
 
   toSetIsLeaveToFalse = () => {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        if (this.isLeave && this.setIsLeaveTimeout)
-          clearTimeout(this.setIsLeaveTimeout);
-      }
-    });
-    this.route.url.subscribe((res: any) => {
-      if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
-      this.setIsLeaveTimeout = setTimeout(() => {
-        this.isLeave = false;
-      }, 1000);
-    });
+    this.subscriptionList.push(
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          if (this.isLeave && this.setIsLeaveTimeout)
+            clearTimeout(this.setIsLeaveTimeout);
+        }
+      }),
+    );
+    this.subscriptionList.push(
+      this.route.url.subscribe((res: any) => {
+        if (this.setIsLeaveTimeout) clearTimeout(this.setIsLeaveTimeout);
+        this.setIsLeaveTimeout = setTimeout(() => {
+          this.isLeave = false;
+        }, 1000);
+      }),
+    );
   };
 
   ngAfterViewInit(): void {
@@ -112,6 +119,11 @@ export class HomeComponent
   //去单文件夹页
   goSingleFolder(folderId: number) {
     this.router.navigate(['folderPage', folderId]);
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }
 //字符串相同字段对比，返回最终相同下标

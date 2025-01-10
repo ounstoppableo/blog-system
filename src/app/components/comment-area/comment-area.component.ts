@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { BoardMsgService } from '@/app/service/board-msg.service';
 import { resType } from '@/types/response/response';
 import { msgItem } from '@/types/msgBorad/msgBorad';
@@ -40,7 +40,7 @@ import { Store } from '@ngrx/store';
   ],
   standalone: false,
 })
-export class CommentAreaComponent implements OnInit {
+export class CommentAreaComponent implements OnInit, OnDestroy {
   isLogin: Observable<boolean>;
   @Input()
   articleId = '';
@@ -55,6 +55,7 @@ export class CommentAreaComponent implements OnInit {
   //分页器数据
   page = 1;
   limit = 5;
+  subscriptionList: any[] = [];
   constructor(
     private addMsgService: BoardMsgService,
     private route: ActivatedRoute,
@@ -64,10 +65,12 @@ export class CommentAreaComponent implements OnInit {
     this.isLogin = store.select('isLogin');
   }
   ngOnInit(): void {
-    this.route.url.subscribe((res) => {
-      this.isMsgBoard = res[0].path === 'msgboard' ? true : false;
-      this.getMsgItems(this.page, this.limit);
-    });
+    this.subscriptionList.push(
+      this.route.url.subscribe((res) => {
+        this.isMsgBoard = res[0].path === 'msgboard' ? true : false;
+        this.getMsgItems(this.page, this.limit);
+      }),
+    );
   }
   getMsgByLocal(store: 'msgCacheForAll' | 'msgCacheForArticle') {
     const msgCache = JSON.parse(localStorage.getItem(store) as any);
@@ -118,29 +121,33 @@ export class CommentAreaComponent implements OnInit {
     this.show = false;
     this.loading = true;
     if (this.isMsgBoard) {
-      this.addMsgService
-        .getMsgForBoard(page, limit)
-        .subscribe((res: resType<any>) => {
-          if (res.code === 200) {
-            this.msgItems = res.data.msgData as msgItem[];
-            this.msgCount = res.data.msgCount;
-            this.getMsgByLocal('msgCacheForAll');
-            this.loading = false;
-            this.show = true;
-          }
-        });
+      this.subscriptionList.push(
+        this.addMsgService
+          .getMsgForBoard(page, limit)
+          .subscribe((res: resType<any>) => {
+            if (res.code === 200) {
+              this.msgItems = res.data.msgData as msgItem[];
+              this.msgCount = res.data.msgCount;
+              this.getMsgByLocal('msgCacheForAll');
+              this.loading = false;
+              this.show = true;
+            }
+          }),
+      );
     } else {
-      this.addMsgService
-        .getMsgForArticle(this.articleId, page, limit)
-        .subscribe((res: resType<any>) => {
-          if (res.code === 200) {
-            this.msgItems = res.data.msgData as msgItem[];
-            this.msgCount = res.data.msgCount;
-            this.getMsgByLocal('msgCacheForArticle');
-            this.loading = false;
-            this.show = true;
-          }
-        });
+      this.subscriptionList.push(
+        this.addMsgService
+          .getMsgForArticle(this.articleId, page, limit)
+          .subscribe((res: resType<any>) => {
+            if (res.code === 200) {
+              this.msgItems = res.data.msgData as msgItem[];
+              this.msgCount = res.data.msgCount;
+              this.getMsgByLocal('msgCacheForArticle');
+              this.loading = false;
+              this.show = true;
+            }
+          }),
+      );
     }
   }
   //页码改变的回调
@@ -150,5 +157,10 @@ export class CommentAreaComponent implements OnInit {
   }
   reload() {
     this.getMsgItems(this.page, this.limit);
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

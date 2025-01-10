@@ -2,7 +2,7 @@ import { CategoryService } from '@/app/service/category.service';
 import { dateCaterory } from '@/types/category/category';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   trigger,
@@ -40,7 +40,7 @@ import { Store } from '@ngrx/store';
   ],
   standalone: false,
 })
-export class CateByDateComponent implements OnInit {
+export class CateByDateComponent implements OnInit, OnDestroy {
   smallSize: Observable<boolean>;
   dateCategory: dateCaterory[] = [];
   loading = true;
@@ -52,6 +52,7 @@ export class CateByDateComponent implements OnInit {
     this.smallSize = store.select('smallSize');
     this.isLogin = store.select('isLogin');
   }
+  subscriptionList: any[] = [];
   isLogin: Observable<boolean>;
   @Output()
   scrollToAnchor = new EventEmitter();
@@ -59,33 +60,40 @@ export class CateByDateComponent implements OnInit {
     this.getDateCategoty();
   }
   getDateCategoty() {
-    this.catecogyService
-      .getAllArticleInfo()
-      .subscribe((res: resType<articleInfo[]>) => {
-        this.loading = false;
-        if (res.code === 200) {
-          const dateCate = Array.from(
-            new Set(
-              (res.data as articleInfo[]).map((item: articleInfo) => {
-                return item.lastModifyTime.slice(0, 7);
-              }),
-            ),
-          );
-          dateCate.forEach((dateCateItem) => {
-            this.dateCategory.push({
-              dateCate: dateCateItem,
-              articleInfos: (res.data as articleInfo[]).filter((item) =>
-                item.lastModifyTime.includes(dateCateItem),
+    this.subscriptionList.push(
+      this.catecogyService
+        .getAllArticleInfo()
+        .subscribe((res: resType<articleInfo[]>) => {
+          this.loading = false;
+          if (res.code === 200) {
+            const dateCate = Array.from(
+              new Set(
+                (res.data as articleInfo[]).map((item: articleInfo) => {
+                  return item.lastModifyTime.slice(0, 7);
+                }),
               ),
+            );
+            dateCate.forEach((dateCateItem) => {
+              this.dateCategory.push({
+                dateCate: dateCateItem,
+                articleInfos: (res.data as articleInfo[]).filter((item) =>
+                  item.lastModifyTime.includes(dateCateItem),
+                ),
+              });
             });
-          });
-          setTimeout(() => {
-            this.scrollToAnchor.emit();
-          }, 0);
-        }
-      });
+            setTimeout(() => {
+              this.scrollToAnchor.emit();
+            }, 0);
+          }
+        }),
+    );
   }
   toArticle(articleId: string) {
     this.router.navigate(['article', articleId]);
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

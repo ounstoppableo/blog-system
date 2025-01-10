@@ -54,6 +54,7 @@ export class OverviewComponent
   articleListRef!: any;
   isInit = false;
   noToTop = '1970-01-01 08:00:01';
+  subscriptionList: any[] = [];
   private _timer: any = null;
   private _cardShowWhileScroll = () => {
     if (this._timer) {
@@ -106,9 +107,11 @@ export class OverviewComponent
 
   ngOnInit(): void {
     if (this.isHome && this.toTopOverview) {
-      this.homeService.getTopArticleInfo().subscribe((res) => {
-        if (res.code === 200) this.articleInfoList = res.data;
-      });
+      this.subscriptionList.push(
+        this.homeService.getTopArticleInfo().subscribe((res) => {
+          if (res.code === 200) this.articleInfoList = res.data;
+        }),
+      );
     }
   }
   ngOnChanges(changes: any) {
@@ -136,9 +139,11 @@ export class OverviewComponent
   }
   //删除文章
   delArticle(articleId: string) {
-    this.homeService.delArticle(articleId).subscribe((res: resType<any>) => {
-      if (res.code === 200) this.message.success('删除成功!');
-    });
+    this.subscriptionList.push(
+      this.homeService.delArticle(articleId).subscribe((res: resType<any>) => {
+        if (res.code === 200) this.message.success('删除成功!');
+      }),
+    );
   }
   pageIndexChange(page: number) {
     new Promise((resolve) => {
@@ -166,13 +171,17 @@ export class OverviewComponent
   }
   toTopArticle(info: articleInfo) {
     if (info.toTop === this.noToTop) {
-      this.homeService.toTopArticle(info.articleId).subscribe((res) => {
-        if (res.code === 200) this.message.success('置顶成功');
-      });
+      this.subscriptionList.push(
+        this.homeService.toTopArticle(info.articleId).subscribe((res) => {
+          if (res.code === 200) this.message.success('置顶成功');
+        }),
+      );
     } else {
-      this.homeService.cancelTopArticle(info.articleId).subscribe((res) => {
-        if (res.code === 200) this.message.success('取消置顶成功');
-      });
+      this.subscriptionList.push(
+        this.homeService.cancelTopArticle(info.articleId).subscribe((res) => {
+          if (res.code === 200) this.message.success('取消置顶成功');
+        }),
+      );
     }
   }
   //重置动画
@@ -181,5 +190,8 @@ export class OverviewComponent
   }
   ngOnDestroy(): void {
     window.removeEventListener('scroll', this._cardShowWhileScroll);
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

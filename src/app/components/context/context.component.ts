@@ -33,6 +33,7 @@ export class ContextComponent
   articleTitleTree: any[] = []; //文章标题树，用于构建目录
   isLogin: Observable<boolean>;
   smallSize: Observable<boolean>;
+  subscriptionList: any[] = [];
   @Output()
   getCatalogue = new EventEmitter();
   @Output()
@@ -55,20 +56,24 @@ export class ContextComponent
 
   write: any = null;
   ngOnInit() {
-    this.route.params.subscribe((res) => (this.articleId = res['articleId']));
+    this.subscriptionList.push(
+      this.route.params.subscribe((res) => (this.articleId = res['articleId'])),
+    );
     this.getPreAndNextArticleInfo();
     this.getArticle();
   }
   //获取前一个和后一个文章
   getPreAndNextArticleInfo() {
-    this.articleService
-      .getPreAndNextArticleInfo(this.articleId)
-      .subscribe((res: resType<any>) => {
-        if (res.code === 200) {
-          this.preInfo = res.data;
-          this.nextInfo = res.data;
-        }
-      });
+    this.subscriptionList.push(
+      this.articleService
+        .getPreAndNextArticleInfo(this.articleId)
+        .subscribe((res: resType<any>) => {
+          if (res.code === 200) {
+            this.preInfo = res.data;
+            this.nextInfo = res.data;
+          }
+        }),
+    );
   }
   //插入文章内容并渲染高亮以及数学处理
   insertArticle() {
@@ -80,53 +85,55 @@ export class ContextComponent
   //获取文章内容
   getArticle() {
     this.loading = true;
-    this.articleService.getArticle(this.articleId).subscribe((res) => {
-      if (res.code === 200) {
-        this.getWordsCountAndReadTime.emit({
-          wordsCount: res.data.words,
-          readTime: res.data.text,
-        });
+    this.subscriptionList.push(
+      this.articleService.getArticle(this.articleId).subscribe((res) => {
+        if (res.code === 200) {
+          this.getWordsCountAndReadTime.emit({
+            wordsCount: res.data.words,
+            readTime: res.data.text,
+          });
 
-        let article = marked.parse(
-          res.data.articleContent.replace(
-            /\$\$([\s\S]+?)\$\$/g,
-            (match: any, math: any) => {
-              math = math.replace(/\\\\/g, '@@line_break@@');
-              return `$$${math}$$`;
+          let article = marked.parse(
+            res.data.articleContent.replace(
+              /\$\$([\s\S]+?)\$\$/g,
+              (match: any, math: any) => {
+                math = math.replace(/\\\\/g, '@@line_break@@');
+                return `$$${math}$$`;
+              },
+            ),
+          ) as string;
+          article = article.replace(/@@line_break@@/g, '\\\\');
+          const articleTitleList = article.match(
+            /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
+          ) as any[];
+          this.articleTitleTree = this.articleTitleListToTree(
+            articleTitleList,
+            true,
+          );
+          this.getCatalogue.emit(this.articleTitleTree);
+          localStorage.setItem(
+            'catalogue',
+            JSON.stringify(this.articleTitleTree),
+          );
+          article = article.replace(
+            /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
+            (match: string) => {
+              const temp = match.split('<');
+              const tagEnd = temp[2];
+              const temp2 = temp[1].split('>');
+              const tagStart = temp2[0];
+              const title = temp2[1];
+              return `<${tagStart} id="${title.replace(
+                /[\(\-\)\$0-9\.\s\&\@\;]/g,
+                '',
+              )}">${title}<${tagEnd}`;
             },
-          ),
-        ) as string;
-        article = article.replace(/@@line_break@@/g, '\\\\');
-        const articleTitleList = article.match(
-          /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
-        ) as any[];
-        this.articleTitleTree = this.articleTitleListToTree(
-          articleTitleList,
-          true,
-        );
-        this.getCatalogue.emit(this.articleTitleTree);
-        localStorage.setItem(
-          'catalogue',
-          JSON.stringify(this.articleTitleTree),
-        );
-        article = article.replace(
-          /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
-          (match: string) => {
-            const temp = match.split('<');
-            const tagEnd = temp[2];
-            const temp2 = temp[1].split('>');
-            const tagStart = temp2[0];
-            const title = temp2[1];
-            return `<${tagStart} id="${title.replace(
-              /[\(\-\)\$0-9\.\s\&\@\;]/g,
-              '',
-            )}">${title}<${tagEnd}`;
-          },
-        );
-        this.article = article;
-        this.loading = false;
-      }
-    });
+          );
+          this.article = article;
+          this.loading = false;
+        }
+      }),
+    );
   }
   //根据文章标题列表获取文章标题树
   articleTitleListToTree(articleTitleList: string[], flag = false) {
@@ -214,5 +221,8 @@ export class ContextComponent
   ngOnDestroy() {
     document.removeEventListener('click', this._scrollToAnchor);
     this.write.removeEventListener('click', this._replaceImgToNzImg);
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

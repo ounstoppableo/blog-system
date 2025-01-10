@@ -1,5 +1,5 @@
 import { ArticleService } from '@/app/service/article.service';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { OverviewComponent } from '../overview/overview.component';
@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./search.component.scss'],
   standalone: false,
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   isLogin: Observable<boolean>;
   @Input()
   dontShowGpuRenderComponent: boolean = false;
@@ -30,6 +30,7 @@ export class SearchComponent implements OnInit {
   total = 0;
   articleInfoList = [];
   timer: any = undefined;
+  subscriptionList: any[] = [];
   constructor(
     private router: Router,
     private articleService: ArticleService,
@@ -64,15 +65,22 @@ export class SearchComponent implements OnInit {
   }
   getArticleInfos() {
     return new Promise((resolve) => {
-      this.articleService
-        .searchArticle(this.searchText, this.page, this.limit)
-        .subscribe((res) => {
-          resolve(1);
-          if (res.code === 200) {
-            this.articleInfoList = res.data.articleInfoList;
-            this.total = res.data.total;
-          }
-        });
+      this.subscriptionList.push(
+        this.articleService
+          .searchArticle(this.searchText, this.page, this.limit)
+          .subscribe((res) => {
+            resolve(1);
+            if (res.code === 200) {
+              this.articleInfoList = res.data.articleInfoList;
+              this.total = res.data.total;
+            }
+          }),
+      );
+    });
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
     });
   }
 }

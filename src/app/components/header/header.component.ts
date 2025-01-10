@@ -45,6 +45,7 @@ export class HeaderComponent
   upload = new EventEmitter();
   @Output()
   drawerOpen = new EventEmitter();
+  subscriptionList: any[] = [];
 
   constructor(
     private router: Router,
@@ -58,11 +59,13 @@ export class HeaderComponent
   }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
-      this.ls.getUserInfo().subscribe((res: resType<any>) => {
-        if (res.code === 200) {
-          this.store.dispatch(setIsLogin({ flag: true }));
-        }
-      });
+      this.subscriptionList.push(
+        this.ls.getUserInfo().subscribe((res: resType<any>) => {
+          if (res.code === 200) {
+            this.store.dispatch(setIsLogin({ flag: true }));
+          }
+        }),
+      );
     }
   }
   ngOnChanges(changes: any): void {
@@ -137,6 +140,9 @@ export class HeaderComponent
   //组件销毁同时清除滚动事件
   ngOnDestroy(): void {
     window.removeEventListener('scroll', this.onScroll);
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
   //folder展开
   folderShow() {
