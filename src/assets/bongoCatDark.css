@@ -15,6 +15,7 @@
   place-content: center;
   align-items: flex-end;
   overflow: hidden;
+  z-index: infinite;
 }
 
 .container {

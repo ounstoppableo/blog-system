@@ -12,10 +12,6 @@
     align-items: center;
   }
 
-  &.smallSize {
-    width: 95vw;
-  }
-
   & > .has {
     padding: 30px;
     font-size: 16px;
@@ -39,6 +35,15 @@
         &:hover {
           color: var(--styleColor);
         }
+      }
+    }
+  }
+
+  &.smallSize {
+    width: 95vw;
+    & > .has {
+      & > .folder {
+        padding-left: 0px;
       }
     }
   }

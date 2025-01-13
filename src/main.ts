@@ -32,7 +32,9 @@ platformBrowserDynamic()
           });
         }),
     ).then((res) => {
-      toggleLoadState();
+      setTimeout(() => {
+        toggleLoadState();
+      }, 2000);
       res.forEach((_, index) => {
         document.getElementById('testLink' + index)?.remove();
       });
