@@ -15,7 +15,6 @@
   ></app-cate-by-date>
   <app-context
     *ngIf="isArticle"
-    (getCatalogue)="_getCatalogue($event)"
     (getWordsCountAndReadTime)="this.getWordsCountAndReadTime.emit($event)"
   ></app-context>
   <app-folder-cate *ngIf="folderCate"></app-folder-cate>
@@ -41,7 +40,6 @@
     [showInfo]="showInfo"
     [dontShowGpuRenderComponent]="dontShowGpuRenderComponent"
     [isMsgBoard]="isMsgBoard"
-    [catalogue]="catalogue"
     [isArticle]="isArticle"
   ></app-info>
 </div>

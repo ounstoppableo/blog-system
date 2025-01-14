@@ -19,6 +19,7 @@ import checkDarkMode from '@/utils/checkDarkMode';
 import ViewResize from './decorators/viewResize';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { cloneDeep } from 'lodash';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -39,6 +40,7 @@ export class AppComponent
   isLogin: Observable<boolean>;
   smallSize!: Observable<boolean>;
   catalogue: any[] = [];
+  showCatalogue = false;
   defaultShow = false;
   private _modelInstance: any;
   private _darkModeLock = false;
@@ -51,6 +53,8 @@ export class AppComponent
   //上传文章相关
   @ViewChild('addArticleForm')
   addArticleForm!: any;
+  @ViewChild('catalogueMask')
+  catalogueMask!: any;
   subscriptionList: any[] = [];
   showHeader = true;
   constructor(
@@ -58,7 +62,11 @@ export class AppComponent
     private r: ComponentFactoryResolver,
     private injector: Injector,
     private modal: NzModalService,
-    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+    private store: Store<{
+      smallSize: boolean;
+      isLogin: boolean;
+      catalogue: any;
+    }>,
   ) {
     this.smallSize = store.select('smallSize');
     this.isLogin = store.select('isLogin');
@@ -208,6 +216,14 @@ export class AppComponent
       subtree: true,
     });
     window.addEventListener('scroll', this.imgLazyLoad);
+    this.subscriptionList.push(
+      this.store.subscribe((state) => {
+        if (state.catalogue.length !== 0) {
+          this.catalogue = cloneDeep(state.catalogue);
+          window.addEventListener('click', this.closeCatalogueClickCb);
+        }
+      }),
+    );
   }
   private _showWaifu() {
     if (innerWidth > 1024) {
@@ -387,36 +403,29 @@ export class AppComponent
 
   //到评论区
   toCommentArea() {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
+    document.querySelector('#msgArea')?.scrollIntoView({
       behavior: 'smooth',
     });
   }
 
+  closeCatalogueClickCb = (e: any) => {
+    e.stopPropagation();
+    if (
+      !e.target.closest('.customDialogForCatalogue') &&
+      !e.target.closest('.showCatalogueBtn')
+    )
+      this.closeCatalogue();
+  };
+
   //打开目录
   openCatalogue() {
-    this.catalogue = JSON.parse(localStorage.getItem('catalogue') as any);
-    requestAnimationFrame(() => {
-      this._modelInstance = this.modal.create({
-        nzTitle: undefined,
-        nzContent: this.catalogueTemp,
-        nzWidth: 'fit-content',
-        nzClassName: 'customModal_catalogue',
-        nzStyle: { top: '20%' },
-        nzFooter: null,
-        nzClosable: false,
-      });
-    });
+    if (this.showCatalogue) return (this.showCatalogue = false);
+    this.showCatalogue = true;
   }
 
-  handleCatalogueClick(e: any) {
-    this._modelInstance.close();
-    setTimeout(() => {
-      document
-        .getElementById(e.replace(/[\(\-\)\$0-9\.\s\&\@\;#]/g, ''))
-        ?.scrollIntoView({ behavior: 'smooth' });
-    }, 300);
-  }
+  closeCatalogue = (e?: any) => {
+    this.showCatalogue = false;
+  };
 
   ngAfterViewChecked(): void {
     if (this.isArticle) {
@@ -438,6 +447,7 @@ export class AppComponent
     this.observer?.disconnect();
     window.removeEventListener('resize', this._showWaifu);
     window.removeEventListener('scroll', this.imgLazyLoad);
+    window.removeEventListener('click', this.closeCatalogueClickCb);
     this.subscriptionList.forEach((subscripion) => {
       subscripion.unsubscribe();
     });

@@ -94,9 +94,6 @@ export class ContainerComponent implements OnInit, OnDestroy {
       if (resolve) resolve(1);
     });
   }
-  _getCatalogue($event: any) {
-    this.catalogue = $event;
-  }
   ngOnDestroy(): void {
     this.subscriptionList.forEach((subscripion) => {
       subscripion.unsubscribe();

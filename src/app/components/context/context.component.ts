@@ -17,6 +17,7 @@ import addMathJax from '@/utils/addMathJax';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { setCatalogue } from '@/app/store/catalogueStore/catalogueStore.action';
 @Component({
   selector: 'app-context',
   templateUrl: './context.component.html',
@@ -35,15 +36,17 @@ export class ContextComponent
   smallSize: Observable<boolean>;
   subscriptionList: any[] = [];
   @Output()
-  getCatalogue = new EventEmitter();
-  @Output()
   getWordsCountAndReadTime = new EventEmitter();
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
     private router: Router,
     private nzImageService: NzImageService,
-    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+    private store: Store<{
+      smallSize: boolean;
+      isLogin: boolean;
+      catalogue: any;
+    }>,
   ) {
     this.smallSize = store.select('smallSize');
     this.isLogin = store.select('isLogin');
@@ -110,11 +113,7 @@ export class ContextComponent
             articleTitleList,
             true,
           );
-          this.getCatalogue.emit(this.articleTitleTree);
-          localStorage.setItem(
-            'catalogue',
-            JSON.stringify(this.articleTitleTree),
-          );
+          this.store.dispatch(setCatalogue({ data: this.articleTitleTree }));
           article = article.replace(
             /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
             (match: string) => {

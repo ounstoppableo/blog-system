@@ -5,6 +5,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import dayjs from 'dayjs';
+import { cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -22,19 +23,22 @@ export class InfoComponent implements OnInit, OnDestroy {
   @Input()
   isMsgBoard = false;
   @Input()
-  catalogue: any[] = [];
-  @Input()
   isArticle = false;
   isLogin: Observable<boolean>;
   articleInfoList: articleInfo[] = []; //文章列表
   loading = true;
   subscriptionList: any[] = [];
+  catalogue: any[] = [];
 
   isHaveNews = true;
   constructor(
     private homeService: HomeService,
     private router: Router,
-    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+    private store: Store<{
+      smallSize: boolean;
+      isLogin: boolean;
+      catalogue: any;
+    }>,
   ) {
     this.isLogin = store.select('isLogin');
     this.smallSize = store.select('smallSize');
@@ -50,6 +54,13 @@ export class InfoComponent implements OnInit, OnDestroy {
               (a, b) => dayjs(b.subTime).unix() - dayjs(a.subTime).unix(),
             ) as articleInfo[];
         }),
+    );
+    this.subscriptionList.push(
+      this.store.subscribe((state) => {
+        if (state.catalogue.length !== 0) {
+          this.catalogue = cloneDeep(state.catalogue);
+        }
+      }),
     );
   }
   newsShowControl($event: boolean) {
