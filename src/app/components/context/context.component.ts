@@ -8,8 +8,9 @@ import {
   Input,
   OnInit,
   Output,
+  AfterViewInit,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { marked } from 'marked';
 import { resType } from '@/types/response/response';
 import addHighLight from '@/utils/addHighLight';
@@ -32,7 +33,12 @@ import {
   standalone: false,
 })
 export class ContextComponent
-  implements OnInit, AfterViewChecked, AfterContentInit, OnDestroy
+  implements
+    OnInit,
+    AfterViewChecked,
+    AfterContentInit,
+    OnDestroy,
+    AfterViewInit
 {
   article = '';
   articleId = '';
@@ -69,7 +75,22 @@ export class ContextComponent
   write: any = null;
   ngOnInit() {
     this.subscriptionList.push(
-      this.route.params.subscribe((res) => (this.articleId = res['articleId'])),
+      this.route.params.subscribe((res) => {
+        this.articleId = res['articleId'];
+      }),
+    );
+    this.subscriptionList.push(
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          if (event.url.includes(this.articleId)) {
+            this.store.dispatch(
+              setCatalogue({
+                data: cloneDeep(this.articleTitleTree),
+              }),
+            );
+          }
+        }
+      }),
     );
     this.getPreAndNextArticleInfo();
     this.getArticle();

@@ -12,8 +12,8 @@ export const articleGenerateTitleList = (article: string) => {
       titleMap[temp.title] = 0;
     }
     return item.replace(
-      /<(h[1-6]{1})>(.*?)<\/(h[1-6]{1})/,
-      `<$1>${temp.title}<$2>`,
+      /(<h[1-6]{1}>)(.*?)(<\/h[1-6]{1}>)/,
+      `$1${temp.title.replace(/^\d+/, '')}$3`,
     );
   });
 };
@@ -70,8 +70,8 @@ export function articleGenerateId(article: string) {
     const tagEnd = temp[2];
     const temp2 = temp[1].split('>');
     const tagStart = temp2[0];
-    let title = temp2[1];
-    let id = title;
+    const title = temp2[1];
+    let id = title.replace(/\d/g, '');
     if (typeof titleMap[title] === 'number') {
       titleMap[title]++;
       id += titleMap[title];
