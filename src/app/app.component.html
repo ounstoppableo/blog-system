@@ -31,35 +31,6 @@
 </div>
 <ng-container #vc *ngIf="!is404Page"></ng-container>
 <app-music-player *ngIf="!is404Page"></app-music-player>
-<div
-  class="customDialogForCatalogue"
-  [ngStyle]="{
-    opacity: isArticle && showCatalogue && (smallSize | async) ? '1' : '0',
-    transform:
-      isArticle && showCatalogue && (smallSize | async)
-        ? 'scale(1) translate(-50%, -50%)'
-        : 'scale(0) translate(-50%, -50%)',
-  }"
->
-  <div class="catalogue">
-    <p>
-      <span class="iconfont icon-mulu" [style]="{ fontSize: '30px' }"></span>
-      <span>目录</span>
-    </p>
-    <div class="container">
-      <div class="has">
-        <nz-anchor
-          [nzAffix]="false"
-          [nzShowInkInFixed]="true"
-          [nzContainer]="'#write'"
-          (nzClick)="closeCatalogue($event)"
-        >
-          <app-catalogue [catalogue]="catalogue"></app-catalogue>
-        </nz-anchor>
-      </div>
-    </div>
-  </div>
-</div>
 <app-drawer #drawer *ngIf="smallSize | async"></app-drawer>
 <app-add-article-form #addArticleForm *ngIf="!is404Page"></app-add-article-form>
 <app-footer></app-footer>

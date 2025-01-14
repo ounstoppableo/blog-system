@@ -70,6 +70,7 @@ import { smallSizeReducer } from './store/smallSizeStore/smallSize.reducer';
 import { isLoginReducer } from './store/isLoginStore/isLoginStore.reducer';
 import { FriendComponent } from './view/friend/friend.component';
 import { catalogueReducer } from './store/catalogueStore/catalogueStore.reducer';
+import { showCatalogueReducer } from './store/showCatalogueStore/catalogueStore.reducer';
 
 const ngZorroConfig: NzConfig = {
   message: {
@@ -155,6 +156,7 @@ const ngZorroConfig: NzConfig = {
       smallSize: smallSizeReducer,
       isLogin: isLoginReducer,
       catalogue: catalogueReducer,
+      showCatalogue: showCatalogueReducer,
     }),
   ],
   providers: [

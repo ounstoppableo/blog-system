@@ -97,3 +97,32 @@
   <app-msg-board *ngIf="article" [articleId]="articleId"></app-msg-board>
 </div>
 <app-article-content-skeleton *ngIf="loading"></app-article-content-skeleton>
+<div
+  class="customDialogForCatalogue"
+  [ngStyle]="{
+    opacity: (showCatalogue | async) && (smallSize | async) ? '1' : '0',
+    transform:
+      (showCatalogue | async) && (smallSize | async)
+        ? 'scale(1) translate(-50%, -50%)'
+        : 'scale(0) translate(-50%, -50%)',
+  }"
+>
+  <div class="catalogue">
+    <p>
+      <span class="iconfont icon-mulu" [style]="{ fontSize: '30px' }"></span>
+      <span>目录</span>
+    </p>
+    <div class="container">
+      <div class="has">
+        <nz-anchor
+          [nzAffix]="false"
+          [nzShowInkInFixed]="true"
+          [nzContainer]="'#write'"
+          (nzClick)="closeCatalogue($event)"
+        >
+          <app-catalogue [catalogue]="articleTitleTree"></app-catalogue>
+        </nz-anchor>
+      </div>
+    </div>
+  </div>
+</div>

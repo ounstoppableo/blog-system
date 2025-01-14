@@ -20,6 +20,8 @@ import ViewResize from './decorators/viewResize';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
+import { firstValueFrom } from 'rxjs';
+import { setShowCatalogue } from './store/showCatalogueStore/catalogueStore.action';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -39,7 +41,6 @@ export class AppComponent
   observer: any;
   isLogin: Observable<boolean>;
   smallSize!: Observable<boolean>;
-  catalogue: any[] = [];
   showCatalogue = false;
   defaultShow = false;
   private _modelInstance: any;
@@ -65,7 +66,7 @@ export class AppComponent
     private store: Store<{
       smallSize: boolean;
       isLogin: boolean;
-      catalogue: any;
+      showCatalogue: boolean;
     }>,
   ) {
     this.smallSize = store.select('smallSize');
@@ -216,14 +217,6 @@ export class AppComponent
       subtree: true,
     });
     window.addEventListener('scroll', this.imgLazyLoad);
-    this.subscriptionList.push(
-      this.store.subscribe((state) => {
-        if (state.catalogue.length !== 0) {
-          this.catalogue = cloneDeep(state.catalogue);
-          window.addEventListener('click', this.closeCatalogueClickCb);
-        }
-      }),
-    );
   }
   private _showWaifu() {
     if (innerWidth > 1024) {
@@ -408,25 +401,6 @@ export class AppComponent
     });
   }
 
-  closeCatalogueClickCb = (e: any) => {
-    e.stopPropagation();
-    if (
-      !e.target.closest('.customDialogForCatalogue') &&
-      !e.target.closest('.showCatalogueBtn')
-    )
-      this.closeCatalogue();
-  };
-
-  //打开目录
-  openCatalogue() {
-    if (this.showCatalogue) return (this.showCatalogue = false);
-    this.showCatalogue = true;
-  }
-
-  closeCatalogue = (e?: any) => {
-    this.showCatalogue = false;
-  };
-
   ngAfterViewChecked(): void {
     if (this.isArticle) {
       const articleBackGroundImg = document.getElementById(
@@ -442,12 +416,23 @@ export class AppComponent
         );
     }
   }
+
+  async openCatalogue() {
+    const showCatalogue = await firstValueFrom(
+      this.store.select('showCatalogue'),
+    );
+    if (showCatalogue) {
+      this.store.dispatch(setShowCatalogue({ flag: false }));
+    } else {
+      this.store.dispatch(setShowCatalogue({ flag: true }));
+    }
+  }
+
   @ViewResize()
   ngOnDestroy(): void {
     this.observer?.disconnect();
     window.removeEventListener('resize', this._showWaifu);
     window.removeEventListener('scroll', this.imgLazyLoad);
-    window.removeEventListener('click', this.closeCatalogueClickCb);
     this.subscriptionList.forEach((subscripion) => {
       subscripion.unsubscribe();
     });

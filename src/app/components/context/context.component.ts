@@ -18,6 +18,13 @@ import { NzImageService } from 'ng-zorro-antd/image';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { setCatalogue } from '@/app/store/catalogueStore/catalogueStore.action';
+import { setShowCatalogue } from '@/app/store/showCatalogueStore/catalogueStore.action';
+import { clone, cloneDeep } from 'lodash';
+import {
+  articleTitleListToTree,
+  articleGenerateTitleList,
+  articleGenerateId,
+} from '@/utils/articleFunction';
 @Component({
   selector: 'app-context',
   templateUrl: './context.component.html',
@@ -33,6 +40,7 @@ export class ContextComponent
   location = window.location;
   articleTitleTree: any[] = []; //文章标题树，用于构建目录
   isLogin: Observable<boolean>;
+  showCatalogue: Observable<boolean>;
   smallSize: Observable<boolean>;
   subscriptionList: any[] = [];
   @Output()
@@ -45,11 +53,12 @@ export class ContextComponent
     private store: Store<{
       smallSize: boolean;
       isLogin: boolean;
-      catalogue: any;
+      showCatalogue: boolean;
     }>,
   ) {
     this.smallSize = store.select('smallSize');
     this.isLogin = store.select('isLogin');
+    this.showCatalogue = store.select('showCatalogue');
   }
   loading = true;
   //前后文章的信息
@@ -106,74 +115,22 @@ export class ContextComponent
             ),
           ) as string;
           article = article.replace(/@@line_break@@/g, '\\\\');
-          const articleTitleList = article.match(
-            /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
-          ) as any[];
-          this.articleTitleTree = this.articleTitleListToTree(
+          const articleTitleList = articleGenerateTitleList(article);
+          this.articleTitleTree = articleTitleListToTree(
             articleTitleList,
             true,
           );
-          this.store.dispatch(setCatalogue({ data: this.articleTitleTree }));
-          article = article.replace(
-            /<h[1-6]{1}>.*?<\/h[1-6]{1}>/g,
-            (match: string) => {
-              const temp = match.split('<');
-              const tagEnd = temp[2];
-              const temp2 = temp[1].split('>');
-              const tagStart = temp2[0];
-              const title = temp2[1];
-              return `<${tagStart} id="${title.replace(
-                /[\(\-\)\$0-9\.\s\&\@\;]/g,
-                '',
-              )}">${title}<${tagEnd}`;
-            },
+          this.store.dispatch(
+            setCatalogue({
+              data: cloneDeep(this.articleTitleTree),
+            }),
           );
+          article = articleGenerateId(article);
           this.article = article;
           this.loading = false;
         }
       }),
     );
-  }
-  //根据文章标题列表获取文章标题树
-  articleTitleListToTree(articleTitleList: string[], flag = false) {
-    const tree: any[] = [];
-    let firstSon: any = null;
-    let stopFlag = false;
-    articleTitleList.forEach((item, index) => {
-      if (!stopFlag) {
-        const temp = this.tagSplit(item);
-        if (!tree.length || temp.tagLevel === tree[tree.length - 1].tagLevel) {
-          tree.push({ ...temp, children: [] });
-          firstSon = null;
-        } else if (temp.tagLevel < tree[tree.length - 1].tagLevel) {
-          if (flag) {
-            tree.push({ ...temp, children: [] });
-            firstSon = null;
-          }
-          if (!flag) return (stopFlag = true);
-        } else if (temp.tagLevel > tree[tree.length - 1].tagLevel) {
-          if (!firstSon) {
-            firstSon = temp;
-          }
-          if (firstSon === temp) {
-            tree[tree.length - 1].children = this.articleTitleListToTree(
-              articleTitleList.slice(index),
-            );
-          }
-        }
-      }
-    });
-    return tree;
-  }
-  //标题标签拆解器
-  tagSplit(tagString: string) {
-    const temp = tagString.split('<')[1].split('>');
-    const title = temp[1];
-    const tagLevel = +temp[0].split('h')[1];
-    return {
-      title,
-      tagLevel,
-    };
   }
   ngAfterViewChecked(): void {
     if (!this.write) {
@@ -217,11 +174,28 @@ export class ContextComponent
       this.nzImageService.preview([imgInfo], { nzZoom: 1, nzRotate: 0 });
     }
   };
+  closeCatalogueClickCb = (e: any) => {
+    e.stopPropagation();
+    if (
+      !e.target.closest('.customDialogForCatalogue') &&
+      !e.target.closest('.showCatalogueBtn')
+    )
+      this.closeCatalogue();
+  };
+
+  ngAfterViewInit(): void {
+    window.addEventListener('click', this.closeCatalogueClickCb);
+  }
+  closeCatalogue = (e?: any) => {
+    this.store.dispatch(setShowCatalogue({ flag: false }));
+  };
+
   ngOnDestroy() {
     document.removeEventListener('click', this._scrollToAnchor);
     this.write.removeEventListener('click', this._replaceImgToNzImg);
     this.subscriptionList.forEach((subscripion) => {
       subscripion.unsubscribe();
     });
+    window.removeEventListener('click', this.closeCatalogueClickCb);
   }
 }
