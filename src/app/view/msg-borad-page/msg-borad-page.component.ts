@@ -70,6 +70,7 @@ export class MsgBoradPageComponent
   }
   ngAfterViewInit(): void {
     this.setBulletInterval();
+    window.scrollTo(0, 0);
   }
 
   checkIsMyTreeHoleMsg = (msgId: any) => {

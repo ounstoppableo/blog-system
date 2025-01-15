@@ -249,6 +249,7 @@ export class FriendComponent implements OnInit, AfterViewInit, OnDestroy {
     window.addEventListener('click', this.envelopeExcludeClickCb);
     window.addEventListener('scroll', this.scollCb);
     window.addEventListener('resize', this.scollCb);
+    window.scrollTo(0, 0);
   }
   ngOnDestroy(): void {
     if (this.smallSizeSubscribe) {

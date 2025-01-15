@@ -24,7 +24,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./category.component.scss'],
   standalone: false,
 })
-export class CategoryComponent implements OnInit, OnDestroy {
+export class CategoryComponent implements OnInit, OnDestroy, AfterViewInit {
   isLogin: Observable<boolean>;
   isLeave = false;
   headerChangeHeight = 0;
@@ -60,6 +60,9 @@ export class CategoryComponent implements OnInit, OnDestroy {
       }),
     );
     this.toSetIsLeaveToFalse();
+  }
+  ngAfterViewInit(): void {
+    window.scrollTo(0, 0);
   }
 
   toSetIsLeaveToFalse = () => {

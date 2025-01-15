@@ -8,7 +8,8 @@ import {
   ElementRef,
   OnInit,
   ViewChild,
-  AfterViewChecked, OnDestroy,
+  AfterViewChecked,
+  OnDestroy, AfterViewInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -26,7 +27,7 @@ import { Observable, retry } from 'rxjs';
   standalone: false,
 })
 export class ArticleComponent
-  implements OnInit, AfterViewChecked, watchComponentDeactivate, OnDestroy
+  implements OnInit, AfterViewChecked, watchComponentDeactivate, OnDestroy, AfterViewInit
 {
   isLeave: boolean = false;
   isLogin: Observable<boolean>;
@@ -93,6 +94,9 @@ export class ArticleComponent
     this.articleInfo = { ...this.articleInfo, ...e };
   }
 
+  ngAfterViewInit(): void {
+    window.scrollTo(0, 0);
+  }
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,

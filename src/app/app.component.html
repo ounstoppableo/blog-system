@@ -33,4 +33,4 @@
 <app-music-player *ngIf="!is404Page"></app-music-player>
 <app-drawer #drawer *ngIf="smallSize | async"></app-drawer>
 <app-add-article-form #addArticleForm *ngIf="!is404Page"></app-add-article-form>
-<app-footer></app-footer>
+<app-footer *ngIf="!is404Page"></app-footer>

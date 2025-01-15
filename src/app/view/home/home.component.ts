@@ -103,6 +103,7 @@ export class HomeComponent
           '--headerHeigth',
         ),
       );
+    window.scrollTo(0, 0);
   }
   //滑动到内容区域
   toContainer() {
