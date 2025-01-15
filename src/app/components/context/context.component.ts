@@ -16,7 +16,7 @@ import { resType } from '@/types/response/response';
 import addHighLight from '@/utils/addHighLight';
 import addMathJax from '@/utils/addMathJax';
 import { NzImageService } from 'ng-zorro-antd/image';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { setCatalogue } from '@/app/store/catalogueStore/catalogueStore.action';
 import { setShowCatalogue } from '@/app/store/showCatalogueStore/catalogueStore.action';
@@ -200,15 +200,21 @@ export class ContextComponent
     if (
       !e.target.closest('.customDialogForCatalogue') &&
       !e.target.closest('.showCatalogueBtn')
-    )
+    ) {
       this.closeCatalogue();
+    }
   };
 
   ngAfterViewInit(): void {
     window.addEventListener('click', this.closeCatalogueClickCb);
   }
-  closeCatalogue = (e?: any) => {
-    this.store.dispatch(setShowCatalogue({ flag: false }));
+  closeCatalogue = async (e?: any) => {
+    const showCatalogue = await firstValueFrom(
+      this.store.select('showCatalogue'),
+    );
+    if (showCatalogue) {
+      this.store.dispatch(setShowCatalogue({ flag: false }));
+    }
   };
 
   ngOnDestroy() {

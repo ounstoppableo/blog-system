@@ -187,9 +187,6 @@ export class WeatherComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     asyncCheckAppLoad(this.getGeoAndInitWeather);
-    this.smallSizeSubscribe = this.store.subscribe((state) => {
-      this.getGeoAndInitWeather();
-    });
   }
 
   getGeoAndInitWeather = () => {
