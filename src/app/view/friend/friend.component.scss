@@ -104,9 +104,19 @@
         justify-content: space-evenly;
         width: calc(25% - 11.25px);
         animation: scale 0.5s ease forwards;
-        box-shadow: var(--cardBoxShadow);
         &:hover {
-          box-shadow: var(--cardBoxHoverShadow);
+          &::after {
+            box-shadow: var(--cardBoxHoverShadow);
+          }
+        }
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          box-shadow: var(--cardBoxShadow);
+          border-radius: inherit;
+          pointer-events: none;
+          transition: all 0.3s ease;
         }
         height: 25vh;
         border-radius: 10px;
