@@ -1,3 +1,4 @@
+import asyncCheckAppLoad from '@/utils/checkAppLoad';
 import { closedFloat, judgeSeason, seasonSelect } from '@/utils/seasonFloat';
 import {
   AfterViewInit,
@@ -7,13 +8,14 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import $ from 'jquery';
 
 @Component({
   selector: 'app-circle-menu',
   templateUrl: './circle-menu.component.html',
   styleUrls: ['./circle-menu.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   showMenu = false;
@@ -23,128 +25,105 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
       | 'Summer'
       | 'Winter'
       | 'Autumn') || judgeSeason();
-  @Input() flag = new Proxy(
-    {
-      value: JSON.parse(localStorage.getItem('seasonFloat') || 'false'),
-      that: this,
-    },
-    {
-      get(target: any, prop) {
-        return target[prop];
-      },
-      set(target, prop, value) {
-        target[prop] = value;
-        window.removeEventListener('resize', target.that.seasonResizeCallback);
-        clearInterval(target.that.intervel);
-        if (value) {
-          window.addEventListener('resize', target.that.seasonResizeCallback);
-          target.that.intervel = setInterval(target.that.intervalCallback, 100);
-        }
-        return true;
-      },
-    },
-  );
-  intervel: any = null;
+  @Input() flag = JSON.parse(localStorage.getItem('seasonFloat') || 'false');
   timeout: any = null;
   @ViewChild('menu')
   menu!: ElementRef;
 
   @ViewChild('menu_wrapper')
   menu_wrapper!: ElementRef;
+  subscriptionList: any[] = [];
 
-  heightObserver = new Proxy(
-    { height: 0 },
-    {
-      get: (target: any, prop) => {
-        return target[prop];
-      },
-      set: (target, prop, value) => {
-        target[prop] = value;
-        this.changeSeason(this.currentSeason);
-        return true;
-      },
-    },
-  );
-
-  seasonResizeCallback = () => {
-    closedFloat();
-    //使用节流
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        this.changeSeason(this.currentSeason);
-        clearTimeout(this.timeout);
-      }, 500);
-    } else {
-      this.timeout = setTimeout(() => {
-        this.changeSeason(this.currentSeason);
-        clearTimeout(this.timeout);
-      }, 500);
+  observer: any = new MutationObserver(() => {
+    const appHeight = document.getElementById('approot')!.offsetHeight;
+    if (this.appHeight !== appHeight) {
+      this.appHeight = appHeight;
+      this.seasonResizeCallback();
+    }
+  });
+  appHeight = 0;
+  rippleClickCb = () => {
+    document.getElementById('menu-btn')!.classList.toggle('clicked');
+    this.menu.nativeElement.classList.toggle('open');
+    this.showMenu = !this.showMenu;
+    if (this.showMenu) {
+      this.menu.nativeElement
+        .querySelectorAll('a')
+        .forEach((item: any, index: number) => {
+          const _cb = (e: any) => {
+            e.preventDefault();
+            (
+              this.menu.nativeElement.querySelectorAll(
+                '.menuitem-wrapper',
+              ) as any
+            )[index].classList.add('spin');
+            const timer = setTimeout(() => {
+              (
+                this.menu.nativeElement.querySelectorAll(
+                  '.menuitem-wrapper',
+                ) as any
+              )[index].classList.remove('spin');
+              document.getElementById('menu-btn')!.classList.remove('clicked');
+              this.menu.nativeElement.classList.remove('open');
+              requestAnimationFrame(() => {
+                this.showMenu = false;
+              });
+              clearTimeout(timer);
+            }, 800);
+          };
+          item.removeEventListener('click', this.menuItemClickCbArr[index]);
+          this.menuItemClickCbArr[index] = _cb;
+          item.addEventListener('click', _cb);
+        });
     }
   };
 
-  intervalCallback = () => {
-    if (this.heightObserver.height !== $(document as any).height()) {
-      this.heightObserver.height = $(document as any).height();
+  menuItemClickCbArr: any[] = [];
+
+  constructor(private router: Router) {}
+
+  seasonResizeCallback = () => {
+    closedFloat();
+    //使用防抖
+    if (this.timeout) {
+      clearTimeout(this.timeout);
     }
+    this.timeout = setTimeout(() => {
+      this.changeSeason(this.currentSeason);
+      clearTimeout(this.timeout);
+    }, 500);
   };
 
   ngAfterViewInit(): void {
     //面板样式控制
     document
       .querySelector('[has-ripple="true"]')
-      ?.addEventListener('click', () => {
-        document.getElementById('menu-btn')!.classList.toggle('clicked');
-        this.menu.nativeElement.classList.toggle('open');
-        this.showMenu = !this.showMenu;
-        this.menu.nativeElement
-          .querySelectorAll('a')
-          .forEach((item: any, index: number) => {
-            item.addEventListener('click', (e: any) => {
-              e.preventDefault();
-              (
-                this.menu.nativeElement.querySelectorAll(
-                  '.menuitem-wrapper',
-                ) as any
-              )[index].classList.add('spin');
-              const timer = setTimeout(() => {
-                (
-                  this.menu.nativeElement.querySelectorAll(
-                    '.menuitem-wrapper',
-                  ) as any
-                )[index].classList.remove('spin');
-                document
-                  .getElementById('menu-btn')!
-                  .classList.remove('clicked');
-                this.menu.nativeElement.classList.remove('open');
-                requestAnimationFrame(() => {
-                  this.showMenu = false;
-                });
-                clearTimeout(timer);
-              }, 800);
-            });
-          });
-      });
+      ?.addEventListener('click', this.rippleClickCb);
 
-    /*
-      页面大小变化时控制飘落显示
-      主要有这两种情况：
-      1.页面大小变化，引起页面高度变化，那么会走intervel,重新计算飘落面积
-      2.页面大小变化，不会引起高度变化，那么则不会走intervel，于是我用seasonResizeCallback来解决这种情况
-      3.初始化，由于一开始设置height为0，所以会搭配intervel进行一次初始化
-    */
-    if (this.flag.value) {
+    if (this.flag) {
+      this.seasonResizeCallback();
       window.addEventListener('resize', this.seasonResizeCallback);
-      this.intervel = setInterval(this.intervalCallback, 100);
+      this.observer.observe(document.getElementById('approot'), {
+        childList: true,
+        subtree: true,
+        attributes: true,
+      });
+      this.subscriptionList.push(
+        this.router.events.subscribe((event) => {
+          if (event instanceof NavigationStart) {
+            closedFloat();
+          }
+        }),
+      );
     }
   }
 
   changeSeason(type: 'Spring' | 'Summer' | 'Winter' | 'Autumn') {
-    this.flag.value = true;
+    this.flag = true;
     localStorage.setItem('seasonFloat', 'true');
     this.currentSeason = type;
     localStorage.setItem('seasonType', this.currentSeason);
-    seasonSelect(this.currentSeason);
+    asyncCheckAppLoad(() => seasonSelect(this.currentSeason));
   }
   handleChangeSeason(type: 'Spring' | 'Summer' | 'Winter' | 'Autumn') {
     const timer = setTimeout(() => {
@@ -158,15 +137,15 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   toggleFloat() {
     const timer = setTimeout(() => {
       this.currentSeason = judgeSeason();
-      if (this.flag.value) {
+      if (this.flag) {
         localStorage.setItem('seasonFloat', 'false');
         localStorage.setItem('seasonType', this.currentSeason);
       } else {
         localStorage.setItem('seasonFloat', 'true');
         localStorage.setItem('seasonType', this.currentSeason);
       }
-      location.reload();
       clearTimeout(timer);
+      location.reload();
     }, 1000);
   }
 
@@ -187,9 +166,13 @@ export class CircleMenuComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    clearInterval(this.intervel);
+    this.observer.disconnect();
     window.removeEventListener('resize', this.seasonResizeCallback);
+    document
+      .querySelector('[has-ripple="true"]')
+      ?.removeEventListener('click', this.rippleClickCb);
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

@@ -1,15 +1,16 @@
 import { BoardMsgService } from '@/app/service/board-msg.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-new-msg-board',
-    templateUrl: './new-msg-board.component.html',
-    styleUrls: ['./new-msg-board.component.scss'],
-    standalone: false
+  selector: 'app-new-msg-board',
+  templateUrl: './new-msg-board.component.html',
+  styleUrls: ['./new-msg-board.component.scss'],
+  standalone: false,
 })
-export class NewMsgBoardComponent implements OnInit {
+export class NewMsgBoardComponent implements OnInit, OnDestroy {
   msgList: any[] = [];
+  subscriptionList: any[] = [];
   msgListLength = 0;
   @Input()
   limit = 10;
@@ -18,9 +19,11 @@ export class NewMsgBoardComponent implements OnInit {
     private router: Router,
   ) {}
   ngOnInit() {
-    this.boardMsgService.getNewMsg(this.limit).subscribe((res) => {
-      if (res.code === 200) this.msgList = res.data;
-    });
+    this.subscriptionList.push(
+      this.boardMsgService.getNewMsg(this.limit).subscribe((res) => {
+        if (res.code === 200) this.msgList = res.data;
+      }),
+    );
   }
   generateNumbersArray(count: number): number[] {
     // 生成一个包含指定数量数字的数组
@@ -36,5 +39,10 @@ export class NewMsgBoardComponent implements OnInit {
     } else {
       this.router.navigate(['msgboard']);
     }
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

@@ -1,10 +1,11 @@
 import { HomeService } from '@/app/service/home.service';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import dayjs from 'dayjs';
+import { cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./info.component.scss'],
   standalone: false,
 })
-export class InfoComponent implements OnInit {
+export class InfoComponent implements OnInit, OnDestroy {
   smallSize!: Observable<boolean>;
   @Input()
   dontShowGpuRenderComponent: boolean = false;
@@ -22,32 +23,45 @@ export class InfoComponent implements OnInit {
   @Input()
   isMsgBoard = false;
   @Input()
-  catalogue: any[] = [];
-  @Input()
   isArticle = false;
   isLogin: Observable<boolean>;
   articleInfoList: articleInfo[] = []; //文章列表
   loading = true;
+  subscriptionList: any[] = [];
+  catalogue: any[] = [];
 
   isHaveNews = true;
   constructor(
     private homeService: HomeService,
     private router: Router,
-    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+    private store: Store<{
+      smallSize: boolean;
+      isLogin: boolean;
+      catalogue: any;
+    }>,
   ) {
     this.isLogin = store.select('isLogin');
     this.smallSize = store.select('smallSize');
   }
   ngOnInit(): void {
-    this.homeService
-      .getArticleInfo()
-      .subscribe((res: resType<articleInfo[]>) => {
-        this.loading = false;
-        if (res.code === 200)
-          this.articleInfoList = res.data?.sort(
-            (a, b) => dayjs(b.subTime).unix() - dayjs(a.subTime).unix(),
-          ) as articleInfo[];
-      });
+    this.subscriptionList.push(
+      this.homeService
+        .getArticleInfo()
+        .subscribe((res: resType<articleInfo[]>) => {
+          this.loading = false;
+          if (res.code === 200)
+            this.articleInfoList = res.data?.sort(
+              (a, b) => dayjs(b.subTime).unix() - dayjs(a.subTime).unix(),
+            ) as articleInfo[];
+        }),
+    );
+    this.subscriptionList.push(
+      this.store.subscribe((state) => {
+        if (state.catalogue.length !== 0) {
+          this.catalogue = cloneDeep(state.catalogue);
+        }
+      }),
+    );
   }
   newsShowControl($event: boolean) {
     this.isHaveNews = $event;
@@ -56,8 +70,14 @@ export class InfoComponent implements OnInit {
     this.router.navigate(['article', articleId]);
   }
   //去日期分类页
-  toDateCate(date: string) {
+  toDateCate(e: any, date: string) {
+    e.stopPropagation();
     const dateId = dayjs(date).format('YYYY-MM');
     this.router.navigate(['dateCate'], { fragment: dateId });
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

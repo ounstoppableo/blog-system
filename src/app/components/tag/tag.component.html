@@ -1,9 +1,16 @@
-<div class="tagSpace" [style]="{ gap: gap + 'px' }">
+<div
+  class="tagSpace"
+  [class]="{ showTagsCloud: showTagsCloud }"
+  [style]="{ gap: gap + 'px' }"
+  #tagSpace
+>
   <span
     class="tag"
+    [class]="{ showTagsCloud: showTagsCloud }"
     *ngFor="let tag of tagList"
     [ngStyle]="{ 'background-color': tag.tagColor }"
-    (click)="toSingleTag(tag.tagName)"
+    (click)="toSingleTag($event, tag.tagName)"
+    #tags
   >
     <span
       class="iconfont icon-tag"

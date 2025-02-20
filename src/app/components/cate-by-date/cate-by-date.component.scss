@@ -5,7 +5,7 @@
   border-radius: 20px;
   overflow: hidden;
   color: var(--fontColor);
-  box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+  box-shadow: var(--cardBoxShadow);
   & > .none {
     display: flex;
     justify-content: center;
@@ -62,6 +62,6 @@
   }
 
   &.smallSize {
-    width: 100vw;
+    width: 95vw;
   }
 }

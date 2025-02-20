@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
   constructor(private http: HttpClient) {}
-  login(username: string, password: string): Observable<resType<any>> {
-    return this.http.post<resType<any>>('api/login', { username, password });
+  login(code: string): Observable<resType<any>> {
+    return this.http.post<resType<any>>('api/login', { code });
   }
   getUserInfo(): Observable<resType<any>> {
     return this.http.get<resType<any>>('api/userinfo');

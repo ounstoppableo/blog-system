@@ -6,7 +6,7 @@
     margin-bottom: 30px;
     height: 60px;
     background-color: var(--cardColor);
-    box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+    box-shadow: var(--cardBoxShadow);
     border-radius: 60px;
     :host ::ng-deep & .ant-input-affix-wrapper {
       width: 100%;
@@ -23,7 +23,7 @@
   }
 
   &.smallSize {
-    width: 100vw;
+    width: 95vw;
   }
 
   & > .footer {

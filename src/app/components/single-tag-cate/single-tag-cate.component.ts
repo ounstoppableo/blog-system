@@ -1,7 +1,7 @@
 import { CategoryService } from '@/app/service/category.service';
 import { singleTagMapArticleInfos } from '@/types/category/category';
 import { resType } from '@/types/response/response';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddArticleFormComponent } from '../add-article-form/add-article-form.component';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./single-tag-cate.component.scss'],
   standalone: false,
 })
-export class SingleTagCateComponent implements OnInit {
+export class SingleTagCateComponent implements OnInit, OnDestroy {
   @Input()
   isLogin = false;
   @Input()
@@ -28,6 +28,8 @@ export class SingleTagCateComponent implements OnInit {
   limit = 7;
   total = 0;
 
+  subscriptionList: any[] = [];
+
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute,
@@ -36,29 +38,33 @@ export class SingleTagCateComponent implements OnInit {
     this.smallSize = store.select('smallSize');
   }
   ngOnInit(): void {
-    this.route.params.subscribe((param) => {
-      this.singleTagMapArticleInfos.tagName = param['tagName'];
-      this.getArticleInfo(this.page, this.limit);
-    });
+    this.subscriptionList.push(
+      this.route.params.subscribe((param) => {
+        this.singleTagMapArticleInfos.tagName = param['tagName'];
+        this.getArticleInfo(this.page, this.limit);
+      }),
+    );
   }
   getArticleInfo(page: number, limit: number) {
     return new Promise((resolve) => {
       this.loading = true;
-      this.categoryService
-        .getSingleTagMapArticleInfos(
-          this.singleTagMapArticleInfos.tagName,
-          page,
-          limit,
-        )
-        .subscribe((res: resType<singleTagMapArticleInfos>) => {
-          resolve(1);
-          this.loading = false;
-          if (res.code === 200) {
-            this.singleTagMapArticleInfos =
-              res.data as singleTagMapArticleInfos;
-            this.total = this.singleTagMapArticleInfos.total;
-          }
-        });
+      this.subscriptionList.push(
+        this.categoryService
+          .getSingleTagMapArticleInfos(
+            this.singleTagMapArticleInfos.tagName,
+            page,
+            limit,
+          )
+          .subscribe((res: resType<singleTagMapArticleInfos>) => {
+            resolve(1);
+            this.loading = false;
+            if (res.code === 200) {
+              this.singleTagMapArticleInfos =
+                res.data as singleTagMapArticleInfos;
+              this.total = this.singleTagMapArticleInfos.total;
+            }
+          }),
+      );
     });
   }
 
@@ -70,6 +76,11 @@ export class SingleTagCateComponent implements OnInit {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
       if (resolve) resolve(1);
+    });
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
     });
   }
 }

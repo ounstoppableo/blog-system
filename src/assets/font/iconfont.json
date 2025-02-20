@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "3851381",
+      "name": "文章",
+      "font_class": "wenzhang",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "12194441",
+      "name": "crown",
+      "font_class": "crown",
+      "unicode": "ec3c",
+      "unicode_decimal": 60476
+    },
+    {
+      "icon_id": "6682542",
+      "name": "个人简介",
+      "font_class": "gerenjianjie",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "11349025",
+      "name": "friend",
+      "font_class": "friend",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
       "icon_id": "8804689",
       "name": "book",
       "font_class": "book",

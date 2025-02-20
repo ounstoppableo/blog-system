@@ -4,40 +4,43 @@ import {
   Component,
   EventEmitter,
   OnInit,
-  Output,
+  Output, OnDestroy,
 } from '@angular/core';
 import dayjs from 'dayjs';
 
 @Component({
-    selector: 'app-news-list',
-    templateUrl: './news-list.component.html',
-    styleUrls: ['./news-list.component.scss'],
-    standalone: false
+  selector: 'app-news-list',
+  templateUrl: './news-list.component.html',
+  styleUrls: ['./news-list.component.scss'],
+  standalone: false,
 })
-export class NewsListComponent implements OnInit, AfterViewInit {
+export class NewsListComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private newsService: NewsService) {}
   newsList!: any[];
+  subscriptionList: any[] = [];
   currentNews: any;
   page: any;
   total: any;
   @Output() newsShowControl = new EventEmitter<boolean>();
 
   ngOnInit(): void {
-    this.newsService.getNews().subscribe((res: any) => {
-      if (res.code === 200) {
-        if (res.result.newslist && res.result.newslist.length !== 0) {
-          this.newsShowControl.emit(true);
-          this.newsList = res.result.newslist;
-          this.page = 0;
-          this.total = this.newsList.length;
-          this.currentNews = res.result.newslist[this.page];
+    this.subscriptionList.push(
+      this.newsService.getNews().subscribe((res: any) => {
+        if (res.code === 200) {
+          if (res.result.newslist && res.result.newslist.length !== 0) {
+            this.newsShowControl.emit(true);
+            this.newsList = res.result.newslist;
+            this.page = 0;
+            this.total = this.newsList.length;
+            this.currentNews = res.result.newslist[this.page];
+          } else {
+            this.newsShowControl.emit(false);
+          }
         } else {
           this.newsShowControl.emit(false);
         }
-      } else {
-        this.newsShowControl.emit(false);
-      }
-    });
+      }),
+    );
   }
   dealNewsDescription(description: string) {
     return description.endsWith('[阅读更多]')
@@ -84,5 +87,10 @@ export class NewsListComponent implements OnInit, AfterViewInit {
         this.currentNews = this.newsList[this.page];
       }
     }
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

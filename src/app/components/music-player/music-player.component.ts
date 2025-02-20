@@ -65,6 +65,9 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   scrollContainer!: any;
   @ViewChild('root')
   root!: any;
+  @ViewChild('mask')
+  mask!: any;
+  subscriptionList: any[] = [];
 
   currentLyricIndex = 0;
 
@@ -73,19 +76,21 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private musicService: MusicService) {}
 
   ngOnInit(): void {
-    this.musicService.getMusicInfo().subscribe((res) => {
-      if (res.code === 200) {
-        this.musicList = res.result;
-        this.index = 0;
-        this.currentMusic = this.musicList[this.index];
-        this.total = this.musicList.length;
-        this.lyricSegment();
-        this.getMixLightColor(
-          this.getBgLightColor.nativeElement,
-          this.wantChangeColorEle.nativeElement,
-        );
-      }
-    });
+    this.subscriptionList.push(
+      this.musicService.getMusicInfo().subscribe((res) => {
+        if (res.code === 200) {
+          this.musicList = res.result;
+          this.index = 0;
+          this.currentMusic = this.musicList[this.index];
+          this.total = this.musicList.length;
+          this.lyricSegment();
+          this.getMixLightColor(
+            this.getBgLightColor.nativeElement,
+            this.wantChangeColorEle.nativeElement,
+          );
+        }
+      }),
+    );
   }
 
   ngAfterViewInit(): void {
@@ -460,12 +465,14 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   close() {
     if (!this.timer1) {
+      if (!this.root) return;
       this.root.nativeElement.classList.add('closePlayer');
       this.timer1 = setTimeout(() => {
         this.playerOpener.nativeElement.classList.remove('toLeave');
         this.playerOpener.nativeElement.classList.add('toShow');
         this.root.nativeElement.classList.remove('closePlayer');
         this.root.nativeElement.style.display = 'none';
+        this.mask.nativeElement.style.display = 'none';
         clearTimeout(this.timer1);
         this.timer1 = null;
       }, 1000);
@@ -474,6 +481,7 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   open() {
     if (!this.timer2) {
       this.root.nativeElement.style.display = '';
+      this.mask.nativeElement.style.display = '';
       this.root.nativeElement.classList.add('openPlayer');
       this.playerOpener.nativeElement.classList.remove('toShow');
       this.playerOpener.nativeElement.classList.add('toLeave');
@@ -525,5 +533,16 @@ export class MusicPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.audioEndedCallback,
     );
     window.removeEventListener('click', this.closeForClickOtherPlace);
+    this.audio.nativeElement.removeEventListener(
+      'play',
+      this.audioPlayCallback,
+    );
+    this.audio.nativeElement.removeEventListener(
+      'pause',
+      this.audioPauseCallback,
+    );
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

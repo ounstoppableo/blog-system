@@ -14,6 +14,32 @@
       <span>留言板</span>
     </li>
     <li
+      #list3
+      (mouseover)="liOnMouseOver(list3)"
+      (mouseleave)="liOnMouseLeave(list3)"
+      class="archives"
+    >
+      <span class="iconfont icon-yule"></span>
+      <span>百宝箱</span>
+      <span class="iconfont icon-down"></span>
+      <ul class="list">
+        <li (click)="goFriend()" class="archives">
+          <span
+            class="iconfont icon-friend"
+            [style]="{ fontSize: '20px' }"
+          ></span>
+          <span>友人帐</span>
+        </li>
+        <li (click)="goChatPlatform()" class="archives">
+          <span
+            class="iconfont icon-scene"
+            [style]="{ fontSize: '20px' }"
+          ></span>
+          <span>聊天室</span>
+        </li>
+      </ul>
+    </li>
+    <li
       #list
       (mouseover)="liOnMouseOver(list)"
       (mouseleave)="liOnMouseLeave(list)"
@@ -46,25 +72,7 @@
         </li>
       </ul>
     </li>
-    <li
-      #list3
-      (mouseover)="liOnMouseOver(list3)"
-      (mouseleave)="liOnMouseLeave(list3)"
-      class="archives"
-    >
-      <span class="iconfont icon-yule"></span>
-      <span>拓展功能</span>
-      <span class="iconfont icon-down"></span>
-      <ul class="list">
-        <li (click)="goChatPlatform()" class="archives">
-          <span
-            class="iconfont icon-scene"
-            [style]="{ fontSize: '20px' }"
-          ></span>
-          <span>聊天室</span>
-        </li>
-      </ul>
-    </li>
+
     <li (click)="login()" *ngIf="!(isLogin | async)">
       <span class="iconfont icon-login"></span>
       管理员登陆

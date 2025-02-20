@@ -7,7 +7,7 @@
   overflow: hidden;
   color: var(--fontColor);
   align-items: center;
-  box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+  box-shadow: var(--cardBoxShadow);
   & > .meta {
     position: relative;
     width: 100%;
@@ -376,5 +376,33 @@
   }
   :host ::ng-deep & th {
     font-weight: 600;
+  }
+}
+.customDialogForCatalogue {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  top: 50%;
+  left: 50%;
+  background-color: var(--cardColor);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0px 0px 5px var(--01-gray);
+  color: var(--fontColor);
+  width: 300px;
+  height: fit-content;
+  opacity: 0;
+  transform: scale(0) translate(-50%, -50%);
+  transition: all 0.5s ease;
+  transform-origin: left top;
+  & > .catalogue {
+    & > p {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
   }
 }

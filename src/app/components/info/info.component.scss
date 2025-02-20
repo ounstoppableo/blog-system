@@ -7,7 +7,7 @@
   gap: 30px;
 
   &.smallSize {
-    width: 90vw;
+    width: 95vw;
     margin: 0 auto;
     margin-top: 30px;
   }
@@ -15,7 +15,7 @@
   & > .card {
     background-color: var(--cardColor);
     border-radius: 20px;
-    box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
+    box-shadow: var(--cardBoxShadow);
     color: var(--fontColor);
 
     .title {

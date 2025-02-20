@@ -30,35 +30,34 @@
     height: 250px;
     border-radius: 20px;
     display: flex;
-    overflow: hidden;
     color: var(--fontColor);
     cursor: url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),
       pointer;
     font-size: 15px;
-    box-shadow: 0 0.625rem 1.875rem -0.9375rem var(--01-gray);
     &:hover {
-      box-shadow: 0 0 15px var(--03-gray);
+      &::after {
+        box-shadow: var(--cardBoxHoverShadow);
+      }
     }
-    transform: scale(0.8);
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      box-shadow: var(--cardBoxShadow);
+      border-radius: inherit;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
 
     & > .meta {
       position: absolute;
     }
-
     &:nth-child(2n + 1) {
       flex-direction: row-reverse;
-      & > .img {
-        clip-path: polygon(0 0, 92% 0%, 100% 100%, 0% 100%);
-      }
-    }
-    &:nth-child(2n) {
-      & > .img {
-        clip-path: polygon(0 0%, 100% 0%, 100% 100%, 8% 100%);
-      }
     }
 
     &.smallSize {
-      width: 90vw;
+      width: 95vw;
       height: 500px;
       flex-direction: column-reverse;
       transform: translateY(0);
@@ -87,6 +86,11 @@
         font-size: 24px;
         color: var(--fontColor);
         width: fit-content;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
         @include mx.borderAnime;
       }
 
@@ -124,12 +128,12 @@
 
     & > .img {
       flex: 1;
+      overflow: hidden;
+      border-radius: inherit;
 
       &.smallSize {
         flex: 1.5;
       }
-
-      overflow: hidden;
 
       & > img {
         width: 100%;
@@ -139,6 +143,27 @@
         transition:
           filter 1s ease,
           transform 0.2s ease;
+      }
+    }
+
+    &:nth-child(2n + 1) {
+      & > .img {
+        border-start-end-radius: 0;
+        border-end-end-radius: 0;
+      }
+    }
+    &:nth-child(2n) {
+      & > .img {
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+      }
+    }
+
+    &.smallSize {
+      & > .img {
+        border-radius: inherit;
+        border-end-start-radius: 0;
+        border-end-end-radius: 0;
       }
     }
 
@@ -167,6 +192,9 @@
       justify-content: space-around;
       align-items: center;
       transition: all 0.3s;
+      border-radius: inherit;
+      border-start-start-radius: 0;
+      border-end-start-radius: 0;
     }
   }
 }

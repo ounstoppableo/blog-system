@@ -1,5 +1,5 @@
 import { setSmallSize } from '../store/smallSizeStore/smallSize.actions';
-
+const eventCache: any = {};
 export default function ViewResize() {
   return function (
     target: any,
@@ -17,7 +17,7 @@ export default function ViewResize() {
       const fn = descriptor!.value;
       descriptor!.value = function () {
         fn.call(this);
-        window.onresize = null;
+        window.removeEventListener('resize', eventCache.cb);
       };
     }
     if (propertyKey === 'ngOnInit') {
@@ -31,9 +31,10 @@ export default function ViewResize() {
 }
 //监控页面大小变化事件
 function onResize(self: any) {
-  window.onresize = () => {
+  eventCache.cb = () => {
     pageControl(self);
   };
+  window.addEventListener('resize', eventCache.cb);
 }
 //页面参数控制
 function pageControl(self: any) {

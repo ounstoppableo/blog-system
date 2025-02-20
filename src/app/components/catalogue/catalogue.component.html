@@ -1,7 +1,7 @@
 <nz-link
   #links
   [nzHref]="'#' + item.id"
-  [nzTitle]="item.title"
+  [nzTitle]="item.titleForShow"
   [ngClass]="(smallSize | async) ? 'smallSize' : ''"
   *ngFor="let item of catalogue"
 >

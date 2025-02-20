@@ -12,7 +12,9 @@
       &nbsp;&nbsp;
       <span>标签:</span>
     </div>
-    <div class="tags"><app-tag [tagList]="tags" [gap]="20"></app-tag></div>
+    <div class="tags">
+      <app-tag [tagList]="tags" [gap]="20" [showTagsCloud]="true"></app-tag>
+    </div>
   </div>
 </div>
 <app-cate-by-tag-skeleton *ngIf="loading"></app-cate-by-tag-skeleton>

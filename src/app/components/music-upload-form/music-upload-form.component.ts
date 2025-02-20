@@ -1,5 +1,5 @@
 import { MusicService } from '@/app/service/music.service';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,12 +11,13 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app-music-upload-form',
-    templateUrl: './music-upload-form.component.html',
-    styleUrls: ['./music-upload-form.component.scss'],
-    standalone: false
+  selector: 'app-music-upload-form',
+  templateUrl: './music-upload-form.component.html',
+  styleUrls: ['./music-upload-form.component.scss'],
+  standalone: false,
 })
-export class MusicUploadFormComponent {
+export class MusicUploadFormComponent implements OnDestroy {
+  subscriptionList: any[] = [];
   picUrl = '';
   hadUploadMusic = false;
   hadUploadLyric = false;
@@ -56,14 +57,16 @@ export class MusicUploadFormComponent {
   };
   removeMusic = (): boolean | Observable<boolean> => {
     if (this.musicUrl) {
-      this.musicService.deleteMusic(this.musicUrl).subscribe((res) => {
-        if (res.code === 200) {
-          this.musicUrl = '';
-          this.hadUploadMusic = false;
-        } else {
-          this.message.error(res.msg);
-        }
-      });
+      this.subscriptionList.push(
+        this.musicService.deleteMusic(this.musicUrl).subscribe((res) => {
+          if (res.code === 200) {
+            this.musicUrl = '';
+            this.hadUploadMusic = false;
+          } else {
+            this.message.error(res.msg);
+          }
+        }),
+      );
     } else {
       this.hadUploadMusic = false;
     }
@@ -88,14 +91,16 @@ export class MusicUploadFormComponent {
   };
   removeLyric = (): boolean | Observable<boolean> => {
     if (this.LyricUrl) {
-      this.musicService.deleteLyric(this.LyricUrl).subscribe((res) => {
-        if (res.code === 200) {
-          this.LyricUrl = '';
-          this.hadUploadLyric = false;
-        } else {
-          this.message.error(res.msg);
-        }
-      });
+      this.subscriptionList.push(
+        this.musicService.deleteLyric(this.LyricUrl).subscribe((res) => {
+          if (res.code === 200) {
+            this.LyricUrl = '';
+            this.hadUploadLyric = false;
+          } else {
+            this.message.error(res.msg);
+          }
+        }),
+      );
     } else {
       this.hadUploadLyric = false;
     }
@@ -142,16 +147,29 @@ export class MusicUploadFormComponent {
       musicName: this.validateForm.value.musicName,
       musicAuthor: this.validateForm.value.musicAuthor,
     };
-    this.musicService.addMusicInfo(params).subscribe((res) => {
-      if (res.code === 200) {
-        this.message.success('上传成功！');
-      } else {
-        this.message.error('上传失败！');
-      }
-    });
+    this.subscriptionList.push(
+      this.musicService.addMusicInfo(params).subscribe((res) => {
+        if (res.code === 200) {
+          this.message.success('上传成功！');
+        } else {
+          this.message.error('上传失败！');
+        }
+      }),
+    );
   }
   close() {
-    this.musicUrl && this.musicService.deleteMusic(this.musicUrl).subscribe();
-    this.LyricUrl && this.musicService.deleteLyric(this.LyricUrl).subscribe();
+    this.musicUrl &&
+      this.subscriptionList.push(
+        this.musicService.deleteMusic(this.musicUrl).subscribe(),
+      );
+    this.LyricUrl &&
+      this.subscriptionList.push(
+        this.musicService.deleteLyric(this.LyricUrl).subscribe(),
+      );
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

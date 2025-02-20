@@ -1,29 +1,43 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 
+const toggleLoadState = () => {
+  document.getElementById('approot')!.style.display = '';
+  const bongoCat_dark = document.getElementById('bongoCat_dark');
+  const bongoCat_light = document.getElementById('bongoCat_light');
+  bongoCat_dark!.remove();
+  bongoCat_light!.remove();
+  document.getElementById('bongoCatCss')?.remove();
+};
+
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .then(() => {
-    const isIOS =
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
-    if (isIOS) {
+    Promise.all(
+      Array.from(document.querySelectorAll('link'))
+        .filter(
+          (link) =>
+            link.href.includes('styles') || link.href.includes('iconfont'),
+        )
+        .map((link, index) => {
+          return new Promise((resolve) => {
+            const testLink: any = document.createElement('link');
+            testLink.id = 'testLink' + index;
+            testLink.rel = 'stylesheet';
+            testLink.href = link.href;
+            document.head.append(testLink);
+            testLink.onload = function () {
+              resolve(index);
+            };
+          });
+        }),
+    ).then((res) => {
       setTimeout(() => {
-        document.getElementById('approot')!.style.display = '';
-        const bongoCat_dark = document.getElementById('bongoCat_dark');
-        const bongoCat_light = document.getElementById('bongoCat_light');
-        bongoCat_dark!.remove();
-        bongoCat_light!.remove();
-        document.getElementById('bongoCatCss')?.remove();
-      }, 1000);
-      return;
-    }
-    window.addEventListener('load', () => {
-      document.getElementById('approot')!.style.display = '';
-      const bongoCat_dark = document.getElementById('bongoCat_dark');
-      const bongoCat_light = document.getElementById('bongoCat_light');
-      bongoCat_dark!.remove();
-      bongoCat_light!.remove();
-      document.getElementById('bongoCatCss')?.remove();
+        toggleLoadState();
+      }, 2000);
+      res.forEach((_, index) => {
+        document.getElementById('testLink' + index)?.remove();
+      });
     });
   })
   .catch((err) => console.error(err));

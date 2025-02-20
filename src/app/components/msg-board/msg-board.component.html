@@ -1,4 +1,8 @@
-<div class="container" [class]="(smallSize | async) ? 'smallSize' : ''">
+<div
+  class="container"
+  [class]="(smallSize | async) ? 'smallSize' : ''"
+  id="msgArea"
+>
   <app-add-msg-form
     [articleId]="articleId"
     (reloadMsg)="reloadMsg()"

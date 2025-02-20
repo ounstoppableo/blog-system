@@ -1,0 +1,342 @@
+<div class="body" [ngClass]="{ smallSize: (smallSize | async) }">
+  <div
+    class="top"
+    style="height: 120px"
+    [ngClass]="{ smallSize: (smallSize | async) }"
+  >
+    <div style="font-size: 16px">友人帐</div>
+    <div style="font-size: 20px; font-weight: 800">留下你的网站吧~~</div>
+  </div>
+  <div #card class="card" [ngClass]="{ smallSize: (smallSize | async) }">
+    <div class="envelope">
+      <div
+        #envelope
+        [ngStyle]="{
+          'border-radius': '10px 10px 10px 10px',
+          'font-size': '14px',
+          color: '#555555',
+          width: envelopeWidth + 'px',
+          height: envelopeHeight + relativeMove + 'px',
+          margin: '20px auto 0',
+          display: 'flex',
+          'flex-direction': 'column',
+          'align-items': 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          cursor:
+            'url(https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/assets/cola.ico),pointer',
+          transition: 'all 2s ease',
+        }"
+        (click)="expandenvelope($event, true)"
+      >
+        <img
+          class="beforeimg"
+          noLazyLoad="true"
+          [ngStyle]="{
+            width: envelopeWidth + 'px',
+            height: envelopeHeight + 'px',
+            'z-index': '0',
+            'pointer-events': 'none',
+            position: 'absolute',
+            bottom: relativeMove + 'px',
+            transition: 'all 2s ease',
+          }"
+          src="https://npm.elemecdn.com/hexo-butterfly-envelope/lib/before.png"
+        />
+        <div
+          #contain
+          [ngStyle]="{
+            position: 'absolute',
+            top: relativeMove + 20 + 'px',
+            transition: 'all 2s ease',
+            display: 'flex',
+            'flex-direction': 'column',
+            'align-items': 'center',
+          }"
+        >
+          <img
+            noLazyLoad="true"
+            src="https://npm.elemecdn.com/hexo-butterfly-envelope/lib/violet.jpg"
+            style="
+              overflow: hidden;
+              pointer-events: none;
+              border-radius: 10px 10px 0 0;
+              transition: all 2s ease;
+            "
+            [ngStyle]="{ width: envelopeInnerWidth + 'px' }"
+          />
+          <div
+            [ngStyle]="{
+              width: envelopeInnerWidth + 'px',
+              color: '#9d2850',
+              'background-image':
+                '-moz-linear-gradient(0deg,rgb(67, 198, 184),rgb(255, 209, 244))',
+              height: ' 66px',
+              background:
+                'url(https://npm.elemecdn.com/sarakale-assets@v1/Article/email/line034_666x66.png) left top no-repeat',
+              overflow: 'hidden',
+            }"
+          >
+            <p
+              [ngStyle]="{
+                'font-size': '16px',
+                'font-weight': 'bold',
+                'text-align': 'center',
+                'word-break': 'break-all',
+                padding: '23px 32px',
+                display: 'flex',
+                'flex-direction': 'column',
+                'justify-content': 'center',
+                'align-items': 'center',
+                margin: 0,
+              }"
+            >
+              有朋自远方来~
+            </p>
+          </div>
+          <div
+            class="formmain"
+            [ngStyle]="{
+              background: 'var(--cardColor)',
+              width: envelopeInnerWidth + 'px',
+              margin: 'auto auto',
+              'border-radius': '0 0 10px 10px',
+              border: '1px solid var(--c-gray)',
+              overflow: 'hidden',
+              ' pointer-events': 'none',
+            }"
+          >
+            <div
+              style="margin: 20px auto 40px"
+              [ngStyle]="{ width: envelopeInnerWidth + 'px' }"
+            >
+              <form
+                nz-form
+                [nzLayout]="'inline'"
+                [formGroup]="friendInfoForm"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  gap: 20px;
+                  padding: 10px;
+                "
+              >
+                <nz-form-control
+                  [nzValidateStatus]="
+                    name!.valid ? 'success' : name!.touched ? 'error' : ''
+                  "
+                  nzErrorTip="请输入20字以内的名字"
+                  style="width: 100%"
+                >
+                  <nz-input-group [nzPrefix]="userIcon">
+                    <input
+                      formControlName="name"
+                      nz-input
+                      type="text"
+                      placeholder="请输入昵称"
+                    />
+                  </nz-input-group>
+                </nz-form-control>
+                <nz-form-control
+                  [nzValidateStatus]="
+                    brief!.valid ? 'success' : brief!.touched ? 'error' : ''
+                  "
+                  style="width: 100%"
+                  nzErrorTip="请输入100字以内的简介"
+                >
+                  <nz-input-group [nzPrefix]="GeRenJianJie">
+                    <input
+                      formControlName="brief"
+                      nz-input
+                      type="text"
+                      placeholder="请输入简介"
+                    />
+                  </nz-input-group>
+                </nz-form-control>
+                <nz-form-control
+                  [nzValidateStatus]="
+                    cover!.valid ? 'success' : cover!.touched ? 'error' : ''
+                  "
+                  nzErrorTip="请输入200字以内的链接"
+                  style="width: 100%"
+                >
+                  <nz-input-group [nzPrefix]="Picture">
+                    <input
+                      formControlName="cover"
+                      nz-input
+                      type="text"
+                      placeholder="请输入封面"
+                    />
+                  </nz-input-group>
+                </nz-form-control>
+                <nz-form-control
+                  [nzValidateStatus]="
+                    website!.valid ? 'success' : website!.touched ? 'error' : ''
+                  "
+                  nzErrorTip="请输入100字以内的链接"
+                  style="width: 100%"
+                >
+                  <nz-input-group [nzPrefix]="Global">
+                    <input
+                      formControlName="website"
+                      nz-input
+                      type="text"
+                      placeholder="请输入网址"
+                    />
+                  </nz-input-group>
+                </nz-form-control>
+
+                <nz-form-item>
+                  <button nz-button nzType="primary" (click)="submit()">
+                    提交
+                  </button>
+                </nz-form-item>
+              </form>
+              <img
+                src="https://npm.elemecdn.com/hexo-butterfly-envelope/lib/line.png"
+                noLazyLoad="true"
+                style="
+                  width: 100%;
+                  margin: 25px auto 5px auto;
+                  display: block;
+                  pointer-events: none;
+                "
+              />
+              <p
+                class="bottomhr"
+                style="font-size: 12px; text-align: center; color: #999"
+              >
+                欢迎交换友链~~
+              </p>
+            </div>
+          </div>
+        </div>
+        <img
+          class="afterimg"
+          noLazyLoad="true"
+          [ngStyle]="{
+            width: envelopeWidth + 'px',
+            height: envelopeHeight + 'px',
+            position: 'absolute',
+            bottom: '-2px',
+            'z-index': 100,
+            transition: 'all 2s ease',
+          }"
+          src="https://npm.elemecdn.com/hexo-butterfly-envelope/lib/after.png"
+        />
+      </div>
+    </div>
+    <div class="info">
+      <div class="intro">
+        <span style="padding-bottom: 5px">
+          {{ getSeason() }}
+        </span>
+        本站信息
+      </div>
+      <div class="content">
+        <div class="contentItem">
+          <div class="desc">网站名称：</div>
+          <div class="value">Unstoppable840的小站</div>
+        </div>
+        <div class="contentItem">
+          <div class="desc">网址：</div>
+          <div class="value">https://www.unstoppable840.cn</div>
+        </div>
+        <div class="contentItem">
+          <div class="desc">头像：</div>
+          <div class="value">
+            https://www.unstoppable840.cn/assets/avatar.jpeg
+          </div>
+        </div>
+        <div class="contentItem">
+          <div class="desc">描述：</div>
+          <div class="value">乐于探索前端新事物，前端开发者~</div>
+        </div>
+        <div class="contentItem">
+          <div class="desc">网站封面：</div>
+          <div class="value">
+            https://www.unstoppable840.cn/assets/background.jpeg
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="method">
+      <div class="intro">
+        <span style="padding-bottom: 5px">
+          {{ getSeason() }}
+        </span>
+        申请方式
+      </div>
+      <div class="content">
+        <div class="contentItem">点击上方信封✨✨✨</div>
+        <div class="contentItem">
+          不会添加带有广告营销和没有实质性内容的友链🚫🚫🚫
+        </div>
+        <div class="contentItem">申请之前请将本网站添加为您的友链哦🎟️🎟️🎟️</div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="intro">
+        <span style="padding-bottom: 5px">🤗</span>
+        友情链接
+      </div>
+      <div class="list">
+        <div class="listItem" *ngFor="let item of friendList">
+          <div class="img">
+            <img [src]="item.cover" alt="" />
+          </div>
+          <div class="itemInfo">
+            <div class="name">{{ item.name }}</div>
+            <div class="brief">{{ item.brief }}</div>
+          </div>
+          <div class="date">
+            <span class="iconfont icon-calendar"></span>
+            {{ item.date | date: 'YYYY-MM-dd' }}
+          </div>
+          <div class="unAudit" *ngIf="item.audit === 0"></div>
+          <div class="mask" *ngIf="isLogin | async">
+            <button (click)="link.click()" nz-button nzShape="circle">
+              <span class="iconfont icon-search"></span>
+            </button>
+            <button
+              (click)="auditFriend(item.website)"
+              nz-button
+              nzShape="circle"
+              *ngIf="item.audit === 0"
+            >
+              <span class="iconfont icon-AUDIT"></span>
+            </button>
+            <button
+              (click)="$event.stopPropagation()"
+              nz-button
+              nzShape="circle"
+              nzDanger
+              nz-popconfirm
+              nzPopconfirmTitle="您确定要删除该友链吗？"
+              (nzOnConfirm)="deleteFriend(item.website)"
+            >
+              <span class="iconfont icon-delete"></span>
+            </button>
+          </div>
+          <a #link [href]="item.website" target="_blank"></a>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="hadLoaded" style="text-align: center; width: 100%">
+      没有更多了~~
+    </div>
+  </div>
+</div>
+<ng-template #userIcon>
+  <span class="iconfont icon-custom-user"></span>
+</ng-template>
+<ng-template #GeRenJianJie>
+  <span class="iconfont icon-gerenjianjie"></span>
+</ng-template>
+<ng-template #Picture>
+  <span class="iconfont icon-picture"></span>
+</ng-template>
+<ng-template #Global>
+  <span class="iconfont icon-global"></span>
+</ng-template>

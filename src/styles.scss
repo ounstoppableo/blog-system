@@ -45,10 +45,6 @@ body {
   background: var(--defaultBackgroundColor) !important;
 }
 
-.snowfall-flakes {
-  animation: sakura 1s linear 0s infinite;
-}
-
 @keyframes sakura {
   0% {
     transform: rotate3d(0, 0, 0, 0deg);
@@ -243,9 +239,17 @@ input::-webkit-input-placeholder {
   --listHoverColor: #a5b4fc;
 
   //默认背景颜色
-  --defaultBackgroundColor: #fdfdfd;
+  --defaultBackgroundColor: #fff;
   //卡片颜色
-  --cardColor: #fdfdfd;
+  --cardColor: #fff;
+  --cardBoxShadow: 0 0 var(--cardBoxShadowOffset-1) var(--greyLight-1),
+    inset 0 0 0 transparent, 0 0 var(--cardBoxShadowOffset-2) var(--greyLight-1),
+    inset 0 0 0 transparent;
+  --cardBoxHoverShadow: 0 0 0 transparent,
+    inset 0 0 var(--cardBoxShadowOffset-1) var(--greyLight-1), 0 0 0 transparent,
+    inset 0 0 var(--cardBoxShadowOffset-2) var(--greyLight-1);
+  --cardBoxShadowOffset-1: 0.4rem;
+  --cardBoxShadowOffset-2: 0.3rem;
   //底部背景颜色
   --footerBkColor: #e5e5e5;
 
@@ -336,6 +340,8 @@ input::-webkit-input-placeholder {
   --05-gray: rgba(0, 0, 0, 0.5);
   --c-gray: #ccc;
   --e-gray: #eee;
+  --greyLight-1: #dedeee;
+  --greyLight-2: #f3f1fd;
 
   //订阅框
   --color-first: #65587f;

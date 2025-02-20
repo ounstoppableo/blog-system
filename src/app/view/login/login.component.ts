@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '@/app/service/login';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -7,15 +7,26 @@ import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { setIsLogin } from '@/app/store/isLoginStore/isLoginStore.action';
+import * as jose from 'jose';
 
+const publicKeyPem = `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwTU0AgRwfWD/dQ544RI0
+YJb9Vm8mPeZtZKCZu6mScynuRtrrBKW2q5Fl49SOnlS2YL+zdR2E/x2nfGvb2Bsp
+NkKQyyVWI9FsCitglp2i4JOKGuC9W3jryBEEib//C65RrYEgX/hlvGccLkvo8Se0
+r+YxvgcCBFBLVKMD6sz7pXjq+8a6sUyz8Lt/jiGwOfqoyYDoc4Q/JzCkBVUgd6Jl
+ijWCUeHKabLXB6M0FWaZeFbzTUfTVJAZN1i44Kz/XbX6/3USHD8gM202u8Kxrx24
+pCZIS3Kki5CWt4bTIStJdRvKIgak5iNUtks/WUqn2ToVFXyxcxkQjXursEVyHbNT
+kwIDAQAB
+-----END PUBLIC KEY-----`;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: false,
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   isLogin: Observable<boolean>;
+  subscriptionList: any[] = [];
   constructor(
     private ls: LoginService,
     private message: NzMessageService,
@@ -51,19 +62,25 @@ export class LoginComponent {
     }
   }
   //提交逻辑
-  submit() {
+  async submit() {
     if (!this.loginInfo.valid)
       return this.message.warning('请正确填写用户名和密码!');
-    this.ls
-      .login(
-        sha256(this.loginInfo.value.username as string),
-        sha256(this.loginInfo.value.password as string),
-      )
-      .subscribe((res: any) => {
+    const publicKey = await jose.importSPKI(publicKeyPem, 'RSA-OAEP');
+    const code = await new jose.EncryptJWT(this.loginInfo.value)
+      .setProtectedHeader({ alg: 'RSA-OAEP', enc: 'A256GCM' })
+      .encrypt(publicKey);
+    this.subscriptionList.push(
+      this.ls.login(code).subscribe((res: any) => {
         if (res.code !== 200) return this.message.warning(res.msg);
         localStorage.setItem('token', res.token);
         this.store.dispatch(setIsLogin({ flag: true }));
         return this.location.back();
-      });
+      }),
+    );
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

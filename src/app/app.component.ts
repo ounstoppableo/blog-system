@@ -19,6 +19,9 @@ import checkDarkMode from '@/utils/checkDarkMode';
 import ViewResize from './decorators/viewResize';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { cloneDeep } from 'lodash';
+import { firstValueFrom } from 'rxjs';
+import { setShowCatalogue } from './store/showCatalogueStore/catalogueStore.action';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -38,7 +41,7 @@ export class AppComponent
   observer: any;
   isLogin: Observable<boolean>;
   smallSize!: Observable<boolean>;
-  catalogue: any[] = [];
+  showCatalogue = false;
   defaultShow = false;
   private _modelInstance: any;
   private _darkModeLock = false;
@@ -51,54 +54,68 @@ export class AppComponent
   //上传文章相关
   @ViewChild('addArticleForm')
   addArticleForm!: any;
+  @ViewChild('catalogueMask')
+  catalogueMask!: any;
+  subscriptionList: any[] = [];
   showHeader = true;
   constructor(
     private router: Router,
     private r: ComponentFactoryResolver,
     private injector: Injector,
     private modal: NzModalService,
-    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+    private store: Store<{
+      smallSize: boolean;
+      isLogin: boolean;
+      showCatalogue: boolean;
+    }>,
   ) {
     this.smallSize = store.select('smallSize');
     this.isLogin = store.select('isLogin');
   }
   @ViewResize()
   ngOnInit(): void {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.isArticle = event.url.includes('article');
-        if (event.url === '/404' || event.urlAfterRedirects === '/404') {
-          this.is404Page = true;
-        } else {
-          this.is404Page = false;
+    this.subscriptionList.push(
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.isArticle = event.url.includes('article');
+          if (event.url === '/404' || event.urlAfterRedirects === '/404') {
+            this.is404Page = true;
+          } else {
+            this.is404Page = false;
+          }
+          if (event.url === '/login') {
+            this.showHeader = false;
+          } else {
+            this.showHeader = true;
+          }
+          this.defaultShow = !(
+            this.isArticle ||
+            this.is404Page ||
+            event.url === '/home' ||
+            event.url === '/' ||
+            event.url === '/msgboard'
+          );
+          if (
+            event.url === '/home' ||
+            event.url === '/' ||
+            event.url === '/msgboard'
+          ) {
+            //获取头部样式变化的高度
+            this.headerChangeHeight =
+              innerHeight -
+              Number.parseFloat(
+                getComputedStyle(document.documentElement).getPropertyValue(
+                  '--headerHeigth',
+                ),
+              );
+          } else if (this.is404Page) {
+            this.headerChangeHeight = innerHeight;
+          } else if (!this.isArticle) {
+            this.headerChangeHeight = 0;
+          }
         }
-        if (event.url === '/login') {
-          this.showHeader = false;
-        } else {
-          this.showHeader = true;
-        }
-        this.defaultShow = !(
-          this.isArticle ||
-          this.is404Page ||
-          event.url === '/home' ||
-          event.url === '/'
-        );
-        if (event.url === '/home' || event.url === '/') {
-          //获取头部样式变化的高度
-          this.headerChangeHeight =
-            innerHeight -
-            Number.parseFloat(
-              getComputedStyle(document.documentElement).getPropertyValue(
-                '--headerHeigth',
-              ),
-            );
-        } else if (this.is404Page) {
-          this.headerChangeHeight = innerHeight;
-        } else if (!this.isArticle) {
-          this.headerChangeHeight = 0;
-        }
-      }
-    });
+      }),
+    );
     if (this.firstLoad) {
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
@@ -142,12 +159,9 @@ export class AppComponent
       },
     );
     //四季飘落效果加载
-    loadScript(
-      'https://cdn.jsdelivr.net/gh/ounstoppableo/season_float_animation@v3.0.2/snowfall.jquery.js',
-      () => {
-        this.vc?.insert(this.componentRef.hostView);
-      },
-    );
+    loadScript('assets/snowfall.jquery.js', () => {
+      this.vc?.insert(this.componentRef.hostView);
+    });
     this.implementDarkMode();
     //图片懒加载
     this.observer = new MutationObserver((mutations) => {
@@ -296,6 +310,7 @@ export class AppComponent
         '--ramdonArticleAndNewMsg',
         '#aaa',
       );
+      document.documentElement.style.setProperty('--greyLight-1', '#30303d');
       document.documentElement.style.setProperty('--disabledColor', '#8d9095');
       this.loadCss(
         `https://cdn.jsdelivr.net/gh/ounstoppableo/cdn@vlatest/darkMode.css`,
@@ -306,9 +321,9 @@ export class AppComponent
     } else {
       document.documentElement.style.setProperty(
         '--defaultBackgroundColor',
-        '#fdfdfd',
+        '#fff',
       );
-      document.documentElement.style.setProperty('--cardColor', '#fdfdfd');
+      document.documentElement.style.setProperty('--cardColor', '#fff');
       document.documentElement.style.setProperty('--fontColor', '#4b5563');
       document.documentElement.style.setProperty(
         '--musicPlayerBgColor',
@@ -337,6 +352,7 @@ export class AppComponent
         '--ramdonArticleAndNewMsg',
         '#999',
       );
+      document.documentElement.style.setProperty('--greyLight-1', '#dedeee');
       document.documentElement.style.setProperty('--disabledColor', '#c6c6c6');
       const removedThemeStyle = document.getElementById('darkMode');
       if (removedThemeStyle) {
@@ -380,35 +396,9 @@ export class AppComponent
 
   //到评论区
   toCommentArea() {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
+    document.querySelector('#msgArea')?.scrollIntoView({
       behavior: 'smooth',
     });
-  }
-
-  //打开目录
-  openCatalogue() {
-    this.catalogue = JSON.parse(localStorage.getItem('catalogue') as any);
-    requestAnimationFrame(() => {
-      this._modelInstance = this.modal.create({
-        nzTitle: undefined,
-        nzContent: this.catalogueTemp,
-        nzWidth: 'fit-content',
-        nzClassName: 'customModal_catalogue',
-        nzStyle: { top: '20%' },
-        nzFooter: null,
-        nzClosable: false,
-      });
-    });
-  }
-
-  handleCatalogueClick(e: any) {
-    this._modelInstance.close();
-    setTimeout(() => {
-      document
-        .getElementById(e.replace(/[\(\-\)\$0-9\.\s\&\@\;#]/g, ''))
-        ?.scrollIntoView({ behavior: 'smooth' });
-    }, 300);
   }
 
   ngAfterViewChecked(): void {
@@ -426,10 +416,25 @@ export class AppComponent
         );
     }
   }
+
+  async openCatalogue() {
+    const showCatalogue = await firstValueFrom(
+      this.store.select('showCatalogue'),
+    );
+    if (showCatalogue) {
+      this.store.dispatch(setShowCatalogue({ flag: false }));
+    } else {
+      this.store.dispatch(setShowCatalogue({ flag: true }));
+    }
+  }
+
   @ViewResize()
   ngOnDestroy(): void {
     this.observer?.disconnect();
     window.removeEventListener('resize', this._showWaifu);
     window.removeEventListener('scroll', this.imgLazyLoad);
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

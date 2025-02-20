@@ -5,7 +5,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  Output,
+  Output, OnDestroy,
 } from '@angular/core';
 import {
   trigger,
@@ -46,7 +46,7 @@ import { Store } from '@ngrx/store';
   ],
   standalone: false,
 })
-export class CommentItemComponent implements OnChanges {
+export class CommentItemComponent implements OnChanges, OnDestroy {
   isLogin: Observable<boolean>;
   @Input()
   msgItem: msgItem = {} as msgItem;
@@ -56,6 +56,7 @@ export class CommentItemComponent implements OnChanges {
   showChirdren = false;
   showComponent = false;
   children: msgItem[] = [];
+  subscriptionList: any[] = [];
 
   smallSize: Observable<boolean>;
 
@@ -124,36 +125,44 @@ export class CommentItemComponent implements OnChanges {
       this.toReloadData();
       return;
     }
-    this.boardMsgSerivce.deleteMsg(msgId, article).subscribe((res) => {
-      if (res.code === 200) {
-        this.message.success(res.msg as string);
-        this.toReloadData();
-      }
-    });
+    this.subscriptionList.push(
+      this.boardMsgSerivce.deleteMsg(msgId, article).subscribe((res) => {
+        if (res.code === 200) {
+          this.message.success(res.msg as string);
+          this.toReloadData();
+        }
+      }),
+    );
   }
   auditMsg(msgId: any, article?: string) {
-    this.boardMsgSerivce.auditMsg(msgId, article).subscribe((res) => {
-      if (res.code === 200) {
-        this.message.success(res.msg as string);
-        this.toReloadData();
-      }
-    });
+    this.subscriptionList.push(
+      this.boardMsgSerivce.auditMsg(msgId, article).subscribe((res) => {
+        if (res.code === 200) {
+          this.message.success(res.msg as string);
+          this.toReloadData();
+        }
+      }),
+    );
   }
   topMsg(msgId: any, article?: string) {
     if (this.msgItem.toTop === this.noToTop) {
-      this.boardMsgSerivce.topMsg(msgId, article).subscribe((res) => {
-        if (res.code === 200) {
-          this.message.success(res.msg as string);
-          this.toReloadData();
-        }
-      });
+      this.subscriptionList.push(
+        this.boardMsgSerivce.topMsg(msgId, article).subscribe((res) => {
+          if (res.code === 200) {
+            this.message.success(res.msg as string);
+            this.toReloadData();
+          }
+        }),
+      );
     } else {
-      this.boardMsgSerivce.cancelTopMsg(msgId, article).subscribe((res) => {
-        if (res.code === 200) {
-          this.message.success(res.msg as string);
-          this.toReloadData();
-        }
-      });
+      this.subscriptionList.push(
+        this.boardMsgSerivce.cancelTopMsg(msgId, article).subscribe((res) => {
+          if (res.code === 200) {
+            this.message.success(res.msg as string);
+            this.toReloadData();
+          }
+        }),
+      );
     }
   }
 
@@ -202,29 +211,38 @@ export class CommentItemComponent implements OnChanges {
       );
     }
     if (msgItem.articleId) {
-      this.boardMsgSerivce
-        .upvokeForArticleComment(
-          msgItem.articleId,
-          msgItem.msgId,
-          msgItem.upvokeChecked ? 1 : 0,
-        )
-        .subscribe((res: resType<any>) => {
-          if (res.code === 200) {
-            msgItem.upvokeChecked
-              ? (msgItem.upvoke += 1)
-              : (msgItem.upvoke -= 1);
-          }
-        });
+      this.subscriptionList.push(
+        this.boardMsgSerivce
+          .upvokeForArticleComment(
+            msgItem.articleId,
+            msgItem.msgId,
+            msgItem.upvokeChecked ? 1 : 0,
+          )
+          .subscribe((res: resType<any>) => {
+            if (res.code === 200) {
+              msgItem.upvokeChecked
+                ? (msgItem.upvoke += 1)
+                : (msgItem.upvoke -= 1);
+            }
+          }),
+      );
     } else {
-      this.boardMsgSerivce
-        .upvokeForBoardComment(msgItem.msgId, msgItem.upvokeChecked ? 1 : 0)
-        .subscribe((res: resType<any>) => {
-          if (res.code === 200) {
-            msgItem.upvokeChecked
-              ? (msgItem.upvoke += 1)
-              : (msgItem.upvoke -= 1);
-          }
-        });
+      this.subscriptionList.push(
+        this.boardMsgSerivce
+          .upvokeForBoardComment(msgItem.msgId, msgItem.upvokeChecked ? 1 : 0)
+          .subscribe((res: resType<any>) => {
+            if (res.code === 200) {
+              msgItem.upvokeChecked
+                ? (msgItem.upvoke += 1)
+                : (msgItem.upvoke -= 1);
+            }
+          }),
+      );
     }
+  }
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

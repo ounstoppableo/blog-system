@@ -42,6 +42,10 @@ export class DrawerComponent {
     this.router.navigate(['tagCate']);
     this.close();
   }
+  goFriend() {
+    this.router.navigate(['friend']);
+    this.close();
+  }
   //展开菜单
   show(listEle: any, iconEle: any) {
     Array.from(listEle.classList).includes('active')

@@ -2,7 +2,7 @@ import { HomeService } from '@/app/service/home.service';
 import { addArticle, folderItem, tag } from '@/types/home/home';
 import { articleInfo } from '@/types/overview/overview';
 import { resType } from '@/types/response/response';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
@@ -13,7 +13,7 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
   styleUrls: ['./add-article-form.component.scss'],
   standalone: false,
 })
-export class AddArticleFormComponent implements OnInit {
+export class AddArticleFormComponent implements OnInit, OnDestroy {
   //文档分类
   folderCategory: folderItem[] = [];
   //上传文章相关参数
@@ -21,6 +21,7 @@ export class AddArticleFormComponent implements OnInit {
   ImgUploadLoading = false; //文章图片上传加载状态
   uploadLoading = false; //文章上传加载状态
   uploadFlag = false;
+  subscriptionList: any[] = [];
   formContent = new FormGroup<addArticle>({
     articleId: new FormControl(''),
     title: new FormControl('', [
@@ -60,11 +61,13 @@ export class AddArticleFormComponent implements OnInit {
     return this.formContent.get('listOfTagOptions');
   }
   ngOnInit(): void {
-    this.homeService
-      .getFolderCategory()
-      .subscribe((res: resType<folderItem[]>) => {
-        if (res.code === 200) this.folderCategory = res.data as folderItem[];
-      });
+    this.subscriptionList.push(
+      this.homeService
+        .getFolderCategory()
+        .subscribe((res: resType<folderItem[]>) => {
+          if (res.code === 200) this.folderCategory = res.data as folderItem[];
+        }),
+    );
   }
   //显示上传模态框
   showUploadModal(articleInfo?: articleInfo & { listOfTagOptions: string[] }) {
@@ -82,9 +85,11 @@ export class AddArticleFormComponent implements OnInit {
       this.articleUrl?.setValidators([Validators.required]);
     }
     this.uploadFlag = true;
-    this.homeService.getTags().subscribe((res: resType<tag[]>) => {
-      if (res.code === 200) this.listOfOption = res.data as tag[];
-    });
+    this.subscriptionList.push(
+      this.homeService.getTags().subscribe((res: resType<tag[]>) => {
+        if (res.code === 200) this.listOfOption = res.data as tag[];
+      }),
+    );
   }
   //上传图片前的钩子
   beforeUploadImg = (file: NzUploadFile) => {
@@ -124,11 +129,13 @@ export class AddArticleFormComponent implements OnInit {
   removeFile = (file: any) => {
     this.uploadLoading = false;
     this.articleUrl!.setValue('');
-    this.homeService
-      .delFile(file.response.data)
-      .subscribe((res: resType<any>) => {
-        if (res.code === 200) return this.message.success('删除成功');
-      });
+    this.subscriptionList.push(
+      this.homeService
+        .delFile(file.response.data)
+        .subscribe((res: resType<any>) => {
+          if (res.code === 200) return this.message.success('删除成功');
+        }),
+    );
     return true;
   };
   //取消的回调
@@ -140,25 +147,29 @@ export class AddArticleFormComponent implements OnInit {
   handleOk() {
     if (this.formContent.valid) {
       if (!this.formContent.value.articleId) {
-        this.homeService
-          .uploadArticle(this.formContent.value)
-          .subscribe((res: resType<any>) => {
-            if (res.code === 200) {
-              this.message.success('添加成功');
-              this.uploadFlag = false;
-              this.formContent.reset();
-            }
-          });
+        this.subscriptionList.push(
+          this.homeService
+            .uploadArticle(this.formContent.value)
+            .subscribe((res: resType<any>) => {
+              if (res.code === 200) {
+                this.message.success('添加成功');
+                this.uploadFlag = false;
+                this.formContent.reset();
+              }
+            }),
+        );
       } else {
-        this.homeService
-          .updateArticleInfo(this.formContent.value)
-          .subscribe((res: resType<any>) => {
-            if (res.code === 200) {
-              this.message.success('更新成功');
-              this.uploadFlag = false;
-              this.formContent.reset();
-            }
-          });
+        this.subscriptionList.push(
+          this.homeService
+            .updateArticleInfo(this.formContent.value)
+            .subscribe((res: resType<any>) => {
+              if (res.code === 200) {
+                this.message.success('更新成功');
+                this.uploadFlag = false;
+                this.formContent.reset();
+              }
+            }),
+        );
       }
     } else {
       Object.values(this.formContent.controls).forEach((control) => {
@@ -176,4 +187,9 @@ export class AddArticleFormComponent implements OnInit {
     private message: NzMessageService,
     private homeService: HomeService,
   ) {}
+  ngOnDestroy(): void {
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
+  }
 }

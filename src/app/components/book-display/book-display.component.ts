@@ -1,10 +1,6 @@
 import { BookService } from '@/app/service/book.service';
-import {
-  Component,
-  ViewChild,
-  AfterViewInit,
-  OnDestroy,
-} from '@angular/core';
+import asyncCheckAppLoad from '@/utils/checkAppLoad';
+import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Observable } from 'rxjs';
@@ -19,6 +15,7 @@ export class BookDisplayComponent implements AfterViewInit, OnDestroy {
   limit = 4;
   booksRaw: any[] = [];
   books: any[] = [];
+  subscriptionList: any[] = [];
   isLogin: Observable<boolean>;
   smallSize: Observable<boolean>;
   @ViewChild('card')
@@ -43,32 +40,38 @@ export class BookDisplayComponent implements AfterViewInit, OnDestroy {
   };
   ngAfterViewInit(): void {
     this.getBooks().then(() => {
-      this.resizeCb();
-      window.addEventListener('load', this.resizeCb);
+      asyncCheckAppLoad(this.resizeCb);
       window.addEventListener('resize', this.resizeCb);
     });
   }
   getBooks() {
     return new Promise((resolve) => {
-      this.bookService.getBooks(this.limit).subscribe((res) => {
-        if (res.code === 200) {
-          this.booksRaw = res.data;
-        }
-        resolve(1);
-      });
+      this.subscriptionList.push(
+        this.bookService.getBooks(this.limit).subscribe((res) => {
+          if (res.code === 200) {
+            this.booksRaw = res.data;
+          }
+          resolve(1);
+        }),
+      );
     });
   }
   deleteBook(e: any, bookUrl: string) {
-    this.bookService.deleteBook(bookUrl).subscribe((res) => {
-      if (res.code === 200) {
-        this.message.success('删除成功！');
-        this.getBooks();
-      } else {
-        this.message.error('删除失败！');
-      }
-    });
+    this.subscriptionList.push(
+      this.bookService.deleteBook(bookUrl).subscribe((res) => {
+        if (res.code === 200) {
+          this.message.success('删除成功！');
+          this.getBooks();
+        } else {
+          this.message.error('删除失败！');
+        }
+      }),
+    );
   }
   ngOnDestroy(): void {
     window.removeEventListener('resize', this.resizeCb);
+    this.subscriptionList.forEach((subscripion) => {
+      subscripion.unsubscribe();
+    });
   }
 }

@@ -68,6 +68,9 @@ import { BookUploadFormComponentComponent } from './components/book-upload-form-
 import { StoreModule } from '@ngrx/store';
 import { smallSizeReducer } from './store/smallSizeStore/smallSize.reducer';
 import { isLoginReducer } from './store/isLoginStore/isLoginStore.reducer';
+import { FriendComponent } from './view/friend/friend.component';
+import { catalogueReducer } from './store/catalogueStore/catalogueStore.reducer';
+import { showCatalogueReducer } from './store/showCatalogueStore/catalogueStore.reducer';
 
 const ngZorroConfig: NzConfig = {
   message: {
@@ -131,6 +134,7 @@ const ngZorroConfig: NzConfig = {
     WeatherComponent,
     BookDisplayComponent,
     BookUploadFormComponentComponent,
+    FriendComponent,
   ],
   bootstrap: [AppComponent],
   imports: [
@@ -151,6 +155,8 @@ const ngZorroConfig: NzConfig = {
     StoreModule.forRoot({
       smallSize: smallSizeReducer,
       isLogin: isLoginReducer,
+      catalogue: catalogueReducer,
+      showCatalogue: showCatalogueReducer,
     }),
   ],
   providers: [

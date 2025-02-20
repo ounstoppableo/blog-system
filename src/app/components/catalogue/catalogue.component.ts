@@ -1,6 +1,8 @@
+import { titleRegular } from '@/utils/articleFunction';
 import { Component, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { title } from 'process';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -23,7 +25,8 @@ export class CatalogueComponent implements OnChanges {
 
   addUrlPatam(catalogue: any) {
     catalogue.forEach((item: any) => {
-      item.id = item.title.replace(/[\(\-\)\$0-9\.\s\&\@\;]/g, '');
+      item.id = item.title.replace(titleRegular, '');
+      item.titleForShow = item.title.replace(/\d/g, '');
     });
   }
 
