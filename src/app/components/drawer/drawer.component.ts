@@ -57,7 +57,7 @@ export class DrawerComponent {
   }
   goChatPlatform() {
     const a = document.createElement('a');
-    a.href = 'http://chat.unstoppable840.cn';
+    a.href = 'https://www.unstoppable840.cn:8080';
     a.target = 'blank';
     a.click();
   }
@@ -70,7 +70,7 @@ export class DrawerComponent {
         ? ''
         : localStorage.getItem('token');
     a.href =
-      'http://component.unstoppable840.cn' + (token ? `?token=${token}` : '');
+      'https://www.unstoppable840.cn:7777' + (token ? `?token=${token}` : '');
     a.target = 'blank';
     a.click();
   }
