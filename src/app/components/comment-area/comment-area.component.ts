@@ -52,6 +52,7 @@ export class CommentAreaComponent implements OnInit, OnDestroy {
   //判断是不是留言板页面
   isMsgBoard = false;
   msgCount = 0;
+  total = 0;
   //分页器数据
   page = 1;
   limit = 5;
@@ -95,7 +96,7 @@ export class CommentAreaComponent implements OnInit, OnDestroy {
             );
             count++;
           }
-          if (!fatherMsg?.children) {
+          if (fatherMsg && !fatherMsg?.children) {
             (fatherMsg as any).children = [item];
           }
         } else {
@@ -128,6 +129,7 @@ export class CommentAreaComponent implements OnInit, OnDestroy {
             if (res.code === 200) {
               this.msgItems = res.data.msgData as msgItem[];
               this.msgCount = res.data.msgCount;
+              this.total = res.data.total;
               this.getMsgByLocal('msgCacheForAll');
               this.loading = false;
               this.show = true;
@@ -142,6 +144,7 @@ export class CommentAreaComponent implements OnInit, OnDestroy {
             if (res.code === 200) {
               this.msgItems = res.data.msgData as msgItem[];
               this.msgCount = res.data.msgCount;
+              this.total = res.data.total;
               this.getMsgByLocal('msgCacheForArticle');
               this.loading = false;
               this.show = true;
