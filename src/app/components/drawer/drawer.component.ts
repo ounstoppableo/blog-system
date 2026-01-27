@@ -56,9 +56,22 @@ export class DrawerComponent {
       : iconEle.classList.add('active');
   }
   goChatPlatform() {
-    this.close();
     const a = document.createElement('a');
     a.href = 'https://www.unstoppable840.cn:8080';
+    a.target = 'blank';
+    a.click();
+  }
+  goComponentStore() {
+    const a = document.createElement('a');
+    const token =
+      !localStorage.getItem('token') ||
+      localStorage.getItem('token') === 'undefined' ||
+      localStorage.getItem('token') === 'null'
+        ? ''
+        : localStorage.getItem('token');
+    a.href =
+      'https://www.unstoppable840.cn:7777' + (token ? `?token=${token}` : '');
+    a.target = 'blank';
     a.click();
   }
   constructor(

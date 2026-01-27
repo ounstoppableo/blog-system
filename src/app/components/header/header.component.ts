@@ -166,10 +166,24 @@ export class HeaderComponent
   goChatPlatform() {
     const a = document.createElement('a');
     a.href = 'https://www.unstoppable840.cn:8080';
+    a.target = 'blank';
     a.click();
   }
   goFriend() {
     this.router.navigate(['friend']);
+  }
+  goComponentStore() {
+    const a = document.createElement('a');
+    const token =
+      !localStorage.getItem('token') ||
+      localStorage.getItem('token') === 'undefined' ||
+      localStorage.getItem('token') === 'null'
+        ? ''
+        : localStorage.getItem('token');
+    a.href =
+      'https://www.unstoppable840.cn:7777' + (token ? `?token=${token}` : '');
+    a.target = 'blank';
+    a.click();
   }
   //添加音乐
   addMusic() {
