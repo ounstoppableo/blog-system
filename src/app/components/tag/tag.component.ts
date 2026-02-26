@@ -80,7 +80,10 @@ export class TagComponent
     });
     this.subscriptionList.push(
       this.router.events.subscribe((event) => {
-        if (event instanceof NavigationEnd && event.url === '/search') {
+        if (
+          event instanceof NavigationEnd &&
+          event.url.split('?')[0] === '/search'
+        ) {
           requestAnimationFrame(() => {
             this.resetTagCloud();
           });

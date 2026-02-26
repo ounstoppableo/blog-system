@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { setIsLogin } from '@/app/store/isLoginStore/isLoginStore.action';
 import * as jose from 'jose';
+import { handleSendMsg } from '@/utils/iframeCommunication/server';
 
 const publicKeyPem = `-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwTU0AgRwfWD/dQ544RI0
@@ -73,6 +74,7 @@ export class LoginComponent implements OnDestroy {
       this.ls.login(code).subscribe((res: any) => {
         if (res.code !== 200) return this.message.warning(res.msg);
         localStorage.setItem('token', res.token);
+        handleSendMsg({ type: 'loginSuccess', data: { token: res.token } });
         this.store.dispatch(setIsLogin({ flag: true }));
         return this.location.back();
       }),

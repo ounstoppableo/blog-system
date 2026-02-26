@@ -71,6 +71,7 @@ import { isLoginReducer } from './store/isLoginStore/isLoginStore.reducer';
 import { FriendComponent } from './view/friend/friend.component';
 import { catalogueReducer } from './store/catalogueStore/catalogueStore.reducer';
 import { showCatalogueReducer } from './store/showCatalogueStore/catalogueStore.reducer';
+import { appOpenMethodReducer } from './store/appOpenMethod/appOpenMethod.reducer';
 
 const ngZorroConfig: NzConfig = {
   message: {
@@ -157,6 +158,7 @@ const ngZorroConfig: NzConfig = {
       isLogin: isLoginReducer,
       catalogue: catalogueReducer,
       showCatalogue: showCatalogueReducer,
+      appOpenMethod: appOpenMethodReducer,
     }),
   ],
   providers: [

@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { handleSendMsg } from '@/utils/iframeCommunication/server';
 
 @Injectable()
 export class MyHttpInterceptor implements HttpInterceptor {
@@ -29,6 +30,10 @@ export class MyHttpInterceptor implements HttpInterceptor {
             if (event.body.code === 401) {
               this.message.warning('token失效');
               localStorage.removeItem('token');
+              handleSendMsg({
+                type: 'loginExpire',
+                data: {},
+              });
             }
             if (event.body.code >= 400 && event.body.code < 500) {
               return this.message.warning(event.body.msg);

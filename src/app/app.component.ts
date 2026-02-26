@@ -22,6 +22,12 @@ import { Store } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
 import { firstValueFrom } from 'rxjs';
 import { setShowCatalogue } from './store/showCatalogueStore/catalogueStore.action';
+import {
+  iframeCommunicationProcessor,
+  serverListener,
+} from '@/utils/iframeCommunication/server';
+import { ActivatedRoute } from '@angular/router';
+import { setAppOpenMethod } from './store/appOpenMethod/appOpenMethod.action';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -59,6 +65,7 @@ export class AppComponent
   subscriptionList: any[] = [];
   showHeader = true;
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private r: ComponentFactoryResolver,
     private injector: Injector,
@@ -74,9 +81,20 @@ export class AppComponent
   }
   @ViewResize()
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params: any) => {
+      if (
+        (params.theme === 'darkMode' && !this.darkMode) ||
+        (params.theme === 'default' && this.darkMode)
+      )
+        this.changeDarkMode();
+      if (params.appOpenMethod) {
+        this.store.dispatch(setAppOpenMethod({ data: params.appOpenMethod }));
+      }
+    });
     this.subscriptionList.push(
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
+          event.url = event.url.split('?')[0];
           this.isArticle = event.url.includes('article');
           if (event.url === '/404' || event.urlAfterRedirects === '/404') {
             this.is404Page = true;
@@ -140,6 +158,18 @@ export class AppComponent
 
   @ViewResize()
   ngAfterViewInit(): void {
+    // 开启iframe数据通信
+    serverListener();
+    iframeCommunicationProcessor['themeChangeProcessor'] = {
+      tag: 'themeChange',
+      cb: (res: any) => {
+        if (
+          (res.theme === 'darkMode' && !this.darkMode) ||
+          (res.theme === 'default' && this.darkMode)
+        )
+          this.changeDarkMode();
+      },
+    };
     //看板娘加载
     loadScript(
       'https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@vlatest/autoload.js',

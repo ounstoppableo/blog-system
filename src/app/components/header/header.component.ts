@@ -20,6 +20,14 @@ import { BookUploadFormComponentComponent } from '../book-upload-form-component/
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { setIsLogin } from '@/app/store/isLoginStore/isLoginStore.action';
+import {
+  handleSendMsg,
+  iframeCommunicationProcessor,
+  serverListener,
+} from '@/utils/iframeCommunication/server';
+import { appOpenMethodRequestParams } from '@/utils/iframeCommunication/type';
+import { environment } from '@/environments/environment';
+import { setAppOpenMethod } from '@/app/store/appOpenMethod/appOpenMethod.action';
 
 @Component({
   selector: 'app-header',
@@ -33,6 +41,7 @@ export class HeaderComponent
   originScrollY = 0;
   scrollDerection = 'down';
   isLogin: Observable<boolean>;
+  appOpenMethod: Observable<string>;
   @Input()
   defaultShow = false;
   @ViewChild('container')
@@ -52,10 +61,15 @@ export class HeaderComponent
     private ls: LoginService,
     private ms: NzModalService,
     private message: NzMessageService,
-    private store: Store<{ smallSize: boolean; isLogin: boolean }>,
+    private store: Store<{
+      smallSize: boolean;
+      isLogin: boolean;
+      appOpenMethod: string;
+    }>,
   ) {
     this.smallSize = store.select('smallSize');
     this.isLogin = store.select('isLogin');
+    this.appOpenMethod = store.select('appOpenMethod');
   }
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
@@ -91,6 +105,12 @@ export class HeaderComponent
   ngAfterViewInit(): void {
     this.onScroll();
     window.addEventListener('scroll', this.onScroll);
+    iframeCommunicationProcessor['appOpenMethodrocessor'] = {
+      tag: 'appOpenMethod',
+      cb: (res: appOpenMethodRequestParams) => {
+        this.store.dispatch(setAppOpenMethod({ data: res.appOpenMethod }));
+      },
+    };
   }
   //去搜索页面
   goSearch() {
@@ -164,26 +184,85 @@ export class HeaderComponent
     listRef.classList.remove('listActive');
   }
   goChatPlatform() {
-    const a = document.createElement('a');
-    a.href = 'https://www.unstoppable840.cn:8080';
-    a.target = 'blank';
-    a.click();
+    this.appOpenMethod.subscribe((value) => {
+      if (value === 'inner') {
+        handleSendMsg({
+          type: 'openApp',
+          data: {
+            appId: 'ChatPlatform',
+          },
+        });
+      } else {
+        window.open(environment.CHATPLATFORM);
+      }
+    });
   }
   goFriend() {
     this.router.navigate(['friend']);
   }
   goComponentStore() {
-    const a = document.createElement('a');
-    const token =
-      !localStorage.getItem('token') ||
-      localStorage.getItem('token') === 'undefined' ||
-      localStorage.getItem('token') === 'null'
-        ? ''
-        : localStorage.getItem('token');
-    a.href =
-      'https://www.unstoppable840.cn:7777' + (token ? `?token=${token}` : '');
-    a.target = 'blank';
-    a.click();
+    this.appOpenMethod.subscribe((value) => {
+      const token =
+        !localStorage.getItem('token') ||
+        localStorage.getItem('token') === 'undefined' ||
+        localStorage.getItem('token') === 'null'
+          ? ''
+          : localStorage.getItem('token');
+      if (value === 'inner') {
+        handleSendMsg({
+          type: 'openApp',
+          data: {
+            appId: 'ComponentLibrary',
+          },
+        });
+      } else {
+        window.open(
+          environment.COMPONENTLIBRARY + (token ? `?token=${token}` : ''),
+        );
+      }
+    });
+  }
+  goMediaLibrary() {
+    this.appOpenMethod.subscribe((value) => {
+      const token =
+        !localStorage.getItem('token') ||
+        localStorage.getItem('token') === 'undefined' ||
+        localStorage.getItem('token') === 'null'
+          ? ''
+          : localStorage.getItem('token');
+      if (value === 'inner') {
+        handleSendMsg({
+          type: 'openApp',
+          data: {
+            appId: 'MediaLibrary',
+          },
+        });
+      } else {
+        window.open(
+          environment.MEDIALIBRARY + (token ? `?token=${token}` : ''),
+        );
+      }
+    });
+  }
+  goNavigation() {
+    this.appOpenMethod.subscribe((value) => {
+      const token =
+        !localStorage.getItem('token') ||
+        localStorage.getItem('token') === 'undefined' ||
+        localStorage.getItem('token') === 'null'
+          ? ''
+          : localStorage.getItem('token');
+      if (value === 'inner') {
+        handleSendMsg({
+          type: 'openApp',
+          data: {
+            appId: 'Navigation',
+          },
+        });
+      } else {
+        window.open(environment.NAVIGATION + (token ? `?token=${token}` : ''));
+      }
+    });
   }
   //添加音乐
   addMusic() {
