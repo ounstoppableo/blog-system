@@ -185,15 +185,15 @@ export class HeaderComponent
   }
   goChatPlatform() {
     this.appOpenMethod.subscribe((value) => {
-      if (value === 'outer') {
-        window.open(environment.CHATPLATFORM);
-      } else {
+      if (value === 'inner') {
         handleSendMsg({
           type: 'openApp',
           data: {
             appId: 'ChatPlatform',
           },
         });
+      } else {
+        window.open(environment.CHATPLATFORM);
       }
     });
   }
@@ -208,17 +208,17 @@ export class HeaderComponent
         localStorage.getItem('token') === 'null'
           ? ''
           : localStorage.getItem('token');
-      if (value === 'outer') {
-        window.open(
-          environment.COMPONENTLIBRARY + (token ? `?token=${token}` : ''),
-        );
-      } else {
+      if (value === 'inner') {
         handleSendMsg({
           type: 'openApp',
           data: {
             appId: 'ComponentLibrary',
           },
         });
+      } else {
+        window.open(
+          environment.COMPONENTLIBRARY + (token ? `?token=${token}` : ''),
+        );
       }
     });
   }
@@ -230,17 +230,17 @@ export class HeaderComponent
         localStorage.getItem('token') === 'null'
           ? ''
           : localStorage.getItem('token');
-      if (value === 'outer') {
-        window.open(
-          environment.MEDIALIBRARY + (token ? `?token=${token}` : ''),
-        );
-      } else {
+      if (value === 'inner') {
         handleSendMsg({
           type: 'openApp',
           data: {
             appId: 'MediaLibrary',
           },
         });
+      } else {
+        window.open(
+          environment.MEDIALIBRARY + (token ? `?token=${token}` : ''),
+        );
       }
     });
   }
@@ -252,15 +252,15 @@ export class HeaderComponent
         localStorage.getItem('token') === 'null'
           ? ''
           : localStorage.getItem('token');
-      if (value === 'outer') {
-        window.open(environment.NAVIGATION + (token ? `?token=${token}` : ''));
-      } else {
+      if (value === 'inner') {
         handleSendMsg({
           type: 'openApp',
           data: {
             appId: 'Navigation',
           },
         });
+      } else {
+        window.open(environment.NAVIGATION + (token ? `?token=${token}` : ''));
       }
     });
   }

@@ -26,6 +26,8 @@ import {
   iframeCommunicationProcessor,
   serverListener,
 } from '@/utils/iframeCommunication/server';
+import { ActivatedRoute } from '@angular/router';
+import { setAppOpenMethod } from './store/appOpenMethod/appOpenMethod.action';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -63,6 +65,7 @@ export class AppComponent
   subscriptionList: any[] = [];
   showHeader = true;
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private r: ComponentFactoryResolver,
     private injector: Injector,
@@ -78,9 +81,20 @@ export class AppComponent
   }
   @ViewResize()
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params: any) => {
+      if (
+        (params.theme === 'darkMode' && !this.darkMode) ||
+        (params.theme === 'default' && this.darkMode)
+      )
+        this.changeDarkMode();
+      if (params.appOpenMethod) {
+        this.store.dispatch(setAppOpenMethod({ data: params.appOpenMethod }));
+      }
+    });
     this.subscriptionList.push(
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
+          event.url = event.url.split('?')[0];
           this.isArticle = event.url.includes('article');
           if (event.url === '/404' || event.urlAfterRedirects === '/404') {
             this.is404Page = true;

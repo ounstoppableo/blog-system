@@ -82,7 +82,7 @@ export class MsgBoradPageComponent
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           clearInterval(this.interval);
-          if (event.url === '/msgboard')
+          if (event.url.split('?')[0] === '/msgboard')
             this.interval = setInterval(this.bulletAnimationUnit, 16);
         }
       }),
