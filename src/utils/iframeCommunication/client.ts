@@ -3,6 +3,8 @@ import type { requestRecords, requestType, responseRecords } from './type';
 const _iframeInitCb = {};
 const _serverMapIframeId = {};
 const _idMapIframe = {};
+const _idMapIframeLoadPromise = {};
+let _listenerReady = false;
 
 export const iframeCommunicationListener: {
   tag: string;
@@ -14,7 +16,7 @@ export const iframeCommunicationListener: {
       tag: 'handshake',
       cb: function (resData: responseRecords<requestType>['data']) {
         if (resData.count < 3) {
-          for (const key in _idMapIframe) {
+          for (let key in _idMapIframe) {
             _idMapIframe[key].contentWindow?.postMessage(
               {
                 type: 'handshake',
@@ -43,7 +45,7 @@ export const iframeCommunicationListener: {
 
 const _cb = (e) => {
   const params = e.data as responseRecords<requestType>;
-  for (const key in iframeCommunicationListener) {
+  for (let key in iframeCommunicationListener) {
     if (
       params.type === 'handshake' &&
       iframeCommunicationListener[key].tag === 'handshake'
@@ -63,24 +65,25 @@ const _cb = (e) => {
   }
 };
 
-const _listenerReady = false;
 const clientListener = () => {
   !_listenerReady && window.addEventListener('message', _cb);
 };
-const _init = (iframeInstance, type) => {
-  return new Promise((resolve) => {
-    if (_idMapIframe[iframeInstance.id]) return resolve(1);
-    _idMapIframe[iframeInstance.id] = iframeInstance;
-    _iframeInitCb[iframeInstance.id] = resolve;
-    clientListener();
-  });
+
+const _init = (iframeInstance) => {
+  if (!_idMapIframeLoadPromise[iframeInstance.id])
+    _idMapIframeLoadPromise[iframeInstance.id] = new Promise((resolve) => {
+      _idMapIframe[iframeInstance.id] = iframeInstance;
+      _iframeInitCb[iframeInstance.id] = resolve;
+      clientListener();
+    });
+  return _idMapIframeLoadPromise[iframeInstance.id];
 };
 export const sendMessageToIframe = <T extends requestType>(
   iframeInstance,
   records: requestRecords<T>,
   listenerCb?: (args: responseRecords<requestType>['data']) => any,
 ) => {
-  _init(iframeInstance, records.type).then(() => {
+  _init(iframeInstance).then(() => {
     if (listenerCb instanceof Function) {
       const hadIndex = iframeCommunicationListener.findIndex(
         (item) =>
@@ -98,5 +101,5 @@ export const sendMessageToIframe = <T extends requestType>(
 };
 
 export const deleteIframe = (iframeId) => {
-  delete _idMapIframe[iframeId];
+  delete _idMapIframeLoadPromise[iframeId];
 };

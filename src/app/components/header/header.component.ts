@@ -107,8 +107,8 @@ export class HeaderComponent
     window.addEventListener('scroll', this.onScroll);
     iframeCommunicationProcessor['appOpenMethodrocessor'] = {
       tag: 'appOpenMethod',
-      cb: (params: appOpenMethodRequestParams) => {
-        this.store.dispatch(setAppOpenMethod({ data: params.appOpenMethod }));
+      cb: (res: appOpenMethodRequestParams) => {
+        this.store.dispatch(setAppOpenMethod({ data: res.appOpenMethod }));
       },
     };
   }

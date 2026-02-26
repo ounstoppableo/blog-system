@@ -31,7 +31,6 @@ export const iframeCommunicationProcessor = deepProxy(
   {
     set(target, prop, value) {
       target[prop] = value;
-      serverListener();
       return true;
     },
   },
@@ -51,6 +50,7 @@ let listenerReady = false;
 let handShakeInterval = null;
 export const serverListener = () => {
   if (!listenerReady) {
+    window.removeEventListener('message', _cb);
     window.addEventListener('message', _cb);
     if (!handShakeInterval) {
       handleSendMsg({

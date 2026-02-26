@@ -22,7 +22,10 @@ import { Store } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
 import { firstValueFrom } from 'rxjs';
 import { setShowCatalogue } from './store/showCatalogueStore/catalogueStore.action';
-import { serverListener } from '@/utils/iframeCommunication/server';
+import {
+  iframeCommunicationProcessor,
+  serverListener,
+} from '@/utils/iframeCommunication/server';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -141,6 +144,18 @@ export class AppComponent
 
   @ViewResize()
   ngAfterViewInit(): void {
+    // 开启iframe数据通信
+    serverListener();
+    iframeCommunicationProcessor['themeChangeProcessor'] = {
+      tag: 'themeChange',
+      cb: (res: any) => {
+        if (
+          (res.theme === 'darkMode' && !this.darkMode) ||
+          (res.theme === 'default' && this.darkMode)
+        )
+          this.changeDarkMode();
+      },
+    };
     //看板娘加载
     loadScript(
       'https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@vlatest/autoload.js',
