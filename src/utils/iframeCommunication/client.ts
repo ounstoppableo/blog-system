@@ -4,7 +4,7 @@ const _iframeInitCb = {};
 const _serverMapIframeId = {};
 const _idMapIframe = {};
 const _idMapIframeLoadPromise = {};
-let _listenerReady = false;
+const _listenerReady = false;
 
 export const iframeCommunicationListener: {
   tag: string;
@@ -16,7 +16,7 @@ export const iframeCommunicationListener: {
       tag: 'handshake',
       cb: function (resData: responseRecords<requestType>['data']) {
         if (resData.count < 3) {
-          for (let key in _idMapIframe) {
+          for (const key in _idMapIframe) {
             _idMapIframe[key].contentWindow?.postMessage(
               {
                 type: 'handshake',
@@ -45,7 +45,7 @@ export const iframeCommunicationListener: {
 
 const _cb = (e) => {
   const params = e.data as responseRecords<requestType>;
-  for (let key in iframeCommunicationListener) {
+  for (const key in iframeCommunicationListener) {
     if (
       params.type === 'handshake' &&
       iframeCommunicationListener[key].tag === 'handshake'
