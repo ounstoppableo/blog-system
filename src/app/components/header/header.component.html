@@ -23,6 +23,13 @@
       <span>百宝箱</span>
       <span class="iconfont icon-down"></span>
       <ul class="list">
+        <li (click)="goNavigation()" class="archives">
+          <span
+            class="iconfont icon-daohang-yemian"
+            [style]="{ fontSize: '20px' }"
+          ></span>
+          <span>导航页</span>
+        </li>
         <li (click)="goFriend()" class="archives">
           <span
             class="iconfont icon-friend"
@@ -43,6 +50,13 @@
             [style]="{ fontSize: '20px' }"
           ></span>
           <span>组件库</span>
+        </li>
+        <li (click)="goMediaLibrary()" class="archives">
+          <span
+            class="iconfont icon-perm-media"
+            [style]="{ fontSize: '20px' }"
+          ></span>
+          <span>媒体库</span>
         </li>
       </ul>
     </li>

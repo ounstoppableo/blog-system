@@ -91,7 +91,7 @@ importers:
         version: 14.1.2
       ng-zorro-antd:
         specifier: ^19.0.0
-        version: 19.0.0(fkn64yyxembkbswrwdccjwue2y)
+        version: 19.0.0(248cec377ff89bdf99d226f03fccd0bf)
       ngx-skeleton-loader:
         specifier: 8.1.0
         version: 8.1.0(@angular/common@19.0.3(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0))
@@ -110,6 +110,9 @@ importers:
       unified:
         specifier: ^11.0.4
         version: 11.0.5
+      uuid:
+        specifier: ^13.0.0
+        version: 13.0.0
       zone.js:
         specifier: ~0.15.0
         version: 0.15.0
@@ -5463,6 +5466,10 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
+  uuid@13.0.0:
+    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
+    hasBin: true
+
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
@@ -10172,7 +10179,7 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  ng-zorro-antd@19.0.0(fkn64yyxembkbswrwdccjwue2y):
+  ng-zorro-antd@19.0.0(248cec377ff89bdf99d226f03fccd0bf):
     dependencies:
       '@angular/animations': 19.0.3(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0))
       '@angular/cdk': 19.0.4(@angular/common@19.0.3(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.0.3(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)
@@ -11388,6 +11395,8 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   utils-merge@1.0.1: {}
+
+  uuid@13.0.0: {}
 
   uuid@8.3.2: {}
 

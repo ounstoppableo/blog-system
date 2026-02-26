@@ -48,6 +48,10 @@
           <span #icon2 type="icondown" class="iconfont icon-down"></span>
         </div>
         <ul class="list" #list2>
+          <li (click)="goNavigation()">
+            <span class="iconfont icon-daohang-yemian"></span>
+            <span>导航页</span>
+          </li>
           <li (click)="goFriend()">
             <span class="iconfont icon-friend"></span>
             <span>友人帐</span>
@@ -59,6 +63,10 @@
           <li (click)="goComponentStore()">
             <span class="iconfont icon-zujian"></span>
             <span>组件库</span>
+          </li>
+          <li (click)="goMediaLibrary()">
+            <span class="iconfont icon-perm-media"></span>
+            <span>媒体库</span>
           </li>
         </ul>
       </li>

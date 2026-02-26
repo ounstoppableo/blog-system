@@ -22,6 +22,7 @@ import { Store } from '@ngrx/store';
 import { cloneDeep } from 'lodash';
 import { firstValueFrom } from 'rxjs';
 import { setShowCatalogue } from './store/showCatalogueStore/catalogueStore.action';
+import { serverListener } from '@/utils/iframeCommunication/server';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
