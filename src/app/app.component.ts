@@ -23,6 +23,7 @@ import { cloneDeep } from 'lodash';
 import { firstValueFrom } from 'rxjs';
 import { setShowCatalogue } from './store/showCatalogueStore/catalogueStore.action';
 import {
+  handleSendMsg,
   iframeCommunicationProcessor,
   serverListener,
 } from '@/utils/iframeCommunication/server';
@@ -170,6 +171,12 @@ export class AppComponent
           this.changeDarkMode();
       },
     };
+    if (localStorage.getItem('token')) {
+      handleSendMsg({
+        type: 'loginSuccess',
+        data: { token: localStorage.getItem('token') },
+      });
+    }
     //看板娘加载
     loadScript(
       'https://cdn.jsdelivr.net/gh/ounstoppableo/custom-live2d@vlatest/autoload.js',
